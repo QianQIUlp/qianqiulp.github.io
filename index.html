@@ -106,6 +106,21 @@
     font-weight: 600;
   }
   .card p { font-size: 0.95rem; color: var(--text-secondary); }
+  .contact-list {
+    list-style: none;
+    display: grid;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .contact-list li {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+  }
+  .contact-list a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .contact-list a:hover { text-decoration: underline; }
 
   /* ===== 页脚 ===== */
   .footer {
@@ -155,7 +170,10 @@
 
     <div class="card">
       <h2>📬 联系方式</h2>
-      <p>这里是「联系方式」的占位内容。后续会放上 Email、社交媒体或博客链接。</p>
+      <ul class="contact-list">
+        <li>Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener">space.bilibili.com/400485069</a></li>
+        <li>GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a></li>
+      </ul>
     </div>
 
   </section>
