@@ -106,6 +106,39 @@
     font-weight: 600;
   }
   .card p { font-size: 0.95rem; color: var(--text-secondary); }
+  .cta-card {
+    text-align: center;
+  }
+  .cta-card h2 {
+    margin-bottom: 14px;
+  }
+  .cta-card p {
+    margin-bottom: 0;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    box-shadow: 0 8px 18px rgba(9, 132, 227, 0.22);
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+  }
+  .cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(9, 132, 227, 0.28);
+    filter: brightness(1.03);
+  }
+  .cta-button:focus-visible {
+    outline: 3px solid rgba(9, 132, 227, 0.28);
+    outline-offset: 3px;
+  }
   .contact-list {
     list-style: none;
     display: grid;
@@ -166,6 +199,11 @@
     <div class="card">
       <h2>📚 在学什么</h2>
       <p>现在在学习github和git的使用</p>
+    </div>
+
+    <div class="card cta-card">
+      <h2>🚀 我的作品</h2>
+      <p><a class="cta-button" href="projects.html">看看我的作品 →</a></p>
     </div>
 
     <div class="card">
