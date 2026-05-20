@@ -341,6 +341,50 @@ body.page-blog-index .post-grid {
   margin-top: 16px;
 }
 
+body.page-projects {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 20px 40px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+}
+
+body.page-projects h1 {
+  margin: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--accent);
+}
+
+body.page-projects .project {
+  margin: 16px 0;
+  padding: 16px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+body.page-projects .project:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+body.page-projects .project h2 {
+  margin-top: 0;
+}
+
+body.page-projects .tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(15, 98, 254, 0.08);
+  color: var(--accent);
+  font-size: 13px;
+}
+
 @media (max-width: 480px) {
   body.page-home .container {
     padding: 60px 16px 32px;
@@ -358,5 +402,10 @@ body.page-blog-index .post-grid {
 @media (max-width: 640px) {
   body.page-blog-index .page {
     padding: 24px 16px 40px;
+  }
+
+  body.page-projects {
+    margin: 24px auto;
+    padding: 0 16px 32px;
   }
 }
