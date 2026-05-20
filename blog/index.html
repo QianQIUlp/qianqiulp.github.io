@@ -1,34 +1,123 @@
-<section class="post-grid">
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="qianqiulp 的博客，记录技术实践、学习笔记和个人随想。">
+  <title>博客 · qianqiulp</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      line-height: 1.7;
+      color: #2c3e50;
+      background: #f6f8fb;
+    }
 
-  <!-- 最新在前 -->
-  <a class="post-card" href="posts/2026-05-20-ssh-keys.html">
-    <img src="../assets/posts/ssh-keys/cover.png"
-         alt="SSH 密钥配置封面图"
-         loading="lazy">
-    <h3>把 SSH 密钥当身份管</h3>
-    <p class="meta">
-      <time datetime="2026-05-20">2026-05-20</time> · Tech · SSH
-    </p>
-  </a>
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
 
-  <a class="post-card" href="posts/2026-05-20-linux-security-setup.html">
-    <img src="../assets/posts/linux-security-setup/cover.png"
-         alt="新云服务器安全加固封面图"
-         loading="lazy">
-    <h3>新云服务器安全加固</h3>
-    <p class="meta">
-      <time datetime="2026-05-20">2026-05-20</time> · Tech · Security
-    </p>
-  </a>
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
 
-  <a class="post-card" href="posts/2026-05-17-qiyuniao.html">
-    <img src="../assets/posts/qiyuniao/cover.png"
-         alt="启喻鸟之章封面图"
-         loading="lazy">
-    <h3>启喻鸟之章：解构</h3>
-    <p class="meta">
-      <time datetime="2026-05-17">2026-05-17</time> · Genshin
-    </p>
-  </a>
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #7a8695;
+    }
 
-</section>
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.15;
+    }
+
+    .lead {
+      margin: 10px 0 0;
+      color: #5f6b7a;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #0366d6;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    .post-grid {
+      margin-top: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 24px 16px 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Blog</p>
+        <h1>博客</h1>
+        <p class="lead">记录技术实践、学习笔记和一些个人随想。</p>
+      </div>
+      <nav>
+        <a class="back-link" href="../index.html">← 回首页</a>
+      </nav>
+    </header>
+
+    <section class="post-grid" aria-label="文章列表">
+      <!-- 最新在前 -->
+      <a class="post-card" href="posts/2026-05-20-ssh-keys.html">
+        <img src="../assets/posts/ssh-keys/cover.png"
+             alt="SSH 密钥配置封面图"
+             loading="lazy">
+        <h3>把 SSH 密钥当身份管</h3>
+        <p class="meta">
+          <time datetime="2026-05-20">2026-05-20</time> · Tech · SSH
+        </p>
+      </a>
+
+      <a class="post-card" href="posts/2026-05-20-linux-security-setup.html">
+        <img src="../assets/posts/linux-security-setup/cover.png"
+             alt="新云服务器安全加固封面图"
+             loading="lazy">
+        <h3>新云服务器安全加固</h3>
+        <p class="meta">
+          <time datetime="2026-05-20">2026-05-20</time> · Tech · Security
+        </p>
+      </a>
+
+      <a class="post-card" href="posts/2026-05-17-qiyuniao.html">
+        <img src="../assets/posts/qiyuniao/cover.png"
+             alt="启喻鸟之章封面图"
+             loading="lazy">
+        <h3>启喻鸟之章：解构</h3>
+        <p class="meta">
+          <time datetime="2026-05-17">2026-05-17</time> · Genshin
+        </p>
+      </a>
+    </section>
+  </main>
+</body>
+</html>
