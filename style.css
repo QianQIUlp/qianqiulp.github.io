@@ -114,7 +114,7 @@ a:hover {
   color: inherit;
   border-radius: var(--radius-md);
   overflow: hidden;
-  background: #fff;
+  background: var(--surface-elevated);
   box-shadow: var(--shadow-sm);
   transition: transform 0.2s, box-shadow 0.2s;
 }
