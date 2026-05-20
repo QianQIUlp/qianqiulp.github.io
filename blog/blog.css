@@ -1,0 +1,257 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f7fb;
+  --surface: #ffffff;
+  --surface-2: #f8fbff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --accent: #0f62fe;
+  --accent-soft: rgba(15, 98, 254, 0.1);
+  --border: #dbe3ee;
+  --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+  --code-bg: #0f172a;
+  --code-text: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.85;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(15, 98, 254, 0.08), transparent 30%),
+    radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 26%),
+    var(--bg);
+}
+
+body > nav,
+body > footer,
+article {
+  width: min(100%, 860px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body > nav,
+body > footer {
+  padding: 1rem 1.25rem;
+  color: var(--muted);
+}
+
+body > nav {
+  padding-top: 1.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+body > footer {
+  padding-bottom: 2rem;
+  text-align: right;
+}
+
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+article {
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+article > header {
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+article > header h1,
+h2,
+h3,
+h4,
+h5 {
+  line-height: 1.25;
+  color: #0f172a;
+}
+
+article > header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.meta {
+  margin: 0.65rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.tag {
+  display: inline-block;
+  margin: 0.15rem 0.25rem 0 0;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+p,
+ul,
+ol,
+table,
+pre,
+blockquote,
+aside,
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p {
+  overflow-wrap: anywhere;
+}
+
+ul,
+ol {
+  padding-left: 1.4rem;
+}
+
+li + li {
+  margin-top: 0.35rem;
+}
+
+hr {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+}
+
+aside,
+blockquote {
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface-2);
+}
+
+aside {
+  border-left: 4px solid var(--accent);
+}
+
+blockquote {
+  border-left: 4px solid var(--accent);
+  color: #334155;
+}
+
+blockquote p:first-child,
+aside p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child,
+aside p:last-child {
+  margin-bottom: 0;
+}
+
+code {
+  padding: 0.15rem 0.4rem;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.06);
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.95em;
+}
+
+pre {
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  border-radius: 18px;
+  background: var(--code-bg);
+  color: var(--code-text);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+pre code {
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 0.92rem;
+}
+
+table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+}
+
+thead {
+  background: rgba(15, 98, 254, 0.06);
+}
+
+th,
+td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+
+tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+article img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1rem auto;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+article p > img {
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  body > nav,
+  body > footer,
+  article {
+    width: 100%;
+  }
+
+  body > nav,
+  body > footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  article {
+    border-radius: 20px;
+    margin: 0 0.75rem;
+    padding: 1rem;
+  }
+
+  th,
+  td {
+    padding: 0.7rem 0.8rem;
+  }
+}
