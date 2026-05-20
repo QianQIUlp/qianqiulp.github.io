@@ -1,5 +1,4 @@
 :root {
-  color-scheme: light;
   --bg: #f5f7fb;
   --surface: #ffffff;
   --surface-2: #f8fbff;
@@ -13,6 +12,14 @@
   --code-text: #e5e7eb;
 }
 
+html {
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -23,7 +30,7 @@ html {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: var(--font-sans);
   line-height: 1.85;
   color: var(--text);
   background:
@@ -85,7 +92,7 @@ h3,
 h4,
 h5 {
   line-height: 1.25;
-  color: #0f172a;
+  color: var(--text);
 }
 
 article > header h1 {
@@ -155,7 +162,7 @@ aside {
 
 blockquote {
   border-left: 4px solid var(--accent);
-  color: #334155;
+  color: var(--text-secondary);
 }
 
 blockquote p:first-child,
@@ -171,8 +178,8 @@ aside p:last-child {
 code {
   padding: 0.15rem 0.4rem;
   border-radius: 6px;
-  background: rgba(15, 23, 42, 0.06);
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  background: var(--surface-muted);
+  font-family: var(--font-mono);
   font-size: 0.95em;
 }
 
@@ -203,7 +210,7 @@ table {
 }
 
 thead {
-  background: rgba(15, 98, 254, 0.06);
+  background: var(--accent-soft);
 }
 
 th,

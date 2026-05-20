@@ -3,36 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>作品集 · qianqiulp</title>
-	<style>
-		body {
-			font-family: -apple-system, "Microsoft YaHei", sans-serif;
-			max-width: 720px;
-			margin: 40px auto;
-			padding: 0 20px;
-			line-height: 1.7;
-			color: #2c3e50;
-		}
-		h1 { border-bottom: 2px solid #3498db; padding-bottom: 8px; }
-		.project {
-			border: 1px solid #e1e4e8;
-			border-radius: 8px;
-			padding: 16px 20px;
-			margin: 16px 0;
-		}
-		.project h2 { margin-top: 0; }
-		.tag {
-			display: inline-block;
-			background: #f1f8ff;
-			color: #0366d6;
-			padding: 2px 8px;
-			border-radius: 4px;
-			font-size: 13px;
-			margin-right: 6px;
-		}
-		a { color: #0366d6; }
-	</style>
+	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="page-projects">
+
+	<button class="theme-toggle" id="themeToggle" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
 
 	<p><a href="index.html">← 返回首页</a></p>
 
@@ -69,6 +44,20 @@
 		<span class="tag">想法</span>
 		<p>（占位 · 想到再填）</p>
 	</div>
+
+	<script>
+	  const btn = document.getElementById('themeToggle');
+	  const html = document.documentElement;
+	  const isDark = localStorage.getItem('theme') === 'dark';
+	  if (isDark) { html.setAttribute('data-theme', 'dark'); btn.textContent = '☀️'; }
+
+	  btn.addEventListener('click', () => {
+	    const dark = html.getAttribute('data-theme') === 'dark';
+	    html.setAttribute('data-theme', dark ? '' : 'dark');
+	    btn.textContent = dark ? '🌙' : '☀️';
+	    localStorage.setItem('theme', dark ? 'light' : 'dark');
+	  });
+	</script>
 
 </body>
 </html>
