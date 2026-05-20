@@ -25,13 +25,16 @@
   --text: #2d3436;
   --text-secondary: #636e72;
   --accent: #0984e3;
+  --accent-soft: rgba(9, 132, 227, 0.08);
+  --code-bg: #0f172a;
+  --code-text: #e5e7eb;
   --border: #e9ecef;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
   --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.06);
   --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-[data-theme="dark"] {
+html[data-theme="dark"] {
   --bg: #1a1a2e;
   --bg-muted: #111827;
   --surface: #16213e;
@@ -40,6 +43,9 @@
   --text: #dfe6e9;
   --text-secondary: #b2bec3;
   --accent: #74b9ff;
+  --accent-soft: rgba(116, 185, 255, 0.14);
+  --code-bg: #0b1220;
+  --code-text: #e5e7eb;
   --border: #0f3460;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.22);
   --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.3);
@@ -52,6 +58,11 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
@@ -380,7 +391,7 @@ body.page-projects .tag {
   margin-right: 6px;
   padding: 2px 8px;
   border-radius: 4px;
-  background: rgba(15, 98, 254, 0.08);
+  background: var(--accent-soft);
   color: var(--accent);
   font-size: 13px;
 }
