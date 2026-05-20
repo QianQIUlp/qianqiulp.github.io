@@ -7,6 +7,8 @@
 </head>
 <body class="page-projects">
 
+	<button class="theme-toggle" id="themeToggle" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
+
 	<p><a href="index.html">← 返回首页</a></p>
 
 	<h1>🛠️ 我的作品</h1>
@@ -42,6 +44,20 @@
 		<span class="tag">想法</span>
 		<p>（占位 · 想到再填）</p>
 	</div>
+
+	<script>
+	  const btn = document.getElementById('themeToggle');
+	  const html = document.documentElement;
+	  const isDark = localStorage.getItem('theme') === 'dark';
+	  if (isDark) { html.setAttribute('data-theme', 'dark'); btn.textContent = '☀️'; }
+
+	  btn.addEventListener('click', () => {
+	    const dark = html.getAttribute('data-theme') === 'dark';
+	    html.setAttribute('data-theme', dark ? '' : 'dark');
+	    btn.textContent = dark ? '🌙' : '☀️';
+	    localStorage.setItem('theme', dark ? 'light' : 'dark');
+	  });
+	</script>
 
 </body>
 </html>
