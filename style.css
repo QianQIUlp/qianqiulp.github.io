@@ -561,6 +561,42 @@ body.page-home .card.card-purple p {
   color: var(--text-secondary);
 }
 
+/* Blog Entrance Button Style */
+.blog-entrance-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+
+.blog-entrance-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  background: var(--surface-muted);
+  text-decoration: none;
+}
+
+.blog-entrance-button .arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.blog-entrance-button:hover .arrow {
+  transform: translateX(4px);
+}
+
 @media (max-width: 480px) {
   body.page-home .container {
     padding: 60px 16px 32px;
