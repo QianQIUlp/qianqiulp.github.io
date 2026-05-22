@@ -326,10 +326,7 @@ body.page-home .footer a:hover {
 
 body.page-blog-index {
   line-height: 1.7;
-  background:
-    radial-gradient(circle at top left, rgba(15, 98, 254, 0.08), transparent 30%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 26%),
-    var(--bg-muted);
+  background: var(--bg);
 }
 
 body.page-blog-index .page {

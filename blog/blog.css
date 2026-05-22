@@ -1,15 +1,7 @@
 :root {
-  --bg: #f5f7fb;
-  --surface: #ffffff;
-  --surface-2: #f8fbff;
-  --text: #1f2937;
-  --muted: #6b7280;
-  --accent: #0f62fe;
-  --accent-soft: rgba(15, 98, 254, 0.1);
-  --border: #dbe3ee;
-  --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
-  --code-bg: #0f172a;
-  --code-text: #e5e7eb;
+  --surface-2: var(--surface-muted);
+  --muted: var(--text-secondary);
+  --shadow: var(--shadow-md);
 }
 
 html {
@@ -33,10 +25,7 @@ body {
   font-family: var(--font-sans);
   line-height: 1.85;
   color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(15, 98, 254, 0.08), transparent 30%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 26%),
-    var(--bg);
+  background: var(--bg);
 }
 
 body > nav,
