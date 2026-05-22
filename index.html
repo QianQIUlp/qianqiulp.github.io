@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="qianqiulp 的个人主页，汇总博客、作品和联系方式。">
+<meta name="description" content="Qiu 的小屋 · 个人主页，记录读到的、想到的和一些不想忘掉的东西。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="qianqiulp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:title" content="qianqiulp · 个人主页">
-<meta property="og:description" content="qianqiulp 的个人主页，汇总博客、作品和联系方式。">
+<meta property="og:title" content="Qiu 的小屋 · 个人主页">
+<meta property="og:description" content="欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。">
 <meta property="og:url" content="https://qianqiulp.github.io/">
 <meta property="og:image" content="https://qianqiulp.github.io/assets/og/site.svg">
-<meta property="og:image:alt" content="qianqiulp 个人主页封面图">
-<title>qianqiulp · 个人主页</title>
+<meta property="og:image:alt" content="Qiu 的小屋个人主页封面图">
+<title>Qiu 的小屋 · 个人主页</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="page-home">
@@ -25,49 +25,90 @@
 
   <!-- 头部 -->
   <header class="header">
-    <h1>qianqiulp</h1>
-    <p class="tagline">🧑‍💻 一个在学编程、喜欢折腾的开发者</p>
+    <span style="font-size: 3.5rem; display: block; margin-bottom: var(--space-2); line-height: 1;">🪶</span>
+    <h1>Qiu 的小屋</h1>
   </header>
 
-  <!-- 卡片区 -->
-  <section class="cards">
+  <!-- 引言框 -->
+  <div class="callout">
+    <span class="callout-icon">🪶</span>
+    <p class="callout-content">欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。</p>
+  </div>
 
-    <div class="card">
-      <h2>📋 关于我</h2>
-      <p>我是千秋，也喜欢你们直接叫我qiu/秋。我现在是大二的计算机学生，喜欢二次元，电吉他和前沿技术。</p>
+  <!-- 关于这里 -->
+  <section>
+    <h2 class="section-title">关于这里</h2>
+    <div class="cards-row">
+      <div class="card card-yellow">
+        <h2>📅 不定期更新</h2>
+        <p>写完才发，不追时间表。</p>
+      </div>
+      <div class="card card-green">
+        <h2>🍵 慢读优先</h2>
+        <p>写给愿意慢下来读完的人。</p>
+      </div>
+      <div class="card card-purple">
+        <h2>🎲 主题随心</h2>
+        <p>游戏、阅读、思考、生活。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 最新文章 -->
+  <section style="margin-top: var(--space-6);">
+    <h2 class="section-title">📚 最新文章</h2>
+    <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
+    <div style="margin-bottom: var(--space-10);">
+      <a href="blog/index.html" class="blog-entrance-button">
+        <span>🪶 进入小屋文章 · 慢读优先</span>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 探索与作品 -->
+  <section style="margin-top: var(--space-6);">
+    <h2 class="section-title">🚀 探索与联系</h2>
+    <div class="cards-row" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4);">
+      
+      <div class="card" style="box-shadow: var(--shadow-sm);">
+        <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">📋 关于我</h2>
+        <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin: 0;">
+          我是千秋（也可以直接叫我 Qiu 或秋）。现在是大二的计算机学生，喜欢二次元、电吉他和前沿技术。这里是我的小角落，欢迎来逛。
+        </p>
+      </div>
+
+      <div class="card" style="box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">🛠️ 我的作品</h2>
+          <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin: 0; margin-bottom: var(--space-4);">
+            查看我做过的、正在做的和计划中的项目展示。
+          </p>
+        </div>
+        <a href="projects.html" class="cta-button" style="padding: 10px 16px; font-size: 0.9rem; align-self: flex-start; text-decoration: none;">看看作品 →</a>
+      </div>
+
     </div>
 
-    <div class="card">
-      <h2>📚 在学什么</h2>
-      <p>现在在学习github和git的使用</p>
-    </div>
-
-    <div class="card cta-card">
-      <h2>📝 我的博客</h2>
-      <p>记录技术实践、学习笔记和一些个人随想。</p>
-      <p><a class="cta-button" href="blog/index.html">去看看博客 →</a></p>
-    </div>
-
-    <div class="card cta-card">
-      <h2>🚀 我的作品</h2>
-      <p><a class="cta-button" href="projects.html">看看我的作品 →</a></p>
-    </div>
-
-    <div class="card">
-      <h2>📬 联系方式</h2>
-      <ul class="contact-list">
-        <li>Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener">space.bilibili.com/400485069</a></li>
-        <li>GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a></li>
+    <!-- 联系方式卡片 -->
+    <div class="card" style="margin-top: var(--space-4); box-shadow: var(--shadow-sm); margin-bottom: var(--space-10);">
+      <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">📬 联系我</h2>
+      <ul class="contact-list" style="margin: 0; padding: 0; list-style: none; display: flex; gap: var(--space-5); flex-wrap: wrap;">
+        <li style="font-size: 0.9rem; color: var(--text-secondary);">
+          Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">space.bilibili.com/400485069</a>
+        </li>
+        <li style="font-size: 0.9rem; color: var(--text-secondary);">
+          GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">github.com/qianqiulp</a>
+        </li>
       </ul>
     </div>
-
   </section>
 
 </main>
 
 <!-- 页脚 -->
 <footer class="footer">
-  <p>© 2026 qianqiulp &nbsp;·&nbsp;
+  <p>© 2026 Qiu 的小屋 &nbsp;·&nbsp;
     <a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a>
   </p>
 </footer>

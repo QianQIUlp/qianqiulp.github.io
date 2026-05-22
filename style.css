@@ -17,40 +17,70 @@
   --radius-lg: 18px;
   --radius-pill: 999px;
 
-  --bg: #ffffff;
-  --bg-muted: #f6f8fb;
-  --surface: #f8f9fa;
+  /* Notion Light Theme Colors */
+  --bg: #fcfbfa;
+  --bg-muted: #f1f0ee;
+  --surface: #f7f6f3;
   --surface-elevated: #ffffff;
-  --surface-muted: #f1f3f5;
-  --text: #2d3436;
-  --text-secondary: #636e72;
-  --accent: #0984e3;
-  --accent-soft: rgba(9, 132, 227, 0.08);
-  --code-bg: #0f172a;
-  --code-text: #e5e7eb;
-  --border: #e9ecef;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.1);
+  --surface-muted: #f1f0ee;
+  --surface-callout: #f1f0ee;
+  --text: #37352f;
+  --text-secondary: #7c7b77;
+  --accent: #8a6534; /* Soft warm gold accent */
+  --accent-soft: rgba(138, 101, 52, 0.08);
+  --code-bg: #f7f6f3;
+  --code-text: #eb5757;
+  --border: #e1e0dd;
+  --shadow-sm: 0 1px 2px rgba(15, 15, 15, 0.05);
+  --shadow-md: 0 2px 8px rgba(15, 15, 15, 0.05);
+  --shadow-lg: 0 8px 20px rgba(15, 15, 15, 0.05);
+
+  /* Custom Muted Card Colors (Light Mode) */
+  --card-yellow-bg: #fbf3db;
+  --card-yellow-text: #8a6534;
+  --card-yellow-border: #f5e4bd;
+
+  --card-green-bg: #edf3ec;
+  --card-green-text: #375b42;
+  --card-green-border: #d5e4d2;
+
+  --card-purple-bg: #f6f3f9;
+  --card-purple-text: #6940a5;
+  --card-purple-border: #e6def0;
 }
 
 html[data-theme="dark"] {
-  --bg: #1a1a2e;
-  --bg-muted: #111827;
-  --surface: #16213e;
-  --surface-elevated: #1c2747;
-  --surface-2: #1c2747;
-  --surface-muted: #0f172a;
-  --text: #dfe6e9;
-  --text-secondary: #b2bec3;
-  --accent: #74b9ff;
-  --accent-soft: rgba(116, 185, 255, 0.14);
-  --code-bg: #0b1220;
-  --code-text: #e5e7eb;
-  --border: #0f3460;
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.22);
-  --shadow-md: 0 2px 12px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.34);
+  /* Notion Dark Theme Colors */
+  --bg: #191919;
+  --bg-muted: #1f1f1f;
+  --surface: #202020;
+  --surface-elevated: #222222;
+  --surface-2: #222222;
+  --surface-muted: #272727;
+  --surface-callout: #222222;
+  --text: #e3e3e3;
+  --text-secondary: #9b9b9b;
+  --accent: #e5c158; /* Warm gold accent */
+  --accent-soft: rgba(229, 193, 88, 0.12);
+  --code-bg: #272727;
+  --code-text: #e57373;
+  --border: #2c2c2c;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.35);
+
+  /* Custom Muted Card Colors (Dark Mode) */
+  --card-yellow-bg: rgba(66, 58, 35, 0.45);
+  --card-yellow-text: #e5c158;
+  --card-yellow-border: rgba(229, 193, 88, 0.15);
+
+  --card-green-bg: rgba(30, 48, 39, 0.45);
+  --card-green-text: #73d13d;
+  --card-green-border: rgba(115, 209, 61, 0.15);
+
+  --card-purple-bg: rgba(53, 41, 67, 0.45);
+  --card-purple-text: #d3adf7;
+  --card-purple-border: rgba(211, 173, 247, 0.15);
 }
 
 *, *::before, *::after {
@@ -296,10 +326,7 @@ body.page-home .footer a:hover {
 
 body.page-blog-index {
   line-height: 1.7;
-  background:
-    radial-gradient(circle at top left, rgba(15, 98, 254, 0.08), transparent 30%),
-    radial-gradient(circle at top right, rgba(14, 165, 233, 0.08), transparent 26%),
-    var(--bg-muted);
+  background: var(--bg);
 }
 
 body.page-blog-index .page {
@@ -395,6 +422,179 @@ body.page-projects .tag {
   background: var(--accent-soft);
   color: var(--accent);
   font-size: 13px;
+}
+
+/* Qiu's Cabin Callout Style */
+.callout {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-5);
+  background: var(--surface-callout);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  margin-bottom: var(--space-10);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+.callout-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.callout-content {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* About Section Header */
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-4);
+  color: var(--text);
+  letter-spacing: 0.5px;
+}
+
+/* Horizontal Cards Grid for 'About' */
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+.cards-row .card {
+  padding: var(--space-5) var(--space-4);
+  margin-bottom: 0; /* Override default margin */
+}
+
+.cards-row .card h2 {
+  font-size: 1.05rem;
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+.cards-row .card p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Muted Custom Cards (Notion Aesthetic) */
+body.page-home .card.card-yellow {
+  background: var(--card-yellow-bg);
+  border-color: var(--card-yellow-border);
+  box-shadow: none; /* Soft card, no heavy shadows */
+}
+body.page-home .card.card-yellow h2,
+body.page-home .card.card-yellow p {
+  color: var(--card-yellow-text);
+}
+
+body.page-home .card.card-green {
+  background: var(--card-green-bg);
+  border-color: var(--card-green-border);
+  box-shadow: none;
+}
+body.page-home .card.card-green h2,
+body.page-home .card.card-green p {
+  color: var(--card-green-text);
+}
+
+body.page-home .card.card-purple {
+  background: var(--card-purple-bg);
+  border-color: var(--card-purple-border);
+  box-shadow: none;
+}
+body.page-home .card.card-purple h2,
+body.page-home .card.card-purple p {
+  color: var(--card-purple-text);
+}
+
+/* Recent Articles & Navigation styling adjustments */
+.section-subtitle {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: calc(var(--space-2) * -1);
+  margin-bottom: var(--space-4);
+}
+
+.article-list {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-10);
+}
+
+.article-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.article-item:hover {
+  transform: translateX(4px);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.article-item h3 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.article-item .article-meta {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Blog Entrance Button Style */
+.blog-entrance-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  background: var(--surface-elevated);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 1.05rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  cursor: pointer;
+}
+
+.blog-entrance-button:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
+  background: var(--surface-muted);
+  text-decoration: none;
+}
+
+.blog-entrance-button .arrow {
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.blog-entrance-button:hover .arrow {
+  transform: translateX(4px);
 }
 
 @media (max-width: 480px) {
