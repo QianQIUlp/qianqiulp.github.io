@@ -3,56 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="qianqiulp 的作品集，展示博客、学习项目和正在进行的实践。">
+  <meta name="description" content="Qiu 的小屋 · 作品集，展示正在进行的探索、学习项目与未来计划。">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="qianqiulp">
   <meta property="og:locale" content="zh_CN">
-  <meta property="og:title" content="作品集 · qianqiulp">
-  <meta property="og:description" content="qianqiulp 的作品集，展示博客、学习项目和正在进行的实践。">
+  <meta property="og:title" content="作品与探索 · Qiu 的小屋">
+  <meta property="og:description" content="Qiu 的小屋 · 作品集，展示正在进行的探索、学习项目与未来计划。">
   <meta property="og:url" content="https://qianqiulp.github.io/projects.html">
   <meta property="og:image" content="https://qianqiulp.github.io/assets/og/site.svg">
-  <meta property="og:image:alt" content="qianqiulp 作品集封面图">
-  <title>作品集 · qianqiulp</title>
+  <meta property="og:image:alt" content="Qiu 的小屋作品集封面图">
+  <title>作品与探索 · Qiu 的小屋</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="page-projects">
+<body class="page-projects" style="padding-top: var(--space-10);">
 
   <button class="theme-toggle" id="themeToggle" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
 
-  <p><a href="index.html">← 返回首页</a></p>
-
-  <h1>🛠️ 我的作品</h1>
-  <p>这里放我做过的、正在做的、想做的项目。</p>
-  <p>想先看我写的文章，可以去 <a href="blog/index.html">博客首页</a>。</p>
+  <header class="topbar" style="margin-bottom: var(--space-8); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-4);">
+    <div>
+      <p class="eyebrow" style="margin: 0 0 var(--space-2); color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;">🪶 Qiu 的小屋</p>
+      <h1 style="margin: 0; border: none; padding: 0; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.5px;">作品与探索</h1>
+      <p class="lead" style="margin: var(--space-3) 0 0; color: var(--text-secondary); font-size: 1.05rem;">这里放着我做过的、正在做的和计划中的探索项目。</p>
+    </div>
+    <nav>
+      <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.35rem; color: var(--accent); text-decoration: none; white-space: nowrap; font-size: 0.95rem; font-weight: 500;">← 回首页</a>
+    </nav>
+  </header>
 
   <!-- 一个项目 = 一个 .project 块。复制粘贴这块就能加新项目 -->
-  <div class="project">
-    <h2>📝 博客</h2>
-    <span class="tag">阅读</span>
-    <span class="tag">更新中</span>
-    <p>技术实践、学习笔记和个人随想，按时间倒序整理。</p>
-    <p>🔗 <a href="blog/index.html">前往博客首页</a></p>
+  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
+    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📝 博客</h2>
+    <div style="margin-bottom: var(--space-3);">
+      <span class="tag">阅读</span>
+      <span class="tag">更新中</span>
+    </div>
+    <p style="margin: 0 0 var(--space-3); color: var(--text-secondary); font-size: 0.95rem;">技术实践、学习随笔和一些个人思考，按时间倒序整理。</p>
+    <p style="margin: 0; font-size: 0.95rem;">🔗 <a href="blog/index.html" style="text-decoration: none; font-weight: 500;">前往博客首页</a></p>
   </div>
 
-  <div class="project">
-    <h2>📘 GitHub Learning 计划</h2>
-    <span class="tag">学习</span>
-    <span class="tag">进行中</span>
-    <p>4 周从零搭建 GitHub 工作流，产出这个个人网站。</p>
-    <p>🔗 <a href="https://github.com/qianqiulp/qianqiulp.github.io">查看仓库</a></p>
+  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
+    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📘 GitHub Learning 计划</h2>
+    <div style="margin-bottom: var(--space-3);">
+      <span class="tag">学习</span>
+      <span class="tag">进行中</span>
+    </div>
+    <p style="margin: 0 0 var(--space-3); color: var(--text-secondary); font-size: 0.95rem;">4 周从零搭建 GitHub 工作流，产出当前这个温馨的“Qiu 的小屋”个人网站。</p>
+    <p style="margin: 0; font-size: 0.95rem;">🔗 <a href="https://github.com/qianqiulp/qianqiulp.github.io" target="_blank" rel="noopener" style="text-decoration: none; font-weight: 500;">查看 GitHub 仓库</a></p>
   </div>
 
-  <div class="project">
-    <h2>📊 统计理论笔记</h2>
-    <span class="tag">学习</span>
-    <span class="tag">完成</span>
-    <p>系统整理概率论与数理统计核心概念。</p>
+  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
+    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📊 统计理论笔记</h2>
+    <div style="margin-bottom: var(--space-3);">
+      <span class="tag">学习</span>
+      <span class="tag">已完成</span>
+    </div>
+    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;">系统整理概率论与数理统计的核心概念与推导。</p>
   </div>
 
-  <div class="project">
-    <h2>☕ 下一个想做的项目</h2>
-    <span class="tag">想法</span>
-    <p>（占位 · 想到再填）</p>
+  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-6);">
+    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">☕ 慢思与折腾</h2>
+    <div style="margin-bottom: var(--space-3);">
+      <span class="tag">想法</span>
+    </div>
+    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;">占位。有些想法正在酝酿，慢慢折腾，随心呈现。</p>
   </div>
 
   <script>
