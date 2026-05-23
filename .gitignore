@@ -7,3 +7,4 @@ Desktop.ini
 # Astro
 dist/
 node_modules/
+.astro/
