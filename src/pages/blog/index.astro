@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import '../../styles/blog.css';
 
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
@@ -17,9 +18,6 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
   ogImageAlt="Qiu 的小屋博客封面图"
   bodyClass="page-blog-index"
 >
-  <slot slot="extraCss" name="extraCss">
-    <link rel="stylesheet" href="/blog/blog.css?v=2" />
-  </slot>
 
   <main class="page">
     <header class="topbar">
