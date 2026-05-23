@@ -227,3 +227,11 @@ body.page-blog-index .back-link:hover {
 body.page-blog-index .post-grid {
   margin-top: 16px;
 }
+
+/* Enforce 16:9 aspect ratio and cover fit on blog cards to avoid vertical stretching */
+.post-card img {
+  width: 100% !important;
+  aspect-ratio: 16 / 9 !important;
+  object-fit: cover !important;
+  display: block !important;
+}
