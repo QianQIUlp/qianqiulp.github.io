@@ -1,5 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import InfoCard from '../components/InfoCard.astro';
+
+const posts = await getCollection('posts');
+const latestPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -31,18 +39,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section>
       <h2 class="section-title">关于这里</h2>
       <div class="cards-row">
-        <div class="card card-yellow">
-          <h2>📅 不定期更新</h2>
-          <p>写完才发，不追时间表。</p>
-        </div>
-        <div class="card card-green">
-          <h2>🍵 慢读优先</h2>
-          <p>写给愿意慢下来读完的人。</p>
-        </div>
-        <div class="card card-purple">
-          <h2>🎲 主题随心</h2>
-          <p>游戏、阅读、思考、生活。</p>
-        </div>
+        <InfoCard color="yellow" title="📅 不定期更新" description="写完才发，不追时间表。" />
+        <InfoCard color="green" title="🍵 慢读优先" description="写给愿意慢下来读完的人。" />
+        <InfoCard color="purple" title="🎲 主题随心" description="游戏、阅读、思考、生活。" />
       </div>
     </section>
 
@@ -50,6 +49,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <section class="section-spaced">
       <h2 class="section-title">📚 最新文章</h2>
       <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
+
+      {latestPosts && latestPosts.length > 0 && (
+        <div class="post-grid">
+          {latestPosts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      )}
+
       <div class="mb-10">
         <a href="/blog/" class="blog-entrance-button">
           <span>🪶 进入小屋文章 · 慢读优先</span>
@@ -208,35 +216,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     text-decoration: underline;
   }
 
-  .card.card-yellow {
-    background: var(--card-yellow-bg);
-    border-color: var(--card-yellow-border);
-    box-shadow: none;
-  }
-  .card.card-yellow h2,
-  .card.card-yellow p {
-    color: var(--card-yellow-text);
-  }
-
-  .card.card-green {
-    background: var(--card-green-bg);
-    border-color: var(--card-green-border);
-    box-shadow: none;
-  }
-  .card.card-green h2,
-  .card.card-green p {
-    color: var(--card-green-text);
-  }
-
-  .card.card-purple {
-    background: var(--card-purple-bg);
-    border-color: var(--card-purple-border);
-    box-shadow: none;
-  }
-  .card.card-purple h2,
-  .card.card-purple p {
-    color: var(--card-purple-text);
-  }
+  /* Colored cards styling moved to InfoCard.astro component */
 
   @media (max-width: 480px) {
     .container {

@@ -1,0 +1,75 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  color?: 'yellow' | 'green' | 'purple' | 'default';
+}
+
+const { title, description, color = 'default' } = Astro.props;
+---
+
+<div class:list={['card', color !== 'default' && `card-${color}`]}>
+  <h2>{title}</h2>
+  <p>{description}</p>
+</div>
+
+<style>
+  .card {
+    padding: 28px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface-elevated);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card h2 {
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-top: 0;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .card.card-yellow {
+    background: var(--card-yellow-bg);
+    border-color: var(--card-yellow-border);
+    box-shadow: none;
+  }
+  .card.card-yellow h2,
+  .card.card-yellow p {
+    color: var(--card-yellow-text);
+  }
+
+  .card.card-green {
+    background: var(--card-green-bg);
+    border-color: var(--card-green-border);
+    box-shadow: none;
+  }
+  .card.card-green h2,
+  .card.card-green p {
+    color: var(--card-green-text);
+  }
+
+  .card.card-purple {
+    background: var(--card-purple-bg);
+    border-color: var(--card-purple-border);
+    box-shadow: none;
+  }
+  .card.card-purple h2,
+  .card.card-purple p {
+    color: var(--card-purple-text);
+  }
+</style>
