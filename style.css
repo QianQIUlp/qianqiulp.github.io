@@ -287,9 +287,11 @@ body.page-home .cta-button:focus-visible {
 }
 
 body.page-home .contact-list {
-  display: grid;
-  gap: 10px;
-  margin-top: 8px;
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
   list-style: none;
 }
 
@@ -383,7 +385,7 @@ body.page-blog-index .post-grid {
 body.page-projects {
   max-width: 720px;
   margin: 40px auto;
-  padding: 0 20px 40px;
+  padding: var(--space-10) 20px 40px;
   line-height: 1.7;
   color: var(--text);
   background: var(--bg);
@@ -620,4 +622,188 @@ body.page-home .card.card-purple p {
     margin: 24px auto;
     padding: 0 16px 32px;
   }
+}
+
+/* ============================================================
+   Utility classes & component variants (extracted from inline styles)
+   ============================================================ */
+
+/* --- index.html: header icon --- */
+.header-icon {
+  font-size: 3.5rem;
+  display: block;
+  margin-bottom: var(--space-2);
+  line-height: 1;
+}
+
+/* --- section spacing --- */
+.section-spaced {
+  margin-top: var(--space-6);
+}
+
+/* --- bottom margin utilities --- */
+.mb-10 { margin-bottom: var(--space-10); }
+
+/* --- cards-row wide variant --- */
+.cards-row-wide {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-4);
+}
+
+/* --- card shadow helper --- */
+.card-shadow-sm { box-shadow: var(--shadow-sm); }
+
+/* --- card flex layout --- */
+.card-flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* --- card heading (within explore & contact sections) --- */
+.card-heading {
+  font-size: 1.1rem;
+  color: var(--accent);
+  margin-top: 0;
+  margin-bottom: var(--space-2);
+}
+
+/* --- card description paragraph --- */
+.card-description {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.card-description-mb {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-4);
+}
+
+/* --- cta-button small --- */
+.cta-button-sm {
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  align-self: flex-start;
+  text-decoration: none;
+}
+
+/* --- contact card --- */
+.card-contact {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-10);
+}
+
+/* --- contact list items --- */
+.contact-list-item {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.contact-list-link {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* ============================================================
+   projects.html: extracted styles
+   ============================================================ */
+
+/* --- topbar base (for projects page) --- */
+body.page-projects .topbar--spaced {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+body.page-projects .topbar--spaced .eyebrow {
+  margin: 0 0 var(--space-2);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+body.page-projects .topbar--spaced h1 {
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+body.page-projects .topbar--spaced .lead {
+  margin: var(--space-3) 0 0;
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+}
+
+body.page-projects .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+body.page-projects .back-link:hover {
+  text-decoration: underline;
+}
+
+/* --- project card with padding --- */
+body.page-projects .project--padded {
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-4);
+}
+
+body.page-projects .project--padded-last {
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+body.page-projects .project-heading {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: var(--space-3);
+}
+
+body.page-projects .project-tags {
+  margin-bottom: var(--space-3);
+}
+
+body.page-projects .project-desc {
+  margin: 0 0 var(--space-3);
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+body.page-projects .project-desc-nomg {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+body.page-projects .project-link {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+body.page-projects .project-link a {
+  text-decoration: none;
+  font-weight: 500;
 }
