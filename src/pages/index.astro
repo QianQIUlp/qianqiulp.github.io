@@ -42,6 +42,15 @@ import InfoCard from '../components/InfoCard.astro';
     <section class="section-spaced">
       <h2 class="section-title">📚 最新文章</h2>
       <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
+
+      {latestPosts && latestPosts.length > 0 && (
+        <div class="post-grid">
+          {latestPosts.map((post) => (
+            <PostCard post={post} />
+          ))}
+        </div>
+      )}
+
       <div class="mb-10">
         <a href="/blog/" class="blog-entrance-button">
           <span>🪶 进入小屋文章 · 慢读优先</span>
