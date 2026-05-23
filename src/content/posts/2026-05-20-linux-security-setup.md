@@ -1,38 +1,14 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    (function(){
-      var t = localStorage.getItem('theme');
-      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      }
-    })();
-  </script>
-  <meta name="description" content="新 Linux 服务器加固实战，按 P0 / P1 / P2 梳理安全组、SSH、自动更新和 fail2ban。">
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="qianqiulp">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:title" content="新服务器加固的三阶段心智模型：从&quot;关门&quot;到&quot;装监控”">
-  <meta property="og:description" content="新 Linux 服务器加固实战，按 P0 / P1 / P2 梳理安全组、SSH、自动更新和 fail2ban。">
-  <meta property="og:url" content="https://qianqiulp.github.io/blog/posts/2026-05-20-linux-security-setup.html">
-  <meta property="og:image" content="https://qianqiulp.github.io/assets/posts/linux-security-setup/cover.png">
-  <meta property="og:image:alt" content="新 Linux 服务器加固文章封面">
-  <meta property="article:published_time" content="2026-05-20">
-  <meta property="article:author" content="QianQIUlp">
-  <meta property="article:section" content="Tech">
-  <meta property="article:tag" content="Security">
-  <title>新服务器加固的三阶段心智模型：从"关门"到"装监控” · Qiu 的小屋</title>
-  <link rel="stylesheet" href="../../style.css?v=2">
-  <link rel="stylesheet" href="../blog.css?v=2">
-</head>
-<body>
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
-  <nav><a href="../../index.html">← 回首页</a> · <a href="../index.html">博客</a></nav>
-  <article>
-    <header>
+---
+title: "新服务器加固的三阶段心智模型：从「关门」到「装监控」"
+date: 2026-05-20
+tags: [Security, Tech]
+description: "新 Linux 服务器加固实战，按 P0 / P1 / P2 梳理安全组、SSH、自动更新和 fail2ban。"
+ogImage: /assets/posts/linux-security-setup/cover.png
+ogImageAlt: "新 Linux 服务器加固文章封面"
+license: "CC BY-NC 4.0"
+---
+
+<header>
       <h1>新服务器加固的三阶段心智模型：从"关门"到"装监控”</h1>
       <p class="meta">
         <time datetime="2026-05-20">2026-05-20</time> ·
@@ -532,8 +508,3 @@ redis-server --bind 127.0.0.1</code></pre>
     <aside>
       <p>🌸 本文是一次真实的服务器加固实战回顾，结构沿用 P0 / P1 / P2 心智模型。如果对你有用，欢迎收藏；如果发现错漏，欢迎指正。</p>
     </aside>
-  </article>
-  <footer><a href="../index.html">← 更多文章</a></footer>
-  <script src="../theme-toggle.js"></script>
-</body>
-</html>

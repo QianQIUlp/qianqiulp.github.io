@@ -3,3 +3,8 @@ Thumbs.db
 Desktop.ini
 ._*
 .lumi
+
+# Astro
+dist/
+node_modules/
+.astro/

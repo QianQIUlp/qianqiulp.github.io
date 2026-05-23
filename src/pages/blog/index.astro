@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="博客 · Qiu 的小屋"
+  description="Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。"
+  ogTitle="博客 · Qiu 的小屋"
+  ogDescription="Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。"
+  ogUrl="https://qianqiulp.github.io/blog/"
+  ogImage="/assets/og/site.svg"
+  ogImageAlt="Qiu 的小屋博客封面图"
+  bodyClass="page-blog-index"
+>
+  <slot slot="extraCss" name="extraCss">
+    <link rel="stylesheet" href="/blog/blog.css?v=2" />
+  </slot>
+
+  <main class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">🪶 Qiu 的小屋</p>
+        <h1>博客</h1>
+        <p class="lead">记录随想、折腾笔记与一些不想忘掉的东西。</p>
+      </div>
+      <nav>
+        <a class="back-link" href="/">← 回首页</a>
+      </nav>
+    </header>
+
+    <section class="post-grid" aria-label="文章列表">
+      <!-- 最新在前 -->
+      <a class="post-card" href="/blog/posts/2026-05-20-ssh-keys/">
+        <img src="/assets/posts/ssh-keys/cover.png"
+             alt="《把 SSH 密钥当身份管》文章封面，主题是 SSH 密钥、ssh-agent 与跨平台配置"
+             loading="lazy">
+        <h3>把 SSH 密钥当身份管：Windows / Linux 双平台配置、agent 与恢复</h3>
+        <p class="meta">
+          <time datetime="2026-05-20">2026-05-20</time> · Tech · SSH
+        </p>
+      </a>
+
+      <a class="post-card" href="/blog/posts/2026-05-20-linux-security-setup/">
+        <img src="/assets/posts/linux-security-setup/cover.png"
+             alt="《新服务器加固的三阶段心智模型》文章封面，主题是 Linux 服务器安全加固"
+             loading="lazy">
+        <h3>新服务器加固的三阶段心智模型：从"关门"到"装监控”</h3>
+        <p class="meta">
+          <time datetime="2026-05-20">2026-05-20</time> · Tech · Security
+        </p>
+      </a>
+
+      <a class="post-card" href="/blog/posts/2026-05-17-qiyuniao/">
+        <img src="/assets/posts/qiyuniao/cover.png"
+             alt="《启喻鸟之章：解构》文章封面，主题是原神剧情随笔与命运思考"
+             loading="lazy">
+        <h3>启喻鸟之章：解构</h3>
+        <p class="meta">
+          <time datetime="2026-05-17">2026-05-17</time> · Genshin
+        </p>
+      </a>
+    </section>
+  </main>
+
+</BaseLayout>

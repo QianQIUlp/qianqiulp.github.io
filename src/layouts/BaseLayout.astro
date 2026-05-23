@@ -1,0 +1,89 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  ogType?: 'website' | 'article';
+  ogTitle?: string;
+  ogDescription?: string;
+  ogUrl: string;
+  ogImage?: string;
+  ogImageAlt?: string;
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  ogType = 'website',
+  ogTitle = title,
+  ogDescription = description,
+  ogUrl,
+  ogImage = '/assets/og/site.svg',
+  ogImageAlt = 'Qiu 的小屋封面图',
+  bodyClass = '',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- FOUC 闪屏消除：必须在 <body> 渲染前同步执行 -->
+  <script is:inline>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+  <meta name="description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:site_name" content="qianqiulp" />
+  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:title" content={ogTitle} />
+  <meta property="og:description" content={ogDescription} />
+  <meta property="og:url" content={ogUrl} />
+  <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  <meta property="og:image:alt" content={ogImageAlt} />
+  <slot name="extraHead" />
+  <title>{title}</title>
+  <link rel="stylesheet" href="/style.css?v=2" />
+  <slot name="extraCss" />
+</head>
+<body class:list={[bodyClass]}>
+  <!-- 主题切换按钮 -->
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
+
+  <slot />  <!-- 页面主体内容 -->
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2026 Qiu 的小屋 &nbsp;·&nbsp;
+      <a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a>
+    </p>
+  </footer>
+
+  <!-- 主题切换逻辑 -->
+  <script is:inline>
+    (function(){
+      var btn = document.getElementById('themeToggle');
+      var html = document.documentElement;
+      var isDark = html.getAttribute('data-theme') === 'dark';
+      btn.textContent = isDark ? '☀️' : '🌙';
+      btn.addEventListener('click', function(){
+        var dark = html.getAttribute('data-theme') === 'dark';
+        if (dark) {
+          html.removeAttribute('data-theme');
+          btn.textContent = '🌙';
+          localStorage.setItem('theme', 'light');
+        } else {
+          html.setAttribute('data-theme', 'dark');
+          btn.textContent = '☀️';
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
