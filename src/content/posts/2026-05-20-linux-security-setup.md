@@ -3,7 +3,7 @@ title: "新服务器加固的三阶段心智模型：从「关门」到「装监
 date: 2026-05-20
 tags: [Security, Tech]
 description: "新 Linux 服务器加固实战，按 P0 / P1 / P2 梳理安全组、SSH、自动更新和 fail2ban。"
-ogImage: /assets/posts/linux-security-setup/cover.png
+ogImage: ../../assets/posts/linux-security-setup/cover.png
 ogImageAlt: "新 Linux 服务器加固文章封面"
 license: "CC BY-NC 4.0"
 ---

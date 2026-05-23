@@ -27,7 +27,7 @@ import '../../../styles/blog.css';
   ogTitle={post.data.title}
   ogDescription={post.data.description}
   ogUrl={`https://qianqiulp.github.io/blog/posts/${post.id}/`}
-  ogImage={post.data.ogImage || '/assets/og/site.svg'}
+  ogImage={post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg'}
   ogImageAlt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
   bodyClass=""
 >
@@ -82,7 +82,7 @@ import '../../../styles/blog.css';
       "headline": post.data.title,
       "description": post.data.description,
       "image": [
-        new URL(post.data.ogImage || '/assets/og/site.svg', Astro.site).href
+        new URL(post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg', Astro.site).href
       ],
       "datePublished": post.data.date.toISOString().slice(0, 10),
       "author": [{
