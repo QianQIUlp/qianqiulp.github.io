@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return Promise.all(
+    posts.map(async (post) => {
+      const { Content } = await render(post);
+      return {
+        params: { slug: post.id },
+        props: { post, Content },
+      };
+    })
+  );
+}
+
+const { post, Content } = Astro.props;
+---
+
+<BaseLayout
+  title={`${post.data.title} · Qiu 的小屋`}
+  description={post.data.description}
+  ogType="article"
+  ogTitle={post.data.title}
+  ogDescription={post.data.description}
+  ogUrl={`https://qianqiulp.github.io/blog/posts/${post.id}/`}
+  ogImage={post.data.ogImage || '/assets/og/site.svg'}
+  ogImageAlt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
+  bodyClass=""
+>
+  <slot slot="extraCss" name="extraCss">
+    <link rel="stylesheet" href="/blog/blog.css?v=2" />
+  </slot>
+
+  <nav>
+    <a href="/">← 回首页</a> ·&nbsp;
+    <a href="/blog/">博客</a>
+  </nav>
+
+  <article>
+    <header>
+      <h1>{post.data.title}</h1>
+      <p class="meta">
+        <time datetime={post.data.date.toISOString().slice(0, 10)}>
+          {post.data.date.toISOString().slice(0, 10)}
+        </time>
+        {post.data.tags.map((tag: string) => (
+          <Fragment> · <span class="tag">{tag}</span></Fragment>
+        ))}
+      </p>
+    </header>
+
+    <Content />
+  </article>
+
+  <footer><a href="/blog/">← 更多文章</a></footer>
+
+  <!-- extra head: article meta tags -->
+  <Fragment slot="extraHead">
+    <meta property="article:published_time" content={post.data.date.toISOString().slice(0, 10)} />
+    <meta property="article:author" content="QianQIUlp" />
+    <meta property="article:section" content={post.data.tags[0]} />
+    {post.data.tags.map((tag: string) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </Fragment>
+</BaseLayout>

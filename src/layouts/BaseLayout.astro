@@ -9,7 +9,6 @@ export interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   bodyClass?: string;
-  extraHead?: string;   // raw HTML for extra <meta> tags
 }
 
 const {
@@ -22,7 +21,6 @@ const {
   ogImage = '/assets/og/site.svg',
   ogImageAlt = 'Qiu 的小屋封面图',
   bodyClass = '',
-  extraHead = '',
 } = Astro.props;
 ---
 <!doctype html>
@@ -48,7 +46,7 @@ const {
   <meta property="og:url" content={ogUrl} />
   <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
   <meta property="og:image:alt" content={ogImageAlt} />
-  <Fragment set:html={extraHead} />
+  <slot name="extraHead" />
   <title>{title}</title>
   <link rel="stylesheet" href="/style.css?v=2" />
   <slot name="extraCss" />
