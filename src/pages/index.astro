@@ -1,13 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import PostCard from '../components/PostCard.astro';
 import InfoCard from '../components/InfoCard.astro';
-
-const posts = await getCollection('posts');
-const latestPosts = posts
-  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
 ---
 
 <BaseLayout
@@ -49,15 +42,6 @@ const latestPosts = posts
     <section class="section-spaced">
       <h2 class="section-title">📚 最新文章</h2>
       <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
-
-      {latestPosts && latestPosts.length > 0 && (
-        <div class="post-grid">
-          {latestPosts.map((post) => (
-            <PostCard post={post} />
-          ))}
-        </div>
-      )}
-
       <div class="mb-10">
         <a href="/blog/" class="blog-entrance-button">
           <span>🪶 进入小屋文章 · 慢读优先</span>
