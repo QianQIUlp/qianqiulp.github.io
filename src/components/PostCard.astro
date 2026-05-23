@@ -1,0 +1,33 @@
+---
+interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      date: Date;
+      tags: string[];
+      description: string;
+      ogImage?: string;
+      ogImageAlt?: string;
+    };
+  };
+}
+
+const { post } = Astro.props;
+const formattedDate = post.data.date.toISOString().slice(0, 10);
+---
+
+<a class="post-card" href={`/blog/posts/${post.id}/`}>
+  {post.data.ogImage && (
+    <img
+      src={post.data.ogImage}
+      alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`}
+      loading="lazy"
+    />
+  )}
+  <h3>{post.data.title}</h3>
+  <p class="meta">
+    <time datetime={formattedDate}>{formattedDate}</time>
+    {post.data.tags.map((tag) => ` · ${tag}`)}
+  </p>
+</a>
