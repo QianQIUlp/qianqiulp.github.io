@@ -3,6 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    (function(){
+      var t = localStorage.getItem('theme');
+      if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <meta name="description" content="新 Linux 服务器加固实战，按 P0 / P1 / P2 梳理安全组、SSH、自动更新和 fail2ban。">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="qianqiulp">
