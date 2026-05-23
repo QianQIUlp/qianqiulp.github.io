@@ -6,16 +6,17 @@ export async function getStaticPaths() {
   const posts = await getCollection('posts');
   return Promise.all(
     posts.map(async (post) => {
-      const { Content } = await render(post);
+      const { Content, headings } = await render(post);
       return {
         params: { slug: post.id },
-        props: { post, Content },
+        props: { post, Content, headings },
       };
     })
   );
 }
 
-const { post, Content } = Astro.props;
+const { post, Content, headings } = Astro.props;
+const showToc = post.id.includes('ssh') || post.id.includes('linux');
 ---
 
 <BaseLayout
@@ -51,6 +52,19 @@ const { post, Content } = Astro.props;
       </p>
     </header>
 
+    {showToc && headings && headings.length > 0 && (
+      <div class="toc-block" aria-label="文章目录">
+        <div class="toc-header">📄 目录</div>
+        <ul class="toc-list">
+          {headings.map((heading) => (
+            <li class={`toc-item depth-${heading.depth}`}>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
     <Content />
   </article>
 
@@ -81,3 +95,66 @@ const { post, Content } = Astro.props;
     })} />
   </Fragment>
 </BaseLayout>
+
+<style>
+  /* Notion-like Table of Contents Block */
+  .toc-block {
+    background: var(--surface-callout);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+    max-width: 100%;
+  }
+
+  .toc-header {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .toc-item {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .toc-item a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .toc-item a:hover {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* Notion Hierarchy Indentations */
+  .toc-item.depth-2 {
+    padding-left: 0;
+  }
+
+  .toc-item.depth-3 {
+    padding-left: 1.25rem;
+    font-size: 0.9rem;
+  }
+
+  .toc-item.depth-4 {
+    padding-left: 2.5rem;
+    font-size: 0.85rem;
+  }
+</style>
