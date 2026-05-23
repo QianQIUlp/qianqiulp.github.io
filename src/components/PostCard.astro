@@ -31,3 +31,38 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
     {post.data.tags.map((tag) => ` · ${tag}`)}
   </p>
 </a>
+
+<style>
+  .post-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--surface-elevated);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+  }
+
+  .post-card:hover {
+    transform: translateY(calc(var(--space-1) * -1));
+    box-shadow: var(--shadow-lg);
+  }
+
+  .post-card img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+  }
+
+  .post-card h3 {
+    margin: var(--space-4) var(--space-4) var(--space-2);
+    font-size: 1.1rem;
+  }
+
+  .post-card .meta {
+    margin: 0 var(--space-4) var(--space-4);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+</style>
