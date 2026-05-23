@@ -52,7 +52,7 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
     box-shadow: var(--shadow-lg);
   }
 
-  .post-card img {
+  .post-card :global(img) {
     width: 100%;
     aspect-ratio: 16/9;
     object-fit: cover;
