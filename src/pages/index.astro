@@ -1,13 +1,101 @@
 ---
-// Home page placeholder — will be populated next
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Qiu 的小屋</title>
-  </head>
-  <body>
-    <p>Astro migration in progress...</p>
-  </body>
-</html>
+
+<BaseLayout
+  title="Qiu 的小屋 · 个人主页"
+  description="Qiu 的小屋 · 个人主页，记录读到的、想到的和一些不想忘掉的东西。"
+  ogTitle="Qiu 的小屋 · 个人主页"
+  ogDescription="欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。"
+  ogUrl="https://qianqiulp.github.io/"
+  ogImage="/assets/og/site.svg"
+  ogImageAlt="Qiu 的小屋个人主页封面图"
+  bodyClass="page-home"
+>
+
+  <main class="container">
+
+    <!-- 头部 -->
+    <header class="header">
+      <span class="header-icon">🪶</span>
+      <h1>Qiu 的小屋</h1>
+    </header>
+
+    <!-- 引言框 -->
+    <div class="callout">
+      <span class="callout-icon">🪶</span>
+      <p class="callout-content">欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。</p>
+    </div>
+
+    <!-- 关于这里 -->
+    <section>
+      <h2 class="section-title">关于这里</h2>
+      <div class="cards-row">
+        <div class="card card-yellow">
+          <h2>📅 不定期更新</h2>
+          <p>写完才发，不追时间表。</p>
+        </div>
+        <div class="card card-green">
+          <h2>🍵 慢读优先</h2>
+          <p>写给愿意慢下来读完的人。</p>
+        </div>
+        <div class="card card-purple">
+          <h2>🎲 主题随心</h2>
+          <p>游戏、阅读、思考、生活。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 最新文章 -->
+    <section class="section-spaced">
+      <h2 class="section-title">📚 最新文章</h2>
+      <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
+      <div class="mb-10">
+        <a href="/blog/" class="blog-entrance-button">
+          <span>🪶 进入小屋文章 · 慢读优先</span>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- 探索与作品 -->
+    <section class="section-spaced">
+      <h2 class="section-title">🚀 探索与联系</h2>
+      <div class="cards-row cards-row-wide">
+
+        <div class="card card-shadow-sm">
+          <h2 class="card-heading">📋 关于我</h2>
+          <p class="card-description">
+            我是千秋（也可以直接叫我 Qiu 或秋）。现在是大二的计算机学生，喜欢二次元、电吉他和前沿技术。这里是我的小角落，欢迎来逛。
+          </p>
+        </div>
+
+        <div class="card card-shadow-sm card-flex">
+          <div>
+            <h2 class="card-heading">🛠️ 我的作品</h2>
+            <p class="card-description-mb">
+              查看我做过的、正在做的和计划中的项目展示。
+            </p>
+          </div>
+          <a href="/projects/" class="cta-button cta-button-sm">看看作品 →</a>
+        </div>
+
+      </div>
+
+      <!-- 联系方式卡片 -->
+      <div class="card card-shadow-sm card-contact">
+        <h2 class="card-heading">📬 联系我</h2>
+        <ul class="contact-list">
+          <li class="contact-list-item">
+            Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener" class="contact-list-link">space.bilibili.com/400485069</a>
+          </li>
+          <li class="contact-list-item">
+            GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener" class="contact-list-link">github.com/qianqiulp</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+</BaseLayout>
