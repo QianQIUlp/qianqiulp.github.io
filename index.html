@@ -34,7 +34,7 @@
 
   <!-- 头部 -->
   <header class="header">
-    <span style="font-size: 3.5rem; display: block; margin-bottom: var(--space-2); line-height: 1;">🪶</span>
+    <span class="header-icon">🪶</span>
     <h1>Qiu 的小屋</h1>
   </header>
 
@@ -64,10 +64,10 @@
   </section>
 
   <!-- 最新文章 -->
-  <section style="margin-top: var(--space-6);">
+  <section class="section-spaced">
     <h2 class="section-title">📚 最新文章</h2>
     <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
-    <div style="margin-bottom: var(--space-10);">
+    <div class="mb-10">
       <a href="blog/index.html" class="blog-entrance-button">
         <span>🪶 进入小屋文章 · 慢读优先</span>
         <span class="arrow">→</span>
@@ -76,38 +76,38 @@
   </section>
 
   <!-- 探索与作品 -->
-  <section style="margin-top: var(--space-6);">
+  <section class="section-spaced">
     <h2 class="section-title">🚀 探索与联系</h2>
-    <div class="cards-row" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4);">
+    <div class="cards-row cards-row-wide">
       
-      <div class="card" style="box-shadow: var(--shadow-sm);">
-        <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">📋 关于我</h2>
-        <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin: 0;">
+      <div class="card card-shadow-sm">
+        <h2 class="card-heading">📋 关于我</h2>
+        <p class="card-description">
           我是千秋（也可以直接叫我 Qiu 或秋）。现在是大二的计算机学生，喜欢二次元、电吉他和前沿技术。这里是我的小角落，欢迎来逛。
         </p>
       </div>
 
-      <div class="card" style="box-shadow: var(--shadow-sm); display: flex; flex-direction: column; justify-content: space-between;">
+      <div class="card card-shadow-sm card-flex">
         <div>
-          <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">🛠️ 我的作品</h2>
-          <p style="font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary); margin: 0; margin-bottom: var(--space-4);">
+          <h2 class="card-heading">🛠️ 我的作品</h2>
+          <p class="card-description-mb">
             查看我做过的、正在做的和计划中的项目展示。
           </p>
         </div>
-        <a href="projects.html" class="cta-button" style="padding: 10px 16px; font-size: 0.9rem; align-self: flex-start; text-decoration: none;">看看作品 →</a>
+        <a href="projects.html" class="cta-button cta-button-sm">看看作品 →</a>
       </div>
 
     </div>
 
     <!-- 联系方式卡片 -->
-    <div class="card" style="margin-top: var(--space-4); box-shadow: var(--shadow-sm); margin-bottom: var(--space-10);">
-      <h2 style="font-size: 1.1rem; color: var(--accent); margin-top: 0; margin-bottom: var(--space-2);">📬 联系我</h2>
-      <ul class="contact-list" style="margin: 0; padding: 0; list-style: none; display: flex; gap: var(--space-5); flex-wrap: wrap;">
-        <li style="font-size: 0.9rem; color: var(--text-secondary);">
-          Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">space.bilibili.com/400485069</a>
+    <div class="card card-shadow-sm card-contact">
+      <h2 class="card-heading">📬 联系我</h2>
+      <ul class="contact-list">
+        <li class="contact-list-item">
+          Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener" class="contact-list-link">space.bilibili.com/400485069</a>
         </li>
-        <li style="font-size: 0.9rem; color: var(--text-secondary);">
-          GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; font-weight: 500;">github.com/qianqiulp</a>
+        <li class="contact-list-item">
+          GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener" class="contact-list-link">github.com/qianqiulp</a>
         </li>
       </ul>
     </div>

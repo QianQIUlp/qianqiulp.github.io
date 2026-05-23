@@ -23,57 +23,57 @@
   <title>作品与探索 · Qiu 的小屋</title>
   <link rel="stylesheet" href="style.css?v=2">
 </head>
-<body class="page-projects" style="padding-top: var(--space-10);">
+<body class="page-projects">
 
   <button class="theme-toggle" id="themeToggle" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
 
-  <header class="topbar" style="margin-bottom: var(--space-8); display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-4);">
+  <header class="topbar topbar--spaced">
     <div>
-      <p class="eyebrow" style="margin: 0 0 var(--space-2); color: var(--text-secondary); font-size: 0.85rem; letter-spacing: 0.14em; text-transform: uppercase;">🪶 Qiu 的小屋</p>
-      <h1 style="margin: 0; border: none; padding: 0; font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; font-weight: 700; letter-spacing: -0.5px;">作品与探索</h1>
-      <p class="lead" style="margin: var(--space-3) 0 0; color: var(--text-secondary); font-size: 1.05rem;">这里放着我做过的、正在做的和计划中的探索项目。</p>
+      <p class="eyebrow">🪶 Qiu 的小屋</p>
+      <h1>作品与探索</h1>
+      <p class="lead">这里放着我做过的、正在做的和计划中的探索项目。</p>
     </div>
     <nav>
-      <a href="index.html" style="display: inline-flex; align-items: center; gap: 0.35rem; color: var(--accent); text-decoration: none; white-space: nowrap; font-size: 0.95rem; font-weight: 500;">← 回首页</a>
+      <a href="index.html" class="back-link">← 回首页</a>
     </nav>
   </header>
 
   <!-- 一个项目 = 一个 .project 块。复制粘贴这块就能加新项目 -->
-  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
-    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📝 博客</h2>
-    <div style="margin-bottom: var(--space-3);">
+  <div class="project project--padded">
+    <h2 class="project-heading">📝 博客</h2>
+    <div class="project-tags">
       <span class="tag">阅读</span>
       <span class="tag">更新中</span>
     </div>
-    <p style="margin: 0 0 var(--space-3); color: var(--text-secondary); font-size: 0.95rem;">技术实践、学习随笔和一些个人思考，按时间倒序整理。</p>
-    <p style="margin: 0; font-size: 0.95rem;">🔗 <a href="blog/index.html" style="text-decoration: none; font-weight: 500;">前往博客首页</a></p>
+    <p class="project-desc">技术实践、学习随笔和一些个人思考，按时间倒序整理。</p>
+    <p class="project-link">🔗 <a href="blog/index.html">前往博客首页</a></p>
   </div>
 
-  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
-    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📘 GitHub Learning 计划</h2>
-    <div style="margin-bottom: var(--space-3);">
+  <div class="project project--padded">
+    <h2 class="project-heading">📘 GitHub Learning 计划</h2>
+    <div class="project-tags">
       <span class="tag">学习</span>
       <span class="tag">进行中</span>
     </div>
-    <p style="margin: 0 0 var(--space-3); color: var(--text-secondary); font-size: 0.95rem;">4 周从零搭建 GitHub 工作流，产出当前这个温馨的“Qiu 的小屋”个人网站。</p>
-    <p style="margin: 0; font-size: 0.95rem;">🔗 <a href="https://github.com/qianqiulp/qianqiulp.github.io" target="_blank" rel="noopener" style="text-decoration: none; font-weight: 500;">查看 GitHub 仓库</a></p>
+    <p class="project-desc">4 周从零搭建 GitHub 工作流，产出当前这个温馨的"Qiu 的小屋"个人网站。</p>
+    <p class="project-link">🔗 <a href="https://github.com/qianqiulp/qianqiulp.github.io" target="_blank" rel="noopener">查看 GitHub 仓库</a></p>
   </div>
 
-  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-4);">
-    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">📊 统计理论笔记</h2>
-    <div style="margin-bottom: var(--space-3);">
+  <div class="project project--padded">
+    <h2 class="project-heading">📊 统计理论笔记</h2>
+    <div class="project-tags">
       <span class="tag">学习</span>
       <span class="tag">已完成</span>
     </div>
-    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;">系统整理概率论与数理统计的核心概念与推导。</p>
+    <p class="project-desc-nomg">系统整理概率论与数理统计的核心概念与推导。</p>
   </div>
 
-  <div class="project" style="border-radius: var(--radius-md); padding: var(--space-5) var(--space-5); margin-bottom: var(--space-6);">
-    <h2 style="font-size: 1.25rem; font-weight: 600; margin-top: 0; margin-bottom: var(--space-3);">☕ 慢思与折腾</h2>
-    <div style="margin-bottom: var(--space-3);">
+  <div class="project project--padded-last">
+    <h2 class="project-heading">☕ 慢思与折腾</h2>
+    <div class="project-tags">
       <span class="tag">想法</span>
     </div>
-    <p style="margin: 0; color: var(--text-secondary); font-size: 0.95rem;">占位。有些想法正在酝酿，慢慢折腾，随心呈现。</p>
+    <p class="project-desc-nomg">占位。有些想法正在酝酿，慢慢折腾，随心呈现。</p>
   </div>
 
   <script>
