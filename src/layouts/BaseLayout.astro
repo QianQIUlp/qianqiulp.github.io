@@ -1,4 +1,5 @@
 ---
+import '../styles/global.css';
 export interface Props {
   title: string;
   description: string;
@@ -48,7 +49,6 @@ const {
   <meta property="og:image:alt" content={ogImageAlt} />
   <slot name="extraHead" />
   <title>{title}</title>
-  <link rel="stylesheet" href="/style.css?v=2" />
   <slot name="extraCss" />
 </head>
 <body class:list={[bodyClass]}>

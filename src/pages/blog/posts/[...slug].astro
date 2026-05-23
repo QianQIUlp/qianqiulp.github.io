@@ -17,6 +17,7 @@ export async function getStaticPaths() {
 
 const { post, Content, headings } = Astro.props;
 const showToc = post.id.includes('ssh') || post.id.includes('linux');
+import '../../../styles/blog.css';
 ---
 
 <BaseLayout
@@ -30,9 +31,6 @@ const showToc = post.id.includes('ssh') || post.id.includes('linux');
   ogImageAlt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
   bodyClass=""
 >
-  <slot slot="extraCss" name="extraCss">
-    <link rel="stylesheet" href="/blog/blog.css?v=2" />
-  </slot>
 
   <nav>
     <a href="/">← 回首页</a> ·&nbsp;
