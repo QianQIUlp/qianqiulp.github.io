@@ -252,3 +252,9 @@ article p > img {
     padding: 0.7rem 0.8rem;
   }
 }
+
+@media (max-width: 640px) {
+  body.page-blog-index .page {
+    padding: 24px 16px 40px;
+  }
+}

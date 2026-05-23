@@ -251,4 +251,180 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 20px 16px;
     }
   }
+
+  /* Qiu's Cabin Callout Style */
+  .callout {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    background: var(--surface-callout);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-10);
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  .callout-icon {
+    font-size: 1.35rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .callout-content {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* About Section Header */
+  .section-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0 0 var(--space-4);
+    color: var(--text);
+    letter-spacing: 0.5px;
+  }
+
+  /* Horizontal Cards Grid for 'About' */
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .cards-row .card {
+    padding: var(--space-5) var(--space-4);
+    margin-bottom: 0;
+  }
+
+  .cards-row .card h2 {
+    font-size: 1.05rem;
+    margin-top: 0;
+    margin-bottom: var(--space-2);
+  }
+
+  .cards-row .card p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  /* Recent Articles & Navigation styling adjustments */
+  .section-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: calc(var(--space-2) * -1);
+    margin-bottom: var(--space-4);
+  }
+
+  /* Blog Entrance Button Style */
+  .blog-entrance-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    background: var(--surface-elevated);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 1.05rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
+    cursor: pointer;
+  }
+
+  .blog-entrance-button:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: var(--shadow-md);
+    background: var(--surface-muted);
+    text-decoration: none;
+  }
+
+  .blog-entrance-button .arrow {
+    display: inline-block;
+    transition: transform 0.2s;
+  }
+
+  .blog-entrance-button:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  /* Utility classes & component variants */
+  .header-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: var(--space-2);
+    line-height: 1;
+  }
+
+  .section-spaced {
+    margin-top: var(--space-6);
+  }
+
+  .mb-10 { margin-bottom: var(--space-10); }
+
+  .cards-row-wide {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .card-shadow-sm { box-shadow: var(--shadow-sm); }
+
+  .card-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .card-heading {
+    font-size: 1.1rem;
+    color: var(--accent);
+    margin-top: 0;
+    margin-bottom: var(--space-2);
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  .card-description-mb {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0 0 var(--space-4);
+  }
+
+  .cta-button-sm {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    align-self: flex-start;
+    text-decoration: none;
+  }
+
+  .card-contact {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .contact-list-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .contact-list-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+  }
 </style>
