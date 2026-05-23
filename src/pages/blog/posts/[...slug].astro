@@ -64,5 +64,20 @@ const { post, Content } = Astro.props;
     {post.data.tags.map((tag: string) => (
       <meta property="article:tag" content={tag} />
     ))}
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": post.data.title,
+      "description": post.data.description,
+      "image": [
+        new URL(post.data.ogImage || '/assets/og/site.svg', Astro.site).href
+      ],
+      "datePublished": post.data.date.toISOString().slice(0, 10),
+      "author": [{
+        "@type": "Person",
+        "name": "QianQIUlp",
+        "url": "https://github.com/qianqiulp"
+      }]
+    })} />
   </Fragment>
 </BaseLayout>
