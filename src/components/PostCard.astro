@@ -1,4 +1,7 @@
 ---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
 interface Props {
   post: {
     id: string;
@@ -7,7 +10,7 @@ interface Props {
       date: Date;
       tags: string[];
       description: string;
-      ogImage?: string;
+      ogImage?: ImageMetadata;
       ogImageAlt?: string;
     };
   };
@@ -19,7 +22,7 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
 
 <a class="post-card" href={`/blog/posts/${post.id}/`}>
   {post.data.ogImage && (
-    <img
+    <Image
       src={post.data.ogImage}
       alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`}
       loading="lazy"
