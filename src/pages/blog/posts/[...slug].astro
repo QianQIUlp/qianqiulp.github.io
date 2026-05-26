@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { post, Content, headings } = Astro.props;
-const showToc = post.id.includes('ssh') || post.id.includes('linux');
+const showToc = post.id.includes('ssh') || post.id.includes('linux') || post.id.includes('llm-metacog');
 import '../../../styles/blog.css';
 ---
 
