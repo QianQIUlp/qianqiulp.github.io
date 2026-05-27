@@ -1,42 +1,95 @@
-# qianqiulp.github.io
+# 🏡 qianqiulp.github.io
 
-这是我的个人主页仓库，使用纯 HTML、CSS 和少量 JavaScript 搭建，用来展示我的个人简介、学习方向、联系方式、作品集页面和博客。
+这是一个采用 **Astro** 现代网页框架重构搭建的个人主页与博客系统。全站采用暖炭黑极简 Notion 风格设计，支持全站响应式布局与智能深浅色模式切换，用于展示个人简介、作品集、前沿技术博客及学习记录。
 
-## 项目内容
+[![Astro](https://img.shields.io/badge/Astro-v6.0-FF5D01.svg?style=flat&logo=astro&logoColor=white)](https://astro.build)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Deploy to GitHub Pages](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml)
 
-- 主页标题：qianqiulp
-- 简短自我介绍：大二计算机学生，喜欢二次元、电吉他和前沿技术
-- 学习内容：目前在学习 Git 和 GitHub 的使用
-- 主题切换：支持深浅色模式切换，并记住用户上次选择
-- 页脚链接：指向我的 GitHub 主页
-- 作品页面：新增 `projects.html`，用于展示正在做、已经完成和想做的项目
-- 博客页面：`blog/index.html` 作为博客首页，文章放在 `blog/posts/`
-- 博客资源：`assets/posts/` 存放文章封面和正文图片
+---
 
-## 技术栈
+## 🌟 核心特性
 
-- HTML
-- CSS
-- JavaScript
+- **Notion 极简美学**：全站采用温润暖炭黑背景，排版参考 Notion 设计，简洁大方。
+- **动态博客系统**：基于 Astro 6.0 Content Collections 构建，支持 Markdown 编写并自动生成 SEO Meta 头和站点地图。
+- **Notion 风格动态目录**：博客文章页支持 Notion 风格的滚动联动动态目录。
+- **智能深色模式**：自动识别系统级别深色偏好，且记住用户手动调整的深色/浅色状态，消除加载闪烁（FOUC）。
+- **组件化设计**：主页彩色卡片组件（`ColoredCards`）自适应布局，可动态拉取并展示最新的 3 篇博客文章。
+- **性能优化**：使用 Astro 原生图像优化（`astro:assets`）和极低的 CSS 与 JS 体积，秒级加载。
 
-## 本地预览
+## 🛠️ 本地开发与预览
 
-1. 直接用浏览器打开 `index.html`
-2. 或者使用任意静态服务器打开这个目录
-3. 在主页点击“去看看博客”进入 `blog/index.html`
-4. 在主页点击“看看我的作品”进入 `projects.html`
+本项目使用 Astro 构建，本地运行非常简单：
 
-## 后续计划
+### 1. 准备工作
 
-- 补充真实的联系方式
-- 增加更多个人项目展示
-- 继续完善作品集页面的项目内容和样式
-- 优化页面内容和排版细节
+确保你的本地开发环境已安装 [Node.js](https://nodejs.org/) (推荐安装 LTS 版本，如 v22+)。
 
-## 仓库结构
+### 2. 安装步骤
 
-- `index.html`：主页页面
-- `projects.html`：作品集页面
-- `blog/`：博客列表、文章模板、文章和主题切换脚本
-- `assets/`：博客封面和文章配图资源
-- `README.md`：项目说明
+1. 克隆本仓库到本地：
+   ```bash
+   git clone https://github.com/qianqiulp/qianqiulp.github.io.git
+   cd qianqiulp.github.io
+   ```
+2. 安装项目依赖：
+   ```bash
+   npm install
+   ```
+
+### 3. 开发命令
+
+- **本地预览开发服务器**：
+  ```bash
+  npm run dev
+  ```
+  启动后，在浏览器访问 `http://localhost:4321` 即可预览站点，修改文件后浏览器将实时热更新（HMR）。
+
+- **项目打包构建**：
+  ```bash
+  npm run build
+  ```
+  该命令会验证 TypeScript 和编译所有 Astro 页面，在本地生成打包后的静态文件，存放在 `dist` 目录中。
+
+- **预览打包后站点**：
+  ```bash
+  npm run preview
+  ```
+
+---
+
+## 📂 仓库结构说明
+
+```text
+qianqiulp.github.io/
+├── .github/
+│   ├── ISSUE_TEMPLATE/       # GitHub 反馈模板 (Bug, Feature)
+│   ├── PULL_REQUEST_TEMPLATE.md # GitHub PR 预填模板
+│   └── workflows/            # GitHub Actions CI 自动化部署工作流
+├── src/
+│   ├── assets/               # 博客封面及插图等静态媒体资产
+│   ├── components/           # 公共 Astro 页面组件
+│   ├── content/              # Markdown 技术博客文章源文件
+│   │   └── posts/            # 博客 markdown 文件
+│   ├── layouts/              # 站点整体页面布局架构
+│   ├── pages/                # 站点路由页面 (index.astro, projects.astro)
+│   └── styles/               # 站点全局及局部公共样式
+├── public/                   # 存放在站点的全局非编译资产 (favicon 等)
+├── astro.config.mjs          # Astro 项目配置文件
+├── CONTRIBUTING.md           # 贡献者协作指引手册
+├── CHANGELOG.md              # Keep a Changelog 标准更新历史
+├── LICENSE                   # MIT 开源许可证协议
+└── package.json              # 项目依赖及运行指令配置
+```
+
+---
+
+## 🤝 参与贡献
+
+如果你想为我提供建议、发现 Bug 或者想提交代码：
+- 请先阅读我们的 [CONTRIBUTING.md](./CONTRIBUTING.md) 以了解我们的开发准则和提交流程。
+- 欢迎通过 [Issue](../../issues) 与我沟通！
+
+## 📄 开源许可证
+
+本项目基于 [MIT](./LICENSE) 许可证开源，任何人均可自由地获取、修改和使用本仓库的代码，但须保留版权声明与免责声明。
