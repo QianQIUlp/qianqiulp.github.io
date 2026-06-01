@@ -66,7 +66,7 @@ import '../../../styles/blog.css';
     <Content />
   </article>
 
-  {showToc && (
+  {showToc && headings && headings.length > 0 && (
     <script is:inline>
       (function(){
         var links = Array.prototype.slice.call(document.querySelectorAll('[data-toc-link]'));
