@@ -1,6 +1,9 @@
 import { getCollection } from 'astro:content';
 
-const SITE_URL = 'https://qianqiulp.github.io';
+const SITE_URL = import.meta.env.SITE;
+if (!SITE_URL) {
+  throw new Error('Missing site URL. Set `site` in astro.config.mjs so sitemap URLs are absolute.');
+}
 
 function urlEntry(path: string, lastmod?: Date) {
   const loc = new URL(path, SITE_URL).href;

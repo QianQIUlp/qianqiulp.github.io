@@ -10,6 +10,7 @@ const posts = defineCollection({
     description: z.string(),
     ogImage: image().optional(),
     ogImageAlt: z.string().optional(),
+    toc: z.boolean().optional(),
     license: z.string().optional(),
   }),
 });
