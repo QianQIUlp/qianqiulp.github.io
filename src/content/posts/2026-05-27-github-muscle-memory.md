@@ -3,7 +3,7 @@ title: "从零到上线：4 周把 GitHub 变成肌肉记忆（一份小白生�
 date: 2026-05-27
 tags: [Tech, Git]
 description: "这是一篇手把手教你在 4 周内、每周 2-3 小时建立 GitHub 肌肉记忆的实操指南，包含环境准备、分支协作、自动化 Actions 与开源社区规范。"
-ogImage: ../../assets/posts/github-muscle-memory/cover.png
+ogImage: ../../assets/posts/github-muscle-memory/cover.webp
 ogImageAlt: "从零到上线：4 周把 GitHub 变成肌肉记忆文章封面图"
 license: "CC BY-NC-ND 4.0"
 ---
