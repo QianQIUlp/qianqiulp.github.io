@@ -2,6 +2,7 @@
 title: "LLM 元认知盲点：为什么我不会主动质疑自己的框架"
 date: 2026-05-26
 tags: [AI, Reflection, Tech]
+toc: true
 description: "这是一篇关于 LLM 元认知盲点的长随笔。从一次让 LLM 自我修正了七次的对话出发，往下挖了六层机制，探讨 AI 的「自我修正」到底是真质疑还是表演。"
 ogImage: ../../assets/posts/llm-metacog-blindspot/cover.jpg
 ogImageAlt: "LLM 元认知盲点文章封面图"

@@ -16,7 +16,7 @@ export async function getStaticPaths() {
 }
 
 const { post, Content, headings } = Astro.props;
-const showToc = post.id.includes('ssh') || post.id.includes('linux') || post.id.includes('llm-metacog');
+const showToc = post.data.toc === true;
 import '../../../styles/blog.css';
 ---
 
@@ -56,7 +56,7 @@ import '../../../styles/blog.css';
         <ul class="toc-list">
           {headings.map((heading) => (
             <li class={`toc-item depth-${heading.depth}`}>
-              <a href={`#${heading.slug}`}>{heading.text}</a>
+              <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
             </li>
           ))}
         </ul>
@@ -65,6 +65,55 @@ import '../../../styles/blog.css';
 
     <Content />
   </article>
+
+  {showToc && (
+    <script is:inline>
+      (function(){
+        var links = Array.prototype.slice.call(document.querySelectorAll('[data-toc-link]'));
+        if (!links.length) return;
+
+        var headings = links
+          .map(function(link){ return document.getElementById(decodeURIComponent(link.hash.slice(1))); })
+          .filter(Boolean);
+        if (!headings.length) return;
+
+        function setActive(id) {
+          links.forEach(function(link){
+            var active = decodeURIComponent(link.hash.slice(1)) === id;
+            if (active) {
+              link.setAttribute('aria-current', 'true');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
+        }
+
+        if (!('IntersectionObserver' in window)) {
+          setActive(headings[0].id);
+          return;
+        }
+
+        var visible = new Map();
+        var observer = new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            visible.set(entry.target.id, entry.isIntersecting);
+          });
+
+          var activeHeading = headings.find(function(heading){ return visible.get(heading.id); })
+            || headings.slice().reverse().find(function(heading){ return heading.getBoundingClientRect().top <= 120; })
+            || headings[0];
+
+          setActive(activeHeading.id);
+        }, {
+          rootMargin: '-20% 0px -70% 0px',
+          threshold: 0,
+        });
+
+        headings.forEach(function(heading){ observer.observe(heading); });
+        setActive(headings[0].id);
+      })();
+    </script>
+  )}
 
   <footer><a href="/blog/">← 更多文章</a></footer>
 
@@ -139,6 +188,12 @@ import '../../../styles/blog.css';
   .toc-item a:hover {
     color: var(--accent);
     border-bottom-color: var(--accent);
+  }
+
+  .toc-item a[aria-current="true"] {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    font-weight: 700;
   }
 
   /* Notion Hierarchy Indentations */
