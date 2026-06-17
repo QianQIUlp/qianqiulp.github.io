@@ -604,9 +604,7 @@ a:hover {
 
 .desk-feature {
   display: grid;
-  grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
   gap: var(--space-4);
-  align-items: start;
   color: inherit;
   text-decoration: none;
 }
@@ -617,9 +615,8 @@ a:hover {
 
 .desk-feature__media {
   width: 100%;
-  max-width: 190px;
   overflow: hidden;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   background: var(--surface-muted);
@@ -642,15 +639,16 @@ a:hover {
 
 .desk-feature__body {
   display: grid;
-  gap: var(--space-3);
+  gap: var(--space-2);
+  max-width: 680px;
 }
 
 .desk-feature h3 {
   margin: 0;
   color: var(--text);
   font-family: var(--font-serif);
-  font-size: clamp(1.18rem, 2vw, 1.62rem);
-  line-height: 1.32;
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: 1.28;
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -1255,14 +1253,9 @@ a:hover {
     padding-left: var(--space-2);
   }
 
-  .desk-feature,
   .home-ledger__row,
   .workbench-item {
     grid-template-columns: 1fr;
-  }
-
-  .desk-feature__media {
-    max-width: 280px;
   }
 
   .desk-index a {
