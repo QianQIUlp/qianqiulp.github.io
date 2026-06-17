@@ -22,45 +22,77 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
 
 <a class="post-card" href={`/blog/posts/${post.id}/`}>
   {post.data.ogImage && (
-    <Image
-      src={post.data.ogImage}
-      alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`}
-      loading="lazy"
-    />
+    <Image src={post.data.ogImage} alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`} loading="lazy" />
   )}
-  <h3>{post.data.title}</h3>
-  <p class="meta">
-    <time datetime={formattedDate}>{formattedDate}</time>
-    {post.data.tags.map((tag) => ` · ${tag}`)}
-  </p>
+  {!post.data.ogImage && <div class="post-card__fallback" aria-hidden="true">Qiu</div>}
+  <div class="post-card__body">
+    <p class="meta-line">
+      <time datetime={formattedDate}>{formattedDate}</time>
+      <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
+    </p>
+    <h2>{post.data.title}</h2>
+    <p class="post-card__description">{post.data.description}</p>
+    <ul class="tag-list" aria-label="文章标签">
+      {post.data.tags.map((tag) => (
+        <li><span class="tag-pill">{tag}</span></li>
+      ))}
+    </ul>
+  </div>
 </a>
 
 <style>
   .post-card {
-    display: block;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 100%;
+    overflow: hidden;
+    border: 1px solid var(--border);
     text-decoration: none;
     color: inherit;
     border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--surface-elevated);
+    background: var(--surface);
     box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
   }
 
   .post-card:hover {
-    transform: translateY(calc(var(--space-1) * -1));
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+    text-decoration: none;
   }
 
-  .post-card h3 {
-    margin: var(--space-4) var(--space-4) var(--space-2);
-    font-size: 1.1rem;
+  .post-card__body {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+    padding: var(--space-5);
   }
 
-  .post-card .meta {
-    margin: 0 var(--space-4) var(--space-4);
-    font-size: 0.85rem;
+  .post-card h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(1.05rem, 2vw, 1.22rem);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .post-card__description {
+    margin: 0;
     color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  .post-card__fallback {
+    display: grid;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    place-items: center;
+    background: var(--surface-muted);
+    color: var(--text-muted);
+    font-weight: 800;
   }
 </style>
 

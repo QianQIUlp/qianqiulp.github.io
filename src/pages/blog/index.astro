@@ -6,6 +6,7 @@ import '../../styles/blog.css';
 
 const posts = await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const tagCount = new Set(sortedPosts.flatMap((post) => post.data.tags)).size;
 ---
 
 <BaseLayout
@@ -18,17 +19,12 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
   ogImageAlt="Qiu 的小屋博客封面图"
   bodyClass="page-blog-index"
 >
-
-  <main class="page">
-    <header class="topbar">
-      <div>
-        <p class="eyebrow">🪶 Qiu 的小屋</p>
-        <h1>博客</h1>
-        <p class="lead">记录随想、折腾笔记与一些不想忘掉的东西。</p>
-      </div>
-      <nav>
-        <a class="back-link" href="/">← 回首页</a>
-      </nav>
+  <main class="page-shell">
+    <header class="page-hero">
+      <p class="eyebrow">Archive</p>
+      <h1 class="hero-title hero-title--compact">文章</h1>
+      <p class="hero-lead">记录随想、折腾笔记与一些不想忘掉的东西。按时间倒序排列，适合慢慢翻。</p>
+      <p class="meta-line">{sortedPosts.length} 篇文章 · {tagCount} 个主题</p>
     </header>
 
     <section class="post-grid" aria-label="文章列表">
@@ -37,73 +33,4 @@ const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.get
       ))}
     </section>
   </main>
-
 </BaseLayout>
-
-<style>
-  :global(body.page-blog-index) {
-    line-height: 1.7;
-    background: var(--bg);
-  }
-
-  .page {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 32px 20px 48px;
-  }
-
-  .topbar {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-
-  .eyebrow {
-    margin: 0 0 8px;
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  h1 {
-    margin: 0;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    line-height: 1.15;
-  }
-
-  .lead {
-    margin: 10px 0 0;
-    color: var(--text-secondary);
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--accent);
-    text-decoration: none;
-    white-space: nowrap;
-  }
-
-  .back-link:hover {
-    text-decoration: underline;
-  }
-
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-6);
-    margin-top: 16px;
-    padding: var(--space-8) 0;
-  }
-
-  @media (max-width: 640px) {
-    .page {
-      padding: 24px 16px 40px;
-    }
-  }
-</style>

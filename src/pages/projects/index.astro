@@ -1,5 +1,45 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const projects = [
+  {
+    title: 'Qiu 的小屋',
+    status: '维护中',
+    tags: ['Astro', '个人站', '写作'],
+    description: '当前这个静态站，用来整理技术实践、学习随笔和个人思考。',
+    href: '/',
+    linkLabel: '回到首页',
+  },
+  {
+    title: '博客归档',
+    status: '更新中',
+    tags: ['阅读', '笔记'],
+    description: '按时间倒序整理的文章入口，覆盖技术、AI、心理、游戏与学习路径。',
+    href: '/blog/',
+    linkLabel: '前往博客',
+  },
+  {
+    title: 'GitHub Learning 计划',
+    status: '进行中',
+    tags: ['GitHub', '工作流'],
+    description: '4 周从零搭建 GitHub 工作流，产出当前这个个人网站并沉淀协作习惯。',
+    href: 'https://github.com/qianqiulp/qianqiulp.github.io',
+    linkLabel: '查看仓库',
+    external: true,
+  },
+  {
+    title: '统计理论笔记',
+    status: '已完成',
+    tags: ['统计', '学习'],
+    description: '系统整理概率论与数理统计的核心概念与推导，作为后续学习的索引。',
+  },
+  {
+    title: '慢思与折腾',
+    status: '酝酿中',
+    tags: ['想法', '实验'],
+    description: '留给还没完全成形的想法、实验项目和之后想慢慢补上的内容。',
+  },
+];
 ---
 
 <BaseLayout
@@ -11,190 +51,46 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   ogImageAlt="Qiu 的小屋作品集封面图"
   bodyClass="page-projects"
 >
+  <main class="page-shell page-shell--narrow">
+    <header class="page-hero">
+      <p class="eyebrow">Projects</p>
+      <h1 class="hero-title hero-title--compact">作品与探索</h1>
+      <p class="hero-lead">这里放着我做过的、正在做的和计划中的探索项目。它们不一定成熟，但会尽量保持可追踪。</p>
+    </header>
 
-  <header class="topbar topbar--spaced">
-    <div>
-      <p class="eyebrow">🪶 Qiu 的小屋</p>
-      <h1>作品与探索</h1>
-      <p class="lead">这里放着我做过的、正在做的和计划中的探索项目。</p>
-    </div>
-    <nav>
-      <a href="/" class="back-link">← 回首页</a>
-    </nav>
-  </header>
+    <section class="project-list" aria-label="项目列表">
+      {projects.map((project) => {
+        const content = (
+          <>
+            <div class="project-card__top">
+              <h2>{project.title}</h2>
+              <span class="project-status">{project.status}</span>
+            </div>
+            <ul class="tag-list" aria-label={`${project.title} 标签`}>
+              {project.tags.map((tag) => (
+                <li><span class="tag-pill">{tag}</span></li>
+              ))}
+            </ul>
+            <p>{project.description}</p>
+            {project.href && <span class="surface-link">{project.linkLabel}</span>}
+          </>
+        );
 
-  <main>
-    <!-- 一个项目 = 一个 .project 块。复制粘贴这块就能加新项目 -->
-    <div class="project project--padded">
-      <h2 class="project-heading">📝 博客</h2>
-      <div class="project-tags">
-        <span class="tag">阅读</span>
-        <span class="tag">更新中</span>
-      </div>
-      <p class="project-desc">技术实践、学习随笔和一些个人思考，按时间倒序整理。</p>
-      <p class="project-link">🔗 <a href="/blog/">前往博客首页</a></p>
-    </div>
-
-    <div class="project project--padded">
-      <h2 class="project-heading">📘 GitHub Learning 计划</h2>
-      <div class="project-tags">
-        <span class="tag">学习</span>
-        <span class="tag">进行中</span>
-      </div>
-      <p class="project-desc">4 周从零搭建 GitHub 工作流，产出当前这个温馨的"Qiu 的小屋"个人网站。</p>
-      <p class="project-link">🔗 <a href="https://github.com/qianqiulp/qianqiulp.github.io" target="_blank" rel="noopener">查看 GitHub 仓库</a></p>
-    </div>
-
-    <div class="project project--padded">
-      <h2 class="project-heading">📊 统计理论笔记</h2>
-      <div class="project-tags">
-        <span class="tag">学习</span>
-        <span class="tag">已完成</span>
-      </div>
-      <p class="project-desc-nomg">系统整理概率论与数理统计的核心概念与推导。</p>
-    </div>
-
-    <div class="project project--padded-last">
-      <h2 class="project-heading">☕ 慢思与折腾</h2>
-      <div class="project-tags">
-        <span class="tag">想法</span>
-      </div>
-      <p class="project-desc-nomg">占位。有些想法正在酝酿，慢慢折腾，随心呈现。</p>
-    </div>
+        return project.href ? (
+          <a
+            class="project-card"
+            href={project.href}
+            target={project.external ? '_blank' : undefined}
+            rel={project.external ? 'noopener' : undefined}
+          >
+            {content}
+          </a>
+        ) : (
+          <article class="project-card">
+            {content}
+          </article>
+        );
+      })}
+    </section>
   </main>
-
 </BaseLayout>
-
-<style>
-  :global(.page-projects) {
-    max-width: 720px;
-    margin: 40px auto;
-    padding: var(--space-10) 20px 40px;
-    line-height: 1.7;
-    color: var(--text);
-    background: var(--bg);
-  }
-
-  h1 {
-    margin: 0;
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--accent);
-  }
-
-  .project {
-    margin: 16px 0;
-    padding: 16px 20px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
-  }
-
-  .project:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .project h2 {
-    margin-top: 0;
-  }
-
-  .tag {
-    display: inline-block;
-    margin-right: 6px;
-    padding: 2px 8px;
-    border-radius: 4px;
-    background: var(--accent-soft);
-    color: var(--accent);
-    font-size: 13px;
-  }
-
-  .topbar--spaced {
-    margin-bottom: var(--space-8);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    gap: var(--space-4);
-  }
-
-  .topbar--spaced .eyebrow {
-    margin: 0 0 var(--space-2);
-    color: var(--text-secondary);
-    font-size: 0.85rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .topbar--spaced h1 {
-    margin: 0;
-    border: none;
-    padding: 0;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    line-height: 1.15;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-
-  .topbar--spaced .lead {
-    margin: var(--space-3) 0 0;
-    color: var(--text-secondary);
-    font-size: 1.05rem;
-  }
-
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    color: var(--accent);
-    text-decoration: none;
-    white-space: nowrap;
-    font-size: 0.95rem;
-    font-weight: 500;
-  }
-
-  .back-link:hover {
-    text-decoration: underline;
-  }
-
-  .project--padded {
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-    margin-bottom: var(--space-4);
-  }
-
-  .project--padded-last {
-    border-radius: var(--radius-md);
-    padding: var(--space-5);
-    margin-bottom: var(--space-6);
-  }
-
-  .project-heading {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: var(--space-3);
-  }
-
-  .project-tags {
-    margin-bottom: var(--space-3);
-  }
-
-  .project-desc {
-    margin: 0 0 var(--space-3);
-    color: var(--text-secondary);
-    font-size: 0.95rem;
-  }
-
-  .project-desc-nomg {
-    margin: 0;
-  }
-
-  @media (max-width: 640px) {
-    :global(.page-projects) {
-      margin: 24px auto;
-      padding: 0 16px 32px;
-    }
-  }
-</style>

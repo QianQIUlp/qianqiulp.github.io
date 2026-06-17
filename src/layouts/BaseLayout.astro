@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+
 export interface Props {
   title: string;
   description: string;
@@ -52,36 +54,39 @@ const {
   <slot name="extraCss" />
 </head>
 <body class:list={[bodyClass]}>
-  <!-- 主题切换按钮 -->
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换深浅色模式" title="切换深浅色模式">🌙</button>
+  <SiteHeader />
 
-  <slot />  <!-- 页面主体内容 -->
+  <slot />
 
-  <!-- 页脚 -->
-  <footer class="footer">
-    <p>© 2026 Qiu 的小屋 &nbsp;·&nbsp;
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>© 2026 Qiu 的小屋</p>
       <a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a>
-    </p>
+    </div>
   </footer>
 
   <!-- 主题切换逻辑 -->
   <script is:inline>
     (function(){
       var btn = document.getElementById('themeToggle');
+      if (!btn) return;
       var html = document.documentElement;
-      var isDark = html.getAttribute('data-theme') === 'dark';
-      btn.textContent = isDark ? '☀️' : '🌙';
-      btn.addEventListener('click', function(){
+      function render() {
+        var isDark = html.getAttribute('data-theme') === 'dark';
+        btn.textContent = isDark ? '昼' : '夜';
+        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
+      }
+      render();
+      btn.addEventListener('click', function() {
         var dark = html.getAttribute('data-theme') === 'dark';
         if (dark) {
           html.removeAttribute('data-theme');
-          btn.textContent = '🌙';
           localStorage.setItem('theme', 'light');
         } else {
           html.setAttribute('data-theme', 'dark');
-          btn.textContent = '☀️';
           localStorage.setItem('theme', 'dark');
         }
+        render();
       });
     })();
   </script>
