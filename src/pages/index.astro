@@ -66,15 +66,17 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
 
         {featuredPost && (
           <a class="desk-feature" href={`/blog/posts/${featuredPost.id}/`}>
-            {featuredPost.data.ogImage ? (
-              <Image
-                src={featuredPost.data.ogImage}
-                alt={featuredPost.data.ogImageAlt || `《${featuredPost.data.title}》文章封面`}
-                loading="eager"
-              />
-            ) : (
-              <div class="desk-feature__fallback" aria-hidden="true">Qiu</div>
-            )}
+            <div class="desk-feature__media">
+              {featuredPost.data.ogImage ? (
+                <Image
+                  src={featuredPost.data.ogImage}
+                  alt={featuredPost.data.ogImageAlt || `《${featuredPost.data.title}》文章封面`}
+                  loading="eager"
+                />
+              ) : (
+                <div class="desk-feature__fallback" aria-hidden="true">Qiu</div>
+              )}
+            </div>
             <div class="desk-feature__body">
               <p class="meta-line">
                 <time datetime={formatDate(featuredPost.data.date)}>{formatDisplayDate(featuredPost.data.date)}</time>
