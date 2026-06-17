@@ -51,34 +51,39 @@ const projects = [
   ogImageAlt="Qiu 的小屋作品集封面图"
   bodyClass="page-projects"
 >
-  <main class="page-shell page-shell--narrow" id="main-content" tabindex="-1">
-    <header class="page-hero">
-      <p class="eyebrow">Projects</p>
-      <h1 class="hero-title hero-title--compact">作品与探索</h1>
-      <p class="hero-lead">这里放着我做过的、正在做的和计划中的探索项目。它们不一定成熟，但会尽量保持可追踪。</p>
+  <main class="page-shell workbench-shell" id="main-content" tabindex="-1">
+    <header class="page-hero workbench-hero">
+      <div>
+        <p class="eyebrow">Workbench Index</p>
+        <h1 class="hero-title hero-title--compact">作品与探索</h1>
+        <p class="hero-lead">这里放着我做过的、正在做的和计划中的探索项目。它们不一定成熟，但会尽量保持可追踪。</p>
+      </div>
+      <p class="workbench-note">低调记录状态、路径和下一步，不把个人站包装成产品发布页。</p>
     </header>
 
-    <section class="project-list" aria-label="项目列表">
+    <section class="workbench-index" aria-label="项目列表">
       {projects.map((project) => {
         const content = (
           <>
-            <div class="project-card__top">
-              <h2>{project.title}</h2>
-              <span class="project-status">{project.status}</span>
+            <div class="workbench-item__status">
+              <span>{project.status}</span>
             </div>
-            <ul class="tag-list" aria-label={`${project.title} 标签`}>
-              {project.tags.map((tag) => (
-                <li><span class="tag-pill">{tag}</span></li>
-              ))}
-            </ul>
-            <p>{project.description}</p>
-            {project.href && <span class="surface-link">{project.linkLabel}</span>}
+            <div class="workbench-item__body">
+              <h2>{project.title}</h2>
+              <p>{project.description}</p>
+              <ul class="tag-list" aria-label={`${project.title} 标签`}>
+                {project.tags.map((tag) => (
+                  <li><span class="tag-pill">{tag}</span></li>
+                ))}
+              </ul>
+            </div>
+            {project.href && <span class="workbench-item__link">{project.linkLabel}</span>}
           </>
         );
 
         return project.href ? (
           <a
-            class="project-card"
+            class="workbench-item"
             href={project.href}
             target={project.external ? '_blank' : undefined}
             rel={project.external ? 'noopener' : undefined}
@@ -86,7 +91,7 @@ const projects = [
             {content}
           </a>
         ) : (
-          <article class="project-card">
+          <article class="workbench-item">
             {content}
           </article>
         );

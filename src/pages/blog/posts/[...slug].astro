@@ -43,27 +43,31 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
     <article class="post-article">
       <header class="post-header">
-        <p class="eyebrow">Article</p>
-        <h1>{post.data.title}</h1>
-        <p class="post-description">{post.data.description}</p>
-        <div class="post-meta">
-          <time datetime={formattedDate}>{displayDate}</time>
-          <ul class="tag-list" aria-label="文章标签">
-            {post.data.tags.map((tag: string) => (
-              <li><span class="tag-pill">{tag}</span></li>
-            ))}
-          </ul>
+        <div class="post-header__copy">
+          <p class="eyebrow">Long-form folio</p>
+          <h1>{post.data.title}</h1>
+          <p class="post-description">{post.data.description}</p>
+          <div class="post-meta">
+            <time datetime={formattedDate}>{displayDate}</time>
+            <ul class="tag-list" aria-label="文章标签">
+              {post.data.tags.map((tag: string) => (
+                <li><span class="tag-pill">{tag}</span></li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </header>
 
-      {post.data.ogImage && (
-        <Image
-          class="post-cover"
-          src={post.data.ogImage}
-          alt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
-          loading="eager"
-        />
-      )}
+        {post.data.ogImage && (
+          <div class="post-header__visual">
+            <Image
+              class="post-cover"
+              src={post.data.ogImage}
+              alt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
+              loading="eager"
+            />
+          </div>
+        )}
+      </header>
 
       {showToc && headings && headings.length > 0 && (
         <nav class="toc-block" aria-label="文章目录">

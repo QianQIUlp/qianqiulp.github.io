@@ -20,14 +20,25 @@ const tagCount = new Set(sortedPosts.flatMap((post) => post.data.tags)).size;
   bodyClass="page-blog-index"
 >
   <main class="page-shell" id="main-content" tabindex="-1">
-    <header class="page-hero">
-      <p class="eyebrow">Archive</p>
-      <h1 class="hero-title hero-title--compact">文章</h1>
-      <p class="hero-lead">记录随想、折腾笔记与一些不想忘掉的东西。按时间倒序排列，适合慢慢翻。</p>
-      <p class="meta-line">{sortedPosts.length} 篇文章 · {tagCount} 个主题</p>
+    <header class="page-hero archive-hero">
+      <div>
+        <p class="eyebrow">Archive Ledger</p>
+        <h1 class="hero-title hero-title--compact">文章索引</h1>
+        <p class="hero-lead">记录随想、折腾笔记与一些不想忘掉的东西。这里按时间倒序排成阅读索引，方便慢慢翻。</p>
+      </div>
+      <dl class="archive-summary" aria-label="文章归档概览">
+        <div>
+          <dt>{sortedPosts.length}</dt>
+          <dd>篇文章</dd>
+        </div>
+        <div>
+          <dt>{tagCount}</dt>
+          <dd>个主题</dd>
+        </div>
+      </dl>
     </header>
 
-    <section class="post-grid" aria-label="文章列表">
+    <section class="post-ledger" aria-label="文章列表">
       {sortedPosts.map((post) => (
         <PostCard post={post} />
       ))}

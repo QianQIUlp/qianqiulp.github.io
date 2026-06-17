@@ -26,15 +26,15 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 ---
 
 <a class="post-card" href={`/blog/posts/${post.id}/`}>
-  {post.data.ogImage && (
-    <Image src={post.data.ogImage} alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`} loading="lazy" />
-  )}
-  {!post.data.ogImage && <div class="post-card__fallback" aria-hidden="true">Qiu</div>}
+  <time class="post-card__date" datetime={formattedDate}>{displayDate}</time>
+  <div class="post-card__cover">
+    {post.data.ogImage ? (
+      <Image src={post.data.ogImage} alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`} loading="lazy" />
+    ) : (
+      <div class="post-card__fallback" aria-hidden="true">Qiu</div>
+    )}
+  </div>
   <div class="post-card__body">
-    <p class="meta-line">
-      <time datetime={formattedDate}>{displayDate}</time>
-      <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
-    </p>
     <h2>{post.data.title}</h2>
     <p class="post-card__description">{post.data.description}</p>
     <ul class="tag-list" aria-label="文章标签">
@@ -43,35 +43,48 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       ))}
     </ul>
   </div>
+  <span class="post-card__cue" aria-hidden="true">阅读全文</span>
 </a>
 
 <style>
   .post-card {
     display: grid;
-    grid-template-rows: auto 1fr;
-    min-height: 100%;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    text-decoration: none;
+    grid-template-columns: minmax(88px, 0.18fr) minmax(128px, 180px) minmax(0, 1fr) auto;
+    gap: clamp(14px, 2.5vw, 28px);
+    align-items: center;
+    min-height: 164px;
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--border);
     color: inherit;
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    text-decoration: none;
+    transition: background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
   }
 
   .post-card:hover {
-    transform: translateY(-2px);
     border-color: var(--border-strong);
-    box-shadow: var(--shadow-md);
+    background: color-mix(in srgb, var(--surface-elevated) 68%, transparent);
     text-decoration: none;
+  }
+
+  .post-card__date {
+    color: var(--warm);
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .post-card__cover {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-muted);
   }
 
   .post-card__body {
     display: grid;
     align-content: start;
     gap: var(--space-3);
-    padding: var(--space-5);
   }
 
   .post-card h2 {
@@ -80,6 +93,10 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     font-size: clamp(1.05rem, 2vw, 1.22rem);
     line-height: 1.35;
     overflow-wrap: anywhere;
+  }
+
+  .post-card h2:hover {
+    color: var(--accent-strong);
   }
 
   .post-card__description {
@@ -93,11 +110,50 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   .post-card__fallback {
     display: grid;
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 4 / 3;
     place-items: center;
     background: var(--surface-muted);
     color: var(--text-muted);
     font-weight: 800;
+  }
+
+  .post-card__cue {
+    align-self: center;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .post-card:hover .post-card__cue {
+    color: var(--accent-strong);
+  }
+
+  @media (max-width: 760px) {
+    .post-card {
+      grid-template-columns: minmax(94px, 132px) minmax(0, 1fr);
+      gap: var(--space-4);
+      min-height: 0;
+      padding: var(--space-4) 0;
+    }
+
+    .post-card__date {
+      grid-column: 1 / -1;
+    }
+
+    .post-card__cue {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post-card {
+      grid-template-columns: 1fr;
+    }
+
+    .post-card__cover {
+      max-width: 220px;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -111,7 +167,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   .post-card img {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 4 / 3 !important;
     object-fit: cover !important;
     display: block !important;
   }
