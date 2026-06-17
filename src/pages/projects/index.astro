@@ -1,45 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-
-const projects = [
-  {
-    title: 'Qiu 的小屋',
-    status: '维护中',
-    tags: ['Astro', '个人站', '写作'],
-    description: '当前这个静态站，用来整理技术实践、学习随笔和个人思考。',
-    href: '/',
-    linkLabel: '回到首页',
-  },
-  {
-    title: '博客归档',
-    status: '更新中',
-    tags: ['阅读', '笔记'],
-    description: '按时间倒序整理的文章入口，覆盖技术、AI、心理、游戏与学习路径。',
-    href: '/blog/',
-    linkLabel: '前往博客',
-  },
-  {
-    title: 'GitHub Learning 计划',
-    status: '进行中',
-    tags: ['GitHub', '工作流'],
-    description: '4 周从零搭建 GitHub 工作流，产出当前这个个人网站并沉淀协作习惯。',
-    href: 'https://github.com/qianqiulp/qianqiulp.github.io',
-    linkLabel: '查看仓库',
-    external: true,
-  },
-  {
-    title: '统计理论笔记',
-    status: '已完成',
-    tags: ['统计', '学习'],
-    description: '系统整理概率论与数理统计的核心概念与推导，作为后续学习的索引。',
-  },
-  {
-    title: '慢思与折腾',
-    status: '酝酿中',
-    tags: ['想法', '实验'],
-    description: '留给还没完全成形的想法、实验项目和之后想慢慢补上的内容。',
-  },
-];
+import { featuredProjects, secondaryProjects } from '../../data/projects';
 ---
 
 <BaseLayout
@@ -56,13 +17,84 @@ const projects = [
       <div>
         <p class="eyebrow">Workbench Index</p>
         <h1 class="hero-title hero-title--compact">作品与探索</h1>
-        <p class="hero-lead">这里放着我做过的、正在做的和计划中的探索项目。它们不一定成熟，但会尽量保持可追踪。</p>
+        <p class="hero-lead">这里先放一个真实可追踪的工程作品，再保留一些站点、学习和笔记线索作为附录。</p>
       </div>
-      <p class="workbench-note">低调记录状态、路径和下一步，不把个人站包装成产品发布页。</p>
+      <p class="workbench-note">作品页不需要把项目包装成产品发布页，但要讲清楚它解决什么问题、怎么设计、别人可以从哪里开始看。</p>
     </header>
 
-    <section class="workbench-index" aria-label="项目列表">
-      {projects.map((project) => {
+    <section class="featured-work" aria-labelledby="featured-work-title">
+      <div class="section-heading">
+        <p class="eyebrow">Featured Work</p>
+        <h2 id="featured-work-title">真实项目</h2>
+      </div>
+
+      {featuredProjects.map((project) => (
+        <article class="featured-work__card">
+          <div class="featured-work__intro">
+            <div>
+              <p class="featured-work__meta">{project.status} · {project.type}</p>
+              <h3>{project.displayName}</h3>
+              <p class="featured-work__repo">{project.repoSlug}</p>
+            </div>
+            <div class="featured-work__links" aria-label={`${project.displayName} 链接`}>
+              {project.links.map((link) => (
+                <a
+                  href={link.href}
+                  target={link.external ? '_blank' : undefined}
+                  rel={link.external ? 'noopener noreferrer' : undefined}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="featured-work__brief">
+            <p class="featured-work__summary">{project.summary}</p>
+            <p>{project.positioning}</p>
+          </div>
+
+          <div class="featured-work__grid">
+            <section aria-label={`${project.displayName} 核心能力`}>
+              <h4>核心能力</h4>
+              <ul class="feature-list">
+                {project.highlights.map((highlight) => (
+                  <li>{highlight}</li>
+                ))}
+              </ul>
+            </section>
+
+            <aside class="featured-work__facts" aria-label={`${project.displayName} 证据与边界`}>
+              <h4>资料依据</h4>
+              <ul>
+                {project.confirmedFacts.map((fact) => (
+                  <li>{fact}</li>
+                ))}
+              </ul>
+              <h4>边界</h4>
+              <ul>
+                {project.limitations.map((limitation) => (
+                  <li>{limitation}</li>
+                ))}
+              </ul>
+            </aside>
+          </div>
+
+          <ul class="tag-list" aria-label={`${project.displayName} 技术标签`}>
+            {project.tags.map((tag) => (
+              <li><span class="tag-pill">{tag}</span></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </section>
+
+    <section class="workbench-index" aria-labelledby="secondary-work-title">
+      <div class="section-heading secondary-work-heading">
+        <p class="eyebrow">Secondary Notes</p>
+        <h2 id="secondary-work-title">站点与学习线索</h2>
+      </div>
+      {secondaryProjects.map((project) => {
         const content = (
           <>
             <div class="workbench-item__status">
@@ -86,7 +118,7 @@ const projects = [
             class="workbench-item"
             href={project.href}
             target={project.external ? '_blank' : undefined}
-            rel={project.external ? 'noopener' : undefined}
+            rel={project.external ? 'noopener noreferrer' : undefined}
           >
             {content}
           </a>

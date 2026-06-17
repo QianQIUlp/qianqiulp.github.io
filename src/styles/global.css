@@ -1048,7 +1048,7 @@ a:hover {
 }
 
 .workbench-shell {
-  width: min(100% - 32px, 980px);
+  width: min(100% - 32px, 1060px);
 }
 
 .workbench-hero {
@@ -1066,6 +1066,154 @@ a:hover {
   color: var(--text-secondary);
   font-size: 0.95rem;
   line-height: 1.75;
+}
+
+.featured-work {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.featured-work__card {
+  display: grid;
+  gap: var(--space-6);
+  padding: clamp(24px, 4vw, 40px);
+  border-top: 3px solid var(--accent);
+  border-bottom: 1px solid var(--border-strong);
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--warm-soft) 46%, transparent), transparent 58%),
+    var(--surface);
+}
+
+.featured-work__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) max-content;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.featured-work__meta,
+.featured-work__repo {
+  margin: 0;
+  color: var(--warm);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.featured-work__repo {
+  margin-top: var(--space-2);
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  overflow-wrap: anywhere;
+}
+
+.featured-work__intro h3 {
+  margin: var(--space-2) 0 0;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: 0;
+}
+
+.featured-work__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+.featured-work__links a {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--surface-elevated);
+  color: var(--accent-strong);
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.featured-work__links a:hover {
+  background: var(--warm-soft);
+  text-decoration: none;
+}
+
+.featured-work__brief {
+  display: grid;
+  gap: var(--space-3);
+  max-width: 760px;
+}
+
+.featured-work__brief p {
+  margin: 0;
+  color: var(--text-secondary);
+}
+
+.featured-work__summary {
+  color: var(--text);
+  font-size: clamp(1.1rem, 2.3vw, 1.42rem);
+  line-height: 1.65;
+}
+
+.featured-work__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 0.78fr);
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.featured-work__grid h4 {
+  margin: 0 0 var(--space-3);
+  color: var(--text);
+  font-size: 0.92rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.feature-list,
+.featured-work__facts ul {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.feature-list li,
+.featured-work__facts li {
+  position: relative;
+  padding-left: var(--space-4);
+  color: var(--text-secondary);
+}
+
+.feature-list li::before,
+.featured-work__facts li::before {
+  position: absolute;
+  top: 0.72em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+}
+
+.featured-work__facts {
+  padding: var(--space-5);
+  border-left: 3px solid color-mix(in srgb, var(--accent) 72%, transparent);
+  background: color-mix(in srgb, var(--surface-elevated) 78%, transparent);
+}
+
+.featured-work__facts h4 + ul + h4 {
+  margin-top: var(--space-5);
+}
+
+.secondary-work-heading {
+  padding-top: var(--space-2);
 }
 
 .workbench-index {
@@ -1164,6 +1312,7 @@ a:hover {
 @media (max-width: 860px) {
   .home-hero,
   .featured-grid,
+  .featured-work__grid,
   .home-split,
   .study-entrance,
   .study-corners,
@@ -1186,6 +1335,14 @@ a:hover {
 
   .desk-panel {
     min-height: 0;
+  }
+
+  .featured-work__intro {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-work__links {
+    justify-content: flex-start;
   }
 }
 
@@ -1256,6 +1413,21 @@ a:hover {
   .home-ledger__row,
   .workbench-item {
     grid-template-columns: 1fr;
+  }
+
+  .featured-work__card {
+    padding: var(--space-5) var(--space-4);
+  }
+
+  .featured-work__intro h3 {
+    font-size: clamp(1.7rem, 12vw, 2.2rem);
+    overflow-wrap: anywhere;
+  }
+
+  .featured-work__facts {
+    padding: var(--space-4);
+    border-top: 1px solid var(--border);
+    border-left: 0;
   }
 
   .desk-index a {
