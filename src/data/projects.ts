@@ -4,6 +4,21 @@ export type ProjectLink = {
   external?: boolean;
 };
 
+export type ProjectsPageCopy = {
+  heroLead: string;
+  heroNote: string;
+  infrastructure: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+  playbooks: {
+    eyebrow: string;
+    title: string;
+    description: string;
+  };
+};
+
 export type FeaturedProject = {
   displayName: string;
   repoSlug: string;
@@ -34,6 +49,21 @@ export type SecondaryProject = {
   href?: string;
   linkLabel?: string;
   external?: boolean;
+};
+
+export const projectsPageCopy: ProjectsPageCopy = {
+  heroLead: '这里记录能被打开、复现或继续维护的公开产物；未成形的学习记录只作为线索，不和作品平级。',
+  heroNote: '我更关心一个作品解决了什么问题、做过哪些设计取舍，以及别人可以从哪里开始看。',
+  infrastructure: {
+    eyebrow: 'Site / Writing Infrastructure',
+    title: '站点与写作基础',
+    description: '这些入口支撑公开写作和作品展示，本身不是独立作品。',
+  },
+  playbooks: {
+    eyebrow: 'Selected Playbooks',
+    title: '公开指南',
+    description: '这些文章更像可复用的操作指南或 playbook，是写作产物，不是工程项目。',
+  },
 };
 
 export const featuredProjects: FeaturedProject[] = [
@@ -114,25 +144,10 @@ export const secondaryProjects: SecondaryProject[] = [
     href: '/blog/',
     linkLabel: '前往博客',
   },
-  {
-    title: 'GitHub Learning 计划',
-    status: '进行中',
-    tags: ['GitHub', '工作流'],
-    description: '4 周从零搭建 GitHub 工作流，产出当前这个个人网站并沉淀协作习惯。',
-    href: 'https://github.com/qianqiulp/qianqiulp.github.io',
-    linkLabel: '查看仓库',
-    external: true,
-  },
-  {
-    title: '统计理论笔记',
-    status: '已完成',
-    tags: ['统计', '学习'],
-    description: '系统整理概率论与数理统计的核心概念与推导，作为后续学习的索引。',
-  },
-  {
-    title: '慢思与折腾',
-    status: '酝酿中',
-    tags: ['想法', '实验'],
-    description: '留给还没完全成形的想法、实验项目和之后想慢慢补上的内容。',
-  },
 ];
+
+export const selectedGuidePostIds = [
+  '2026-05-27-github-muscle-memory',
+  '2026-05-20-linux-security-setup',
+  '2026-05-20-ssh-keys',
+] as const;
