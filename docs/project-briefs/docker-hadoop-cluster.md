@@ -26,7 +26,8 @@ The portfolio copy may say that the project is positioned more toward learning, 
 
 ## Display Copy Guidance
 
-- Use `summary`, `positioning`, `highlights`, and `limitations` from `src/data/projects.ts` for page copy.
+- Use `summary`, `positioning`, `caseStudy`, `highlights`, and `limitations` from `src/data/projects.ts` for page copy.
 - Keep `confirmedFacts` concise and evidence-oriented.
+- Prefer the compact case-study structure on `/projects/`; avoid making `confirmedFacts` the main visible content.
 - Do not claim production readiness, user adoption, stars, performance benchmarks, or maturity beyond repository evidence.
 - Keep secondary site sections and learning tracks visually secondary to this real featured project.

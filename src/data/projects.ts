@@ -12,6 +12,13 @@ export type FeaturedProject = {
   repoUrl: string;
   summary: string;
   positioning: string;
+  caseStudy: {
+    problem: string;
+    design: string;
+    start: string;
+    boundary: string;
+    nextStep: string;
+  };
   confirmedFacts: string[];
   highlights: string[];
   limitations: string[];
@@ -39,6 +46,14 @@ export const featuredProjects: FeaturedProject[] = [
     summary: '面向教学、实验和本地学习的 Hadoop 3.4.1 Docker Compose 集群环境。',
     positioning:
       '用于快速理解 HDFS、YARN、MapReduce、Docker Compose 和集群排障流程；定位上更偏学习、实验和教学演示，而不是生产环境 Hadoop 平台。',
+    caseStudy: {
+      problem: '本地学习和排查 Hadoop 集群时，环境、节点角色、配置和示例任务常常分散，初学者很难快速进入 HDFS/YARN/MapReduce 调试现场。',
+      design:
+        '用 Docker Compose 组织三节点教学集群，外置 conf/ 配置，配合 .env、命名卷、共享 SSH 密钥和 helper scripts，把启动、检查、进容器和 WordCount 演示串成可复现流程。',
+      start: '从 GitHub 仓库或 README 进入，先看快速启动脚本和节点角色说明。',
+      boundary: '定位是学习、实验和教学演示工具，不声明生产环境 Hadoop 平台能力。',
+      nextStep: '继续补强文档、脚本提示和学习路径，让排障流程更适合课堂演示与自学复盘。',
+    },
     confirmedFacts: [
       '项目说明面向教学场景下快速搭建 Hadoop 3.4.1 三节点完全分布式集群。',
       '三节点角色包含 NameNode、ResourceManager、SecondaryNameNode、DataNode、NodeManager 和 JobHistoryServer。',

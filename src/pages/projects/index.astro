@@ -51,32 +51,35 @@ import { featuredProjects, secondaryProjects } from '../../data/projects';
 
           <div class="featured-work__brief">
             <p class="featured-work__summary">{project.summary}</p>
-            <p>{project.positioning}</p>
           </div>
 
-          <div class="featured-work__grid">
-            <section aria-label={`${project.displayName} 核心能力`}>
-              <h4>核心能力</h4>
-              <ul class="feature-list">
-                {project.highlights.map((highlight) => (
+          <div class="case-study">
+            <section class="case-study__main" aria-label={`${project.displayName} 案例笔记`}>
+              <p class="case-study__eyebrow">Case Study</p>
+              <p><strong>问题：</strong>{project.caseStudy.problem}</p>
+              <p><strong>设计：</strong>{project.caseStudy.design}</p>
+              <ul class="case-study__points" aria-label={`${project.displayName} 实现抓手`}>
+                {project.highlights.slice(0, 3).map((highlight) => (
                   <li>{highlight}</li>
                 ))}
               </ul>
             </section>
 
-            <aside class="featured-work__facts" aria-label={`${project.displayName} 证据与边界`}>
-              <h4>资料依据</h4>
-              <ul>
-                {project.confirmedFacts.map((fact) => (
-                  <li>{fact}</li>
-                ))}
-              </ul>
-              <h4>边界</h4>
-              <ul>
-                {project.limitations.map((limitation) => (
-                  <li>{limitation}</li>
-                ))}
-              </ul>
+            <aside class="case-study__side" aria-label={`${project.displayName} 开始与边界`}>
+              <dl>
+                <div>
+                  <dt>开始</dt>
+                  <dd>{project.caseStudy.start}</dd>
+                </div>
+                <div>
+                  <dt>边界</dt>
+                  <dd>{project.caseStudy.boundary}</dd>
+                </div>
+                <div>
+                  <dt>下一步</dt>
+                  <dd>{project.caseStudy.nextStep}</dd>
+                </div>
+              </dl>
             </aside>
           </div>
 
@@ -89,45 +92,31 @@ import { featuredProjects, secondaryProjects } from '../../data/projects';
       ))}
     </section>
 
-    <section class="workbench-index" aria-labelledby="secondary-work-title">
-      <div class="section-heading secondary-work-heading">
-        <p class="eyebrow">Secondary Notes</p>
+    <section class="supporting-traces" aria-labelledby="secondary-work-title">
+      <div class="section-heading supporting-traces__heading">
+        <p class="eyebrow">Supporting Traces</p>
         <h2 id="secondary-work-title">站点与学习线索</h2>
+        <p>这些是站点基础、学习轨迹和之后可能补上的线索，不作为独立作品展示。</p>
       </div>
-      {secondaryProjects.map((project) => {
-        const content = (
-          <>
-            <div class="workbench-item__status">
-              <span>{project.status}</span>
-            </div>
-            <div class="workbench-item__body">
-              <h2>{project.title}</h2>
-              <p>{project.description}</p>
-              <ul class="tag-list" aria-label={`${project.title} 标签`}>
-                {project.tags.map((tag) => (
-                  <li><span class="tag-pill">{tag}</span></li>
-                ))}
-              </ul>
-            </div>
-            {project.href && <span class="workbench-item__link">{project.linkLabel}</span>}
-          </>
-        );
-
-        return project.href ? (
-          <a
-            class="workbench-item"
-            href={project.href}
-            target={project.external ? '_blank' : undefined}
-            rel={project.external ? 'noopener noreferrer' : undefined}
-          >
-            {content}
-          </a>
-        ) : (
-          <article class="workbench-item">
-            {content}
-          </article>
-        );
-      })}
+      <ul class="trace-list">
+        {secondaryProjects.map((project) => (
+          <li class="trace-item">
+            <p class="trace-item__meta">{project.status} · {project.tags.join(' / ')}</p>
+            <h3>{project.title}</h3>
+            <p>{project.description}</p>
+            {project.href && (
+              <a
+                class="trace-item__link"
+                href={project.href}
+                target={project.external ? '_blank' : undefined}
+                rel={project.external ? 'noopener noreferrer' : undefined}
+              >
+                {project.linkLabel}
+              </a>
+            )}
+          </li>
+        ))}
+      </ul>
     </section>
   </main>
 </BaseLayout>
