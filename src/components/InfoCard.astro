@@ -76,4 +76,10 @@ const { title, description, color = 'default' } = Astro.props;
   .card.card-purple p {
     color: var(--card-purple-text);
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card:hover {
+      transform: none;
+    }
+  }
 </style>

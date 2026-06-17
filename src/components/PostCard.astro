@@ -18,6 +18,11 @@ interface Props {
 
 const { post } = Astro.props;
 const formattedDate = post.data.date.toISOString().slice(0, 10);
+const displayDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(post.data.date);
 ---
 
 <a class="post-card" href={`/blog/posts/${post.id}/`}>
@@ -27,7 +32,7 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
   {!post.data.ogImage && <div class="post-card__fallback" aria-hidden="true">Qiu</div>}
   <div class="post-card__body">
     <p class="meta-line">
-      <time datetime={formattedDate}>{formattedDate}</time>
+      <time datetime={formattedDate}>{displayDate}</time>
       <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
     </p>
     <h2>{post.data.title}</h2>
@@ -93,6 +98,12 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
     background: var(--surface-muted);
     color: var(--text-muted);
     font-weight: 800;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card:hover {
+      transform: none;
+    }
   }
 </style>
 

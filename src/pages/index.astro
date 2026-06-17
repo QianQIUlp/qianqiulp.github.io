@@ -11,7 +11,13 @@ const latestPosts = posts
 const featuredPost = latestPosts[0];
 const secondaryPosts = latestPosts.slice(1);
 const tagCount = new Set(posts.flatMap((post) => post.data.tags)).size;
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
 const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+const formatDisplayDate = (date: Date) => dateFormatter.format(date);
 ---
 
 <BaseLayout
@@ -24,7 +30,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
   ogImageAlt="Qiu 的小屋个人主页封面图"
   bodyClass="page-home"
 >
-  <main class="page-shell">
+  <main class="page-shell" id="main-content" tabindex="-1">
     <section class="home-hero" aria-labelledby="home-title">
       <div>
         <p class="eyebrow">Qiu 的小屋</p>
@@ -100,7 +106,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
             )}
             <div class="featured-card__body">
               <p class="meta-line">
-                <time datetime={formatDate(featuredPost.data.date)}>{formatDate(featuredPost.data.date)}</time>
+                <time datetime={formatDate(featuredPost.data.date)}>{formatDisplayDate(featuredPost.data.date)}</time>
                 <span>{featuredPost.data.tags.slice(0, 2).join(' / ')}</span>
               </p>
               <h3>{featuredPost.data.title}</h3>
@@ -113,7 +119,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           {secondaryPosts.map((post) => (
             <a class="latest-mini-card" href={`/blog/posts/${post.id}/`}>
               <p class="meta-line">
-                <time datetime={formatDate(post.data.date)}>{formatDate(post.data.date)}</time>
+                <time datetime={formatDate(post.data.date)}>{formatDisplayDate(post.data.date)}</time>
                 <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
               </p>
               <h3>{post.data.title}</h3>
