@@ -13,7 +13,7 @@ Follow the existing Astro style: ES modules, 2-space indentation, and simple com
 There is no automated test suite configured yet. Treat `npm run build` as the required validation step for every content or layout change because it verifies Astro routes, content collections, and static generation. For UI changes, also run `npm run preview` and manually check the home page, `/blog/`, `/projects/`, and any changed post route.
 
 ## Commit & Pull Request Guidelines
-Recent history uses Conventional Commits with an optional scope, for example `fix(seo): ...` or `refactor(astro): ...`. Keep that format and write concise, imperative summaries; Chinese summaries are already used in this repository and are acceptable. Pull requests should include a short description, affected routes or content paths, screenshots for visible UI changes, and any manual verification performed, especially `npm run build`.
+Recent history uses Conventional Commits with an optional scope, for example `fix(seo): ...` or `refactor(astro): ...`. Keep that format and write concise, imperative summaries; Chinese summaries are already used in this repository and are acceptable. Agents must start code changes on a dedicated non-`main` branch, make the smallest coherent commits that preserve a meaningful state, and open or update a pull request themselves after pushing. Pull requests should include a short description, affected routes or content paths, screenshots for visible UI changes, and any manual verification performed, especially `npm run build`.
 
 ## Content & Configuration Notes
 Do not commit `node_modules/`, `.astro/`, or `dist/`. Keep site-wide metadata aligned with `astro.config.mjs`, and update OG assets or canonical URLs when adding new top-level sections.
