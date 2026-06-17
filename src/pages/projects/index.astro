@@ -120,54 +120,64 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       ))}
     </section>
 
-    <section class="supporting-traces" aria-labelledby="secondary-work-title">
-      <div class="section-heading supporting-traces__heading">
-        <p class="eyebrow">{projectsPageCopy.infrastructure.eyebrow}</p>
-        <h2 id="secondary-work-title">{projectsPageCopy.infrastructure.title}</h2>
-        <p>{projectsPageCopy.infrastructure.description}</p>
+    <section class="supporting-traces editorial-section" aria-labelledby="secondary-work-title">
+      <header class="editorial-section__heading">
+        <p class="eyebrow editorial-section__rail">{projectsPageCopy.infrastructure.eyebrow}</p>
+        <div class="editorial-section__copy">
+          <h2 id="secondary-work-title">{projectsPageCopy.infrastructure.title}</h2>
+          <p>{projectsPageCopy.infrastructure.description}</p>
+        </div>
+      </header>
+      <div class="editorial-section__body">
+        <ul class="trace-list">
+          {secondaryProjects.map((project) => (
+            <li class="trace-item">
+              <div class="trace-item__body">
+                <p class="trace-item__meta">{project.status} · {project.tags.join(' / ')}</p>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+              </div>
+              {project.href && (
+                <a
+                  class="trace-item__link"
+                  href={project.href}
+                  target={project.external ? '_blank' : undefined}
+                  rel={project.external ? 'noopener noreferrer' : undefined}
+                >
+                  {project.linkLabel}
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul class="trace-list">
-        {secondaryProjects.map((project) => (
-          <li class="trace-item">
-            <p class="trace-item__meta">{project.status} · {project.tags.join(' / ')}</p>
-            <h3>{project.title}</h3>
-            <p>{project.description}</p>
-            {project.href && (
-              <a
-                class="trace-item__link"
-                href={project.href}
-                target={project.external ? '_blank' : undefined}
-                rel={project.external ? 'noopener noreferrer' : undefined}
-              >
-                {project.linkLabel}
-              </a>
-            )}
-          </li>
-        ))}
-      </ul>
     </section>
 
-    <section class="playbook-section" aria-labelledby="playbook-title">
-      <div class="section-heading playbook-section__heading">
-        <p class="eyebrow">{projectsPageCopy.playbooks.eyebrow}</p>
-        <h2 id="playbook-title">{projectsPageCopy.playbooks.title}</h2>
-        <p>{projectsPageCopy.playbooks.description}</p>
+    <section class="playbook-section editorial-section" aria-labelledby="playbook-title">
+      <header class="editorial-section__heading">
+        <p class="eyebrow editorial-section__rail">{projectsPageCopy.playbooks.eyebrow}</p>
+        <div class="editorial-section__copy">
+          <h2 id="playbook-title">{projectsPageCopy.playbooks.title}</h2>
+          <p>{projectsPageCopy.playbooks.description}</p>
+        </div>
+      </header>
+      <div class="editorial-section__body">
+        <ol class="playbook-list">
+          {selectedGuidePosts.map((post) => (
+            <li class="playbook-item">
+              <a class="playbook-item__link" href={`/blog/posts/${post.id}/`}>
+                <span class="playbook-item__body">
+                  <strong>{post.data.title}</strong>
+                  <span>{post.data.description}</span>
+                </span>
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>
+                  {displayDate.format(post.data.date)}
+                </time>
+              </a>
+            </li>
+          ))}
+        </ol>
       </div>
-      <ol class="playbook-list">
-        {selectedGuidePosts.map((post) => (
-          <li class="playbook-item">
-            <a class="playbook-item__link" href={`/blog/posts/${post.id}/`}>
-              <time datetime={post.data.date.toISOString().slice(0, 10)}>
-                {displayDate.format(post.data.date)}
-              </time>
-              <span>
-                <strong>{post.data.title}</strong>
-                <span>{post.data.description}</span>
-              </span>
-            </a>
-          </li>
-        ))}
-      </ol>
     </section>
   </main>
 </BaseLayout>
