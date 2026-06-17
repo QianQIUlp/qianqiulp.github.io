@@ -170,8 +170,37 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
         <h2 id="contact-title">联系我</h2>
         <p>如果你想交流文章、项目或学习路线，可以从这些入口找到我。</p>
         <ul class="contact-list">
-          <li>GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">github.com/qianqiulp</a></li>
-          <li>Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener noreferrer">space.bilibili.com/400485069</a></li>
+          <li>
+            <a
+              class="contact-link contact-link--github"
+              href="https://github.com/qianqiulp"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="打开 GitHub 主页（新标签页）"
+              title="打开 GitHub 主页"
+            >
+              <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.14c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.67 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38s1.95.13 2.86.38c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.13v3.17c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
+              </svg>
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="contact-link contact-link--bilibili"
+              href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="打开 Bilibili 主页（新标签页）"
+              title="打开 Bilibili 主页"
+            >
+              <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M8.25 4.15 6.32 2.22 5.08 3.46l2.2 2.2H6.05A3.55 3.55 0 0 0 2.5 9.21v7.24A3.55 3.55 0 0 0 6.05 20h11.9a3.55 3.55 0 0 0 3.55-3.55V9.21a3.55 3.55 0 0 0-3.55-3.55h-1.23l2.2-2.2-1.24-1.24-1.93 1.93-1.51 1.51H9.76L8.25 4.15Zm-2.2 3.4h11.9c.92 0 1.66.74 1.66 1.66v7.24c0 .92-.74 1.66-1.66 1.66H6.05c-.92 0-1.66-.74-1.66-1.66V9.21c0-.92.74-1.66 1.66-1.66Z" />
+                <path d="M8.25 11.1h1.9v3.35h-1.9V11.1Zm5.6 0h1.9v3.35h-1.9V11.1Z" />
+              </svg>
+              <span>Bilibili</span>
+            </a>
+          </li>
         </ul>
       </aside>
     </section>
