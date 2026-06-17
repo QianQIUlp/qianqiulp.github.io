@@ -1,12 +1,22 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import InfoCard from '../components/InfoCard.astro';
 
 const posts = await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 3);
+  .slice(0, 4);
+const featuredPost = latestPosts[0];
+const secondaryPosts = latestPosts.slice(1);
+const tagCount = new Set(posts.flatMap((post) => post.data.tags)).size;
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+});
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
+const formatDisplayDate = (date: Date) => dateFormatter.format(date);
 ---
 
 <BaseLayout
@@ -19,449 +29,151 @@ const latestPosts = posts
   ogImageAlt="Qiu 的小屋个人主页封面图"
   bodyClass="page-home"
 >
+  <main class="page-shell" id="main-content" tabindex="-1">
+    <section class="study-entrance" aria-labelledby="home-title">
+      <div class="study-intro">
+        <p class="eyebrow">Study Room / Qiu 的小屋</p>
+        <h1 class="hero-title" id="home-title">把读过、想过和折腾过的事，慢慢整理成可回看的<span class="no-break">文字</span>。</h1>
+        <p class="hero-lead">
+          我是千秋，也可以叫我 Qiu 或秋。这里主要放技术实践、阅读随笔、游戏观察和一些仍在成形的想法。
+        </p>
+        <dl class="study-shelf" aria-label="站点概览">
+          <div>
+            <dt>{posts.length}</dt>
+            <dd>篇文章</dd>
+          </div>
+          <div>
+            <dt>{tagCount}</dt>
+            <dd>个主题</dd>
+          </div>
+          <div>
+            <dt>2026</dt>
+            <dd>开始整理</dd>
+          </div>
+        </dl>
+        <div class="hero-actions">
+          <a class="button" href="/blog/">读最新文章</a>
+          <a class="button button--secondary" href="/projects/">看作品与探索</a>
+        </div>
+      </div>
 
-  <main class="container">
+      <aside class="desk-panel" aria-labelledby="desk-title">
+        <div class="desk-panel__header">
+          <p class="eyebrow">On the desk</p>
+          <h2 id="desk-title">现在摊开的文章</h2>
+          <p>首屏先放真实内容，让这间小屋从一篇正在阅读的文字开始。</p>
+        </div>
 
-    <!-- 头部 -->
-    <header class="header">
-      <span class="header-icon">🪶</span>
-      <h1>Qiu 的小屋</h1>
-    </header>
+        {featuredPost && (
+          <a class="desk-feature" href={`/blog/posts/${featuredPost.id}/`}>
+            <div class="desk-feature__media">
+              {featuredPost.data.ogImage ? (
+                <Image
+                  src={featuredPost.data.ogImage}
+                  alt={featuredPost.data.ogImageAlt || `《${featuredPost.data.title}》文章封面`}
+                  loading="eager"
+                />
+              ) : (
+                <div class="desk-feature__fallback" aria-hidden="true">Qiu</div>
+              )}
+            </div>
+            <div class="desk-feature__body">
+              <p class="meta-line">
+                <time datetime={formatDate(featuredPost.data.date)}>{formatDisplayDate(featuredPost.data.date)}</time>
+                <span>{featuredPost.data.tags.slice(0, 2).join(' / ')}</span>
+              </p>
+              <h3>{featuredPost.data.title}</h3>
+              <p>{featuredPost.data.description}</p>
+            </div>
+          </a>
+        )}
 
-    <!-- 引言框 -->
-    <div class="callout">
-      <span class="callout-icon">🪶</span>
-      <p class="callout-content">欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。</p>
-    </div>
+        <div class="desk-index" aria-label="最近文章索引">
+          {secondaryPosts.map((post) => (
+            <a href={`/blog/posts/${post.id}/`}>
+              <time datetime={formatDate(post.data.date)}>{formatDisplayDate(post.data.date)}</time>
+              <span>{post.data.title}</span>
+            </a>
+          ))}
+        </div>
+      </aside>
+    </section>
 
-    <!-- 关于这里 -->
-    <section>
-      <h2 class="section-title">关于这里</h2>
-      <div class="cards-row">
-        <InfoCard color="yellow" title="📅 不定期更新" description="写完才发，不追时间表。" />
-        <InfoCard color="green" title="🍵 慢读优先" description="写给愿意慢下来读完的人。" />
-        <InfoCard color="purple" title="🎲 主题随心" description="游戏、阅读、思考、生活。" />
+    <section class="section-block reading-principles" aria-labelledby="about-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">About</p>
+          <h2 id="about-title">关于这里</h2>
+        </div>
+        <p>更像一间安静的小书房：能放备忘录，也能放长一点的思考。</p>
+      </div>
+      <div class="principle-list">
+        <article>
+          <span>01</span>
+          <h3>不定期更新</h3>
+          <p>写完才发，不把个人站变成打卡压力。</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>慢读优先</h3>
+          <p>偏向完整上下文、可回看笔记和长期问题。</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>主题开放</h3>
+          <p>技术、AI、心理、游戏、学习路径都会出现。</p>
+        </article>
       </div>
     </section>
 
-    <!-- 最新文章 -->
-    <section class="section-spaced">
-      <h2 class="section-title">📚 最新文章</h2>
-      <p class="section-subtitle">偶尔上新 · 慢慢长长</p>
-      <div class="latest-post-list">
+    <section class="section-block home-index-section" aria-labelledby="latest-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Reading Index</p>
+          <h2 id="latest-title">最近入档</h2>
+        </div>
+        <a class="surface-link" href="/blog/">全部文章</a>
+      </div>
+
+      <div class="home-ledger">
         {latestPosts.map((post) => (
-          <a class="latest-post-card" href={`/blog/posts/${post.id}/`}>
-            <p class="latest-post-meta">
-              <time datetime={post.data.date.toISOString().slice(0, 10)}>
-                {post.data.date.toISOString().slice(0, 10)}
-              </time>
-              <span>{post.data.tags.slice(0, 2).join(' · ')}</span>
-            </p>
-            <h3>{post.data.title}</h3>
-            <p>{post.data.description}</p>
+          <a class="home-ledger__row" href={`/blog/posts/${post.id}/`}>
+            <time datetime={formatDate(post.data.date)}>{formatDisplayDate(post.data.date)}</time>
+            <div>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </div>
+            <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
           </a>
         ))}
       </div>
-      <div class="mb-10 latest-post-action">
-        <a href="/blog/" class="blog-entrance-button">
-          <span>🪶 进入小屋文章 · 慢读优先</span>
-          <span class="arrow">→</span>
+    </section>
+
+    <section class="section-block study-corners" aria-labelledby="explore-title">
+      <div class="home-workbench">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Explore</p>
+            <h2 id="explore-title">作品与探索</h2>
+          </div>
+        </div>
+        <a class="workbench-preview" href="/projects/">
+          <span>更新中</span>
+          <h3>正在整理的项目与学习路径</h3>
+          <p>包括这个 Astro 个人站、GitHub 学习计划、统计理论笔记，以及之后会慢慢补上的实验项目。</p>
+          <strong>进入作品页</strong>
         </a>
       </div>
-    </section>
 
-    <!-- 探索与作品 -->
-    <section class="section-spaced">
-      <h2 class="section-title">🚀 探索与联系</h2>
-      <div class="cards-row cards-row-wide">
-
-        <div class="card card-shadow-sm">
-          <h2 class="card-heading">📋 关于我</h2>
-          <p class="card-description">
-            我是千秋（也可以直接叫我 Qiu 或秋）。现在是大二的计算机学生，喜欢二次元、电吉他和前沿技术。这里是我的小角落，欢迎来逛。
-          </p>
-        </div>
-
-        <div class="card card-shadow-sm card-flex">
-          <div>
-            <h2 class="card-heading">🛠️ 我的作品</h2>
-            <p class="card-description-mb">
-              查看我做过的、正在做的和计划中的项目展示。
-            </p>
-          </div>
-          <a href="/projects/" class="cta-button cta-button-sm">看看作品 →</a>
-        </div>
-
-      </div>
-
-      <!-- 联系方式卡片 -->
-      <div class="card card-shadow-sm card-contact">
-        <h2 class="card-heading">📬 联系我</h2>
+      <aside class="contact-card" aria-labelledby="contact-title">
+        <p class="eyebrow">Contact</p>
+        <h2 id="contact-title">联系我</h2>
+        <p>如果你想交流文章、项目或学习路线，可以从这些入口找到我。</p>
         <ul class="contact-list">
-          <li class="contact-list-item">
-            Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener" class="contact-list-link">space.bilibili.com/400485069</a>
-          </li>
-          <li class="contact-list-item">
-            GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener" class="contact-list-link">github.com/qianqiulp</a>
-          </li>
+          <li>GitHub：<a href="https://github.com/qianqiulp" target="_blank" rel="noopener">github.com/qianqiulp</a></li>
+          <li>Bilibili：<a href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0" target="_blank" rel="noopener">space.bilibili.com/400485069</a></li>
         </ul>
-      </div>
+      </aside>
     </section>
-
   </main>
-
 </BaseLayout>
-
-<style>
-  .container {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 80px 24px 40px;
-    flex: 1;
-  }
-
-  .header {
-    text-align: center;
-    margin-bottom: 56px;
-  }
-
-  .header h1 {
-    margin: 0 0 12px;
-    font-size: 2.4rem;
-    font-weight: 700;
-    letter-spacing: 2px;
-  }
-
-  .card {
-    padding: 28px 24px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-md);
-    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
-  }
-
-  .card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
-
-  .card h2 {
-    margin-bottom: 10px;
-    color: var(--accent);
-    font-size: 1.15rem;
-    font-weight: 600;
-  }
-
-  .card p {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-  }
-
-  .cta-card {
-    text-align: center;
-  }
-
-  .cta-card h2 {
-    margin-bottom: 14px;
-  }
-
-  .cta-card p {
-    margin-bottom: 0;
-  }
-
-  .cta-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding: 12px 18px;
-    border-radius: var(--radius-pill);
-    background: var(--accent);
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    box-shadow: 0 8px 18px rgba(9, 132, 227, 0.22);
-    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), filter 0.2s var(--ease-out);
-  }
-
-  .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 22px rgba(9, 132, 227, 0.28);
-    filter: brightness(1.03);
-  }
-
-  .cta-button:focus-visible {
-    outline: 3px solid rgba(9, 132, 227, 0.28);
-    outline-offset: 3px;
-  }
-
-  .contact-list {
-    display: flex;
-    gap: var(--space-5);
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .contact-list li {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-  }
-
-  .contact-list a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-
-  .contact-list a:hover {
-    text-decoration: underline;
-  }
-
-  /* Colored cards styling moved to InfoCard.astro component */
-
-  @media (max-width: 480px) {
-    .container {
-      padding: 60px 16px 32px;
-    }
-
-    .header h1 {
-      font-size: 1.8rem;
-    }
-
-    .card {
-      padding: 20px 16px;
-    }
-  }
-
-  /* Qiu's Cabin Callout Style */
-  .callout {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-5);
-    background: var(--surface-callout);
-    border-radius: var(--radius-md);
-    border: 1px solid var(--border);
-    margin-bottom: var(--space-10);
-    color: var(--text);
-    line-height: 1.7;
-  }
-
-  .callout-icon {
-    font-size: 1.35rem;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-
-  .callout-content {
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  /* About Section Header */
-  .section-title {
-    font-size: 1.3rem;
-    font-weight: 700;
-    margin: 0 0 var(--space-4);
-    color: var(--text);
-    letter-spacing: 0.5px;
-  }
-
-  /* Horizontal Cards Grid for 'About' */
-  .cards-row {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--space-4);
-    margin-bottom: var(--space-10);
-  }
-
-  .cards-row .card {
-    padding: var(--space-5) var(--space-4);
-    margin-bottom: 0;
-  }
-
-  .cards-row .card h2 {
-    font-size: 1.05rem;
-    margin-top: 0;
-    margin-bottom: var(--space-2);
-  }
-
-  .cards-row .card p {
-    margin: 0;
-    font-size: 0.9rem;
-    line-height: 1.6;
-  }
-
-  /* Recent Articles & Navigation styling adjustments */
-  .section-subtitle {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    margin-top: calc(var(--space-2) * -1);
-    margin-bottom: var(--space-4);
-  }
-
-  /* Blog Entrance Button Style */
-  .blog-entrance-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: 16px 24px;
-    border-radius: var(--radius-md);
-    background: var(--surface-elevated);
-    border: 1px solid var(--border);
-    color: var(--accent);
-    font-weight: 600;
-    text-decoration: none;
-    font-size: 1.05rem;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out), background-color 0.2s var(--ease-out);
-    cursor: pointer;
-  }
-
-  .blog-entrance-button:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: var(--shadow-md);
-    background: var(--surface-muted);
-    text-decoration: none;
-  }
-
-  .blog-entrance-button .arrow {
-    display: inline-block;
-    transition: transform 0.2s;
-  }
-
-  .blog-entrance-button:hover .arrow {
-    transform: translateX(4px);
-  }
-
-  .latest-post-list {
-    display: grid;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-  }
-
-  .latest-post-card {
-    display: block;
-    padding: var(--space-4);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-sm);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 0.2s var(--ease-out), border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
-  }
-
-  .latest-post-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--accent);
-    box-shadow: var(--shadow-md);
-    text-decoration: none;
-  }
-
-  .latest-post-card h3 {
-    margin: var(--space-2) 0;
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.45;
-  }
-
-  .latest-post-card p {
-    margin: 0;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    line-height: 1.65;
-  }
-
-  .latest-post-card .latest-post-meta {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-    align-items: center;
-    font-size: 0.8rem;
-    color: var(--accent);
-    font-weight: 600;
-  }
-
-  .latest-post-action {
-    margin-top: var(--space-4);
-  }
-
-  /* Utility classes & component variants */
-  .header-icon {
-    font-size: 3.5rem;
-    display: block;
-    margin-bottom: var(--space-2);
-    line-height: 1;
-  }
-
-  .section-spaced {
-    margin-top: var(--space-6);
-  }
-
-  .mb-10 { margin-bottom: var(--space-10); }
-
-  .cards-row-wide {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--space-4);
-  }
-
-  .card-shadow-sm { box-shadow: var(--shadow-sm); }
-
-  .card-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .card-heading {
-    font-size: 1.1rem;
-    color: var(--accent);
-    margin-top: 0;
-    margin-bottom: var(--space-2);
-  }
-
-  .card-description {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin: 0;
-  }
-
-  .card-description-mb {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin: 0 0 var(--space-4);
-  }
-
-  .cta-button-sm {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-    align-self: flex-start;
-    text-decoration: none;
-  }
-
-  .card-contact {
-    margin-top: var(--space-4);
-    margin-bottom: var(--space-10);
-  }
-
-  .contact-list-item {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-  }
-
-  .contact-list-link {
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 500;
-  }
-</style>

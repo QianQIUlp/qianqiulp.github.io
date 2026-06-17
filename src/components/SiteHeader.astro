@@ -1,0 +1,42 @@
+---
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: '/', label: '首页', active: currentPath === '/' },
+  { href: '/blog/', label: '文章', active: currentPath === '/blog' || currentPath === '/blog/' || currentPath.startsWith('/blog/') },
+  { href: '/projects/', label: '作品', active: currentPath === '/projects' || currentPath === '/projects/' || currentPath.startsWith('/projects/') },
+];
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-brand" href="/" aria-label="Qiu 的小屋首页">
+      <span class="site-brand__mark" aria-hidden="true">Q</span>
+      <span class="site-brand__text">
+        <span class="site-brand__title">Qiu 的小屋</span>
+        <span class="site-brand__subtitle">慢读与折腾记录</span>
+      </span>
+    </a>
+
+    <nav class="site-nav" aria-label="主导航">
+      {navItems.map((item) => (
+        <a
+          class="site-nav__link"
+          href={item.href}
+          aria-current={item.active ? 'page' : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      type="button"
+      aria-label="切换深浅色模式"
+      title="切换深浅色模式"
+    >
+      夜
+    </button>
+  </div>
+</header>

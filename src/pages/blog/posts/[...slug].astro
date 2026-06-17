@@ -1,6 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import '../../../styles/blog.css';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -17,7 +19,12 @@ export async function getStaticPaths() {
 
 const { post, Content, headings } = Astro.props;
 const showToc = post.data.toc === true;
-import '../../../styles/blog.css';
+const formattedDate = post.data.date.toISOString().slice(0, 10);
+const displayDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(post.data.date);
 ---
 
 <BaseLayout
@@ -29,42 +36,64 @@ import '../../../styles/blog.css';
   ogUrl={`https://qianqiulp.github.io/blog/posts/${post.id}/`}
   ogImage={post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg'}
   ogImageAlt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
-  bodyClass=""
+  bodyClass="page-post"
 >
+  <main class="page-shell page-shell--reading article-shell" id="main-content" tabindex="-1">
+    <a class="article-back" href="/blog/">返回文章列表</a>
 
-  <nav>
-    <a href="/">← 回首页</a> ·&nbsp;
-    <a href="/blog/">博客</a>
-  </nav>
+    <article class="post-article">
+      <header class="post-header">
+        <div class="post-header__copy">
+          <p class="eyebrow">Long-form folio</p>
+          <h1>{post.data.title}</h1>
+          <p class="post-description">{post.data.description}</p>
+          <div class="post-meta">
+            <time datetime={formattedDate}>{displayDate}</time>
+            <ul class="tag-list" aria-label="文章标签">
+              {post.data.tags.map((tag: string) => (
+                <li><span class="tag-pill">{tag}</span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-  <article>
-    <header>
-      <h1>{post.data.title}</h1>
-      <p class="meta">
-        <time datetime={post.data.date.toISOString().slice(0, 10)}>
-          {post.data.date.toISOString().slice(0, 10)}
-        </time>
-        {post.data.tags.map((tag: string) => (
-          <Fragment> · <span class="tag">{tag}</span></Fragment>
-        ))}
-      </p>
-    </header>
+        {post.data.ogImage && (
+          <div class="post-header__visual">
+            <Image
+              class="post-cover"
+              src={post.data.ogImage}
+              alt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
+              loading="eager"
+            />
+          </div>
+        )}
+      </header>
 
-    {showToc && headings && headings.length > 0 && (
-      <div class="toc-block" aria-label="文章目录">
-        <div class="toc-header">📄 目录</div>
-        <ul class="toc-list">
-          {headings.map((heading) => (
-            <li class={`toc-item depth-${heading.depth}`}>
-              <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
-            </li>
-          ))}
-        </ul>
+      {showToc && headings && headings.length > 0 && (
+        <nav class="toc-block" aria-label="文章目录">
+          <div class="toc-header">目录</div>
+          <ul class="toc-list">
+            {headings.map((heading) => (
+              <li class={`toc-item depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+
+      <div class="post-content">
+        <Content />
       </div>
-    )}
 
-    <Content />
-  </article>
+      {post.data.license && (
+        <footer class="post-license">
+          <span>授权协议</span>
+          <p>{post.data.license}</p>
+        </footer>
+      )}
+    </article>
+  </main>
 
   {showToc && headings && headings.length > 0 && (
     <script is:inline>
@@ -115,11 +144,8 @@ import '../../../styles/blog.css';
     </script>
   )}
 
-  <footer><a href="/blog/">← 更多文章</a></footer>
-
-  <!-- extra head: article meta tags -->
   <Fragment slot="extraHead">
-    <meta property="article:published_time" content={post.data.date.toISOString().slice(0, 10)} />
+    <meta property="article:published_time" content={formattedDate} />
     <meta property="article:author" content="QianQIUlp" />
     <meta property="article:section" content={post.data.tags[0]} />
     {post.data.tags.map((tag: string) => (
@@ -133,7 +159,7 @@ import '../../../styles/blog.css';
       "image": [
         new URL(post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg', Astro.site).href
       ],
-      "datePublished": post.data.date.toISOString().slice(0, 10),
+      "datePublished": formattedDate,
       "author": [{
         "@type": "Person",
         "name": "QianQIUlp",
@@ -142,72 +168,3 @@ import '../../../styles/blog.css';
     })} />
   </Fragment>
 </BaseLayout>
-
-<style>
-  /* Notion-like Table of Contents Block */
-  .toc-block {
-    background: var(--surface-callout);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 1.25rem 1.5rem;
-    margin: 2rem 0;
-    max-width: 100%;
-  }
-
-  .toc-header {
-    font-size: 1.05rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
-    color: var(--text);
-    display: flex;
-    align-items: center;
-    gap: 0.35rem;
-  }
-
-  .toc-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .toc-item {
-    font-size: 0.95rem;
-    line-height: 1.5;
-  }
-
-  .toc-item a {
-    color: var(--text);
-    text-decoration: none;
-    border-bottom: 1px solid transparent;
-    transition: all 0.2s;
-  }
-
-  .toc-item a:hover {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  .toc-item a[aria-current="true"] {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-    font-weight: 700;
-  }
-
-  /* Notion Hierarchy Indentations */
-  .toc-item.depth-2 {
-    padding-left: 0;
-  }
-
-  .toc-item.depth-3 {
-    padding-left: 1.25rem;
-    font-size: 0.9rem;
-  }
-
-  .toc-item.depth-4 {
-    padding-left: 2.5rem;
-    font-size: 0.85rem;
-  }
-</style>

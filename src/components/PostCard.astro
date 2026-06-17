@@ -18,49 +18,148 @@ interface Props {
 
 const { post } = Astro.props;
 const formattedDate = post.data.date.toISOString().slice(0, 10);
+const displayDate = new Intl.DateTimeFormat('zh-CN', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+}).format(post.data.date);
 ---
 
 <a class="post-card" href={`/blog/posts/${post.id}/`}>
-  {post.data.ogImage && (
-    <Image
-      src={post.data.ogImage}
-      alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`}
-      loading="lazy"
-    />
-  )}
-  <h3>{post.data.title}</h3>
-  <p class="meta">
-    <time datetime={formattedDate}>{formattedDate}</time>
-    {post.data.tags.map((tag) => ` · ${tag}`)}
-  </p>
+  <time class="post-card__date" datetime={formattedDate}>{displayDate}</time>
+  <div class="post-card__cover">
+    {post.data.ogImage ? (
+      <Image src={post.data.ogImage} alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`} loading="lazy" />
+    ) : (
+      <div class="post-card__fallback" aria-hidden="true">Qiu</div>
+    )}
+  </div>
+  <div class="post-card__body">
+    <h2>{post.data.title}</h2>
+    <p class="post-card__description">{post.data.description}</p>
+    <ul class="tag-list" aria-label="文章标签">
+      {post.data.tags.map((tag) => (
+        <li><span class="tag-pill">{tag}</span></li>
+      ))}
+    </ul>
+  </div>
+  <span class="post-card__cue" aria-hidden="true">阅读全文</span>
 </a>
 
 <style>
   .post-card {
-    display: block;
-    text-decoration: none;
+    display: grid;
+    grid-template-columns: minmax(88px, 0.18fr) minmax(128px, 180px) minmax(0, 1fr) auto;
+    gap: clamp(14px, 2.5vw, 28px);
+    align-items: center;
+    min-height: 164px;
+    padding: var(--space-5) 0;
+    border-bottom: 1px solid var(--border);
     color: inherit;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+    text-decoration: none;
+    transition: background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
   }
 
   .post-card:hover {
-    transform: translateY(calc(var(--space-1) * -1));
-    box-shadow: var(--shadow-lg);
+    border-color: var(--border-strong);
+    background: color-mix(in srgb, var(--surface-elevated) 68%, transparent);
+    text-decoration: none;
   }
 
-  .post-card h3 {
-    margin: var(--space-4) var(--space-4) var(--space-2);
-    font-size: 1.1rem;
+  .post-card__date {
+    color: var(--warm);
+    font-size: 0.86rem;
+    font-weight: 800;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
-  .post-card .meta {
-    margin: 0 var(--space-4) var(--space-4);
-    font-size: 0.85rem;
+  .post-card__cover {
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-muted);
+  }
+
+  .post-card__body {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3);
+  }
+
+  .post-card h2 {
+    margin: 0;
+    color: var(--text);
+    font-size: clamp(1.05rem, 2vw, 1.22rem);
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .post-card h2:hover {
+    color: var(--accent-strong);
+  }
+
+  .post-card__description {
+    margin: 0;
     color: var(--text-secondary);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+  }
+
+  .post-card__fallback {
+    display: grid;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    place-items: center;
+    background: var(--surface-muted);
+    color: var(--text-muted);
+    font-weight: 800;
+  }
+
+  .post-card__cue {
+    align-self: center;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .post-card:hover .post-card__cue {
+    color: var(--accent-strong);
+  }
+
+  @media (max-width: 760px) {
+    .post-card {
+      grid-template-columns: minmax(94px, 132px) minmax(0, 1fr);
+      gap: var(--space-4);
+      min-height: 0;
+      padding: var(--space-4) 0;
+    }
+
+    .post-card__date {
+      grid-column: 1 / -1;
+    }
+
+    .post-card__cue {
+      display: none;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .post-card {
+      grid-template-columns: 1fr;
+    }
+
+    .post-card__cover {
+      max-width: 220px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .post-card:hover {
+      transform: none;
+    }
   }
 </style>
 
@@ -68,7 +167,7 @@ const formattedDate = post.data.date.toISOString().slice(0, 10);
   .post-card img {
     width: 100% !important;
     height: auto !important;
-    aspect-ratio: 16 / 9 !important;
+    aspect-ratio: 4 / 3 !important;
     object-fit: cover !important;
     display: block !important;
   }
