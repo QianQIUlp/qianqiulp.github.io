@@ -76,6 +76,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
   .post-card__cover {
     overflow: hidden;
+    aspect-ratio: 4 / 3;
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     background: var(--surface-muted);
@@ -164,9 +165,9 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 </style>
 
 <style is:global>
-  .post-card img {
+  .post-card__cover img {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     aspect-ratio: 4 / 3 !important;
     object-fit: cover !important;
     display: block !important;

@@ -17,3 +17,6 @@ Recent history uses Conventional Commits with an optional scope, for example `fi
 
 ## Content & Configuration Notes
 Do not commit `node_modules/`, `.astro/`, or `dist/`. Keep site-wide metadata aligned with `astro.config.mjs`, and update OG assets or canonical URLs when adding new top-level sections.
+
+## Project Copy Notes
+Before editing `/projects/` or project showcase copy, read `src/data/projects.ts` and `docs/project-briefs/docker-hadoop-cluster.md` so project names, URLs, evidence, and positioning stay consistent.
