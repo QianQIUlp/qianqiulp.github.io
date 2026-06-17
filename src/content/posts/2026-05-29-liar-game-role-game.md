@@ -34,7 +34,7 @@ license: "CC BY-NC-ND 4.0"
 
 **首发与转载**
 
-- 原文首发：[世界不是 liar game，是 role game](%E4%B8%96%E7%95%8C%E4%B8%8D%E6%98%AF%20liar%20game%EF%BC%8C%E6%98%AF%20role%20game%2036f1d0b648218009a6a8cd1766dc17cc.md)（Notion 公开页）
+- 原文首发：[世界不是 liar game，是 role game](https://app.notion.com/p/qianqiulp/liar-game-role-game-36f1d0b648218009a6a8cd1766dc17cc)（Notion 公开页）
 - 本文采用 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh) 协议发布——允许非商业整篇转载，转载请**保留作者署名**与**首发链接**，**禁止商业用途**，**禁止改编与衍生创作**。
 </aside>
 
