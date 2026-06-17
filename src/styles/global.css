@@ -506,7 +506,7 @@ a:hover {
 
 .study-entrance {
   display: grid;
-  grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+  grid-template-columns: minmax(0, 0.86fr) minmax(420px, 1.14fr);
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
   min-height: 0;
@@ -517,8 +517,19 @@ a:hover {
 .study-intro {
   display: grid;
   align-content: start;
-  gap: var(--space-5);
+  gap: var(--space-4);
   padding-top: var(--space-2);
+}
+
+.study-intro .hero-title {
+  max-width: 10.8em;
+  font-size: clamp(2rem, 4.2vw, 3.55rem);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+.no-break {
+  white-space: nowrap;
 }
 
 .study-shelf {
@@ -567,7 +578,7 @@ a:hover {
   min-height: 0;
   padding: clamp(20px, 3vw, 32px);
   border: 1px solid var(--border-strong);
-  border-left: 6px solid var(--warm);
+  border-left: 3px solid color-mix(in srgb, var(--warm) 58%, transparent);
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
   box-shadow: var(--shadow-sm);
@@ -593,8 +604,8 @@ a:hover {
 
 .desk-feature {
   display: grid;
-  grid-template-columns: minmax(180px, 240px) minmax(0, 1fr);
-  gap: var(--space-5);
+  grid-template-columns: minmax(150px, 190px) minmax(0, 1fr);
+  gap: var(--space-4);
   align-items: start;
   color: inherit;
   text-decoration: none;
@@ -606,7 +617,7 @@ a:hover {
 
 .desk-feature__media {
   width: 100%;
-  max-width: 240px;
+  max-width: 190px;
   overflow: hidden;
   aspect-ratio: 16 / 10;
   border: 1px solid var(--border);
@@ -638,9 +649,10 @@ a:hover {
   margin: 0;
   color: var(--text);
   font-family: var(--font-serif);
-  font-size: clamp(1.35rem, 3vw, 2.05rem);
-  line-height: 1.25;
-  overflow-wrap: anywhere;
+  font-size: clamp(1.18rem, 2vw, 1.62rem);
+  line-height: 1.32;
+  overflow-wrap: normal;
+  word-break: normal;
 }
 
 .desk-feature p {
