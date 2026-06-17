@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img">
+  <title>Qiu 的小屋</title>
+  <rect width="512" height="512" rx="112" fill="#f7f3ea" />
+  <rect x="30" y="30" width="452" height="452" rx="96" fill="#fffdf7" stroke="#ddd4c6" stroke-width="18" />
+  <path
+    d="M366 321c-28 41-76 67-130 67-87 0-158-70-158-156S149 76 236 76s158 70 158 156c0 31-9 61-25 85"
+    fill="none"
+    stroke="#2f5753"
+    stroke-linecap="round"
+    stroke-width="48"
+  />
+  <path d="M318 318 400 400" fill="none" stroke="#a76738" stroke-linecap="round" stroke-width="50" />
+  <path d="M318 318 400 400" fill="none" stroke="#2f5753" stroke-linecap="round" stroke-width="28" />
+</svg>
