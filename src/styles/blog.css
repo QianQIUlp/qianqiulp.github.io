@@ -215,6 +215,78 @@
   font-size: 0.86rem;
 }
 
+.post-intro {
+  width: min(100% - clamp(32px, 8vw, 96px), var(--content-reading));
+  margin: clamp(20px, 4vw, 36px) auto 0;
+}
+
+.post-intro > :first-child {
+  margin-top: 0;
+}
+
+.post-intro > :last-child {
+  margin-bottom: 0;
+}
+
+.post-intro aside {
+  margin: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  background: var(--surface-callout);
+  color: var(--text-secondary);
+}
+
+.post-intro h3 {
+  margin: 1.35rem 0 0.55rem;
+  color: var(--text);
+  font-family: var(--font-serif);
+  font-size: 1.04rem;
+  line-height: 1.45;
+}
+
+.post-intro h3:first-child {
+  margin-top: 0;
+}
+
+.post-intro p,
+.post-intro ul,
+.post-intro ol {
+  margin-top: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.post-intro p:first-child,
+.post-intro ul:first-child,
+.post-intro ol:first-child {
+  margin-top: 0;
+}
+
+.post-intro p:last-child,
+.post-intro ul:last-child,
+.post-intro ol:last-child {
+  margin-bottom: 0;
+}
+
+.post-intro ul,
+.post-intro ol {
+  padding-left: 1.35rem;
+}
+
+.post-intro li + li {
+  margin-top: 0.35rem;
+}
+
+.post-intro code {
+  padding: 0.14rem 0.38rem;
+  border-radius: var(--radius-sm);
+  background: var(--code-bg);
+  color: var(--code-text);
+  font-family: var(--font-mono);
+  font-size: 0.94em;
+}
+
 .post-content {
   width: min(100% - clamp(32px, 8vw, 96px), var(--content-reading));
   margin: 0 auto;
@@ -255,6 +327,11 @@
 .post-content h4 {
   margin: 1.6rem 0 0.7rem;
   font-size: 1.08rem;
+}
+
+.post-content h5 {
+  margin: 1.3rem 0 0.6rem;
+  font-size: 1rem;
 }
 
 .post-content p,
@@ -446,6 +523,15 @@
 
   .post-content {
     padding: var(--space-5);
+  }
+
+  .post-intro {
+    width: auto;
+    margin: var(--space-5) var(--space-5) 0;
+  }
+
+  .post-intro aside {
+    padding: var(--space-4);
   }
 
   .toc-block {
