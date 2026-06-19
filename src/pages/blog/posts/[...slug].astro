@@ -10,7 +10,7 @@ import '../../../styles/blog.css';
 
 export async function getStaticPaths() {
   const introAsideRegex = /^\s*(<aside>[\s\S]*?<\/aside>)([\s\S]*)$/;
-  const introMarkerRegex = /\*\*关于这篇文章\*\*/;
+  const introMarkerRegex = /(?:\*\*关于这篇文章\*\*|#{1,6}\s+关于这篇文章(?:\r?\n|$)|<h[1-6][^>]*>\s*关于这篇文章\s*<\/h[1-6]>)/;
   const markdownRenderer = await createMarkdownProcessor();
 
   function getPostFileURL(post) {
@@ -92,6 +92,7 @@ export async function getStaticPaths() {
 
 const { post, Content, headings, IntroContent } = Astro.props;
 const showToc = post.data.toc === true;
+const tocHeadings = (headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 4);
 const formattedDate = post.data.date.toISOString().slice(0, 10);
 const displayDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -144,13 +145,17 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
         </div>
       </header>
 
-      {IntroContent && <IntroContent />}
+      {IntroContent && (
+        <div class="post-intro">
+          <IntroContent />
+        </div>
+      )}
 
-      {showToc && headings && headings.length > 0 && (
+      {showToc && tocHeadings.length > 0 && (
         <nav class="toc-block" aria-label="文章目录">
           <div class="toc-header">目录</div>
           <ul class="toc-list">
-            {headings.map((heading) => (
+            {tocHeadings.map((heading) => (
               <li class={`toc-item depth-${heading.depth}`}>
                 <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
               </li>
@@ -172,7 +177,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     </article>
   </main>
 
-  {showToc && headings && headings.length > 0 && (
+  {showToc && tocHeadings.length > 0 && (
     <script is:inline>
       (function(){
         var links = Array.prototype.slice.call(document.querySelectorAll('[data-toc-link]'));
