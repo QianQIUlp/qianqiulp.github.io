@@ -2,12 +2,14 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { featuredProjects } from '../data/projects';
 
 const posts = await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 4);
 const featuredPost = latestPosts[0];
+const featuredProject = featuredProjects.find((project) => project.repoSlug === 'Crewlight');
 const secondaryPosts = latestPosts.slice(1);
 const tagCount = new Set(posts.flatMap((post) => post.data.tags)).size;
 const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
@@ -55,13 +57,28 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
           <a class="button" href="/blog/">读最新文章</a>
           <a class="button button--secondary" href="/projects/">看作品与探索</a>
         </div>
+
+        {featuredProject && (
+          <a class="study-project-feature" href="/projects/" aria-labelledby="study-project-title">
+            <div class="study-project-feature__header">
+              <p class="eyebrow">From the workbench</p>
+              <span>{featuredProject.status}</span>
+            </div>
+            <div class="study-project-feature__body">
+              <p>{featuredProject.displayName} · {featuredProject.type}</p>
+              <h2 id="study-project-title">桌边新亮起一盏小灯</h2>
+              <p>Crewlight 把几个 coding agents 的忙碌、等待与停顿收在本地，留下一眼就能读懂的动静。</p>
+            </div>
+            <strong>翻看这个作品</strong>
+          </a>
+        )}
       </div>
 
       <aside class="desk-panel" aria-labelledby="desk-title">
         <div class="desk-panel__header">
           <p class="eyebrow">On the desk</p>
           <h2 id="desk-title">现在摊开的文章</h2>
-          <p>首屏先放真实内容，让这间小屋从一篇正在阅读的文字开始。</p>
+          <p>桌上总留着一页新近读写的文字，推门进来，便从这里接着往下翻。</p>
         </div>
 
         {featuredPost && (
@@ -111,17 +128,17 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
         <article>
           <span>01</span>
           <h3>不定期更新</h3>
-          <p>写完才发，不把个人站变成打卡压力。</p>
+          <p>有话可写时才添一页，让更新跟着思绪落定，不追赶日历。</p>
         </article>
         <article>
           <span>02</span>
           <h3>慢读优先</h3>
-          <p>偏向完整上下文、可回看笔记和长期问题。</p>
+          <p>愿意把来龙去脉写完整，也给旧笔记留一条随时折返的路。</p>
         </article>
         <article>
           <span>03</span>
           <h3>主题开放</h3>
-          <p>技术、AI、心理、游戏、学习路径都会出现。</p>
+          <p>书架不按门类设限，技术、AI、心理、游戏与学习，都可以在这里生长。</p>
         </article>
       </div>
     </section>
@@ -158,10 +175,10 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
           </div>
         </div>
         <a class="workbench-preview" href="/projects/">
-          <span>更新中</span>
-          <h3>正在整理的项目与学习路径</h3>
-          <p>收着一个真实工程项目 Docker-Hadoop-Cluster，也放着这个站点的写作基础和几篇可复用的公开指南。</p>
-          <strong>进入作品页</strong>
+          <span>新添一页</span>
+          <h3>几件作品，沿着各自的问题慢慢长出来</h3>
+          <p>Crewlight 收拢 coding agents 的动静，Docker-Hadoop-Cluster 摊开一套可复现的学习现场；这里也留着小屋的写作基础与公开指南。</p>
+          <strong>翻看作品簿</strong>
         </a>
       </div>
 
