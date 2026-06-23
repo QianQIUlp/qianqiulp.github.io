@@ -52,8 +52,8 @@ export type SecondaryProject = {
 };
 
 export const projectsPageCopy: ProjectsPageCopy = {
-  heroLead: '这里记录能被打开、复现或继续维护的公开产物；未成形的学习记录只作为线索，不和作品平级。',
-  heroNote: '我更关心一个作品解决了什么问题、做过哪些设计取舍，以及别人可以从哪里开始看。',
+  heroLead: '这里收着那些已经长出形状、可以被打开、复现或继续接手的公开产物；尚未成形的学习，只先留下几枚路标。',
+  heroNote: '比起陈列一个名字，我更想记下它因何而生、在哪些岔路作过取舍，也替后来者留一扇可以推开的门。',
   infrastructure: {
     eyebrow: 'Site / Writing Infrastructure',
     title: '站点与写作基础',
