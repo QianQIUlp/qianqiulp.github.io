@@ -16,6 +16,7 @@ Keep the repository slug exactly as `dockder-hadoop-cluster`. Do not rename or "
 - Docker named volumes persist data, and a shared SSH key volume supports node trust.
 - The project includes helper scripts such as `up.sh`, `status.sh`, `shell.sh`, and `run-wordcount.sh`.
 - It includes a single-node pseudo-distributed mode for local learning, demos, or lower-memory environments.
+- It publishes the public image `ghcr.io/qianqiulp/hadoop-cluster-3.4.1`, which can be pulled directly instead of built locally.
 - It includes GHCR image publishing workflow details such as vulnerability scanning, image signing, SBOM, and provenance.
 
 ## Portfolio Positioning
@@ -29,5 +30,6 @@ The portfolio copy may say that the project is positioned more toward learning, 
 - Use `summary`, `positioning`, `caseStudy`, `highlights`, and `limitations` from `src/data/projects.ts` for page copy.
 - Keep `confirmedFacts` concise and evidence-oriented.
 - Prefer the compact case-study structure on `/projects/`; avoid making `confirmedFacts` the main visible content.
+- Link the `GHCR 镜像` action to `https://github.com/QianQIUlp/dockder-hadoop-cluster/pkgs/container/hadoop-cluster-3.4.1`.
 - Do not claim production readiness, user adoption, stars, performance benchmarks, or maturity beyond repository evidence.
 - Keep secondary site sections and learning tracks visually secondary to this real featured project.

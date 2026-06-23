@@ -144,7 +144,7 @@ export const featuredProjects: FeaturedProject[] = [
       problem: '本地学习和排查 Hadoop 集群时，环境、节点角色、配置和示例任务常常分散，初学者很难快速进入 HDFS/YARN/MapReduce 调试现场。',
       design:
         '用 Docker Compose 组织三节点教学集群，外置 conf/ 配置，配合 .env、命名卷、共享 SSH 密钥和 helper scripts，把启动、检查、进容器和 WordCount 演示串成可复现流程。',
-      start: '从 GitHub 仓库或 README 进入，先看快速启动脚本和节点角色说明。',
+      start: '可从 GHCR 公共镜像直接拉取体验，也可进入 GitHub README 查看快速启动脚本和节点角色说明。',
       boundary: '定位是学习、实验和教学演示工具，不声明生产环境 Hadoop 平台能力。',
       nextStep: '继续补强文档、脚本提示和学习路径，让排障流程更适合课堂演示与自学复盘。',
     },
@@ -153,7 +153,8 @@ export const featuredProjects: FeaturedProject[] = [
       '三节点角色包含 NameNode、ResourceManager、SecondaryNameNode、DataNode、NodeManager 和 JobHistoryServer。',
       '配置外置到 conf/，并使用 .env、命名卷和共享 SSH 密钥卷组织本地环境。',
       '仓库提供 up.sh、status.sh、shell.sh、run-wordcount.sh 等启动、检查和演示脚本。',
-      '项目包含 GHCR 镜像发布、漏洞扫描、镜像签名与 SBOM/Provenance 相关工作流。',
+      '项目发布公开 GHCR 镜像 ghcr.io/qianqiulp/hadoop-cluster-3.4.1，可直接拉取使用。',
+      'GHCR 发布流程包含漏洞扫描、镜像签名与 SBOM/Provenance。',
     ],
     highlights: [
       '三节点完全分布式角色设计，方便观察 HDFS、YARN 与 MapReduce 的协作关系。',
@@ -185,6 +186,11 @@ export const featuredProjects: FeaturedProject[] = [
       {
         label: 'README',
         href: 'https://github.com/QianQIUlp/dockder-hadoop-cluster#readme',
+        external: true,
+      },
+      {
+        label: 'GHCR 镜像',
+        href: 'https://github.com/QianQIUlp/dockder-hadoop-cluster/pkgs/container/hadoop-cluster-3.4.1',
         external: true,
       },
     ],
