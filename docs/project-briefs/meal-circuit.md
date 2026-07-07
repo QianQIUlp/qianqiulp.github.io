@@ -5,11 +5,11 @@
 - Display name: `MealCircuit`
 - Repository slug: `meal-circuit`
 - Repository URL: `https://github.com/QianQIUlp/meal-circuit`
-- Release used as the portfolio reference: `v0.1.0`
+- Release used as the portfolio reference: `v0.2.0`
 
 ## Current Status
 
-MealCircuit is a public, actively usable repository with a published `v0.1.0` release.
+MealCircuit is a public, actively usable repository with a published `v0.2.0` release.
 
 The README presents it as a local-first, agent-in-the-loop long-term dietary feedback workbench. Portfolio copy should keep that scope and should not infer broader product maturity, user scale, or medical authority beyond the repository evidence.
 
@@ -48,4 +48,4 @@ Do not present MealCircuit as a calorie-counter app, a fully autonomous nutritio
 
 - Repository: `https://github.com/QianQIUlp/meal-circuit`
 - README: `https://github.com/QianQIUlp/meal-circuit/blob/main/README.md`
-- v0.1.0 release: `https://github.com/QianQIUlp/meal-circuit/releases/tag/v0.1.0`
+- v0.2.0 release: `https://github.com/QianQIUlp/meal-circuit/releases/tag/v0.2.0`

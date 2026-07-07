@@ -74,21 +74,21 @@ export const featuredProjects: FeaturedProject[] = [
   {
     displayName: 'MealCircuit',
     repoSlug: 'meal-circuit',
-    status: '可用 / v0.1.0 已发布',
+    status: '可用 / v0.2.0 已发布',
     type: '本地优先饮食反馈工作台',
     repoUrl: 'https://github.com/QianQIUlp/meal-circuit',
     summary:
-      '面向长期饮食复盘的本地优先工作台，把餐食记录、状态问答、近 14 天趋势与次日菜单串成可追溯的反馈回路。',
+      '它最有意思的地方，不是帮你记每顿饭，而是把照片、状态、趋势和纠错接成一条会累积的判断链，让你慢慢看清什么真正适合自己。',
     positioning:
       '用于保存餐食照片、原材料、每日状态、食品营养库与用户更正，并把这些事实组织成可供 Agent 分析的上下文；MealCircuit 本身不调用外部模型 API，而是承担本地数据、结构校验与历史保留层。',
     homeFeature: {
       title: '把每一顿饭，接回更长的上下文',
       blurb:
-        'MealCircuit 把照片、原材料、每日状态与 14 天趋势收在本地，不急着给伪精确结论，只为下一次选择留下更稳的依据。',
+        'MealCircuit 想留下的不是一堆零散记录，而是一次次更稳、更贴近自己的饮食判断：照片、状态、趋势和纠错都会被真正带到下一次建议里。',
     },
     caseStudy: {
       problem:
-        '长期饮食复盘常被拆散在热量记录、零散照片和主观感受里，既难保留上下文，也很难把一次更正真正带回下一次判断。',
+        '多数饮食记录工具只能记下一顿吃了什么，却很难让人真正收获更好的下一次判断：照片、体感、趋势和用户纠错彼此分散，结果是每次分析都像重新猜一遍，复盘留不下能继承的经验。',
       design:
         '以本地优先工作台组织餐食照片、原材料、每日问答、营养库和用户更正；由 Web UI 与 CLI 提供录入、待办和回顾入口，再用 JSON Schema 校验 Agent 结果，并以追加历史而非静默覆盖的方式保留修正。',
       start:
@@ -96,7 +96,7 @@ export const featuredProjects: FeaturedProject[] = [
       boundary:
         'MealCircuit 自身不调用外部模型 API，也不要求 API Key；当前没有账户、默认云同步、移动端、包装 OCR 或外部营养数据库，且不构成医疗建议。',
       nextStep:
-        '当前公开仓库已提供 v0.1.0、规则、模板、CLI、测试与发布检查，可从 README、rules 和 tests 继续接手这条本地优先的饮食反馈回路。',
+        '当前公开仓库已提供 v0.2.0、规则、模板、CLI、测试与发布检查，可从 README、rules 和 tests 继续接手这条本地优先的饮食反馈回路。',
     },
     confirmedFacts: [
       'README 将 MealCircuit 定义为本地优先、Agent-in-the-loop 的长期饮食反馈工作台。',
@@ -141,8 +141,8 @@ export const featuredProjects: FeaturedProject[] = [
         external: true,
       },
       {
-        label: 'v0.1.0 Release',
-        href: 'https://github.com/QianQIUlp/meal-circuit/releases/tag/v0.1.0',
+        label: 'v0.2.0 Release',
+        href: 'https://github.com/QianQIUlp/meal-circuit/releases/tag/v0.2.0',
         external: true,
       },
     ],
