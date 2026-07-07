@@ -27,6 +27,10 @@ export type FeaturedProject = {
   repoUrl: string;
   summary: string;
   positioning: string;
+  homeFeature?: {
+    title: string;
+    blurb: string;
+  };
   caseStudy: {
     problem: string;
     design: string;
@@ -67,6 +71,82 @@ export const projectsPageCopy: ProjectsPageCopy = {
 };
 
 export const featuredProjects: FeaturedProject[] = [
+  {
+    displayName: 'MealCircuit',
+    repoSlug: 'meal-circuit',
+    status: '可用 / v0.1.0 已发布',
+    type: '本地优先饮食反馈工作台',
+    repoUrl: 'https://github.com/QianQIUlp/meal-circuit',
+    summary:
+      '面向长期饮食复盘的本地优先工作台，把餐食记录、状态问答、近 14 天趋势与次日菜单串成可追溯的反馈回路。',
+    positioning:
+      '用于保存餐食照片、原材料、每日状态、食品营养库与用户更正，并把这些事实组织成可供 Agent 分析的上下文；MealCircuit 本身不调用外部模型 API，而是承担本地数据、结构校验与历史保留层。',
+    homeFeature: {
+      title: '把每一顿饭，接回更长的上下文',
+      blurb:
+        'MealCircuit 把照片、原材料、每日状态与 14 天趋势收在本地，不急着给伪精确结论，只为下一次选择留下更稳的依据。',
+    },
+    caseStudy: {
+      problem:
+        '长期饮食复盘常被拆散在热量记录、零散照片和主观感受里，既难保留上下文，也很难把一次更正真正带回下一次判断。',
+      design:
+        '以本地优先工作台组织餐食照片、原材料、每日问答、营养库和用户更正；由 Web UI 与 CLI 提供录入、待办和回顾入口，再用 JSON Schema 校验 Agent 结果，并以追加历史而非静默覆盖的方式保留修正。',
+      start:
+        '从 GitHub README 按 `init`、`doctor` 和 `start.ps1` 启动，先填写私人 `profile.md` 与 `settings.json`，再通过本地 Web UI 和 CLI 体验记录与回顾流程。',
+      boundary:
+        'MealCircuit 自身不调用外部模型 API，也不要求 API Key；当前没有账户、默认云同步、移动端、包装 OCR 或外部营养数据库，且不构成医疗建议。',
+      nextStep:
+        '当前公开仓库已提供 v0.1.0、规则、模板、CLI、测试与发布检查，可从 README、rules 和 tests 继续接手这条本地优先的饮食反馈回路。',
+    },
+    confirmedFacts: [
+      'README 将 MealCircuit 定义为本地优先、Agent-in-the-loop 的长期饮食反馈工作台。',
+      '项目自身不调用外部模型 API，也不要求 API Key；它负责保存事实、组装上下文和校验结果。',
+      '系统把餐食照片、原材料、每日状态问答、食品营养库和用户更正串成可追溯的反馈回路。',
+      'Agent 判断会结合个人总纲、近 14 天趋势、长期记忆和当前调整，生成结构化判断与次日菜单。',
+      '所有分析结果写入前都经过 JSON Schema 级别结构校验；原始输入和既有结果不会被静默覆盖，用户更正以新历史追加。',
+      '运行数据默认保存在仓库外的本地 SQLite 私人目录，可通过环境变量覆盖目录、数据库路径和端口。',
+      'Web UI 默认只监听回环地址；`--allow-remote` 不会增加认证或 TLS，不建议暴露到公网。',
+      '当前没有用户账户、云同步、移动端、包装 OCR 或外部营养数据库；项目提供一般性记录与决策支持，不构成医疗诊断或治疗建议。',
+    ],
+    highlights: [
+      '把今日建议、今日状态、食物照片、原材料分析、食品营养库与记录记忆放进同一条本地反馈链路里。',
+      '每日状态支持逐题作答、单题草稿、跳过和版本历史，避免把缺失信息伪装成结论。',
+      'Agent 工作流通过 CLI 待办、上下文导出、schema 校验和结果提交串起来，而不是后台自动分析。',
+      '运行数据保存在源码仓库之外，默认无账户、无遥测、无默认云同步，强调数据主权。',
+      '以 JSON Schema 校验和追加式更正保护结果边界，避免静默覆盖原始输入和既有判断。',
+    ],
+    limitations: [
+      '上传只会创建待办，不会在后台自动识别照片或直接生成菜单。',
+      '当前没有账户、默认云同步、移动端、包装 OCR 或外部营养数据库。',
+    ],
+    tags: [
+      'Local-first',
+      'Agent-in-the-loop',
+      'Python 3.11+',
+      'SQLite',
+      'Web UI',
+      'CLI',
+      'JSON Schema',
+      'Nutrition Tracking',
+    ],
+    links: [
+      {
+        label: 'GitHub 仓库',
+        href: 'https://github.com/QianQIUlp/meal-circuit',
+        external: true,
+      },
+      {
+        label: 'README',
+        href: 'https://github.com/QianQIUlp/meal-circuit/blob/main/README.md',
+        external: true,
+      },
+      {
+        label: 'v0.1.0 Release',
+        href: 'https://github.com/QianQIUlp/meal-circuit/releases/tag/v0.1.0',
+        external: true,
+      },
+    ],
+  },
   {
     displayName: 'Crewlight',
     repoSlug: 'Crewlight',
