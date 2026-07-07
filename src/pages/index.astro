@@ -9,7 +9,7 @@ const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 4);
 const featuredPost = latestPosts[0];
-const featuredProject = featuredProjects.find((project) => project.repoSlug === 'Crewlight');
+const featuredProject = featuredProjects.find((project) => project.homeFeature) ?? featuredProjects[0];
 const secondaryPosts = latestPosts.slice(1);
 const tagCount = new Set(posts.flatMap((post) => post.data.tags)).size;
 const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
@@ -66,8 +66,8 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
             </div>
             <div class="study-project-feature__body">
               <p>{featuredProject.displayName} · {featuredProject.type}</p>
-              <h2 id="study-project-title">桌边新亮起一盏小灯</h2>
-              <p>Crewlight 把几个 coding agents 的忙碌、等待与停顿收在本地，留下一眼就能读懂的动静。</p>
+              <h2 id="study-project-title">{featuredProject.homeFeature?.title ?? '桌边新亮起一盏小灯'}</h2>
+              <p>{featuredProject.homeFeature?.blurb ?? featuredProject.summary}</p>
             </div>
             <strong>翻看这个作品</strong>
           </a>
@@ -177,7 +177,7 @@ const formatDisplayDate = (date: Date) => dateFormatter.format(date);
         <a class="workbench-preview" href="/projects/">
           <span>新添一页</span>
           <h3>几件作品，沿着各自的问题慢慢长出来</h3>
-          <p>Crewlight 收拢 coding agents 的动静，Docker-Hadoop-Cluster 摊开一套可复现的学习现场；这里也留着小屋的写作基础与公开指南。</p>
+          <p>MealCircuit 把餐食记录、14 天趋势与次日菜单接成回路，Crewlight 收拢 coding agents 的动静，Docker-Hadoop-Cluster 则摊开一套可复现的学习现场。</p>
           <strong>翻看作品簿</strong>
         </a>
       </div>
