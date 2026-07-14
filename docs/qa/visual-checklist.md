@@ -18,9 +18,12 @@ Always check light and dark mode for changed routes.
 ## Homepage
 
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
-- Hero title, lead copy, stats, and primary actions remain readable.
-- Featured post image keeps a stable aspect ratio and does not crop important content unexpectedly.
+- The first viewport leads with Qiu as a person rather than a product or site metric dashboard.
+- Hero title, lead copy, four identity facets, and primary actions remain readable.
+- The desk composition keeps the latest post and project slip legible without overlap; both links go to real content.
+- The featured post image keeps a stable aspect ratio and does not crop important content unexpectedly.
 - Recent article rows wrap long titles/descriptions without horizontal scroll.
+- Project ledger anchors land on the matching project dossier.
 - Contact links are visible, tappable, and open the intended destinations.
 
 ## Blog Index
@@ -34,10 +37,11 @@ Always check light and dark mode for changed routes.
 ## Article Pages
 
 - Test several posts, including long titles, TOC pages, image-heavy posts, and any post without a cover image.
-- Header image/scrim keeps title, description, date, and tags readable in both themes.
-- Fallback article header looks intentional when no cover image exists.
+- Editorial masthead keeps title, description, date, tags, and the un-tinted real cover readable in both themes.
+- Fallback article masthead looks intentional when no cover image exists.
 - Body measure, font size, line height, headings, blockquotes, lists, tables, and code blocks are comfortable to read.
 - TOC links scroll to the correct headings and headings are not hidden behind the sticky header.
+- On wide screens, TOC remains usable as a sticky left rail; at tablet/mobile widths it returns to normal document flow after the intro.
 - Inline images have useful alt text, preserve aspect ratio, and do not cause visible layout jumps.
 - Long code blocks and tables scroll inside their own containers instead of causing page-level horizontal scroll.
 - License and source links are present and readable when configured.
@@ -45,7 +49,7 @@ Always check light and dark mode for changed routes.
 ## Projects Page
 
 - Hero copy and note remain balanced at desktop, 768px, and 375px.
-- Featured project cards keep title, repo slug, links, summary, case study, and tags readable.
+- Featured project dossiers keep ordinal, title, repo slug, links, summary, case study, boundaries, and tags readable.
 - External project links are clearly focusable and tappable.
 - Secondary traces and playbook items wrap long titles without overlap.
 - Project names, URLs, and positioning match `src/data/projects.ts` and project briefs.
@@ -56,6 +60,14 @@ Always check light and dark mode for changed routes.
 - Page background, surfaces, borders, text, links, tags, and code blocks keep adequate contrast.
 - Images and cover scrims do not make white text unreadable.
 - Native browser color scheme follows the active theme.
+- Directional paper and note shadows remain visible without turning into bright halos or crushed black blocks.
+
+## Motion And Progressive Enhancement
+
+- Below-the-fold reveal items enter once with no more than 8px movement and no more than three stagger steps.
+- Hero copy and article body are readable immediately and never wait for scroll animation.
+- With `prefers-reduced-motion: reduce`, reveal transitions and hover translation are disabled.
+- With JavaScript disabled, every `data-reveal` element remains visible and usable.
 
 ## Mobile Widths
 

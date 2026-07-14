@@ -61,6 +61,7 @@
 ## 🧭 维护文档
 
 - [站点维护说明](./docs/site-maintenance.md)：本地启动、新增文章、新增项目、字段边界和 Codex UI 改动前置阅读清单。
+- [人本编辑工作台设计契约](./docs/uiux/person-first-editorial-system.md)：全站人物定位、页面职责、视觉语法和真实内容边界。
 - [Visual QA Checklist](./docs/qa/visual-checklist.md)：UI 改动后的手动检查项，覆盖首页、博客、文章页、项目页、暗色模式、移动端、键盘焦点和图片稳定性。
 
 ---
