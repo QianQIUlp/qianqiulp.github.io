@@ -1,6 +1,6 @@
 # 🏡 qianqiulp.github.io
 
-这是一个采用 **Astro** 现代网页框架重构搭建的个人主页与博客系统。全站采用暖炭黑极简 Notion 风格设计，支持全站响应式布局与智能深浅色模式切换，用于展示个人简介、作品集、前沿技术博客及学习记录。
+这是千秋的个人主页与写作空间，使用 **Astro** 构建。网站以暖纸、编辑排版和克制光影组织项目、技术实践、阅读随笔、游戏观察与仍在成形的想法，并支持响应式布局和深浅色模式。
 
 [![Astro](https://img.shields.io/badge/Astro-v6.0-FF5D01.svg?style=flat&logo=astro&logoColor=white)](https://astro.build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -10,9 +10,9 @@
 
 ## 🌟 核心特性
 
-- **Notion 极简美学**：全站采用温润暖炭黑背景，排版参考 Notion 设计，简洁大方。
+- **人本编辑工作台**：以个人而非单一项目为主体，在同一套暖纸视觉语言中容纳写作、工程、学习与生活痕迹。
 - **动态博客系统**：基于 Astro 6.0 Content Collections 构建，支持 Markdown 编写并自动生成 SEO Meta 头和站点地图。
-- **Notion 风格动态目录**：博客文章页支持 Notion 风格的滚动联动动态目录。
+- **长文动态目录**：博客文章页支持滚动联动目录，并针对中文长文、代码块、表格和图片优化阅读体验。
 - **智能深色模式**：自动识别系统级别深色偏好，且记住用户手动调整的深色/浅色状态，消除加载闪烁（FOUC）。
 - **组件化设计**：主页信息卡片自适应布局，并动态拉取展示最新的 3 篇博客文章。
 - **性能优化**：使用 Astro 原生图像优化（`astro:assets`）和极低的 CSS 与 JS 体积，秒级加载。
