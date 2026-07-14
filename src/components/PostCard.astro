@@ -14,9 +14,10 @@ interface Props {
       ogImageAlt?: string;
     };
   };
+  revealOrder?: number;
 }
 
-const { post } = Astro.props;
+const { post, revealOrder = 0 } = Astro.props;
 const formattedDate = post.data.date.toISOString().slice(0, 10);
 const displayDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -25,7 +26,12 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 }).format(post.data.date);
 ---
 
-<a class="post-card" href={`/blog/posts/${post.id}/`}>
+<a
+  class="post-card"
+  href={`/blog/posts/${post.id}/`}
+  data-reveal
+  style={`--reveal-order: ${revealOrder};`}
+>
   <time class="post-card__date" datetime={formattedDate}>{displayDate}</time>
   <div class="post-card__cover">
     {post.data.ogImage ? (
@@ -52,17 +58,17 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     grid-template-columns: minmax(88px, 0.18fr) minmax(128px, 180px) minmax(0, 1fr) auto;
     gap: clamp(14px, 2.5vw, 28px);
     align-items: center;
-    min-height: 164px;
-    padding: var(--space-5) 0;
+    min-height: 172px;
+    padding: var(--space-6) 0;
     border-bottom: 1px solid var(--border);
     color: inherit;
     text-decoration: none;
-    transition: background-color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
+    transition: background-color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
   }
 
   .post-card:hover {
     border-color: var(--border-strong);
-    background: color-mix(in srgb, var(--surface-elevated) 68%, transparent);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--paper-raised) 82%, transparent), transparent);
     text-decoration: none;
   }
 
@@ -80,6 +86,12 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     border: 1px solid var(--border);
     border-radius: var(--radius-sm);
     background: var(--surface-muted);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--motion-fast) var(--ease-out);
+  }
+
+  .post-card:hover .post-card__cover {
+    box-shadow: var(--shadow-note);
   }
 
   .post-card__body {
@@ -103,7 +115,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   .post-card__description {
     margin: 0;
     color: var(--text-secondary);
-    font-size: 0.92rem;
+    font-size: 0.9rem;
     line-height: 1.7;
     overflow-wrap: anywhere;
   }
@@ -121,7 +133,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   .post-card__cue {
     align-self: center;
     color: var(--text-muted);
-    font-size: 0.82rem;
+    font-size: 0.78rem;
     font-weight: 800;
     white-space: nowrap;
   }
@@ -157,11 +169,6 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .post-card:hover {
-      transform: none;
-    }
-  }
 </style>
 
 <style is:global>

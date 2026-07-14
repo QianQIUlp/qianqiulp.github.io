@@ -39,8 +39,8 @@ const tagCount = new Set(sortedPosts.flatMap((post) => post.data.tags)).size;
     </header>
 
     <section class="post-ledger" aria-label="文章列表">
-      {sortedPosts.map((post) => (
-        <PostCard post={post} />
+      {sortedPosts.map((post, index) => (
+        <PostCard post={post} revealOrder={index % 3} />
       ))}
     </section>
   </main>
