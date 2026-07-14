@@ -375,6 +375,8 @@
 }
 
 .post-content pre {
+  max-width: 100%;
+  min-width: 0;
   padding: var(--space-5);
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -393,6 +395,8 @@
 .post-content table {
   display: block;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
   overflow-x: auto;
   border: 1px solid var(--border);
   border-collapse: collapse;
@@ -541,6 +545,11 @@
   .post-content {
     font-size: 1rem;
     line-height: 1.9;
+  }
+
+  .post-content :not(pre) > code {
+    overflow-wrap: anywhere;
+    word-break: break-word;
   }
 
   .post-content th,
