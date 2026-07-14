@@ -51,13 +51,23 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     </header>
 
     <section class="featured-work" aria-labelledby="featured-work-title">
-      <div class="section-heading">
-        <p class="eyebrow">Featured Work</p>
-        <h2 id="featured-work-title">真实项目</h2>
+      <div class="section-heading" data-reveal>
+        <div>
+          <p class="eyebrow">Featured Work</p>
+          <h2 id="featured-work-title">真实项目</h2>
+        </div>
       </div>
 
-      {featuredProjects.map((project) => (
-        <article class="featured-work__card">
+      {featuredProjects.map((project, index) => (
+        <article
+          class="featured-work__card"
+          id={`project-${index + 1}`}
+          data-reveal
+          style={`--reveal-order: ${index % 3};`}
+        >
+          <div class="project-dossier__ordinal" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </div>
           <div class="featured-work__intro">
             <div>
               <p class="featured-work__meta">{project.status} · {project.type}</p>
@@ -120,7 +130,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       ))}
     </section>
 
-    <section class="supporting-traces editorial-section" aria-labelledby="secondary-work-title">
+    <section class="supporting-traces editorial-section" aria-labelledby="secondary-work-title" data-reveal>
       <header class="editorial-section__heading">
         <p class="eyebrow editorial-section__rail">{projectsPageCopy.infrastructure.eyebrow}</p>
         <div class="editorial-section__copy">
@@ -130,8 +140,8 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       </header>
       <div class="editorial-section__body">
         <ul class="trace-list">
-          {secondaryProjects.map((project) => (
-            <li class="trace-item">
+          {secondaryProjects.map((project, index) => (
+            <li class="trace-item" data-reveal style={`--reveal-order: ${index % 3};`}>
               <div class="trace-item__body">
                 <p class="trace-item__meta">{project.status} · {project.tags.join(' / ')}</p>
                 <h3>{project.title}</h3>
@@ -153,7 +163,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       </div>
     </section>
 
-    <section class="playbook-section editorial-section" aria-labelledby="playbook-title">
+    <section class="playbook-section editorial-section" aria-labelledby="playbook-title" data-reveal>
       <header class="editorial-section__heading">
         <p class="eyebrow editorial-section__rail">{projectsPageCopy.playbooks.eyebrow}</p>
         <div class="editorial-section__copy">
@@ -163,8 +173,8 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       </header>
       <div class="editorial-section__body">
         <ol class="playbook-list">
-          {selectedGuidePosts.map((post) => (
-            <li class="playbook-item">
+          {selectedGuidePosts.map((post, index) => (
+            <li class="playbook-item" data-reveal style={`--reveal-order: ${index % 3};`}>
               <a class="playbook-item__link" href={`/blog/posts/${post.id}/`}>
                 <span class="playbook-item__body">
                   <strong>{post.data.title}</strong>
