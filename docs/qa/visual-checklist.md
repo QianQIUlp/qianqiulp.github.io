@@ -18,13 +18,13 @@ Always check light and dark mode for changed routes.
 ## Homepage
 
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
-- The first viewport leads with Qiu as a person rather than a product or site metric dashboard.
-- Hero title, lead copy, four identity facets, and primary actions remain readable.
-- The desk composition keeps the latest post and project slip legible without overlap; both links go to real content.
-- The featured post image keeps a stable aspect ratio and does not crop important content unexpectedly.
-- Recent article rows wrap long titles/descriptions without horizontal scroll.
-- Project ledger anchors land on the matching project dossier.
-- Contact links are visible, tappable, and open the intended destinations.
+- The first viewport reads as Qiu's personal rehearsal room rather than a product landing page or metrics dashboard.
+- The room, title, three hotspots, and full guitar silhouette remain legible without overlap at desktop and tablet widths.
+- The guitar keeps the approved headstock, relic body, pickup layout, stand, fret-marker sequence, and the 11–13 fret `m` marker.
+- Article and project hotspots perform one camera move before opening `/blog/` and `/projects/`; modified clicks keep native link behavior.
+- Guitar & Life focuses the guitar and reveals the life note in place; Escape and “回到房间” restore the overview.
+- At 375px the hotspots form a usable bottom dock, the title stays readable, and no page-level horizontal scroll appears.
+- With JavaScript disabled, article and project links still navigate and `#life-note` still reveals the life copy.
 
 ## Blog Index
 
@@ -64,6 +64,8 @@ Always check light and dark mode for changed routes.
 
 ## Motion And Progressive Enhancement
 
+- Homepage camera transitions complete once, do not trap scrolling, and do not delay navigation longer than the intended transition.
+- With `prefers-reduced-motion: reduce`, homepage route links navigate immediately and the life note appears without camera movement.
 - Below-the-fold reveal items enter once with no more than 8px movement and no more than three stagger steps.
 - Hero copy and article body are readable immediately and never wait for scroll animation.
 - With `prefers-reduced-motion: reduce`, reveal transitions and hover translation are disabled.
