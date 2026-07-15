@@ -19,12 +19,17 @@ Always check light and dark mode for changed routes.
 
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
 - The first viewport reads as Qiu's personal rehearsal room rather than a product landing page or metrics dashboard.
-- The room, title, three hotspots, and full guitar silhouette remain legible without overlap at desktop and tablet widths.
+- The room, title, three hotspots, and guitar identity remain legible without layout-breaking overlap at desktop, tablet, and mobile widths.
 - The guitar keeps the approved headstock, relic body, pickup layout, stand, fret-marker sequence, and the 11–13 fret `m` marker.
-- Article and project hotspots perform one camera move before opening `/blog/` and `/projects/`; modified clicks keep native link behavior.
+- Initial load keeps the room and guitar at one stable matrix; there is no large-to-small entrance animation or late proportion shift.
+- Article and project hotspots keep the visitor on `/`, update only the hash, and finish with real article/project data aligned to the physical monitor or drafting mat.
+- At an early, middle, and late transition sample, the room, curtain, guitar, focus plate, and exposure move at different rates without a hard cut or a frozen loading interval.
+- Scene rows and “all” links still navigate to the existing article and project routes normally.
 - Guitar & Life focuses the guitar and reveals the life note in place; Escape and “回到房间” restore the overview.
 - At 375px the hotspots form a usable bottom dock, the title stays readable, and no page-level horizontal scroll appears.
-- With JavaScript disabled, article and project links still navigate and `#life-note` still reveals the life copy.
+- At 768px portrait, focus content stays fully inside the viewport rather than being cropped with the 16:9 scene.
+- At a 3840 × 2160 viewport, the overview plate resolves to a 3840 × 2160 source; smaller viewports receive responsive derivatives.
+- With JavaScript disabled, `#writing-desk`, `#project-workbench`, and `#life-corner` expose their content and the return link works without script.
 
 ## Blog Index
 
@@ -64,8 +69,8 @@ Always check light and dark mode for changed routes.
 
 ## Motion And Progressive Enhancement
 
-- Homepage camera transitions complete once, do not trap scrolling, and do not delay navigation longer than the intended transition.
-- With `prefers-reduced-motion: reduce`, homepage route links navigate immediately and the life note appears without camera movement.
+- Homepage camera transitions complete once, do not trap focus, and settle into the selected in-room state in about 2.4 seconds.
+- With `prefers-reduced-motion: reduce`, the selected in-room state and its content appear immediately without camera displacement, fading, progress motion, or smooth scrolling.
 - Below-the-fold reveal items enter once with no more than 8px movement and no more than three stagger steps.
 - Hero copy and article body are readable immediately and never wait for scroll animation.
 - With `prefers-reduced-motion: reduce`, reveal transitions and hover translation are disabled.
