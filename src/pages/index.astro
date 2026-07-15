@@ -1,9 +1,26 @@
 ---
 import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import practiceRoomBackground from '../assets/home/practice-room-background.png';
-import qiuRelicGuitar from '../assets/home/qiu-relic-guitar.png';
+import { featuredProjects } from '../data/projects';
+import roomOverview from '../assets/home/practice-room-overview-4k.webp';
+import roomWriting from '../assets/home/practice-room-writing-4k.webp';
+import roomProjects from '../assets/home/practice-room-projects-4k.webp';
+import roomCurtain from '../assets/home/practice-room-curtain-4k.webp';
+import qiuRelicGuitar from '../assets/home/qiu-relic-guitar-4k.webp';
 import '../styles/home-room.css';
+
+const posts = await getCollection('posts');
+const latestPosts = posts
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+const roomProjectsList = featuredProjects.slice(0, 3);
+
+const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+  month: '2-digit',
+  day: '2-digit',
+});
+const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
 
 <BaseLayout
@@ -22,31 +39,129 @@ import '../styles/home-room.css';
     tabindex="-1"
     data-room-stage
     data-room-view="overview"
+    data-room-moving="false"
   >
-    <div class="room-camera" aria-hidden="true">
-      <div class="room-camera__world">
+    <div class="room-camera">
+      <div class="room-canvas">
+        <div class="room-world" aria-hidden="true">
+          <Image
+            class="room-scene room-scene--overview"
+            src={roomOverview}
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+          />
+        </div>
+
         <Image
-          class="room-scene"
-          src={practiceRoomBackground}
+          class="room-curtain"
+          src={roomCurtain}
           alt=""
           loading="eager"
-          fetchpriority="high"
-          widths={[768, 1280, 1536]}
-          sizes="100vw"
+          widths={[1280, 1920, 2560, 3840]}
+          sizes="max(100vw, 177.78vh)"
+          quality={94}
+          aria-hidden="true"
         />
-        <Image
-          class="room-guitar"
-          src={qiuRelicGuitar}
-          alt=""
-          loading="eager"
-          widths={[420, 640, 860]}
-          sizes="(max-width: 640px) 92vw, 46vw"
-        />
+
+        <div class="room-guitar-wrap" aria-hidden="true">
+          <span class="room-guitar-shadow"></span>
+          <Image
+            class="room-guitar"
+            src={qiuRelicGuitar}
+            alt=""
+            loading="eager"
+            widths={[640, 960, 1440, 2160]}
+            sizes="(max-width: 640px) 116vw, 44vw"
+            quality={95}
+          />
+        </div>
+
+        <section
+          class="room-focus-layer room-focus-layer--writing"
+          id="writing-desk"
+          data-room-panel="writing"
+          aria-labelledby="writing-desk-title"
+        >
+          <Image
+            class="room-focus-plate"
+            src={roomWriting}
+            alt=""
+            loading="eager"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+            aria-hidden="true"
+          />
+
+          <div class="room-monitor-surface" tabindex="-1">
+            <header class="room-surface-heading">
+              <h2 id="writing-desk-title">最近的文字</h2>
+              <a href="/blog/">全部文章</a>
+            </header>
+            <ol class="room-writing-list">
+              {latestPosts.map((post, index) => (
+                <li>
+                  <a
+                    href={`/blog/posts/${post.id}/`}
+                    data-room-autofocus={index === 0 ? '' : undefined}
+                  >
+                    <time datetime={formatDate(post.data.date)}>{dateFormatter.format(post.data.date)}</time>
+                    <span>{post.data.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section
+          class="room-focus-layer room-focus-layer--projects"
+          id="project-workbench"
+          data-room-panel="projects"
+          aria-labelledby="project-workbench-title"
+        >
+          <Image
+            class="room-focus-plate"
+            src={roomProjects}
+            alt=""
+            loading="eager"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+            aria-hidden="true"
+          />
+
+          <div class="room-workbench-surface" tabindex="-1">
+            <header class="room-surface-heading">
+              <h2 id="project-workbench-title">工程档案</h2>
+              <a href="/projects/">完整作品页</a>
+            </header>
+            <ol class="room-project-list">
+              {roomProjectsList.map((project, index) => (
+                <li>
+                  <a
+                    href={`/projects/#project-${index + 1}`}
+                    data-room-autofocus={index === 0 ? '' : undefined}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{project.displayName}</strong>
+                    <small>{project.status}</small>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <div class="room-atmosphere" aria-hidden="true"></div>
       </div>
     </div>
 
     <section class="room-intro" aria-labelledby="home-title">
-      <p class="room-intro__eyebrow">Personal room / Qiu</p>
       <h1 id="home-title">我是千秋。</h1>
       <p>选择一个方向，走近一点。</p>
     </section>
@@ -54,7 +169,7 @@ import '../styles/home-room.css';
     <nav class="room-destinations" aria-label="从房间里认识千秋">
       <a
         class="room-hotspot room-hotspot--writing"
-        href="/blog/"
+        href="#writing-desk"
         data-room-destination="writing"
         data-room-name="书桌"
       >
@@ -62,7 +177,7 @@ import '../styles/home-room.css';
       </a>
       <a
         class="room-hotspot room-hotspot--projects"
-        href="/projects/"
+        href="#project-workbench"
         data-room-destination="projects"
         data-room-name="工作台"
       >
@@ -70,7 +185,7 @@ import '../styles/home-room.css';
       </a>
       <a
         class="room-hotspot room-hotspot--life"
-        href="#life-note"
+        href="#life-corner"
         data-room-destination="life"
         data-room-name="吉他"
       >
@@ -78,14 +193,19 @@ import '../styles/home-room.css';
       </a>
     </nav>
 
-    <aside class="room-life-note" id="life-note" aria-labelledby="life-note-title" tabindex="-1">
-      <p class="room-life-note__eyebrow">Guitar & life</p>
+    <aside
+      class="room-life-note"
+      id="life-corner"
+      data-room-panel="life"
+      aria-labelledby="life-note-title"
+      tabindex="-1"
+    >
       <h2 id="life-note-title">生活不是作品集的边角料。</h2>
       <p>
         我也从游戏、关系、练琴和日常经验里理解自己。这里不急着把每件事都变成结论，只留下值得再听一次的回声。
       </p>
       <div class="room-life-note__links" aria-label="站外联系方式">
-        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer" data-room-autofocus>GitHub</a>
         <a
           href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
           target="_blank"
@@ -94,8 +214,9 @@ import '../styles/home-room.css';
       </div>
     </aside>
 
-    <a class="room-reset" href="#main-content" data-room-reset>回到房间</a>
-    <p class="room-hint" aria-hidden="true">点击物件，让视线过去。</p>
+    <a class="room-reset" href="/" data-room-reset>回到房间</a>
+    <p class="room-hint" aria-hidden="true">点击物件，让视线走过去。</p>
+    <div class="room-camera-progress" aria-hidden="true"><span></span></div>
     <p class="room-sr-only" aria-live="polite" data-room-status></p>
   </main>
 
@@ -107,25 +228,110 @@ import '../styles/home-room.css';
       var destinations = Array.prototype.slice.call(
         stage.querySelectorAll('[data-room-destination]')
       );
+      var panels = Array.prototype.slice.call(stage.querySelectorAll('[data-room-panel]'));
+      var destinationNav = stage.querySelector('.room-destinations');
       var reset = stage.querySelector('[data-room-reset]');
-      var lifeNote = document.getElementById('life-note');
       var status = stage.querySelector('[data-room-status]');
       var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      var navigationTimer = 0;
+      var transitionTimer = 0;
+      var transitionDuration = 2400;
+      var hashByView = {
+        writing: '#writing-desk',
+        projects: '#project-workbench',
+        life: '#life-corner'
+      };
+      var viewByHash = {
+        '#writing-desk': 'writing',
+        '#project-workbench': 'projects',
+        '#life-corner': 'life'
+      };
 
       function announce(message) {
         if (status) status.textContent = message;
       }
 
-      function showOverview(options) {
-        window.clearTimeout(navigationTimer);
-        stage.dataset.roomView = 'overview';
-        stage.removeAttribute('aria-busy');
-        announce('已回到房间全景。');
-        if (options && options.focus && reset) {
-          var firstDestination = destinations[0];
-          if (firstDestination) firstDestination.focus();
+      function setPanelAccess(view) {
+        if (destinationNav) {
+          destinationNav.toggleAttribute('inert', view !== 'overview');
         }
+        panels.forEach(function(panel){
+          var isActive = panel.getAttribute('data-room-panel') === view;
+          panel.toggleAttribute('inert', !isActive);
+          panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+      }
+
+      function settle(view, shouldFocus) {
+        stage.dataset.roomMoving = 'false';
+        document.body.dataset.roomView = view;
+        stage.removeAttribute('aria-busy');
+
+        if (!shouldFocus) return;
+        var panel = stage.querySelector('[data-room-panel="' + view + '"]');
+        var focusTarget = panel && panel.querySelector('[data-room-autofocus]');
+        if (focusTarget) focusTarget.focus({ preventScroll: true });
+        else if (panel) panel.focus({ preventScroll: true });
+      }
+
+      function moveTo(view, options) {
+        if (!hashByView[view]) return;
+        if (stage.dataset.roomMoving === 'true' && !(options && options.force)) return;
+        if (stage.dataset.roomView === view && !(options && options.force)) return;
+
+        window.clearTimeout(transitionTimer);
+        setPanelAccess(view);
+        stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
+        stage.dataset.roomView = view;
+        document.body.dataset.roomView = view;
+        stage.setAttribute('aria-busy', 'true');
+
+        if (!options || options.history !== false) {
+          history.pushState({ roomView: view }, '', hashByView[view]);
+        }
+
+        var destination = destinations.find(function(link){
+          return link.getAttribute('data-room-destination') === view;
+        });
+        var name = destination && destination.getAttribute('data-room-name');
+        announce('视线正在走向' + (name || '房间里的物件') + '。');
+
+        if (reduceMotion.matches) {
+          settle(view, !options || options.focus !== false);
+          return;
+        }
+
+        transitionTimer = window.setTimeout(function(){
+          announce('已经走到' + (name || '目标') + '前。');
+          settle(view, !options || options.focus !== false);
+        }, transitionDuration);
+      }
+
+      function showOverview(options) {
+        window.clearTimeout(transitionTimer);
+        var wasOverview = stage.dataset.roomView === 'overview';
+        stage.dataset.roomMoving = reduceMotion.matches || wasOverview ? 'false' : 'true';
+        stage.dataset.roomView = 'overview';
+        document.body.dataset.roomView = 'overview';
+        stage.setAttribute('aria-busy', 'true');
+
+        if (!options || options.history !== false) {
+          history.replaceState({ roomView: 'overview' }, '', window.location.pathname + window.location.search);
+        }
+
+        announce('视线正在回到房间全景。');
+
+        var finish = function(){
+          setPanelAccess('overview');
+          stage.dataset.roomMoving = 'false';
+          stage.removeAttribute('aria-busy');
+          announce('已回到房间全景。');
+          if (options && options.focus && destinations[0]) {
+            destinations[0].focus({ preventScroll: true });
+          }
+        };
+
+        if (reduceMotion.matches || wasOverview) finish();
+        else transitionTimer = window.setTimeout(finish, transitionDuration);
       }
 
       destinations.forEach(function(link){
@@ -139,37 +345,14 @@ import '../styles/home-room.css';
             event.altKey
           ) return;
 
-          var destination = link.getAttribute('data-room-destination');
-          var name = link.getAttribute('data-room-name') || link.textContent.trim();
-          if (!destination) return;
-
-          if (destination === 'life') {
-            event.preventDefault();
-            stage.dataset.roomView = 'life';
-            announce('视线移向吉他，生活侧记已经展开。');
-            window.setTimeout(function(){
-              if (lifeNote) lifeNote.focus({ preventScroll: true });
-            }, reduceMotion.matches ? 0 : 620);
-            return;
-          }
-
-          if (reduceMotion.matches) return;
-
           event.preventDefault();
-          stage.dataset.roomView = destination;
-          stage.setAttribute('aria-busy', 'true');
-          announce('视线移向' + name + '，即将进入。');
-
-          navigationTimer = window.setTimeout(function(){
-            window.location.assign(link.href);
-          }, 820);
+          moveTo(link.getAttribute('data-room-destination'));
         });
       });
 
       if (reset) {
         reset.addEventListener('click', function(event){
           event.preventDefault();
-          history.replaceState(null, '', window.location.pathname);
           showOverview({ focus: true });
         });
       }
@@ -180,9 +363,23 @@ import '../styles/home-room.css';
         }
       });
 
-      window.addEventListener('pageshow', function(){
-        showOverview();
+      window.addEventListener('popstate', function(){
+        var view = viewByHash[window.location.hash];
+        if (view) moveTo(view, { history: false, focus: false, force: true });
+        else showOverview({ history: false });
       });
+
+      var initialView = viewByHash[window.location.hash];
+      if (initialView) {
+        setPanelAccess(initialView);
+        stage.dataset.roomView = initialView;
+        document.body.dataset.roomView = initialView;
+      } else {
+        setPanelAccess('overview');
+        document.body.dataset.roomView = 'overview';
+      }
+      stage.dataset.roomMoving = 'false';
+      stage.removeAttribute('aria-busy');
     })();
   </script>
 </BaseLayout>
