@@ -23,7 +23,15 @@
 
 ### 1. 准备工作
 
-确保你的本地开发环境已安装 [Node.js](https://nodejs.org/) (推荐安装 LTS 版本，如 v22+)。
+项目要求 Node.js 22（最低 `22.12.0`），并通过根目录的 `mise.toml` 固定为 `22.23.1`。推荐安装
+[mise](https://mise.jdx.dev/getting-started.html) 后在仓库目录运行：
+
+```bash
+mise install
+node --version
+```
+
+`mise` 会按项目切换 Node 版本，不会覆盖其他项目各自声明的版本。也可以自行安装符合要求的 Node.js 22。
 
 ### 2. 安装步骤
 
