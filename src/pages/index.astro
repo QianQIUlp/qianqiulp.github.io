@@ -3,223 +3,383 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { featuredProjects } from '../data/projects';
+import roomOverview from '../assets/home/practice-room-overview-4k.webp';
+import roomWriting from '../assets/home/practice-room-writing-4k.webp';
+import roomProjects from '../assets/home/practice-room-projects-4k.webp';
+import roomCurtain from '../assets/home/practice-room-curtain-4k.webp';
+import qiuRelicGuitar from '../assets/home/qiu-relic-guitar-4k.webp';
+import '../styles/home-room.css';
 
 const posts = await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
-  .slice(0, 4);
-const featuredPost = latestPosts[0];
-const featuredProject = featuredProjects.find((project) => project.homeFeature) ?? featuredProjects[0];
-const secondaryPosts = latestPosts.slice(1);
-const tagCount = new Set(posts.flatMap((post) => post.data.tags)).size;
+  .slice(0, 3);
+const roomProjectsList = featuredProjects.slice(0, 3);
+
 const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
-  year: 'numeric',
   month: '2-digit',
   day: '2-digit',
 });
 const formatDate = (date: Date) => date.toISOString().slice(0, 10);
-const formatDisplayDate = (date: Date) => dateFormatter.format(date);
 ---
 
 <BaseLayout
-  title="Qiu 的小屋 · 个人主页"
-  description="Qiu 的小屋 · 个人主页，记录读到的、想到的和一些不想忘掉的东西。"
-  ogTitle="Qiu 的小屋 · 个人主页"
-  ogDescription="欢迎来到我的小角落。这里收着我读到的、想到的、和那些一时半会说不清楚但又不想忘掉的东西。"
+  title="千秋的个人主页 · Qiu 的小屋"
+  description="走进千秋的个人房间，从书桌、工作台与吉他认识他的构建、写作和生活。"
+  ogTitle="千秋的个人主页 · Qiu 的小屋"
+  ogDescription="从房间里的东西，慢慢认识千秋。"
   ogUrl="https://qianqiulp.github.io/"
   ogImage="/assets/og/site.svg"
-  ogImageAlt="Qiu 的小屋个人主页封面图"
-  bodyClass="page-home"
+  ogImageAlt="千秋的个人主页封面图"
+  bodyClass="page-home page-home--room"
 >
-  <main class="page-shell" id="main-content" tabindex="-1">
-    <section class="study-entrance" aria-labelledby="home-title">
-      <div class="study-intro">
-        <p class="eyebrow">Study Room / Qiu 的小屋</p>
-        <h1 class="hero-title" id="home-title">把读过、想过和折腾过的事，慢慢整理成可回看的<span class="no-break">文字</span>。</h1>
-        <p class="hero-lead">
-          我是千秋，也可以叫我 Qiu 或秋。这里主要放技术实践、阅读随笔、游戏观察和一些仍在成形的想法。
-        </p>
-        <dl class="study-shelf" aria-label="站点概览">
-          <div>
-            <dt>{posts.length}</dt>
-            <dd>篇文章</dd>
-          </div>
-          <div>
-            <dt>{tagCount}</dt>
-            <dd>个主题</dd>
-          </div>
-          <div>
-            <dt>2026</dt>
-            <dd>开始整理</dd>
-          </div>
-        </dl>
-        <div class="hero-actions">
-          <a class="button" href="/blog/">读最新文章</a>
-          <a class="button button--secondary" href="/projects/">看作品与探索</a>
+  <main
+    class="room-home"
+    id="main-content"
+    tabindex="-1"
+    data-room-stage
+    data-room-view="overview"
+    data-room-moving="false"
+  >
+    <div class="room-camera">
+      <div class="room-canvas">
+        <div class="room-world" aria-hidden="true">
+          <Image
+            class="room-scene room-scene--overview"
+            src={roomOverview}
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+          />
         </div>
 
-        {featuredProject && (
-          <a class="study-project-feature" href="/projects/" aria-labelledby="study-project-title">
-            <div class="study-project-feature__header">
-              <p class="eyebrow">From the workbench</p>
-              <span>{featuredProject.status}</span>
-            </div>
-            <div class="study-project-feature__body">
-              <p>{featuredProject.displayName} · {featuredProject.type}</p>
-              <h2 id="study-project-title">{featuredProject.homeFeature?.title ?? '桌边新亮起一盏小灯'}</h2>
-              <p>{featuredProject.homeFeature?.blurb ?? featuredProject.summary}</p>
-            </div>
-            <strong>翻看这个作品</strong>
-          </a>
-        )}
+        <Image
+          class="room-curtain"
+          src={roomCurtain}
+          alt=""
+          loading="eager"
+          widths={[1280, 1920, 2560, 3840]}
+          sizes="max(100vw, 177.78vh)"
+          quality={94}
+          aria-hidden="true"
+        />
+
+        <div class="room-guitar-wrap" aria-hidden="true">
+          <span class="room-guitar-shadow"></span>
+          <Image
+            class="room-guitar"
+            src={qiuRelicGuitar}
+            alt=""
+            loading="eager"
+            widths={[640, 960, 1440, 2160]}
+            sizes="(max-width: 640px) 116vw, 44vw"
+            quality={95}
+          />
+        </div>
+
+        <section
+          class="room-focus-layer room-focus-layer--writing"
+          id="writing-desk"
+          data-room-panel="writing"
+          aria-labelledby="writing-desk-title"
+        >
+          <Image
+            class="room-focus-plate"
+            src={roomWriting}
+            alt=""
+            loading="eager"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+            aria-hidden="true"
+          />
+
+          <div class="room-monitor-surface" tabindex="-1">
+            <header class="room-surface-heading">
+              <h2 id="writing-desk-title">最近的文字</h2>
+              <a href="/blog/">全部文章</a>
+            </header>
+            <ol class="room-writing-list">
+              {latestPosts.map((post, index) => (
+                <li>
+                  <a
+                    href={`/blog/posts/${post.id}/`}
+                    data-room-autofocus={index === 0 ? '' : undefined}
+                  >
+                    <time datetime={formatDate(post.data.date)}>{dateFormatter.format(post.data.date)}</time>
+                    <span>{post.data.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section
+          class="room-focus-layer room-focus-layer--projects"
+          id="project-workbench"
+          data-room-panel="projects"
+          aria-labelledby="project-workbench-title"
+        >
+          <Image
+            class="room-focus-plate"
+            src={roomProjects}
+            alt=""
+            loading="eager"
+            widths={[1280, 1920, 2560, 3840]}
+            sizes="max(100vw, 177.78vh)"
+            quality={92}
+            aria-hidden="true"
+          />
+
+          <div class="room-workbench-surface" tabindex="-1">
+            <header class="room-surface-heading">
+              <h2 id="project-workbench-title">工程档案</h2>
+              <a href="/projects/">完整作品页</a>
+            </header>
+            <ol class="room-project-list">
+              {roomProjectsList.map((project, index) => (
+                <li>
+                  <a
+                    href={`/projects/#project-${index + 1}`}
+                    data-room-autofocus={index === 0 ? '' : undefined}
+                  >
+                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <strong>{project.displayName}</strong>
+                    <small>{project.status}</small>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <div class="room-atmosphere" aria-hidden="true"></div>
       </div>
+    </div>
 
-      <aside class="desk-panel" aria-labelledby="desk-title">
-        <div class="desk-panel__header">
-          <p class="eyebrow">On the desk</p>
-          <h2 id="desk-title">现在摊开的文章</h2>
-          <p>桌上总留着一页新近读写的文字，推门进来，便从这里接着往下翻。</p>
-        </div>
-
-        {featuredPost && (
-          <a class="desk-feature" href={`/blog/posts/${featuredPost.id}/`}>
-            <div class="desk-feature__media">
-              {featuredPost.data.ogImage ? (
-                <Image
-                  src={featuredPost.data.ogImage}
-                  alt={featuredPost.data.ogImageAlt || `《${featuredPost.data.title}》文章封面`}
-                  loading="eager"
-                />
-              ) : (
-                <div class="desk-feature__fallback" aria-hidden="true">Qiu</div>
-              )}
-            </div>
-            <div class="desk-feature__body">
-              <p class="meta-line">
-                <time datetime={formatDate(featuredPost.data.date)}>{formatDisplayDate(featuredPost.data.date)}</time>
-                <span>{featuredPost.data.tags.slice(0, 2).join(' / ')}</span>
-              </p>
-              <h3>{featuredPost.data.title}</h3>
-              <p>{featuredPost.data.description}</p>
-            </div>
-          </a>
-        )}
-
-        <div class="desk-index" aria-label="最近文章索引">
-          {secondaryPosts.map((post) => (
-            <a href={`/blog/posts/${post.id}/`}>
-              <time datetime={formatDate(post.data.date)}>{formatDisplayDate(post.data.date)}</time>
-              <span>{post.data.title}</span>
-            </a>
-          ))}
-        </div>
-      </aside>
+    <section class="room-intro" aria-labelledby="home-title">
+      <h1 id="home-title">我是千秋。</h1>
+      <p>选择一个方向，走近一点。</p>
     </section>
 
-    <section class="section-block reading-principles" aria-labelledby="about-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">About</p>
-          <h2 id="about-title">关于这里</h2>
-        </div>
-        <p>更像一间安静的小书房：能放备忘录，也能放长一点的思考。</p>
-      </div>
-      <div class="principle-list">
-        <article>
-          <span>01</span>
-          <h3>不定期更新</h3>
-          <p>有话可写时才添一页，让更新跟着思绪落定，不追赶日历。</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>慢读优先</h3>
-          <p>愿意把来龙去脉写完整，也给旧笔记留一条随时折返的路。</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>主题开放</h3>
-          <p>书架不按门类设限，技术、AI、心理、游戏与学习，都可以在这里生长。</p>
-        </article>
-      </div>
-    </section>
+    <nav class="room-destinations" aria-label="从房间里认识千秋">
+      <a
+        class="room-hotspot room-hotspot--writing"
+        href="#writing-desk"
+        data-room-destination="writing"
+        data-room-name="书桌"
+      >
+        <span>文章</span>
+      </a>
+      <a
+        class="room-hotspot room-hotspot--projects"
+        href="#project-workbench"
+        data-room-destination="projects"
+        data-room-name="工作台"
+      >
+        <span>作品</span>
+      </a>
+      <a
+        class="room-hotspot room-hotspot--life"
+        href="#life-corner"
+        data-room-destination="life"
+        data-room-name="吉他"
+      >
+        <span>吉他与生活</span>
+      </a>
+    </nav>
 
-    <section class="section-block home-index-section" aria-labelledby="latest-title">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Reading Index</p>
-          <h2 id="latest-title">最近入档</h2>
-        </div>
-        <a class="surface-link" href="/blog/">全部文章</a>
+    <aside
+      class="room-life-note"
+      id="life-corner"
+      data-room-panel="life"
+      aria-labelledby="life-note-title"
+      tabindex="-1"
+    >
+      <h2 id="life-note-title">生活不是作品集的边角料。</h2>
+      <p>
+        我也从游戏、关系、练琴和日常经验里理解自己。这里不急着把每件事都变成结论，只留下值得再听一次的回声。
+      </p>
+      <div class="room-life-note__links" aria-label="站外联系方式">
+        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer" data-room-autofocus>GitHub</a>
+        <a
+          href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Bilibili</a>
       </div>
+    </aside>
 
-      <div class="home-ledger">
-        {latestPosts.map((post) => (
-          <a class="home-ledger__row" href={`/blog/posts/${post.id}/`}>
-            <time datetime={formatDate(post.data.date)}>{formatDisplayDate(post.data.date)}</time>
-            <div>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
-            </div>
-            <span>{post.data.tags.slice(0, 2).join(' / ')}</span>
-          </a>
-        ))}
-      </div>
-    </section>
-
-    <section class="section-block study-corners" aria-labelledby="explore-title">
-      <div class="home-workbench">
-        <div class="section-heading">
-          <div>
-            <p class="eyebrow">Explore</p>
-            <h2 id="explore-title">作品与探索</h2>
-          </div>
-        </div>
-        <a class="workbench-preview" href="/projects/">
-          <span>新添一页</span>
-          <h3>几件作品，沿着各自的问题慢慢长出来</h3>
-          <p>MealCircuit 把餐食记录、14 天趋势与次日菜单接成回路，Crewlight 收拢 coding agents 的动静，Docker-Hadoop-Cluster 则摊开一套可复现的学习现场。</p>
-          <strong>翻看作品簿</strong>
-        </a>
-      </div>
-
-      <aside class="contact-card" aria-labelledby="contact-title">
-        <p class="eyebrow">Contact</p>
-        <h2 id="contact-title">联系我</h2>
-        <p>如果你想交流文章、项目或学习路线，可以从这些入口找到我。</p>
-        <ul class="contact-list">
-          <li>
-            <a
-              class="contact-link contact-link--github"
-              href="https://github.com/qianqiulp"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="打开 GitHub 主页（新标签页）"
-              title="打开 GitHub 主页"
-            >
-              <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2.14c-3.2.7-3.87-1.36-3.87-1.36-.52-1.33-1.27-1.69-1.27-1.69-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.67 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38s1.95.13 2.86.38c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.8 1.18 1.82 1.18 3.08 0 4.41-2.69 5.39-5.25 5.67.41.36.78 1.06.78 2.13v3.17c0 .31.21.67.79.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z" />
-              </svg>
-              <span>GitHub</span>
-            </a>
-          </li>
-          <li>
-            <a
-              class="contact-link contact-link--bilibili"
-              href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="打开 Bilibili 主页（新标签页）"
-              title="打开 Bilibili 主页"
-            >
-              <svg class="contact-link__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M8.25 4.15 6.32 2.22 5.08 3.46l2.2 2.2H6.05A3.55 3.55 0 0 0 2.5 9.21v7.24A3.55 3.55 0 0 0 6.05 20h11.9a3.55 3.55 0 0 0 3.55-3.55V9.21a3.55 3.55 0 0 0-3.55-3.55h-1.23l2.2-2.2-1.24-1.24-1.93 1.93-1.51 1.51H9.76L8.25 4.15Zm-2.2 3.4h11.9c.92 0 1.66.74 1.66 1.66v7.24c0 .92-.74 1.66-1.66 1.66H6.05c-.92 0-1.66-.74-1.66-1.66V9.21c0-.92.74-1.66 1.66-1.66Z" />
-                <path d="M8.25 11.1h1.9v3.35h-1.9V11.1Zm5.6 0h1.9v3.35h-1.9V11.1Z" />
-              </svg>
-              <span>Bilibili</span>
-            </a>
-          </li>
-        </ul>
-      </aside>
-    </section>
+    <a class="room-reset" href="/" data-room-reset>回到房间</a>
+    <p class="room-hint" aria-hidden="true">点击物件，让视线走过去。</p>
+    <div class="room-camera-progress" aria-hidden="true"><span></span></div>
+    <p class="room-sr-only" aria-live="polite" data-room-status></p>
   </main>
+
+  <script is:inline>
+    (function(){
+      var stage = document.querySelector('[data-room-stage]');
+      if (!stage) return;
+
+      var destinations = Array.prototype.slice.call(
+        stage.querySelectorAll('[data-room-destination]')
+      );
+      var panels = Array.prototype.slice.call(stage.querySelectorAll('[data-room-panel]'));
+      var destinationNav = stage.querySelector('.room-destinations');
+      var reset = stage.querySelector('[data-room-reset]');
+      var status = stage.querySelector('[data-room-status]');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var transitionTimer = 0;
+      var transitionDuration = 2400;
+      var hashByView = {
+        writing: '#writing-desk',
+        projects: '#project-workbench',
+        life: '#life-corner'
+      };
+      var viewByHash = {
+        '#writing-desk': 'writing',
+        '#project-workbench': 'projects',
+        '#life-corner': 'life'
+      };
+
+      function announce(message) {
+        if (status) status.textContent = message;
+      }
+
+      function setPanelAccess(view) {
+        if (destinationNav) {
+          destinationNav.toggleAttribute('inert', view !== 'overview');
+        }
+        panels.forEach(function(panel){
+          var isActive = panel.getAttribute('data-room-panel') === view;
+          panel.toggleAttribute('inert', !isActive);
+          panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+        });
+      }
+
+      function settle(view, shouldFocus) {
+        stage.dataset.roomMoving = 'false';
+        document.body.dataset.roomView = view;
+        stage.removeAttribute('aria-busy');
+
+        if (!shouldFocus) return;
+        var panel = stage.querySelector('[data-room-panel="' + view + '"]');
+        var focusTarget = panel && panel.querySelector('[data-room-autofocus]');
+        if (focusTarget) focusTarget.focus({ preventScroll: true });
+        else if (panel) panel.focus({ preventScroll: true });
+      }
+
+      function moveTo(view, options) {
+        if (!hashByView[view]) return;
+        if (stage.dataset.roomMoving === 'true' && !(options && options.force)) return;
+        if (stage.dataset.roomView === view && !(options && options.force)) return;
+
+        window.clearTimeout(transitionTimer);
+        setPanelAccess(view);
+        stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
+        stage.dataset.roomView = view;
+        document.body.dataset.roomView = view;
+        stage.setAttribute('aria-busy', 'true');
+
+        if (!options || options.history !== false) {
+          history.pushState({ roomView: view }, '', hashByView[view]);
+        }
+
+        var destination = destinations.find(function(link){
+          return link.getAttribute('data-room-destination') === view;
+        });
+        var name = destination && destination.getAttribute('data-room-name');
+        announce('视线正在走向' + (name || '房间里的物件') + '。');
+
+        if (reduceMotion.matches) {
+          settle(view, !options || options.focus !== false);
+          return;
+        }
+
+        transitionTimer = window.setTimeout(function(){
+          announce('已经走到' + (name || '目标') + '前。');
+          settle(view, !options || options.focus !== false);
+        }, transitionDuration);
+      }
+
+      function showOverview(options) {
+        window.clearTimeout(transitionTimer);
+        var wasOverview = stage.dataset.roomView === 'overview';
+        stage.dataset.roomMoving = reduceMotion.matches || wasOverview ? 'false' : 'true';
+        stage.dataset.roomView = 'overview';
+        document.body.dataset.roomView = 'overview';
+        stage.setAttribute('aria-busy', 'true');
+
+        if (!options || options.history !== false) {
+          history.replaceState({ roomView: 'overview' }, '', window.location.pathname + window.location.search);
+        }
+
+        announce('视线正在回到房间全景。');
+
+        var finish = function(){
+          setPanelAccess('overview');
+          stage.dataset.roomMoving = 'false';
+          stage.removeAttribute('aria-busy');
+          announce('已回到房间全景。');
+          if (options && options.focus && destinations[0]) {
+            destinations[0].focus({ preventScroll: true });
+          }
+        };
+
+        if (reduceMotion.matches || wasOverview) finish();
+        else transitionTimer = window.setTimeout(finish, transitionDuration);
+      }
+
+      destinations.forEach(function(link){
+        link.addEventListener('click', function(event){
+          if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          ) return;
+
+          event.preventDefault();
+          moveTo(link.getAttribute('data-room-destination'));
+        });
+      });
+
+      if (reset) {
+        reset.addEventListener('click', function(event){
+          event.preventDefault();
+          showOverview({ focus: true });
+        });
+      }
+
+      window.addEventListener('keydown', function(event){
+        if (event.key === 'Escape' && stage.dataset.roomView !== 'overview') {
+          showOverview({ focus: true });
+        }
+      });
+
+      window.addEventListener('popstate', function(){
+        var view = viewByHash[window.location.hash];
+        if (view) moveTo(view, { history: false, focus: false, force: true });
+        else showOverview({ history: false });
+      });
+
+      var initialView = viewByHash[window.location.hash];
+      if (initialView) {
+        setPanelAccess(initialView);
+        stage.dataset.roomView = initialView;
+        document.body.dataset.roomView = initialView;
+      } else {
+        setPanelAccess('overview');
+        document.body.dataset.roomView = 'overview';
+      }
+      stage.dataset.roomMoving = 'false';
+      stage.removeAttribute('aria-busy');
+    })();
+  </script>
 </BaseLayout>

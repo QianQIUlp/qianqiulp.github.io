@@ -27,13 +27,15 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-CN" class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <!-- FOUC 闪屏消除：必须在 <body> 渲染前同步执行 -->
   <script is:inline>
     (function(){
+      document.documentElement.classList.remove('no-js');
+      document.documentElement.classList.add('js');
       var t = localStorage.getItem('theme');
       if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -67,7 +69,7 @@ const {
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <p>© 2026 Qiu 的小屋</p>
+      <p>© 2026 千秋 · Qiu 的小屋</p>
       <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">github.com/qianqiulp</a>
     </div>
   </footer>
@@ -95,6 +97,33 @@ const {
         }
         render();
       });
+    })();
+  </script>
+
+  <!-- 渐进增强入场：无 JS 与减少动态偏好下内容始终可见 -->
+  <script is:inline>
+    (function(){
+      var items = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+      if (!items.length) return;
+
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        items.forEach(function(item){ item.classList.add('is-visible'); });
+        return;
+      }
+
+      var observer = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      }, {
+        rootMargin: '0px 0px -8% 0px',
+        threshold: 0.08,
+      });
+
+      items.forEach(function(item){ observer.observe(item); });
     })();
   </script>
 </body>

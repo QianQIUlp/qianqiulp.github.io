@@ -18,10 +18,18 @@ Always check light and dark mode for changed routes.
 ## Homepage
 
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
-- Hero title, lead copy, stats, and primary actions remain readable.
-- Featured post image keeps a stable aspect ratio and does not crop important content unexpectedly.
-- Recent article rows wrap long titles/descriptions without horizontal scroll.
-- Contact links are visible, tappable, and open the intended destinations.
+- The first viewport reads as Qiu's personal rehearsal room rather than a product landing page or metrics dashboard.
+- The room, title, three hotspots, and guitar identity remain legible without layout-breaking overlap at desktop, tablet, and mobile widths.
+- The guitar keeps the approved headstock, relic body, pickup layout, stand, fret-marker sequence, and the 11–13 fret `m` marker.
+- Initial load keeps the room and guitar at one stable matrix; there is no large-to-small entrance animation or late proportion shift.
+- Article and project hotspots keep the visitor on `/`, update only the hash, and finish with real article/project data aligned to the physical monitor or drafting mat.
+- At an early, middle, and late transition sample, the room, curtain, guitar, focus plate, and exposure move at different rates without a hard cut or a frozen loading interval.
+- Scene rows and “all” links still navigate to the existing article and project routes normally.
+- Guitar & Life focuses the guitar and reveals the life note in place; Escape and “回到房间” restore the overview.
+- At 375px the hotspots form a usable bottom dock, the title stays readable, and no page-level horizontal scroll appears.
+- At 768px portrait, focus content stays fully inside the viewport rather than being cropped with the 16:9 scene.
+- At a 3840 × 2160 viewport, the overview plate resolves to a 3840 × 2160 source; smaller viewports receive responsive derivatives.
+- With JavaScript disabled, `#writing-desk`, `#project-workbench`, and `#life-corner` expose their content and the return link works without script.
 
 ## Blog Index
 
@@ -34,10 +42,11 @@ Always check light and dark mode for changed routes.
 ## Article Pages
 
 - Test several posts, including long titles, TOC pages, image-heavy posts, and any post without a cover image.
-- Header image/scrim keeps title, description, date, and tags readable in both themes.
-- Fallback article header looks intentional when no cover image exists.
+- Editorial masthead keeps title, description, date, tags, and the un-tinted real cover readable in both themes.
+- Fallback article masthead looks intentional when no cover image exists.
 - Body measure, font size, line height, headings, blockquotes, lists, tables, and code blocks are comfortable to read.
 - TOC links scroll to the correct headings and headings are not hidden behind the sticky header.
+- On wide screens, TOC remains usable as a sticky left rail; at tablet/mobile widths it returns to normal document flow after the intro.
 - Inline images have useful alt text, preserve aspect ratio, and do not cause visible layout jumps.
 - Long code blocks and tables scroll inside their own containers instead of causing page-level horizontal scroll.
 - License and source links are present and readable when configured.
@@ -45,7 +54,7 @@ Always check light and dark mode for changed routes.
 ## Projects Page
 
 - Hero copy and note remain balanced at desktop, 768px, and 375px.
-- Featured project cards keep title, repo slug, links, summary, case study, and tags readable.
+- Featured project dossiers keep ordinal, title, repo slug, links, summary, case study, boundaries, and tags readable.
 - External project links are clearly focusable and tappable.
 - Secondary traces and playbook items wrap long titles without overlap.
 - Project names, URLs, and positioning match `src/data/projects.ts` and project briefs.
@@ -56,6 +65,16 @@ Always check light and dark mode for changed routes.
 - Page background, surfaces, borders, text, links, tags, and code blocks keep adequate contrast.
 - Images and cover scrims do not make white text unreadable.
 - Native browser color scheme follows the active theme.
+- Directional paper and note shadows remain visible without turning into bright halos or crushed black blocks.
+
+## Motion And Progressive Enhancement
+
+- Homepage camera transitions complete once, do not trap focus, and settle into the selected in-room state in about 2.4 seconds.
+- With `prefers-reduced-motion: reduce`, the selected in-room state and its content appear immediately without camera displacement, fading, progress motion, or smooth scrolling.
+- Below-the-fold reveal items enter once with no more than 8px movement and no more than three stagger steps.
+- Hero copy and article body are readable immediately and never wait for scroll animation.
+- With `prefers-reduced-motion: reduce`, reveal transitions and hover translation are disabled.
+- With JavaScript disabled, every `data-reveal` element remains visible and usable.
 
 ## Mobile Widths
 

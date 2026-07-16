@@ -117,19 +117,6 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
     <article class="post-article">
       <header class:list={['post-header', { 'post-header--with-image': post.data.ogImage, 'post-header--fallback': !post.data.ogImage }]}>
-        {post.data.ogImage && (
-          <Image
-            class="post-cover"
-            src={post.data.ogImage}
-            alt=""
-            loading="eager"
-            fetchpriority="high"
-            aria-hidden="true"
-          />
-        )}
-
-        <div class="post-header__scrim" aria-hidden="true"></div>
-
         <div class="post-header__copy">
           <p class="eyebrow">Long-form folio</p>
           <h1>{post.data.title}</h1>
@@ -143,37 +130,58 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
             </ul>
           </div>
         </div>
+
+        {post.data.ogImage && (
+          <div class="post-header__media">
+            <Image
+              class="post-cover"
+              src={post.data.ogImage}
+              alt=""
+              loading="eager"
+              fetchpriority="high"
+              aria-hidden="true"
+            />
+          </div>
+        )}
       </header>
 
-      {IntroContent && (
-        <div class="post-intro">
-          <IntroContent />
+      <div class:list={[
+        'article-reading-grid',
+        {
+          'has-toc': showToc && tocHeadings.length > 0,
+          'has-intro': Boolean(IntroContent),
+        },
+      ]}>
+        {IntroContent && (
+          <div class="post-intro">
+            <IntroContent />
+          </div>
+        )}
+
+        {showToc && tocHeadings.length > 0 && (
+          <nav class="toc-block" aria-label="文章目录">
+            <div class="toc-header">目录</div>
+            <ul class="toc-list">
+              {tocHeadings.map((heading) => (
+                <li class={`toc-item depth-${heading.depth}`}>
+                  <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
+
+        <div class="post-content">
+          <Content />
         </div>
-      )}
 
-      {showToc && tocHeadings.length > 0 && (
-        <nav class="toc-block" aria-label="文章目录">
-          <div class="toc-header">目录</div>
-          <ul class="toc-list">
-            {tocHeadings.map((heading) => (
-              <li class={`toc-item depth-${heading.depth}`}>
-                <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
-
-      <div class="post-content">
-        <Content />
+        {post.data.license && (
+          <footer class="post-license">
+            <span>授权协议</span>
+            <p>{post.data.license}</p>
+          </footer>
+        )}
       </div>
-
-      {post.data.license && (
-        <footer class="post-license">
-          <span>授权协议</span>
-          <p>{post.data.license}</p>
-        </footer>
-      )}
     </article>
   </main>
 
