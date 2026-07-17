@@ -31,65 +31,69 @@
   --radius-lg: 12px;
   --radius-pill: 999px;
 
-  --bg: #f5f0e7;
-  --surface: #fffdf7;
-  --surface-elevated: #fffaf0;
-  --surface-muted: #eee6d8;
-  --surface-callout: #f2eadc;
-  --paper: #fffdf7;
-  --paper-raised: #fffaf0;
-  --annotation: #f2eadc;
-  --text: #242a28;
-  --text-secondary: #626d67;
-  --text-muted: #8b8173;
-  --accent: #476f69;
-  --accent-strong: #2f5753;
-  --accent-soft: rgba(71, 111, 105, 0.12);
-  --warm: #a76535;
-  --warm-soft: rgba(167, 101, 53, 0.12);
-  --link: #3f6662;
-  --code-bg: #ece7de;
-  --code-text: #783f31;
-  --border: #ddd2c2;
-  --border-strong: #c8b9a5;
-  --focus-ring: rgba(71, 111, 105, 0.28);
-  --shadow-sm: 0 1px 2px rgba(40, 36, 28, 0.05);
-  --shadow-md: 5px 12px 30px rgba(58, 46, 29, 0.09);
-  --shadow-lg: 10px 24px 56px rgba(58, 46, 29, 0.14);
-  --shadow-paper: 1px 2px 0 rgba(88, 65, 37, 0.06), 8px 18px 42px rgba(58, 46, 29, 0.11);
-  --shadow-note: 2px 3px 0 rgba(88, 65, 37, 0.08), 7px 12px 24px rgba(58, 46, 29, 0.12);
-  --light-wash: rgba(255, 244, 210, 0.74);
+  --bg: #e7dbc6;
+  --surface: #f5eddf;
+  --surface-elevated: #fbf3e7;
+  --surface-muted: #ded1bc;
+  --surface-callout: #eee1cd;
+  --paper: #fbf5e9;
+  --paper-raised: #fff8ed;
+  --annotation: #eee0cb;
+  --text: #292b25;
+  --text-secondary: #5f6258;
+  --text-muted: #82796b;
+  --accent: #677159;
+  --accent-strong: #46523e;
+  --accent-soft: rgba(103, 113, 89, 0.13);
+  --warm: #87502b;
+  --warm-soft: rgba(135, 80, 43, 0.13);
+  --link: #536149;
+  --code-bg: #e8ddca;
+  --code-text: #754733;
+  --border: #d7c9b3;
+  --border-strong: #bcaa8e;
+  --focus-ring: rgba(103, 113, 89, 0.3);
+  --shadow-sm: 0 1px 0 rgba(255, 249, 236, 0.72), 0 5px 15px rgba(49, 37, 23, 0.07);
+  --shadow-md: 0 1px 0 rgba(255, 249, 236, 0.58), 9px 20px 38px rgba(49, 37, 23, 0.11);
+  --shadow-lg: 0 2px 0 rgba(255, 249, 236, 0.5), 14px 30px 64px rgba(49, 37, 23, 0.16);
+  --shadow-paper: 0 1px 0 rgba(255, 250, 239, 0.76), 11px 22px 48px rgba(49, 37, 23, 0.14);
+  --shadow-note: 0 1px 0 rgba(255, 250, 239, 0.62), 8px 15px 30px rgba(49, 37, 23, 0.14);
+  --light-wash: rgba(255, 232, 187, 0.76);
+  --room-shadow: rgba(52, 39, 24, 0.13);
+  --room-ambient: rgba(137, 93, 47, 0.13);
 }
 
 html[data-theme="dark"] {
-  --bg: #171a18;
-  --surface: #1f2421;
-  --surface-elevated: #272c28;
-  --surface-muted: #2c302d;
-  --surface-callout: #282d29;
-  --paper: #202522;
-  --paper-raised: #272c29;
-  --annotation: #2a2e2a;
-  --text: #eee9de;
-  --text-secondary: #b9b2a6;
-  --text-muted: #918a7f;
-  --accent: #8fc6bd;
-  --accent-strong: #b2ddd6;
-  --accent-soft: rgba(143, 198, 189, 0.14);
-  --warm: #d8a06d;
-  --warm-soft: rgba(216, 160, 109, 0.14);
-  --link: #9fd1c9;
-  --code-bg: #282d2a;
-  --code-text: #f0b088;
-  --border: #353b37;
-  --border-strong: #515a53;
-  --focus-ring: rgba(143, 198, 189, 0.3);
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 6px 14px 32px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 12px 26px 58px rgba(0, 0, 0, 0.46);
-  --shadow-paper: 1px 2px 0 rgba(255, 255, 255, 0.025), 9px 20px 46px rgba(0, 0, 0, 0.34);
-  --shadow-note: 2px 3px 0 rgba(255, 255, 255, 0.03), 8px 14px 28px rgba(0, 0, 0, 0.38);
-  --light-wash: rgba(161, 128, 78, 0.13);
+  --bg: #1b1a15;
+  --surface: #25241e;
+  --surface-elevated: #2c2a23;
+  --surface-muted: #353127;
+  --surface-callout: #302d25;
+  --paper: #25241e;
+  --paper-raised: #2e2c24;
+  --annotation: #302d25;
+  --text: #f0e8d9;
+  --text-secondary: #c4bbae;
+  --text-muted: #9b9080;
+  --accent: #aab48d;
+  --accent-strong: #c6d0aa;
+  --accent-soft: rgba(170, 180, 141, 0.15);
+  --warm: #dda96f;
+  --warm-soft: rgba(221, 169, 111, 0.15);
+  --link: #b7c39b;
+  --code-bg: #302d24;
+  --code-text: #efba88;
+  --border: #454137;
+  --border-strong: #696052;
+  --focus-ring: rgba(198, 208, 170, 0.32);
+  --shadow-sm: 0 1px 0 rgba(255, 239, 206, 0.035), 0 6px 16px rgba(0, 0, 0, 0.34);
+  --shadow-md: 0 1px 0 rgba(255, 239, 206, 0.03), 10px 22px 42px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 1px 0 rgba(255, 239, 206, 0.025), 15px 34px 72px rgba(0, 0, 0, 0.52);
+  --shadow-paper: 0 1px 0 rgba(255, 239, 206, 0.035), 12px 24px 52px rgba(0, 0, 0, 0.46);
+  --shadow-note: 0 1px 0 rgba(255, 239, 206, 0.04), 8px 16px 32px rgba(0, 0, 0, 0.42);
+  --light-wash: rgba(184, 132, 71, 0.2);
+  --room-shadow: rgba(0, 0, 0, 0.44);
+  --room-ambient: rgba(203, 145, 73, 0.16);
 }
 
 *,
@@ -116,8 +120,10 @@ body {
   line-height: 1.7;
   color: var(--text);
   background:
-    radial-gradient(circle at 8% -6%, var(--light-wash) 0, transparent min(42rem, 58vw)),
-    linear-gradient(180deg, color-mix(in srgb, var(--surface-muted) 32%, var(--bg)) 0, var(--bg) 520px),
+    radial-gradient(ellipse 60rem 34rem at 4% -12%, var(--light-wash), transparent 68%),
+    radial-gradient(ellipse 50rem 42rem at 108% 18%, var(--room-ambient), transparent 72%),
+    linear-gradient(90deg, var(--room-shadow), transparent 10%, transparent 90%, var(--room-shadow)),
+    linear-gradient(180deg, color-mix(in srgb, var(--surface-muted) 56%, var(--bg)) 0, var(--bg) 560px),
     var(--bg);
   background-attachment: fixed;
   transition: background-color var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out);
@@ -186,6 +192,16 @@ a:hover {
   backdrop-filter: blur(14px);
 }
 
+body:not(.page-home--room) .site-header {
+  border-bottom-color: color-mix(in srgb, var(--border-strong) 70%, transparent);
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--paper) 90%, transparent),
+    color-mix(in srgb, var(--surface-elevated) 78%, transparent)
+  );
+  box-shadow: 0 1px 0 rgba(255, 248, 231, 0.3), 0 14px 32px color-mix(in srgb, var(--room-shadow) 45%, transparent);
+}
+
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -215,10 +231,10 @@ a:hover {
   width: 36px;
   height: 36px;
   place-items: center;
-  border: 1px solid var(--border-strong);
+  border: 1px solid color-mix(in srgb, var(--border-strong) 84%, var(--warm));
   border-radius: var(--radius-md);
-  background: var(--paper-raised);
-  color: var(--accent-strong);
+  background: linear-gradient(135deg, var(--paper-raised), color-mix(in srgb, var(--surface-muted) 72%, var(--paper)));
+  color: var(--warm);
   font-family: var(--font-serif);
   font-weight: 700;
   line-height: 1;
@@ -546,7 +562,9 @@ a:hover {
   padding: var(--space-5);
   border: 1px solid var(--border);
   border-left: 4px solid var(--accent);
-  background: var(--paper);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 66%, transparent), transparent 54%),
+    var(--paper);
   color: var(--text-secondary);
   font-size: 0.92rem;
   line-height: 1.76;
@@ -566,7 +584,9 @@ a:hover {
   padding: clamp(26px, 4vw, 42px);
   border-top: 3px solid var(--accent);
   border-bottom: 1px solid var(--border-strong);
-  background: var(--paper);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 64%, transparent), transparent 42%),
+    var(--paper);
   box-shadow: var(--shadow-paper);
 }
 
