@@ -172,24 +172,27 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         href="#writing-desk"
         data-room-destination="writing"
         data-room-name="书桌"
+        aria-label="走近书桌，查看文章"
       >
-        <span>文章</span>
+        <span aria-hidden="true"><small>书桌</small>文章</span>
       </a>
       <a
         class="room-hotspot room-hotspot--projects"
         href="#project-workbench"
         data-room-destination="projects"
         data-room-name="工作台"
+        aria-label="走近工作台，查看作品"
       >
-        <span>作品</span>
+        <span aria-hidden="true"><small>工作台</small>作品</span>
       </a>
       <a
         class="room-hotspot room-hotspot--life"
         href="#life-corner"
         data-room-destination="life"
         data-room-name="吉他"
+        aria-label="走近吉他，查看生活侧记"
       >
-        <span>吉他与生活</span>
+        <span aria-hidden="true"><small>吉他</small>生活</span>
       </a>
     </nav>
 
@@ -279,6 +282,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         if (stage.dataset.roomView === view && !(options && options.force)) return;
 
         window.clearTimeout(transitionTimer);
+        stage.removeAttribute('data-room-preview');
         setPanelAccess(view);
         stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
         stage.dataset.roomView = view;
@@ -308,6 +312,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
       function showOverview(options) {
         window.clearTimeout(transitionTimer);
+        stage.removeAttribute('data-room-preview');
         var wasOverview = stage.dataset.roomView === 'overview';
         stage.dataset.roomMoving = reduceMotion.matches || wasOverview ? 'false' : 'true';
         stage.dataset.roomView = 'overview';
@@ -335,6 +340,21 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       }
 
       destinations.forEach(function(link){
+        var preview = function(){
+          if (stage.dataset.roomView === 'overview') {
+            stage.dataset.roomPreview = link.getAttribute('data-room-destination');
+          }
+        };
+        var clearPreview = function(){
+          if (stage.dataset.roomPreview === link.getAttribute('data-room-destination')) {
+            stage.removeAttribute('data-room-preview');
+          }
+        };
+
+        link.addEventListener('pointerenter', preview);
+        link.addEventListener('pointerleave', clearPreview);
+        link.addEventListener('focus', preview);
+        link.addEventListener('blur', clearPreview);
         link.addEventListener('click', function(event){
           if (
             event.defaultPrevented ||
