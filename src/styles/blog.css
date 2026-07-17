@@ -35,7 +35,9 @@
   overflow: hidden;
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-sm);
-  background: var(--paper);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 58%, transparent), transparent 43%),
+    var(--paper);
   box-shadow: var(--shadow-paper);
 }
 
@@ -266,7 +268,9 @@
   padding: clamp(28px, 5vw, 58px);
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  background: var(--paper);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 46%, transparent), transparent 28rem),
+    var(--paper);
   font-size: 1.03rem;
   line-height: 1.95;
   box-shadow: var(--shadow-paper);

@@ -366,7 +366,9 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           ) return;
 
           event.preventDefault();
-          moveTo(link.getAttribute('data-room-destination'));
+          var shouldFocusPanel = event.detail === 0;
+          if (!shouldFocusPanel && document.activeElement === link) link.blur();
+          moveTo(link.getAttribute('data-room-destination'), { focus: shouldFocusPanel });
         });
       });
 
