@@ -9,3 +9,7 @@ dist/
 node_modules/
 .astro/
 .devcontainer/
+
+# Local tooling artifacts
+.playwright-cli/
+scripts/.signature-font-source.ttf

@@ -16,7 +16,10 @@ There is no automated test suite configured yet. Treat `npm run build` as the re
 Recent history uses Conventional Commits with an optional scope, for example `fix(seo): ...` or `refactor(astro): ...`. Keep that format and write concise, imperative summaries; Chinese summaries are already used in this repository and are acceptable. Agents must start code changes on a dedicated non-`main` branch, make the smallest coherent commits that preserve a meaningful state, and open or update a pull request themselves after pushing. Pull requests should include a short description, affected routes or content paths, screenshots for visible UI changes, and any manual verification performed, especially `npm run build`.
 
 ## Content & Configuration Notes
-Do not commit `node_modules/`, `.astro/`, or `dist/`. Keep site-wide metadata aligned with `astro.config.mjs`, and update OG assets or canonical URLs when adding new top-level sections.
+Do not commit `node_modules/`, `.astro/`, `dist/`, `.playwright-cli/`, or `scripts/.signature-font-source.ttf`. Keep site-wide metadata aligned with `astro.config.mjs`, and update OG assets or canonical URLs when adding new top-level sections.
+
+## Visual Design Contract
+All visual changes are governed by `docs/uiux/ink-and-light-study.md`（墨光书房：界画四原则、昼宣/夜墨双主题、朱砂印章、QiuBrush 书体、显影动效）. Read it before touching styles or components, follow the manual checks in `docs/qa/visual-checklist.md`, and update the contract plus `.agents/skills/qiu-site-frontend-design/` when changing any system it describes. Scene asset regeneration prompts live in `docs/asset-prompts/`. The brush font subset is regenerated with `scripts/subset-signature-font.py` after editing `scripts/signature-font-chars.txt`.
 
 ## Project Copy Notes
 Before editing `/projects/` or project showcase copy, read `src/data/projects.ts` and `docs/project-briefs/docker-hadoop-cluster.md` so project names, URLs, evidence, and positioning stay consistent.
