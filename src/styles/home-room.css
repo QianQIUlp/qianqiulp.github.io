@@ -29,11 +29,8 @@
   color: #f4e6c8;
 }
 
-.page-home--room .site-brand__mark {
-  border-color: rgba(226, 190, 130, 0.45);
-  background: rgba(18, 15, 11, 0.76);
-  color: #efc883;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.34);
+.page-home--room .site-brand__seal {
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.42));
 }
 
 .page-home--room .site-brand__subtitle {
@@ -223,6 +220,55 @@
     linear-gradient(180deg, rgba(5, 4, 3, 0.1), transparent 62%, rgba(5, 4, 3, 0.3));
   mix-blend-mode: soft-light;
   transition: opacity 700ms ease;
+}
+
+/* 房间里斜落的花瓣：两三片，克制，移动端与减少动态偏好下关闭 */
+.room-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 24;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.room-petals span {
+  position: absolute;
+  top: -4%;
+  width: 14px;
+  height: 10px;
+  border-radius: 64% 36% 62% 38% / 58% 44% 56% 42%;
+  background: rgba(196, 96, 62, 0.44);
+  opacity: 0;
+  animation: room-petal-fall 27s linear infinite;
+}
+
+.room-petals span:nth-child(2) {
+  left: 55%;
+  width: 11px;
+  height: 8px;
+  animation-delay: -11s;
+  animation-duration: 34s;
+}
+
+.room-petals span:nth-child(3) {
+  left: 76%;
+  width: 12px;
+  height: 9px;
+  animation-delay: -21s;
+  animation-duration: 30s;
+}
+
+.room-petals span:nth-child(1) {
+  left: 30%;
+  animation-delay: -3s;
+}
+
+@keyframes room-petal-fall {
+  0% { opacity: 0; transform: translate3d(0, -5vh, 0) rotate(0deg); }
+  8% { opacity: 0.5; }
+  50% { transform: translate3d(5vw, 48vh, 0) rotate(168deg); }
+  92% { opacity: 0.38; }
+  100% { opacity: 0; transform: translate3d(11vw, 105vh, 0) rotate(306deg); }
 }
 
 .room-focus-layer {
@@ -473,9 +519,9 @@
 }
 
 .room-intro h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-brush);
   font-size: clamp(3.2rem, 5.7vw, 5.6rem);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.025em;
   line-height: 1;
   white-space: nowrap;
@@ -483,9 +529,9 @@
 
 .room-intro p {
   color: var(--room-muted);
-  font-family: var(--font-serif);
-  font-size: clamp(0.96rem, 1.35vw, 1.25rem);
-  letter-spacing: 0.09em;
+  font-family: var(--font-brush);
+  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
+  letter-spacing: 0.1em;
 }
 
 .room-destinations {
@@ -528,6 +574,21 @@
   pointer-events: none;
   transform: scale(0.88);
   transition: opacity 420ms ease, transform 720ms var(--room-ease);
+  animation: hotspot-breathe 5.6s ease-in-out infinite;
+}
+
+/* 序章：三处微光在虚景里呼吸，邀请视线走近 */
+@keyframes hotspot-breathe {
+  0%, 100% { opacity: 0.09; transform: scale(0.88); }
+  50% { opacity: 0.32; transform: scale(1); }
+}
+
+.room-hotspot--projects::after {
+  animation-delay: -1.9s;
+}
+
+.room-hotspot--life::after {
+  animation-delay: -3.7s;
 }
 
 .room-hotspot span {
@@ -581,6 +642,7 @@
 }
 
 .room-hotspot:is(:hover, :focus-visible)::after {
+  animation: none;
   transform: scale(1);
 }
 
@@ -1096,6 +1158,10 @@
     display: none;
   }
 
+  .room-petals {
+    display: none;
+  }
+
   .room-focus-layer--writing,
   .room-focus-layer--projects {
     transform: scale(0.82);
@@ -1436,6 +1502,213 @@
   .room-hotspot:focus-visible {
     outline: 2px solid rgba(241, 196, 119, 0.72);
     outline-offset: 1px;
+  }
+}
+
+/* ============================================================
+   昼·宣纸：同一间房间摊在纸上。
+   夜模式保持钨丝灯基调；昼模式把场景洗成淡墨界画，
+   只有人、吉他与内容保持实在。
+   ============================================================ */
+
+html:not([data-theme="dark"]) .page-home--room {
+  background: #ece2cb;
+  color: #2c2414;
+}
+
+html:not([data-theme="dark"]) .room-home {
+  background: #ece2cb;
+  color: #2c2414;
+}
+
+html:not([data-theme="dark"]) .room-camera {
+  background: #ece2cb;
+}
+
+html:not([data-theme="dark"]) .room-home :focus-visible {
+  outline-color: #a2402c;
+}
+
+html:not([data-theme="dark"]) .room-world {
+  filter: brightness(1.46) saturate(0.58) contrast(0.86) sepia(0.2);
+}
+
+/* 宣纸罩：把摄影场景压成淡墨，z-index 低于帷幕/吉他/近景层 */
+html:not([data-theme="dark"]) .room-canvas::before {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 62% 48% at 30% 40%, rgba(250, 244, 228, 0.2), transparent 70%),
+    linear-gradient(180deg, rgba(236, 226, 203, 0.36), rgba(236, 226, 203, 0.12) 42%, rgba(224, 211, 182, 0.3));
+  content: "";
+}
+
+html:not([data-theme="dark"]) .room-curtain {
+  filter: brightness(1.32) saturate(0.6) contrast(0.9) sepia(0.18)
+    drop-shadow(22px 0 35px rgba(74, 58, 34, 0.38));
+}
+
+html:not([data-theme="dark"]) .room-guitar {
+  filter:
+    brightness(0.95)
+    saturate(0.78)
+    contrast(1.04)
+    sepia(0.1)
+    drop-shadow(18px 28px 18px rgba(74, 58, 34, 0.38));
+}
+
+html:not([data-theme="dark"]) .room-guitar-shadow {
+  background: radial-gradient(ellipse, rgba(74, 58, 34, 0.42), transparent 68%);
+}
+
+html:not([data-theme="dark"]) .room-atmosphere {
+  background:
+    radial-gradient(circle at 31% 36%, rgba(255, 216, 146, 0.18), transparent 30%),
+    linear-gradient(90deg, rgba(236, 226, 203, 0.52), transparent 22%, transparent 78%, rgba(236, 226, 203, 0.34)),
+    linear-gradient(180deg, rgba(236, 226, 203, 0.26), transparent 60%, rgba(120, 95, 60, 0.16));
+  mix-blend-mode: soft-light;
+}
+
+html:not([data-theme="dark"]) .room-intro {
+  border-left-color: rgba(162, 64, 44, 0.72);
+  color: #2c2414;
+  text-shadow: 0 2px 18px rgba(244, 236, 214, 0.92), 0 0 34px rgba(244, 236, 214, 0.7);
+}
+
+/* 题名落在光里：题字背后一团宣纸光，保证任何景深下可读 */
+html:not([data-theme="dark"]) .room-intro::before {
+  position: absolute;
+  inset: -48px -72px;
+  z-index: -1;
+  background: radial-gradient(ellipse 72% 66% at 40% 50%, rgba(243, 236, 220, 0.78), rgba(243, 236, 220, 0.3) 56%, transparent 80%);
+  content: "";
+  filter: blur(8px);
+}
+
+html:not([data-theme="dark"]) .room-intro p {
+  color: rgba(76, 71, 59, 0.92);
+}
+
+html:not([data-theme="dark"]) .room-hotspot span {
+  color: rgba(48, 38, 20, 0.94);
+  text-shadow: 0 2px 14px rgba(244, 236, 214, 0.95), 0 0 22px rgba(236, 226, 203, 0.9);
+}
+
+html:not([data-theme="dark"]) .room-hotspot small {
+  color: rgba(162, 64, 44, 0.72);
+}
+
+html:not([data-theme="dark"]) .room-hotspot::after {
+  background: radial-gradient(ellipse, rgba(224, 170, 95, 0.34), transparent 68%);
+}
+
+html:not([data-theme="dark"]) .room-hotspot:is(:hover, :focus-visible) {
+  color: #1f1a0e;
+}
+
+html:not([data-theme="dark"]) .room-life-note {
+  border-left-color: rgba(162, 64, 44, 0.72);
+  color: #2c2414;
+  text-shadow: 0 2px 18px rgba(244, 236, 214, 0.92);
+}
+
+html:not([data-theme="dark"]) .room-life-note::before {
+  position: absolute;
+  inset: -44px -64px;
+  z-index: -1;
+  background: radial-gradient(ellipse 72% 66% at 40% 50%, rgba(243, 236, 220, 0.76), rgba(243, 236, 220, 0.28) 56%, transparent 80%);
+  content: "";
+  filter: blur(8px);
+}
+
+html:not([data-theme="dark"]) .room-life-note p {
+  color: rgba(76, 71, 59, 0.92);
+}
+
+html:not([data-theme="dark"]) .room-life-note__links a {
+  color: #a2402c;
+}
+
+html:not([data-theme="dark"]) .room-life-note__links a:hover {
+  color: #86351f;
+}
+
+html:not([data-theme="dark"]) .room-hint {
+  color: rgba(125, 117, 102, 0.85);
+  text-shadow: 0 1px 10px rgba(244, 236, 214, 0.9);
+}
+
+html:not([data-theme="dark"]) .room-reset {
+  border-bottom-color: rgba(162, 64, 44, 0.6);
+  color: #a2402c;
+}
+
+html:not([data-theme="dark"]) .room-reset:hover {
+  color: #86351f;
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-header {
+  background: linear-gradient(180deg, rgba(243, 236, 220, 0.9), rgba(243, 236, 220, 0));
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-brand,
+html:not([data-theme="dark"]) .page-home--room .site-brand:hover,
+html:not([data-theme="dark"]) .page-home--room .site-brand__title {
+  color: #2c2414;
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-brand__seal {
+  filter: drop-shadow(0 2px 8px rgba(74, 58, 34, 0.3));
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-brand__subtitle {
+  color: rgba(76, 71, 59, 0.72);
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-nav__link {
+  color: rgba(48, 38, 20, 0.78);
+  text-shadow: 0 1px 10px rgba(243, 236, 220, 0.85);
+}
+
+html:not([data-theme="dark"]) .page-home--room .site-nav__link:hover,
+html:not([data-theme="dark"]) .page-home--room .site-nav__link[aria-current="page"] {
+  color: #1f1a0e;
+  background: rgba(250, 244, 228, 0.78);
+}
+
+html:not([data-theme="dark"]) .page-home--room .theme-toggle {
+  border-color: rgba(150, 116, 66, 0.42);
+  background: rgba(250, 244, 228, 0.82);
+  color: #2c2414;
+}
+
+html:not([data-theme="dark"]) .page-home--room .theme-toggle:hover {
+  border-color: #a2402c;
+  background: rgba(250, 244, 228, 0.94);
+  color: #86351f;
+}
+
+@media (max-width: 640px), (hover: none), (pointer: coarse), (min-width: 641px) and (max-width: 900px) and (orientation: portrait) {
+  html:not([data-theme="dark"]) .room-destinations {
+    background: linear-gradient(180deg, transparent, rgba(236, 226, 203, 0.86) 44%, rgba(236, 226, 203, 0.96));
+  }
+
+  html:not([data-theme="dark"]) .room-hotspot span {
+    color: rgba(48, 38, 20, 0.82);
+    text-shadow: 0 1px 10px rgba(243, 236, 220, 0.9);
+  }
+
+  html:not([data-theme="dark"]) .room-hotspot:is(:hover, :focus-visible) {
+    background: rgba(224, 170, 95, 0.16);
+  }
+}
+
+@media (max-width: 640px) {
+  html:not([data-theme="dark"]) .room-reset {
+    border-color: rgba(162, 64, 44, 0.4);
+    background: rgba(243, 236, 220, 0.86);
   }
 }
 

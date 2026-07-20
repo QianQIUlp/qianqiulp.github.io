@@ -52,7 +52,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
             fetchpriority="high"
             widths={[1280, 1920, 2560, 3840]}
             sizes="max(100vw, 177.78vh)"
-            quality={92}
+            quality={82}
           />
         </div>
 
@@ -61,9 +61,10 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           src={roomCurtain}
           alt=""
           loading="eager"
+          fetchpriority="low"
           widths={[1280, 1920, 2560, 3840]}
           sizes="max(100vw, 177.78vh)"
-          quality={94}
+          quality={84}
           aria-hidden="true"
         />
 
@@ -76,7 +77,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
             loading="eager"
             widths={[640, 960, 1440, 2160]}
             sizes="(max-width: 640px) 116vw, 44vw"
-            quality={95}
+            quality={90}
           />
         </div>
 
@@ -90,10 +91,11 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
             class="room-focus-plate"
             src={roomWriting}
             alt=""
-            loading="eager"
+            loading="lazy"
+            fetchpriority="low"
             widths={[1280, 1920, 2560, 3840]}
             sizes="max(100vw, 177.78vh)"
-            quality={92}
+            quality={80}
             aria-hidden="true"
           />
 
@@ -128,10 +130,11 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
             class="room-focus-plate"
             src={roomProjects}
             alt=""
-            loading="eager"
+            loading="lazy"
+            fetchpriority="low"
             widths={[1280, 1920, 2560, 3840]}
             sizes="max(100vw, 177.78vh)"
-            quality={92}
+            quality={80}
             aria-hidden="true"
           />
 
@@ -158,6 +161,12 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         </section>
 
         <div class="room-atmosphere" aria-hidden="true"></div>
+
+        <div class="room-petals" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </div>
 
