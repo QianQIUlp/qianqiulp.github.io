@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-07-20
+
+### Added
+- 新视觉契约「墨光书房」落地：界画四原则（统一纸底、左上光源、边缘墨化、墨分五色）全站实施，详见 `docs/uiux/ink-and-light-study.md`。
+- 昼宣 / 夜墨双主题：首页房间昼态以宣纸罩与场景滤镜洗亮，主题切换改为墨晕收拢转场（`.theme-wipe`），支持 `prefers-reduced-motion` 即时切换。
+- 朱砂印章组件 `Seal.astro`（白文「千秋」），应用于页眉、页脚与文章授权协议落款。
+- 书体 QiuBrush（Long Cang 子集，11.4KB woff2）：首页题字、空封面落款、印章旁落款与目录题字；附 `scripts/subset-signature-font.py` 再生成脚本。
+- 全站氛围层（夜墨墨絮 / 昼宣花瓣）与「显影」入场动效（`data-reveal` 上移 + 虚化收敛）。
+- 首页房间：呼吸微光热点、花瓣层、题字纸光池；近景图 lazy 加载与质量调优。
+- 内页界画化：博客乌丝栏双墨线与「卷/题」朱砂标签、文章页题跋侧签与落款印章、目录书体题字、项目页朱批侧注；正文开启 `text-spacing-trim` 等中文排印优化。
+- 场景资产再生成提示词 `docs/asset-prompts/`（全景/书桌/工作区/幕布四份 + 过审清单）。
+
+### Changed
+- 全局 tokens 重构：墨色五级（焦浓重淡清）、朱砂、灯光、纸纹与阴影减负；`.page-kicker` 取代原 eyebrow 体系。
+- 字体加载改为 `<link>` + preconnect，修复 `body` 误入 `font: inherit` 选择器导致正文回退默认衬线的问题。
+- `docs/uiux/person-first-editorial-system.md` 标记为已废止（留档），视觉语法以新契约为准。
+- 更新 `docs/qa/visual-checklist.md`（新增设计系统检查节）、`README.md`、`AGENTS.md` 与 `.agents/skills/qiu-site-frontend-design/`。
+
+---
+
 ## [0.4.0] - 2026-05-27
 
 ### Added

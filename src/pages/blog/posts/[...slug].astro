@@ -6,6 +6,7 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Seal from '../../../components/Seal.astro';
 import '../../../styles/blog.css';
 
 export async function getStaticPaths() {
@@ -118,7 +119,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     <article class="post-article">
       <header class:list={['post-header', { 'post-header--with-image': post.data.ogImage, 'post-header--fallback': !post.data.ogImage }]}>
         <div class="post-header__copy">
-          <p class="eyebrow">Long-form folio</p>
+          <p class="page-kicker">长文</p>
           <h1>{post.data.title}</h1>
           <p class="post-description">{post.data.description}</p>
           <div class="post-meta">
@@ -177,8 +178,11 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
         {post.data.license && (
           <footer class="post-license">
-            <span>授权协议</span>
-            <p>{post.data.license}</p>
+            <Seal size={30} class="post-license__seal" />
+            <div>
+              <span>授权协议 · 落款</span>
+              <p>{post.data.license}</p>
+            </div>
           </footer>
         )}
       </div>

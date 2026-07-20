@@ -1,6 +1,6 @@
 # 🏡 qianqiulp.github.io
 
-这是千秋的个人主页与写作空间，使用 **Astro** 构建。网站以暖纸、编辑排版和克制光影组织项目、技术实践、阅读随笔、游戏观察与仍在成形的想法，并支持响应式布局和深浅色模式。
+这是千秋的个人主页与写作空间，使用 **Astro** 构建。网站以「墨光书房」为视觉契约——界画四原则（统一纸底、左上光源、边缘墨化、墨分五色）、朱砂印章与书体题字，组织项目、技术实践、阅读随笔、游戏观察与仍在成形的想法，并支持响应式布局和昼宣/夜墨双主题。
 
 [![Astro](https://img.shields.io/badge/Astro-v6.0-FF5D01.svg?style=flat&logo=astro&logoColor=white)](https://astro.build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
@@ -11,11 +11,12 @@
 ## 🌟 核心特性
 
 - **持续场景式个人房间**：首页以 4K 2.5D 排练室容纳写作、工程与生活，点击物件会在同一空间里自然推近并把真实内容落入显示器或工作台。
+- **昼宣 · 夜墨双主题**：同一构图的两种光——夜墨灯下读、昼宣纸上读，切换时以墨晕收拢转场，并记住用户选择、消除加载闪烁（FOUC）。
+- **界画视觉系统**：墨分五色承担层级、朱砂印章落款、书体题字签名、「显影」入场动效与乌丝栏卷轴排版贯穿全站。
 - **动态博客系统**：基于 Astro 6.0 Content Collections 构建，支持 Markdown 编写并自动生成 SEO Meta 头和站点地图。
 - **长文动态目录**：博客文章页支持滚动联动目录，并针对中文长文、代码块、表格和图片优化阅读体验。
-- **智能深色模式**：自动识别系统级别深色偏好，且记住用户手动调整的深色/浅色状态，消除加载闪烁（FOUC）。
 - **真实内容驱动**：房间内直接读取最新文章和重点项目，场景入口、无 JavaScript hash 落点与既有内容路由互相衔接。
-- **性能优化**：使用 Astro 原生图像优化（`astro:assets`）和极低的 CSS 与 JS 体积，秒级加载。
+- **性能优化**：使用 Astro 原生图像优化（`astro:assets`）、书体子集（11KB）和极低的 CSS 与 JS 体积，秒级加载。
 
 ## 🛠️ 本地开发与预览
 
@@ -69,8 +70,10 @@ node --version
 ## 🧭 维护文档
 
 - [站点维护说明](./docs/site-maintenance.md)：本地启动、新增文章、新增项目、字段边界和 Codex UI 改动前置阅读清单。
-- [人本房间与编辑工作台设计契约](./docs/uiux/person-first-editorial-system.md)：全站人物定位、首页空间交互、内页视觉语法和真实内容边界。
-- [Visual QA Checklist](./docs/qa/visual-checklist.md)：UI 改动后的手动检查项，覆盖首页、博客、文章页、项目页、暗色模式、移动端、键盘焦点和图片稳定性。
+- [墨光书房设计契约](./docs/uiux/ink-and-light-study.md)：现行视觉契约——界画四原则、昼宣夜墨、色彩/字体/印章/动效边界与防漂移清单。
+- [人本房间与编辑工作台设计契约](./docs/uiux/person-first-editorial-system.md)（已废止，留档）：房间叙事与内容边界的原始决策。
+- [场景资产提示词](./docs/asset-prompts/)：首页房间场景图的再生成提示词与过审清单。
+- [Visual QA Checklist](./docs/qa/visual-checklist.md)：UI 改动后的手动检查项，覆盖设计系统、首页、博客、文章页、项目页、双主题、移动端、键盘焦点和图片稳定性。
 
 ---
 

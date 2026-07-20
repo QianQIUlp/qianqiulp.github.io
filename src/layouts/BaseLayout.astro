@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
+import Seal from '../components/Seal.astro';
 
 export interface Props {
   title: string;
@@ -43,8 +44,12 @@ const {
     })();
   </script>
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#e7dbc6" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#1b1a15" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#f1ebdb" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
+  <!-- 标题衬线：preconnect + 样式表直链，避免 CSS @import 链式阻塞 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&display=swap" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
@@ -63,39 +68,117 @@ const {
 </head>
 <body class:list={[bodyClass]}>
   <a class="skip-link" href="#main-content">跳到主要内容</a>
+
+  <!-- 氛围层：几粒墨絮与花瓣的呼吸，不参与交互 -->
+  <div class="atmosphere" aria-hidden="true">
+    <span class="atmosphere__mote atmosphere__mote--1"></span>
+    <span class="atmosphere__mote atmosphere__mote--2"></span>
+    <span class="atmosphere__mote atmosphere__mote--3"></span>
+    <span class="atmosphere__mote atmosphere__mote--4"></span>
+    <span class="atmosphere__petal atmosphere__petal--1"></span>
+    <span class="atmosphere__petal atmosphere__petal--2"></span>
+  </div>
+
   <SiteHeader />
 
   <slot />
 
   <footer class="site-footer">
     <div class="site-footer__inner">
-      <p>© 2026 千秋 · Qiu 的小屋</p>
+      <span class="site-footer__brand">
+        <Seal size={26} />
+        <p>© 2026 千秋 · Qiu 的小屋</p>
+      </span>
       <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">github.com/qianqiulp</a>
     </div>
   </footer>
 
-  <!-- 主题切换逻辑 -->
+  <!-- 主题晕染转场覆盖层 -->
+  <div class="theme-wipe" aria-hidden="true"><div class="theme-wipe__mist"></div></div>
+
+  <!-- 主题切换逻辑：昼宣 ↔ 夜墨，以晕染过渡；减少动态偏好下即时切换 -->
   <script is:inline>
     (function(){
       var btn = document.getElementById('themeToggle');
       if (!btn) return;
       var html = document.documentElement;
+      var wipe = document.querySelector('.theme-wipe');
+      var mist = wipe && wipe.querySelector('.theme-wipe__mist');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
       function render() {
         var isDark = html.getAttribute('data-theme') === 'dark';
         btn.textContent = isDark ? '昼' : '夜';
         btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
       }
-      render();
-      btn.addEventListener('click', function() {
-        var dark = html.getAttribute('data-theme') === 'dark';
-        if (dark) {
-          html.removeAttribute('data-theme');
-          localStorage.setItem('theme', 'light');
-        } else {
+
+      function applyTheme(toDark) {
+        if (toDark) {
           html.setAttribute('data-theme', 'dark');
           localStorage.setItem('theme', 'dark');
+        } else {
+          html.removeAttribute('data-theme');
+          localStorage.setItem('theme', 'light');
         }
         render();
+      }
+
+      render();
+
+      var activeAnims = null;
+      var cleanupTimer = 0;
+
+      function cleanupWipe() {
+        window.clearTimeout(cleanupTimer);
+        wipe.classList.remove('is-active');
+        wipe.style.background = '';
+        mist.style.background = '';
+        activeAnims = null;
+      }
+
+      btn.addEventListener('click', function() {
+        var toDark = html.getAttribute('data-theme') !== 'dark';
+        var canAnimate = wipe && mist && !reduceMotion.matches && typeof wipe.animate === 'function';
+        if (!canAnimate) {
+          applyTheme(toDark);
+          return;
+        }
+
+        if (activeAnims) {
+          activeAnims.forEach(function(anim){ anim.cancel(); });
+          cleanupWipe();
+        }
+
+        var rect = btn.getBoundingClientRect();
+        var x = rect.left + rect.width / 2;
+        var y = rect.top + rect.height / 2;
+        var radius = Math.ceil(Math.hypot(
+          Math.max(x, window.innerWidth - x),
+          Math.max(y, window.innerHeight - y)
+        ));
+
+        // 先用旧底色盖住屏幕，再在遮盖下翻转主题，最后让旧色向点击处收拢，露出新主题
+        var oldBg = getComputedStyle(html).getPropertyValue('--bg');
+        wipe.style.background = oldBg;
+        mist.style.background = oldBg;
+        wipe.classList.add('is-active');
+
+        applyTheme(toDark);
+
+        var shrink = wipe.animate(
+          [
+            { clipPath: 'circle(' + radius + 'px at ' + x + 'px ' + y + 'px)' },
+            { clipPath: 'circle(0px at ' + x + 'px ' + y + 'px)' }
+          ],
+          { duration: 720, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' }
+        );
+        var mistFade = mist.animate(
+          [{ opacity: 0.85 }, { opacity: 0 }],
+          { duration: 560, easing: 'ease-out' }
+        );
+        activeAnims = [shrink, mistFade];
+        shrink.onfinish = cleanupWipe;
+        cleanupTimer = window.setTimeout(cleanupWipe, 900);
       });
     })();
   </script>

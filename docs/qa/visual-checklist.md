@@ -13,7 +13,25 @@ Core viewports:
 - Tablet: 768px
 - Mobile: 375px
 
-Always check light and dark mode for changed routes.
+Always check light (昼宣) and dark (夜墨) mode for changed routes.
+
+## 墨光书房设计系统
+
+改动触及色彩/字体/印章/动效/房间场景时，除下方路由条目外逐项过本节
+（契约全文见 `docs/uiux/ink-and-light-study.md`）：
+
+- 双主题为同一构图：昼宣与夜墨之间没有元素消失、移位或换布局，只有明暗浓淡变化。
+- 墨色五色承担层级：标题/正文/次要/辅助/装饰分别落在焦浓重淡清，未出现新的"第六级灰"。
+- 朱砂只出现在落款语义位：页眉/页脚印章、文章落款、卷题标签、题跋侧签、朱批侧注；
+  普通按钮、链接、报错均未使用朱砂。
+- 全站只有一个左上光源：新增投影向右下，悬停反馈为"灯亮"（夜墨 glow）或"墨淡"（昼宣纸光池）。
+- 书体 QiuBrush 仅出现在契约允许的四处文字；组件标题、导航、正文均未误用。
+- 每屏至多一枚印章；文章卡片空封面落款用笔字而非印章。
+- `data-reveal` 显影为唯一入场动效：轻上移 + 虚化收敛，无第二种入场方式。
+- 主题晕染转场：从按钮位置圆形收拢 + 雾化，连点不残留遮罩；
+  `prefers-reduced-motion` 下即时切换。
+- 氛围层（墨絮/花瓣）不挡内容、数量少、`prefers-reduced-motion` 下静止。
+- 场景图边缘墨化融入纸底，无硬边矩形"贴画感"。
 
 ## Homepage
 
@@ -59,10 +77,12 @@ Always check light and dark mode for changed routes.
 - Secondary traces and playbook items wrap long titles without overlap.
 - Project names, URLs, and positioning match `src/data/projects.ts` and project briefs.
 
-## Dark Mode
+## Dark Mode (夜墨 / 昼宣)
 
 - Toggle updates the visible state and persists across reloads.
+- 转场为晕染收拢而非硬切；切换后 header、热点、题字在两态下均可读。
 - Page background, surfaces, borders, text, links, tags, and code blocks keep adequate contrast.
+- 昼宣态场景被宣纸罩与滤镜洗亮，题字与热点坐在纸光池内，无"直接反色"感。
 - Images and cover scrims do not make white text unreadable.
 - Native browser color scheme follows the active theme.
 - Directional paper and note shadows remain visible without turning into bright halos or crushed black blocks.
@@ -71,9 +91,9 @@ Always check light and dark mode for changed routes.
 
 - Homepage camera transitions complete once, do not trap focus, and settle into the selected in-room state in about 2.4 seconds.
 - With `prefers-reduced-motion: reduce`, the selected in-room state and its content appear immediately without camera displacement, fading, progress motion, or smooth scrolling.
-- Below-the-fold reveal items enter once with no more than 8px movement and no more than three stagger steps.
+- Below-the-fold reveal items enter once as 显影 (slight rise + blur settling), with no more than three stagger steps.
 - Hero copy and article body are readable immediately and never wait for scroll animation.
-- With `prefers-reduced-motion: reduce`, reveal transitions and hover translation are disabled.
+- With `prefers-reduced-motion: reduce`, reveal transitions, hover translation, 氛围层, and 主题晕染 are disabled or instant.
 - With JavaScript disabled, every `data-reveal` element remains visible and usable.
 
 ## Mobile Widths

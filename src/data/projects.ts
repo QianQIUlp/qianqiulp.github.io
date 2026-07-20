@@ -59,12 +59,12 @@ export const projectsPageCopy: ProjectsPageCopy = {
   heroLead: '这里收着那些已经长出形状、可以被打开、复现或继续接手的公开产物；尚未成形的学习，只先留下几枚路标。',
   heroNote: '比起陈列一个名字，我更想记下它因何而生、在哪些岔路作过取舍，也替后来者留一扇可以推开的门。',
   infrastructure: {
-    eyebrow: 'Site / Writing Infrastructure',
+    eyebrow: '站点基础',
     title: '站点与写作基础',
     description: '这些入口支撑公开写作和作品展示，本身不是独立作品。',
   },
   playbooks: {
-    eyebrow: 'Selected Playbooks',
+    eyebrow: '指南手册',
     title: '公开指南',
     description: '这些文章更像可复用的操作指南或 playbook，是写作产物，不是工程项目。',
   },

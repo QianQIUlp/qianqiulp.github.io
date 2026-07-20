@@ -1,6 +1,7 @@
+/* 乌丝栏：墨线分行的开放索引，不堆卡片 */
 .post-ledger {
   display: grid;
-  border-top: 1px solid var(--border-strong);
+  border-top: 4px double var(--border-strong);
 }
 
 .article-shell {
@@ -33,12 +34,13 @@
   display: grid;
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
   overflow: hidden;
-  border: 1px solid var(--border-strong);
+  border: 1px solid var(--border);
+  border-bottom: 3px double var(--border-strong);
   border-radius: var(--radius-sm);
   background:
     linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 58%, transparent), transparent 43%),
     var(--paper);
-  box-shadow: var(--shadow-paper);
+  box-shadow: var(--shadow-sm);
 }
 
 .post-header::before {
@@ -46,7 +48,7 @@
   inset: 0 auto 0 0;
   z-index: 2;
   width: 4px;
-  background: linear-gradient(180deg, var(--warm), var(--accent) 72%, transparent);
+  background: linear-gradient(180deg, var(--cinnabar), var(--accent) 72%, transparent);
   content: "";
   pointer-events: none;
 }
@@ -145,11 +147,14 @@
 }
 
 .toc-header {
+  display: inline-block;
   margin-bottom: var(--space-3);
-  color: var(--text);
-  font-size: 0.86rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  padding-bottom: 2px;
+  border-bottom: 2px solid var(--cinnabar);
+  color: var(--cinnabar);
+  font-family: var(--font-brush);
+  font-size: 1.02rem;
+  letter-spacing: 0.14em;
 }
 
 .toc-list {
@@ -203,15 +208,35 @@
   margin-bottom: 0;
 }
 
+/* 题跋：正文前的导读，以朱砂边注与小引呈现 */
 .post-intro aside {
+  position: relative;
   margin: 0;
-  padding: var(--space-5);
+  padding: var(--space-6) var(--space-5) var(--space-5);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
+  border-left: 4px solid var(--cinnabar);
   border-radius: var(--radius-sm);
-  background: var(--annotation);
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--paper-raised) 52%, transparent), transparent 48%),
+    var(--annotation);
   color: var(--text-secondary);
   box-shadow: var(--shadow-sm);
+}
+
+.post-intro aside::before {
+  position: absolute;
+  top: 0;
+  left: var(--space-5);
+  padding: 2px var(--space-2) 3px;
+  border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+  background: var(--cinnabar);
+  color: var(--paper);
+  content: "题跋";
+  font-family: var(--font-brush);
+  font-size: 0.86rem;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  transform: translateY(-1px);
 }
 
 .post-intro h3 {
@@ -273,7 +298,10 @@
     var(--paper);
   font-size: 1.03rem;
   line-height: 1.95;
-  box-shadow: var(--shadow-paper);
+  box-shadow: var(--shadow-sm);
+  /* 中文排印：标点挤压与悬挂，支持处渐进增强，不支持无副作用 */
+  text-spacing-trim: trim-all;
+  hanging-punctuation: first allow-end;
 }
 
 .post-content > :first-child {
@@ -291,6 +319,7 @@
   scroll-margin-top: 110px;
   color: var(--text);
   line-height: 1.3;
+  text-wrap: balance;
 }
 
 .post-content h2 {
@@ -439,16 +468,22 @@
 }
 
 .post-license {
-  display: grid;
-  gap: var(--space-2);
+  display: flex;
+  gap: var(--space-4);
+  align-items: flex-start;
   padding: var(--space-5);
   border-top: 1px solid var(--border-strong);
   background: color-mix(in srgb, var(--paper) 72%, transparent);
   color: var(--text-secondary);
 }
 
+.post-license__seal {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
 .post-license span {
-  color: var(--text);
+  color: var(--cinnabar);
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.08em;
