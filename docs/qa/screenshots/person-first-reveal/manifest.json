@@ -1,0 +1,19 @@
+{
+  "viewportEvidence": [
+    "home-initial-dark-1440",
+    "home-discover-writing-dark-1440",
+    "home-life-dark-1440",
+    "home-discovered-dark-1440",
+    "home-initial-light-1440",
+    "home-initial-dark-375",
+    "home-discovered-dark-375",
+    "blog-light-1440",
+    "projects-dark-1440",
+    "post-light-1440",
+    "post-dark-375"
+  ],
+  "generatedAt": "2026-07-21",
+  "sourceBranch": "codex/complete-person-first-intent",
+  "desktopViewport": "1440x1024",
+  "mobileViewport": "375x812"
+}

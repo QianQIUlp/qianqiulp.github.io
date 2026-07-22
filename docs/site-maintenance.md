@@ -102,7 +102,7 @@ license: "CC BY-NC 4.0"
 - `secondaryProjects` 用于站点基础设施、归档入口、学习线索等次级内容。
 - `selectedGuidePostIds` 必须对应 `src/content/posts/` 中存在的文章 slug。
 - 外部链接设置 `external: true`，渲染时会使用新标签页和安全 `rel`。
-- `dockder-hadoop-cluster` 是当前项目的真实仓库 slug，不要改成 `docker-hadoop-cluster`。
+- `docker-hadoop-cluster` 是当前项目的真实仓库 slug；旧的 `dockder-hadoop-cluster` 链接均为错误拼写。
 
 ## UI 检查
 
