@@ -1,35 +1,42 @@
 # Docker-Hadoop-Cluster Project Brief
 
-## Naming
+Use this source when updating the personal site. The canonical repository slug
+is `docker-hadoop-cluster`; old `dockder-hadoop-cluster` links are incorrect.
 
-- Display name: `Docker-Hadoop-Cluster`
-- Repository slug: `dockder-hadoop-cluster`
-- Repository URL: `https://github.com/QianQIUlp/dockder-hadoop-cluster`
+## Compact case study
 
-Keep the repository slug exactly as `dockder-hadoop-cluster`. Do not rename or "correct" it to `docker-hadoop-cluster`.
+**Summary:** A repeatable local Hadoop laboratory that turns environment setup,
+service observation, MapReduce execution, node failure and recovery into a
+guided learning path.
 
-## Confirmed Facts
+**Problem:** Beginners often spend the lesson fighting downloads, ports,
+configuration and opaque daemon failures before they can observe HDFS or YARN.
 
-- The project is described as a teaching-oriented way to quickly launch a Hadoop 3.4.1 three-node fully distributed cluster.
-- The cluster has explicit node roles across `hadoop1`, `hadoop2`, and `hadoop3`, covering NameNode, ResourceManager, SecondaryNameNode, DataNode, NodeManager, and JobHistoryServer roles.
-- Hadoop XML configuration is externalized under `conf/`, with `.env` parameterization for local setup.
-- Docker named volumes persist data, and a shared SSH key volume supports node trust.
-- The project includes helper scripts such as `up.sh`, `status.sh`, `shell.sh`, and `run-wordcount.sh`.
-- It includes a single-node pseudo-distributed mode for local learning, demos, or lower-memory environments.
-- It publishes the public image `ghcr.io/qianqiulp/hadoop-cluster-3.4.1`, which can be pulled directly instead of built locally.
-- It includes GHCR image publishing workflow details such as vulnerability scanning, image signing, SBOM, and provenance.
+**Design:** One lifecycle CLI wraps a single-node first-run mode and a three-node
+role mode. Preflight checks, explicit health evidence, namespaced labs, safe
+resets and redacted diagnostics keep the environment understandable and
+recoverable.
 
-## Portfolio Positioning
+**Boundary:** It is a teaching and local experimentation environment, not a
+production Hadoop platform. It deliberately excludes HA, Kerberos, multi-host
+orchestration and operational SLAs.
 
-Present this as a teaching, lab, and local-learning tool for Hadoop, HDFS, YARN, MapReduce, Docker Compose, and cluster debugging.
+## Canonical links
 
-The portfolio copy may say that the project is positioned more toward learning, experimentation, and teaching demos than a production Hadoop platform. Do not phrase that as an official repository guarantee or production-readiness statement.
+- Repository: <https://github.com/QianQIUlp/docker-hadoop-cluster>
+- Image: <https://github.com/QianQIUlp/docker-hadoop-cluster/pkgs/container/hadoop-cluster-3.4.1>
+- README: <https://github.com/QianQIUlp/docker-hadoop-cluster#readme>
 
-## Display Copy Guidance
+## Evidence capture checklist
 
-- Use `summary`, `positioning`, `caseStudy`, `highlights`, and `limitations` from `src/data/projects.ts` for page copy.
-- Keep `confirmedFacts` concise and evidence-oriented.
-- Prefer the compact case-study structure on `/projects/`; avoid making `confirmedFacts` the main visible content.
-- Link the `GHCR 镜像` action to `https://github.com/QianQIUlp/dockder-hadoop-cluster/pkgs/container/hadoop-cluster-3.4.1`.
-- Do not claim production readiness, user adoption, stars, performance benchmarks, or maturity beyond repository evidence.
-- Keep secondary site sections and learning tracks visually secondary to this real featured project.
+Capture after a clean standalone run:
+
+1. terminal showing `doctor` passing;
+2. terminal showing a healthy `status` service map;
+3. WordCount result and its successful lesson check;
+4. NameNode overview at 9870;
+5. ResourceManager application page at 8088;
+6. one three-node degraded/recovered status pair for the case study.
+
+Do not use mocked metrics or imply production readiness, adoption or benchmark
+results.

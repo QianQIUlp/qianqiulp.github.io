@@ -1,31 +1,28 @@
 # home-room-ink-writing · 书桌近景
 
-目标：点击「写作」热点后的近景——桌面显示器特写，屏幕上是文章列表界面，
-台灯从左上照亮键盘与稿纸。
+目标：点击「写作」后的真实电脑近景昼夜对；显示器留出干净黑屏供代码叠加文章列表。
 
 ## Canvas
 
-- 与现网 writing 近景一致（横构图，约 3:2）。
-- 屏幕区域需留有清晰矩形界面位，UI 文字由代码叠加，图内不生成可读文字。
+- 1672×941，16:9；与全景是同一房间的推镜头。
+- 黑屏内区约为 x=30.25%–56%、y=32.8%–60.3%，不得被物件或高光遮挡。
 
 ## Prompt
 
-> Close-up of the writer's desk in the same jiehua ink-wash study, same room, same
-> upper-left lamplight: a glowing monitor showing a minimalist dark interface with
-> abstract blank list rows (no readable text), a fountain pen resting on xuan paper
-> with faint ink strokes, a small tea cup, keyboard in shadow. Five ink tonal grades
-> on warm paper tone, monitor light as the only cool secondary glow, all cast shadows
-> toward lower right. Composition centered on the monitor, edges dissolving into ink
-> vignette. No color accents except a tiny cinnabar seal (#a2402c) on the paper corner.
+> A clean low-ISO photographic push-in to the exact left writing desk. The same monitor,
+> lamp, notebook, pen, keyboard, mouse, cup, chair, window, blinds, curtains and snow-white
+> wall remain spatially coherent with overview. Monitor screen is blank black and nearly
+> square to camera at the required coordinates. Generate registered night (lamp on) and
+> soft overcast day (lamp off) versions; independent real material textures and smooth gradients.
 
 ## Negative
 
-> readable text, UI screenshots, bright white screen, colorful icons, multiple light
-> sources, hard border, watermark, photographic studio look
+> readable text, generated UI, moved objects, beige/stucco wall, paper grain, shared embossed
+> pattern, AI noise, film grain, fake HDR, CGI, painterly style, watermark, baked vignette
 
 ## Checklist
 
-- [ ] 与 overview 同一房间（台灯、稿纸、印章位置呼应）
-- [ ] 屏幕为深色抽象界面，无可读文字
-- [ ] 光源仍来自左上；屏幕光只做辅助冷光
-- [ ] 边缘墨化
+- [ ] 与 overview 同一物件和材质
+- [ ] 昼夜严格配准，灯只在夜间亮
+- [ ] 黑屏位置与 `.room-monitor-surface` 对齐，无可读文字
+- [ ] 白墙与各材质干净真实，无跨材质噪点

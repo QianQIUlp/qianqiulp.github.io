@@ -1,8 +1,9 @@
 # 人本房间与编辑工作台设计契约
 
-> **已废止（superseded）**：现行视觉契约见 [`ink-and-light-study.md`](./ink-and-light-study.md)
-> （墨光书房 · 界画四原则 · 昼宣夜墨）。本文件仅留档，记录房间叙事与内容边界的原始决策；
-> 其中页面职责与内容边界部分仍有效，视觉语法部分以新契约为准。
+> **历史归档**：首页创作原点见 [`homepage-art-direction.md`](./homepage-art-direction.md)，
+> 长期人本意图见 [`person-first-intent.md`](./person-first-intent.md)，现行视觉实现见
+> [`ink-and-light-study.md`](./ink-and-light-study.md)。本文件只记录早期房间方案如何形成，
+> 不再承担现行规则。
 
 ## 上位定位
 

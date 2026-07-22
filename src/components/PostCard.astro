@@ -84,15 +84,12 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   .post-card__cover {
     overflow: hidden;
     aspect-ratio: 4 / 3;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-sm);
-    background: var(--surface-muted);
-    box-shadow: var(--shadow-sm);
-    transition: box-shadow var(--motion-fast) var(--ease-out);
-  }
-
-  .post-card:hover .post-card__cover {
-    box-shadow: var(--shadow-note);
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-mask-image: radial-gradient(ellipse 98% 94% at 50% 50%, #000 82%, transparent 100%);
+    mask-image: radial-gradient(ellipse 98% 94% at 50% 50%, #000 82%, transparent 100%);
   }
 
   .post-card__body {
@@ -128,9 +125,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     width: 100%;
     aspect-ratio: 4 / 3;
     place-items: center;
-    background:
-      radial-gradient(ellipse 70% 80% at 50% 42%, color-mix(in srgb, var(--paper-raised) 62%, transparent), transparent 72%),
-      var(--surface-muted);
+    background: radial-gradient(ellipse 70% 80% at 50% 42%, var(--surface-muted), transparent 72%);
     color: color-mix(in srgb, var(--cinnabar) 58%, transparent);
     font-family: var(--font-brush);
     font-size: 1.6rem;

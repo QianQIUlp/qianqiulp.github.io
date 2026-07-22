@@ -1,6 +1,4 @@
 ---
-import Seal from './Seal.astro';
-
 const currentPath = Astro.url.pathname;
 const navItems = [
   { href: '/', label: '首页', active: currentPath === '/' },
@@ -12,7 +10,6 @@ const navItems = [
 <header class="site-header">
   <div class="site-header__inner">
     <a class="site-brand" href="/" aria-label="Qiu 的小屋首页">
-      <Seal class="site-brand__seal" size={34} />
       <span class="site-brand__text">
         <span class="site-brand__title">Qiu 的小屋</span>
         <span class="site-brand__subtitle">千秋的构建、写作与生活</span>

@@ -3,9 +3,12 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { featuredProjects } from '../data/projects';
-import roomOverview from '../assets/home/practice-room-overview-4k.webp';
-import roomWriting from '../assets/home/practice-room-writing-4k.webp';
-import roomProjects from '../assets/home/practice-room-projects-4k.webp';
+import roomOverviewDay from '../assets/home/practice-room-overview-day.png';
+import roomOverviewNight from '../assets/home/practice-room-overview-night.png';
+import roomWritingDay from '../assets/home/practice-room-writing-day.png';
+import roomWritingNight from '../assets/home/practice-room-writing-night.png';
+import roomProjectsDay from '../assets/home/practice-room-projects-day.png';
+import roomProjectsNight from '../assets/home/practice-room-projects-night.png';
 import roomCurtain from '../assets/home/practice-room-curtain-4k.webp';
 import qiuRelicGuitar from '../assets/home/qiu-relic-guitar-4k.webp';
 import '../styles/home-room.css';
@@ -14,6 +17,18 @@ const posts = await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
+const postsById = new Map(posts.map((post) => [post.id, post]));
+const lifePostIds = [
+  '2026-05-29-liar-game-role-game',
+  '2026-05-17-qiyuniao',
+];
+const lifePosts = lifePostIds.map((postId) => {
+  const post = postsById.get(postId);
+  if (!post) {
+    throw new Error(`Homepage life post missing from posts collection: ${postId}`);
+  }
+  return post;
+});
 const roomProjectsList = featuredProjects.slice(0, 3);
 
 const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
@@ -39,20 +54,31 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
     tabindex="-1"
     data-room-stage
     data-room-view="overview"
+    data-room-discovery="person"
     data-room-moving="false"
   >
     <div class="room-camera">
       <div class="room-canvas">
         <div class="room-world" aria-hidden="true">
           <Image
-            class="room-scene room-scene--overview"
-            src={roomOverview}
+            class="room-scene room-scene--overview room-theme-image room-theme-image--night"
+            src={roomOverviewNight}
             alt=""
             loading="eager"
             fetchpriority="high"
-            widths={[1280, 1920, 2560, 3840]}
+            widths={[960, 1280, 1672]}
             sizes="max(100vw, 177.78vh)"
-            quality={82}
+            quality={88}
+          />
+          <Image
+            class="room-scene room-scene--overview room-theme-image room-theme-image--day"
+            src={roomOverviewDay}
+            alt=""
+            loading="eager"
+            fetchpriority="high"
+            widths={[960, 1280, 1672]}
+            sizes="max(100vw, 177.78vh)"
+            quality={88}
           />
         </div>
 
@@ -88,14 +114,25 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           aria-labelledby="writing-desk-title"
         >
           <Image
-            class="room-focus-plate"
-            src={roomWriting}
+            class="room-focus-plate room-theme-image room-theme-image--night"
+            src={roomWritingNight}
             alt=""
             loading="lazy"
             fetchpriority="low"
-            widths={[1280, 1920, 2560, 3840]}
+            widths={[960, 1280, 1672]}
             sizes="max(100vw, 177.78vh)"
-            quality={80}
+            quality={88}
+            aria-hidden="true"
+          />
+          <Image
+            class="room-focus-plate room-theme-image room-theme-image--day"
+            src={roomWritingDay}
+            alt=""
+            loading="lazy"
+            fetchpriority="low"
+            widths={[960, 1280, 1672]}
+            sizes="max(100vw, 177.78vh)"
+            quality={88}
             aria-hidden="true"
           />
 
@@ -127,14 +164,25 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           aria-labelledby="project-workbench-title"
         >
           <Image
-            class="room-focus-plate"
-            src={roomProjects}
+            class="room-focus-plate room-theme-image room-theme-image--night"
+            src={roomProjectsNight}
             alt=""
             loading="lazy"
             fetchpriority="low"
-            widths={[1280, 1920, 2560, 3840]}
+            widths={[960, 1280, 1672]}
             sizes="max(100vw, 177.78vh)"
-            quality={80}
+            quality={88}
+            aria-hidden="true"
+          />
+          <Image
+            class="room-focus-plate room-theme-image room-theme-image--day"
+            src={roomProjectsDay}
+            alt=""
+            loading="lazy"
+            fetchpriority="low"
+            widths={[960, 1280, 1672]}
+            sizes="max(100vw, 177.78vh)"
+            quality={88}
             aria-hidden="true"
           />
 
@@ -150,9 +198,14 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
                     href={`/projects/#project-${index + 1}`}
                     data-room-autofocus={index === 0 ? '' : undefined}
                   >
-                    <span>{String(index + 1).padStart(2, '0')}</span>
+                    <span class="room-project-list__folio">
+                      <span aria-hidden="true">档</span>
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span class="room-project-list__type">{project.type}</span>
                     <strong>{project.displayName}</strong>
                     <small>{project.status}</small>
+                    <span class="room-project-list__cue" aria-hidden="true">展开卷宗</span>
                   </a>
                 </li>
               ))}
@@ -167,12 +220,14 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           <span></span>
           <span></span>
         </div>
+
+        <div class="room-discovery-veil" aria-hidden="true"></div>
       </div>
     </div>
 
     <section class="room-intro" aria-labelledby="home-title">
       <h1 id="home-title">我是千秋。</h1>
-      <p>选择一个方向，走近一点。</p>
+      <p>练琴，游戏，关系，还有许多没想完的事。</p>
     </section>
 
     <nav class="room-destinations" aria-label="从房间里认识千秋">
@@ -212,12 +267,25 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       aria-labelledby="life-note-title"
       tabindex="-1"
     >
-      <h2 id="life-note-title">生活不是作品集的边角料。</h2>
+      <h2 id="life-note-title">这里也收着没有被做成作品的部分。</h2>
       <p>
-        我也从游戏、关系、练琴和日常经验里理解自己。这里不急着把每件事都变成结论，只留下值得再听一次的回声。
+        练琴、游戏、关系和日常经验会进入我的判断。我把能公开的部分写下来，也把还没想清楚的地方保留成问题。
       </p>
-      <div class="room-life-note__links" aria-label="站外联系方式">
-        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer" data-room-autofocus>GitHub</a>
+      <div class="room-life-note__evidence">
+        <span>生活留下的文字</span>
+        <ul class="room-life-note__traces" aria-label="来自生活经验的文章">
+          {lifePosts.map((post, index) => (
+            <li>
+              <a
+                href={`/blog/posts/${post.id}/`}
+                data-room-autofocus={index === 0 ? '' : undefined}
+              >{post.data.title}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="room-life-note__links" aria-label="其他公开入口">
+        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a
           href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
           target="_blank"
@@ -227,7 +295,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
     </aside>
 
     <a class="room-reset" href="/" data-room-reset>回到房间</a>
-    <p class="room-hint" aria-hidden="true">点击物件，让视线走过去。</p>
+    <p class="room-hint" aria-hidden="true">光外还有东西。</p>
     <div class="room-camera-progress" aria-hidden="true"><span></span></div>
     <p class="room-sr-only" aria-live="polite" data-room-status></p>
   </main>
@@ -292,6 +360,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
         window.clearTimeout(transitionTimer);
         stage.removeAttribute('data-room-preview');
+        stage.dataset.roomDiscovery = 'room';
         setPanelAccess(view);
         stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
         stage.dataset.roomView = view;
@@ -403,6 +472,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       var initialView = viewByHash[window.location.hash];
       if (initialView) {
         setPanelAccess(initialView);
+        stage.dataset.roomDiscovery = 'room';
         stage.dataset.roomView = initialView;
         document.body.dataset.roomView = initialView;
       } else {

@@ -1,35 +1,33 @@
 # home-room-ink-overview · 全景
 
-目标：开场画面——书房全貌，人物背影坐在左侧书桌前，右侧立一把樱桃红电吉他，
-窗外夜色，台灯亮着。
+目标：主页房间全景的严格配准昼夜对。左侧留安静题字区；右侧工作台保留 Supro 与两颗平放单块。
 
 ## Canvas
 
-- 宽高比约 16:9（现网 overview 图 2688×1536 级），横构图。
-- 左半为叙事区（题字叠加位），右半为视觉重心（吉他、工作墙）。
+- 1672×941，16:9 横构图。
+- 左半为叙事留白，右半为真实工作台；昼夜像固定机位的两次曝光。
 
 ## Prompt
 
-> A wide cinematic interior of a writer's study at night, rendered in modern Chinese
-> jiehua ink-painting style fused with photoreal texture: monochrome ink wash in five
-> tonal grades (charred, dense, heavy, pale, clear) on warm xuan paper. Single light
-> source from upper left — a desk lamp and cool moonlight through a window. A person
-> seen from behind sits writing at a wooden desk on the left third; a cherry-red
-> electric guitar on a stand anchors the right third, its red deeply desaturated, the
-> only color accent besides a tiny cinnabar seal stamp (#a2402c) on a paper on the wall.
-> Pegboard with tools and papers, amplifier, plants, red velvet curtain at far left
-> edge. Shadows fall only toward lower right. Edges of the painting dissolve into the
-> paper with soft ink vignette, no hard borders. Quiet, slow, literate atmosphere.
+> A clean low-ISO full-frame photograph of the established writing-and-music room.
+> Smooth snow-white matte painted walls, dark curtains, left writing desk, black chair,
+> rug, and right wooden workbench. On the rear-right workbench, preserve the Supro Black
+> Magick Reverb head and two guitar pedals — gold Centaur-style and blue BOSS-style —
+> lying flat farther inward with physically correct contact and cables. Preserve quiet
+> negative space on the left. Generate a perfectly registered night exposure (desk lamp
+> on, faint cool exterior fill) and day exposure (lamp off, soft overcast morning).
+> Every material has its own real texture; smooth gradients, natural optics, no staged clutter.
 
 ## Negative
 
-> front-facing face, multiple light sources, blue LED glow, neon, colorful objects,
-> hard rectangular frame, white background, text, watermark, sci-fi, clutter explosion
+> moved objects, upright or floating pedals, impossible contact, beige wall, stucco,
+> paper grain, embossed squiggles, shared texture across materials, AI speckles, film grain,
+> fake HDR, painterly rendering, CGI sheen, text, watermark, baked vignette
 
 ## Checklist
 
-- [ ] 光源唯一且来自左上；投影一律右下
-- [ ] 除吉他与印章外无彩色；吉他红色压暗
-- [ ] 四边墨化渐隐，无硬边
+- [ ] 昼夜物件、线材和接触面严格配准
+- [ ] 墙面雪白、平滑、真实，无纸纹/浮雕虫纹
+- [ ] 不同材质没有共享生成纹理或噪点
 - [ ] 左半留白足够叠加题字「我是千秋。」
-- [ ] 与现网热点坐标兼容（写作/作品/生活三处物件位置不变）
+- [ ] Supro 与两颗单块位置不变；单块平放且完整落在桌面内

@@ -6,7 +6,6 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Seal from '../../../components/Seal.astro';
 import '../../../styles/blog.css';
 
 export async function getStaticPaths() {
@@ -59,8 +58,7 @@ export async function getStaticPaths() {
   }
 
   async function getPostProps(post) {
-    const showToc = post.data.toc === true;
-    const introAside = showToc ? extractIntroAside(post.body) : null;
+    const introAside = extractIntroAside(post.body);
 
     if (introAside) {
       const [introRendered, bodyRendered] = await Promise.all([
@@ -92,8 +90,11 @@ export async function getStaticPaths() {
 }
 
 const { post, Content, headings, IntroContent } = Astro.props;
-const showToc = post.data.toc === true;
 const tocHeadings = (headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 4);
+const tocItems = [
+  { slug: 'article-start', text: '文章开头', depth: 2 },
+  ...tocHeadings,
+];
 const formattedDate = post.data.date.toISOString().slice(0, 10);
 const displayDate = new Intl.DateTimeFormat('zh-CN', {
   year: 'numeric',
@@ -117,6 +118,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     <a class="article-back" href="/blog/">返回文章列表</a>
 
     <article class="post-article">
+      <span class="article-start-anchor" id="article-start" aria-hidden="true"></span>
       <header class:list={['post-header', { 'post-header--with-image': post.data.ogImage, 'post-header--fallback': !post.data.ogImage }]}>
         <div class="post-header__copy">
           <p class="page-kicker">长文</p>
@@ -149,7 +151,6 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
       <div class:list={[
         'article-reading-grid',
         {
-          'has-toc': showToc && tocHeadings.length > 0,
           'has-intro': Boolean(IntroContent),
         },
       ]}>
@@ -159,28 +160,14 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
           </div>
         )}
 
-        {showToc && tocHeadings.length > 0 && (
-          <nav class="toc-block" aria-label="文章目录">
-            <div class="toc-header">目录</div>
-            <ul class="toc-list">
-              {tocHeadings.map((heading) => (
-                <li class={`toc-item depth-${heading.depth}`}>
-                  <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-
         <div class="post-content">
           <Content />
         </div>
 
         {post.data.license && (
           <footer class="post-license">
-            <Seal size={30} class="post-license__seal" />
             <div>
-              <span>授权协议 · 落款</span>
+              <span>授权协议 · 文末记</span>
               <p>{post.data.license}</p>
             </div>
           </footer>
@@ -189,7 +176,24 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
     </article>
   </main>
 
-  {showToc && tocHeadings.length > 0 && (
+  <details class="toc-drawer" data-toc-drawer>
+    <summary class="toc-toggle" aria-label="展开或收起文章目录">
+      <span class="toc-toggle__open">目录</span>
+      <span class="toc-toggle__close">收起</span>
+    </summary>
+    <nav class="toc-block" aria-label="文章目录">
+      <div class="toc-header">目录</div>
+      <ul class="toc-list">
+        {tocItems.map((heading) => (
+          <li class={`toc-item depth-${heading.depth}`}>
+            <a href={`#${heading.slug}`} data-toc-link>{heading.text}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </details>
+
+  {tocItems.length > 0 && (
     <script is:inline>
       (function(){
         var links = Array.prototype.slice.call(document.querySelectorAll('[data-toc-link]'));

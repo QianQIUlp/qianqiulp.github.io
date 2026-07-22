@@ -1,7 +1,11 @@
 .page-home--room {
+  --room-gold: var(--lamp);
+  --room-cream: var(--ink-jiao);
+  --room-muted: color-mix(in srgb, var(--ink-nong) 76%, transparent);
+  --room-veil: rgba(8, 9, 10, 0.86);
   overflow: hidden;
-  background: #080705;
-  color: #f4e6c8;
+  background: var(--bg);
+  color: var(--ink-jiao);
 }
 
 .page-home--room .site-header {
@@ -9,7 +13,7 @@
   inset: 0 0 auto;
   z-index: 80;
   border-bottom: 0;
-  background: linear-gradient(180deg, rgba(7, 6, 5, 0.78), rgba(7, 6, 5, 0));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--bg) 82%, transparent), transparent);
   backdrop-filter: none;
   visibility: visible;
   transition:
@@ -23,51 +27,79 @@
   padding-block: 17px;
 }
 
+.page-home--room .site-brand__text,
+.page-home--room .site-nav {
+  transition:
+    opacity 620ms var(--ease-paper),
+    transform 760ms var(--ease-paper),
+    visibility 0s linear 0s;
+}
+
+/* 初见不让全站栏目抢在人物之前出现；走近任一物件后再交还完整导航。 */
+.js .page-home--room:has(.room-home[data-room-discovery="person"]) :is(.site-brand__text, .site-nav) {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  visibility: hidden;
+  transition-delay: 0s, 0s, 620ms;
+}
+
 .page-home--room .site-brand,
 .page-home--room .site-brand:hover,
 .page-home--room .site-brand__title {
-  color: #f4e6c8;
-}
-
-.page-home--room .site-brand__seal {
-  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.42));
+  color: var(--ink-jiao);
 }
 
 .page-home--room .site-brand__subtitle {
-  color: rgba(244, 230, 200, 0.62);
+  color: color-mix(in srgb, var(--ink-nong) 70%, transparent);
 }
 
 .page-home--room .site-nav__link {
-  color: rgba(244, 230, 200, 0.78);
+  color: var(--ink-nong);
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
 }
 
 .page-home--room .site-nav__link:hover,
 .page-home--room .site-nav__link[aria-current="page"] {
-  color: #fff1d3;
-  background: rgba(25, 21, 16, 0.72);
+  color: var(--ink-jiao);
+  background: color-mix(in srgb, var(--ink-qing) 28%, transparent);
 }
 
 .page-home--room .theme-toggle {
-  border-color: rgba(226, 190, 130, 0.4);
-  background: rgba(19, 16, 12, 0.76);
-  color: #f4e6c8;
+  border-color: rgba(240, 232, 213, 0.34);
+  background: rgba(17, 18, 18, 0.82);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  color: #f6f0e3;
 }
 
 .page-home--room .theme-toggle:hover {
-  border-color: #e7b86d;
-  background: rgba(38, 30, 21, 0.92);
-  color: #ffe7b7;
+  border-color: rgba(240, 203, 139, 0.7);
+  background: rgba(27, 28, 27, 0.94);
+  color: #fff9ee;
 }
 
 .page-home--room[data-room-view="writing"] .site-header,
 .page-home--room[data-room-view="projects"] .site-header,
 .page-home--room[data-room-view="life"] .site-header {
+  opacity: 1;
+  pointer-events: none;
+  transform: none;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.page-home--room[data-room-view="writing"] :is(.site-brand, .site-nav),
+.page-home--room[data-room-view="projects"] :is(.site-brand, .site-nav),
+.page-home--room[data-room-view="life"] :is(.site-brand, .site-nav) {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-16px);
   visibility: hidden;
-  transition-delay: 0s, 0s, 720ms;
+}
+
+.page-home--room[data-room-view="writing"] .theme-toggle,
+.page-home--room[data-room-view="projects"] .theme-toggle,
+.page-home--room[data-room-view="life"] .theme-toggle {
+  pointer-events: auto;
 }
 
 .page-home--room .site-footer {
@@ -75,9 +107,6 @@
 }
 
 .room-home {
-  --room-gold: #e3b56d;
-  --room-cream: #f4e6c8;
-  --room-muted: rgba(244, 230, 200, 0.7);
   --room-ease: cubic-bezier(0.45, 0, 0.2, 1);
   --room-duration: 2400ms;
   position: relative;
@@ -85,7 +114,7 @@
   min-height: 620px;
   overflow: hidden;
   isolation: isolate;
-  background: #080705;
+  background: var(--bg);
   color: var(--room-cream);
 }
 
@@ -94,7 +123,7 @@
 }
 
 .room-home :focus-visible {
-  outline: 2px solid #f1c477;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 4px;
 }
 
@@ -103,7 +132,7 @@
   inset: 0;
   z-index: 0;
   overflow: hidden;
-  background: #080705;
+  background: var(--bg);
   transform-origin: 50% 60%;
 }
 
@@ -138,6 +167,21 @@
   will-change: transform, filter, opacity;
 }
 
+.room-home[data-room-discovery="person"][data-room-view="overview"] .room-world {
+  opacity: 0.5;
+  filter: brightness(0.44) saturate(0.62) contrast(1.06) blur(0.5px);
+}
+
+.room-home[data-room-discovery="person"]:is([data-room-preview="writing"], [data-room-preview="projects"]) .room-world {
+  opacity: 0.9;
+  filter: brightness(0.68) saturate(0.74) contrast(1.04) blur(0.2px);
+  transition-delay: 0s;
+}
+
+.room-home[data-room-discovery="person"][data-room-view="overview"] .room-guitar-wrap {
+  filter: brightness(1.13);
+}
+
 .room-scene,
 .room-curtain,
 .room-focus-plate {
@@ -148,6 +192,22 @@
   height: 100%;
   max-width: none;
   object-fit: fill;
+}
+
+.room-theme-image {
+  transition: opacity 520ms ease;
+}
+
+.room-theme-image--day {
+  opacity: 0;
+}
+
+html:not([data-theme="dark"]) .room-theme-image--night {
+  opacity: 0;
+}
+
+html:not([data-theme="dark"]) .room-theme-image--day {
+  opacity: 1;
 }
 
 .room-curtain {
@@ -237,7 +297,7 @@
   width: 14px;
   height: 10px;
   border-radius: 64% 36% 62% 38% / 58% 44% 56% 42%;
-  background: rgba(196, 96, 62, 0.44);
+  background: color-mix(in srgb, var(--ink-zhong) 44%, transparent);
   opacity: 0;
   animation: room-petal-fall 27s linear infinite;
 }
@@ -271,6 +331,35 @@
   100% { opacity: 0; transform: translate3d(11vw, 105vh, 0) rotate(306deg); }
 }
 
+/* 初见只把吉他留在灯下；其余房间真实存在，但先沉进墨影。 */
+.room-discovery-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: radial-gradient(
+    ellipse 34% 90% at 84% 56%,
+    transparent 0 40%,
+    color-mix(in srgb, var(--room-veil) 58%, transparent) 70%,
+    var(--room-veil) 100%
+  );
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity 1100ms var(--room-ease), filter 1100ms var(--room-ease);
+}
+
+.room-home[data-room-discovery="room"] .room-discovery-veil,
+.room-home:not([data-room-view="overview"]) .room-discovery-veil,
+.no-js .room-discovery-veil {
+  filter: blur(12px);
+  opacity: 0.12;
+}
+
+.room-home[data-room-discovery="person"][data-room-preview="writing"] .room-discovery-veil,
+.room-home[data-room-discovery="person"][data-room-preview="projects"] .room-discovery-veil {
+  filter: blur(6px);
+  opacity: 0.42;
+}
+
 .room-focus-layer {
   z-index: 10;
   overflow: hidden;
@@ -302,16 +391,21 @@
 .room-workbench-surface {
   position: absolute;
   z-index: 2;
-  color: #f1dfbe;
+  color: var(--ink-jiao);
   opacity: 0;
   transition: opacity 620ms ease 1660ms, transform 780ms var(--room-ease) 1560ms;
 }
 
 .room-monitor-surface {
-  top: 31.9%;
-  left: 26.75%;
-  width: 37.5%;
-  height: 36.35%;
+  --ink-jiao: #f0e8d5;
+  --ink-nong: #d7cbb4;
+  --ink-zhong: #9d9079;
+  --link: #cbb17a;
+  --accent-strong: #efd294;
+  top: 32.8%;
+  left: 30.25%;
+  width: 25.75%;
+  height: 27.5%;
   padding: clamp(14px, 1.4cqw, 28px);
   overflow: hidden;
   border: 0;
@@ -355,15 +449,22 @@
 }
 
 .room-workbench-surface {
-  top: 47.2%;
-  left: 15.1%;
-  width: 70%;
-  height: 27%;
-  padding: clamp(14px, 1.2cqw, 26px) clamp(18px, 1.7cqw, 34px);
-  overflow: hidden;
-  color: #e3cfa8;
-  transform: perspective(1200px) rotateX(6deg) translateY(12px);
-  transform-origin: center top;
+  --ink-jiao: #f0e8d5;
+  --ink-nong: #d7cbb4;
+  --ink-zhong: #9d9079;
+  --link: #cbb17a;
+  --accent-strong: #efd294;
+  inset: 0;
+  width: auto;
+  height: auto;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-nong);
+  pointer-events: none;
+  transform: translateY(12px);
 }
 
 .room-surface-heading {
@@ -377,7 +478,7 @@
 
 .room-surface-heading h2 {
   margin: 0;
-  color: #f2ddb6;
+  color: var(--ink-jiao);
   font-family: var(--font-serif);
   font-size: clamp(1.1rem, 1.55cqw, 1.85rem);
   font-weight: 600;
@@ -387,7 +488,7 @@
 
 .room-surface-heading a {
   flex: 0 0 auto;
-  color: rgba(235, 193, 124, 0.78);
+  color: var(--link);
   font-family: var(--font-mono);
   font-size: clamp(0.62rem, 0.62cqw, 0.78rem);
   letter-spacing: 0.08em;
@@ -395,7 +496,7 @@
 }
 
 .room-surface-heading a:hover {
-  color: #ffe2a8;
+  color: var(--accent-strong);
   text-decoration: underline;
 }
 
@@ -422,14 +523,14 @@
   gap: clamp(9px, 1cqw, 18px);
   align-items: baseline;
   padding-block: clamp(8px, 0.95cqw, 17px);
-  color: rgba(244, 230, 200, 0.84);
+  color: var(--ink-nong);
   text-decoration: none;
   transition: color 160ms ease, padding-left 220ms ease;
 }
 
 .room-writing-list a:hover {
   padding-left: 5px;
-  color: #fff0ce;
+  color: var(--ink-jiao);
 }
 
 .room-writing-list a:focus-visible {
@@ -437,11 +538,11 @@
   outline: 0;
   background: linear-gradient(90deg, rgba(232, 183, 103, 0.14), transparent 84%);
   box-shadow: inset 2px 0 0 rgba(241, 195, 118, 0.76);
-  color: #fff0ce;
+  color: var(--ink-jiao);
 }
 
 .room-writing-list time {
-  color: rgba(226, 190, 130, 0.52);
+  color: var(--ink-zhong);
   font-family: var(--font-mono);
   font-size: clamp(0.55rem, 0.56cqw, 0.7rem);
   letter-spacing: 0.04em;
@@ -459,36 +560,61 @@
 .room-project-list {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(12px, 1.4cqw, 30px);
-  padding-top: clamp(12px, 1.15cqw, 24px);
+  gap: clamp(8px, 0.9cqw, 18px);
+  padding-top: clamp(6px, 0.65cqw, 12px);
 }
 
 .room-project-list a {
   display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "folio type cue"
+    "title title title"
+    "status status status";
   min-width: 0;
-  gap: 5px;
-  padding: clamp(10px, 0.9cqw, 18px);
+  gap: 4px;
+  padding: clamp(6px, 0.55cqw, 11px);
   border-left: 1px solid rgba(226, 190, 130, 0.25);
-  color: #f0dcb5;
+  color: var(--ink-nong);
   text-decoration: none;
   transition: background-color 180ms ease, border-color 180ms ease, transform 220ms ease;
 }
 
 .room-project-list a:hover {
-  border-left-color: #e3b56d;
+  border-left-color: var(--accent);
   background: rgba(225, 179, 109, 0.06);
-  transform: translateY(-2px);
 }
 
-.room-project-list span,
+.room-project-list__folio,
+.room-project-list__type,
+.room-project-list__cue,
 .room-project-list small {
-  color: rgba(239, 199, 130, 0.72);
+  color: var(--ink-zhong);
   font-family: var(--font-mono);
   font-size: clamp(0.56rem, 0.54cqw, 0.7rem);
   letter-spacing: 0.08em;
 }
 
+.room-project-list__folio {
+  display: inline-flex;
+  grid-area: folio;
+  gap: 0.35em;
+}
+
+.room-project-list__type {
+  grid-area: type;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.room-project-list__cue {
+  grid-area: cue;
+  white-space: nowrap;
+}
+
 .room-project-list strong {
+  grid-area: title;
   overflow: hidden;
   font-family: var(--font-serif);
   font-size: clamp(0.78rem, 1.05cqw, 1.28rem);
@@ -498,16 +624,215 @@
   white-space: nowrap;
 }
 
+.room-project-list small {
+  grid-area: status;
+}
+
+/* 用户标注的三处固定结构：正放、留白；只有项目卡使用环境玻璃。 */
+@media (min-width: 901px), (min-width: 641px) and (orientation: landscape) {
+  .room-workbench-surface .room-surface-heading {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .room-workbench-surface .room-project-list {
+    position: absolute;
+    inset: 0;
+    display: block;
+    padding: 0;
+    pointer-events: none;
+  }
+
+  .room-workbench-surface .room-project-list li {
+    --glass-text: #f7f1e7;
+    --glass-muted: rgba(239, 231, 216, 0.68);
+    --glass-cue: rgba(255, 239, 207, 0.9);
+    --glass-tint: rgba(17, 21, 23, 0.07);
+    --glass-tint-hover: rgba(22, 27, 29, 0.12);
+    --glass-edge: rgba(255, 255, 255, 0.46);
+    position: absolute;
+    min-width: 0;
+    pointer-events: auto;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(1) {
+    top: 19.2%;
+    left: 11%;
+    width: 27.6%;
+    height: 25%;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(2) {
+    top: 61.5%;
+    left: 12.3%;
+    width: 23.3%;
+    height: 25.1%;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(3) {
+    top: 49.8%;
+    left: 47.8%;
+    width: 43%;
+    height: 35%;
+  }
+
+  .room-workbench-surface .room-project-list a {
+    position: relative;
+    isolation: isolate;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "folio type type"
+      "title title title"
+      "status status cue";
+    width: 100%;
+    height: 100%;
+    gap: clamp(7px, 0.55cqw, 11px) clamp(9px, 0.72cqw, 14px);
+    padding: clamp(21px, 1.7cqw, 32px);
+    overflow: hidden;
+    border: 1px solid var(--glass-edge);
+    border-radius: clamp(20px, 1.65cqw, 31px);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.13), transparent 24%, transparent 76%, rgba(255, 255, 255, 0.04)),
+      var(--glass-tint);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      inset 1px 0 0 rgba(255, 255, 255, 0.28),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.13),
+      inset -1px 0 0 rgba(2, 7, 9, 0.14),
+      0 16px 36px rgba(5, 7, 8, 0.2);
+    color: var(--glass-text);
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.28);
+    -webkit-backdrop-filter: blur(0.7px) saturate(135%) contrast(108%) brightness(106%);
+    backdrop-filter: blur(0.7px) saturate(135%) contrast(108%) brightness(106%);
+    transition:
+      border-color 180ms ease,
+      background-color 180ms ease,
+      box-shadow 180ms ease;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(3) a {
+    padding: clamp(24px, 1.85cqw, 35px);
+    border-radius: clamp(24px, 1.95cqw, 36px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.78),
+      inset 1px 0 0 rgba(255, 255, 255, 0.3),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.14),
+      inset -1px 0 0 rgba(2, 7, 9, 0.16),
+      0 20px 44px rgba(5, 7, 8, 0.24);
+    -webkit-backdrop-filter: blur(0.8px) saturate(142%) contrast(109%) brightness(107%);
+    backdrop-filter: blur(0.8px) saturate(142%) contrast(109%) brightness(107%);
+  }
+
+  .room-workbench-surface .room-project-list a::before,
+  .room-workbench-surface .room-project-list a::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    content: "";
+    pointer-events: none;
+  }
+
+  .room-workbench-surface .room-project-list a::before {
+    background:
+      radial-gradient(ellipse 42% 18% at 24% 0%, rgba(255, 255, 255, 0.56), transparent 72%),
+      linear-gradient(108deg, rgba(255, 255, 255, 0.2), transparent 18%, transparent 78%, rgba(255, 255, 255, 0.08));
+    mix-blend-mode: screen;
+    opacity: 0.62;
+  }
+
+  .room-workbench-surface .room-project-list a::after {
+    inset: 1px;
+    box-shadow:
+      inset 10px 12px 14px -14px rgba(255, 255, 255, 0.78),
+      inset -12px -14px 16px -16px rgba(0, 0, 0, 0.48),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+      inset 0 0 18px rgba(255, 255, 255, 0.035);
+  }
+
+  .room-workbench-surface .room-project-list a > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .room-workbench-surface .room-project-list a:is(:hover, :focus-visible) {
+    border-color: rgba(255, 255, 255, 0.58);
+    outline-offset: 4px;
+    background:
+      linear-gradient(134deg, rgba(255, 255, 255, 0.18), transparent 30%, transparent 74%, rgba(255, 255, 255, 0.07)),
+      var(--glass-tint-hover);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.68),
+      inset 1px 0 0 rgba(255, 255, 255, 0.25),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+      0 20px 48px rgba(5, 7, 8, 0.28),
+      0 0 30px rgba(240, 214, 170, 0.08);
+    color: var(--glass-text);
+  }
+
+  .room-workbench-surface .room-project-list__type {
+    color: var(--glass-muted);
+    text-align: right;
+  }
+
+  .room-workbench-surface :is(.room-project-list__folio, .room-project-list small) {
+    color: var(--glass-muted);
+  }
+
+  .room-workbench-surface .room-project-list strong {
+    align-self: center;
+    color: var(--glass-text);
+    font-size: clamp(1.22rem, 1.58cqw, 1.9rem);
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(1) strong {
+    align-self: end;
+    padding-bottom: 0.35em;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(2) strong {
+    align-self: start;
+    padding-top: clamp(14px, 1.3cqw, 24px);
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(3) strong {
+    font-size: clamp(1.5rem, 2cqw, 2.35rem);
+  }
+
+  .room-workbench-surface .room-project-list small,
+  .room-workbench-surface .room-project-list__cue {
+    align-self: end;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .room-workbench-surface .room-project-list__cue {
+    color: var(--glass-cue);
+  }
+
+}
+
 .room-intro {
   position: absolute;
   top: 52%;
   left: clamp(34px, 6.6vw, 108px);
   z-index: 30;
   display: grid;
-  gap: 12px;
+  gap: 14px;
   width: min(42vw, 620px);
   padding-left: clamp(19px, 2vw, 30px);
-  border-left: 1px solid rgba(225, 179, 109, 0.78);
+  border-left: 1px solid color-mix(in srgb, var(--ink-dan) 78%, transparent);
   transform: translateY(-50%);
   text-shadow: 0 4px 20px rgba(0, 0, 0, 0.78);
   transition: opacity 420ms ease, transform 800ms var(--room-ease);
@@ -519,19 +844,20 @@
 }
 
 .room-intro h1 {
-  font-family: var(--font-brush);
+  font-family: var(--font-serif);
   font-size: clamp(3.2rem, 5.7vw, 5.6rem);
-  font-weight: 400;
-  letter-spacing: 0.025em;
+  font-weight: 700;
+  letter-spacing: 0;
   line-height: 1;
   white-space: nowrap;
 }
 
 .room-intro p {
   color: var(--room-muted);
-  font-family: var(--font-brush);
-  font-size: clamp(1.05rem, 1.5vw, 1.4rem);
-  letter-spacing: 0.1em;
+  font-family: var(--font-sans);
+  font-size: clamp(0.88rem, 1.1vw, 1.02rem);
+  letter-spacing: 0.04em;
+  line-height: 1.9;
 }
 
 .room-destinations {
@@ -547,7 +873,7 @@
   display: block;
   border: 0;
   background: transparent;
-  color: #f5e4c2;
+  color: var(--ink-jiao);
   text-decoration: none;
   isolation: isolate;
   pointer-events: auto;
@@ -597,7 +923,7 @@
   display: inline-flex;
   align-items: baseline;
   gap: 8px;
-  color: rgba(255, 239, 207, 0.94);
+  color: var(--ink-jiao);
   font-family: var(--font-serif);
   font-size: clamp(0.78rem, 0.92vw, 0.96rem);
   font-weight: 600;
@@ -619,7 +945,7 @@
 }
 
 .room-hotspot small {
-  color: rgba(238, 193, 119, 0.62);
+  color: var(--ink-zhong);
   font-family: var(--font-mono);
   font-size: 0.64em;
   font-weight: 500;
@@ -627,7 +953,7 @@
 }
 
 .room-hotspot:is(:hover, :focus-visible) {
-  color: #fff2d5;
+  color: var(--accent-strong);
   text-decoration: none;
 }
 
@@ -641,6 +967,18 @@
   opacity: 1;
 }
 
+.room-home[data-room-preview="writing"] .room-hotspot--writing::before,
+.room-home[data-room-preview="writing"] .room-hotspot--writing::after,
+.room-home[data-room-preview="writing"] .room-hotspot--writing span,
+.room-home[data-room-preview="projects"] .room-hotspot--projects::before,
+.room-home[data-room-preview="projects"] .room-hotspot--projects::after,
+.room-home[data-room-preview="projects"] .room-hotspot--projects span,
+.room-home[data-room-preview="life"] .room-hotspot--life::before,
+.room-home[data-room-preview="life"] .room-hotspot--life::after,
+.room-home[data-room-preview="life"] .room-hotspot--life span {
+  opacity: 1;
+}
+
 .room-hotspot:is(:hover, :focus-visible)::after {
   animation: none;
   transform: scale(1);
@@ -648,6 +986,15 @@
 
 .room-hotspot:is(:hover, :focus-visible) span {
   transform: translateY(0);
+}
+
+.room-home[data-room-discovery="person"] .room-hotspot--life span {
+  opacity: 0.72;
+  transform: translateY(0);
+}
+
+.room-home[data-room-discovery="person"] .room-hotspot--life::after {
+  opacity: 0.2;
 }
 
 .room-hotspot--writing {
@@ -745,10 +1092,10 @@
   left: clamp(34px, 6.6vw, 108px);
   z-index: 34;
   display: grid;
-  width: min(38vw, 520px);
-  gap: 16px;
+  width: min(44vw, 620px);
+  gap: 14px;
   padding-left: clamp(19px, 2vw, 30px);
-  border-left: 1px solid rgba(225, 179, 109, 0.8);
+  border-left: 1px solid color-mix(in srgb, var(--ink-dan) 80%, transparent);
   opacity: 0;
   visibility: hidden;
   transform: translate(-20px, -48%);
@@ -766,16 +1113,57 @@
 
 .room-life-note h2 {
   font-family: var(--font-serif);
-  font-size: clamp(2rem, 3.8vw, 3.65rem);
+  font-size: clamp(1.65rem, 3vw, 2.8rem);
   font-weight: 600;
   line-height: 1.15;
 }
 
 .room-life-note p {
   max-width: 38em;
-  color: rgba(244, 230, 200, 0.76);
+  color: var(--ink-nong);
   font-size: clamp(0.88rem, 1vw, 1rem);
   line-height: 1.9;
+}
+
+.room-life-note__evidence {
+  display: grid;
+  gap: 5px;
+}
+
+.room-life-note__evidence > span {
+  color: var(--ink-zhong);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.room-life-note__traces {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid color-mix(in srgb, var(--ink-dan) 52%, transparent);
+  list-style: none;
+}
+
+.room-life-note__traces li + li {
+  border-top: 1px solid color-mix(in srgb, var(--ink-qing) 70%, transparent);
+}
+
+.room-life-note__traces a {
+  display: flex;
+  min-height: 40px;
+  align-items: center;
+  color: var(--ink-nong);
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.45;
+  text-decoration: none;
+}
+
+.room-life-note__traces a:is(:hover, :focus-visible) {
+  color: var(--ink-jiao);
+  text-decoration: underline;
 }
 
 .room-life-note__links {
@@ -784,7 +1172,10 @@
 }
 
 .room-life-note__links a {
-  color: #efc57e;
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  color: var(--link);
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -792,20 +1183,24 @@
 }
 
 .room-life-note__links a:hover {
-  color: #fff1d0;
+  color: var(--accent-strong);
   text-decoration: underline;
 }
 
 .room-reset {
   position: absolute;
-  right: clamp(24px, 4vw, 64px);
-  bottom: clamp(26px, 4.5vh, 50px);
-  z-index: 40;
-  padding: 8px 2px;
-  border: 0;
-  border-bottom: 1px solid rgba(225, 179, 109, 0.68);
-  background: transparent;
-  color: #f0ce95;
+  right: clamp(20px, 2.6vw, 44px);
+  bottom: clamp(20px, 3.2vh, 34px);
+  z-index: 70;
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  padding: 0 19px;
+  border: 1px solid rgba(240, 232, 213, 0.34);
+  border-radius: 6px;
+  background: rgba(17, 18, 18, 0.86);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.3);
+  color: #f7f0e2;
   font-size: 0.84rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -813,14 +1208,19 @@
   visibility: hidden;
   transform: translateY(10px);
   transition:
-    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
     opacity 320ms ease 980ms,
     transform 520ms var(--room-ease) 920ms,
     visibility 0s linear var(--room-duration);
 }
 
 .room-reset:hover {
-  color: #fff1d0;
+  border-color: rgba(240, 203, 139, 0.7);
+  background: rgba(28, 29, 28, 0.96);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+  color: #fffaf0;
   text-decoration: none;
 }
 
@@ -835,7 +1235,7 @@
   bottom: clamp(26px, 4.5vh, 50px);
   z-index: 32;
   margin: 0;
-  color: rgba(244, 230, 200, 0.5);
+  color: var(--ink-zhong);
   font-size: 0.72rem;
   letter-spacing: 0.08em;
   text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
@@ -859,7 +1259,7 @@
   display: block;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, #e5b66b 38%, #ffe0a6 62%, transparent);
+  background: linear-gradient(90deg, transparent, var(--lamp) 38%, var(--ink-jiao) 62%, transparent);
   transform: translateX(-105%);
 }
 
@@ -976,7 +1376,7 @@
 }
 
 .room-home[data-room-view="projects"] .room-workbench-surface {
-  transform: perspective(1200px) rotateX(6deg) translateY(0);
+  transform: translateY(0);
 }
 
 .room-home[data-room-view="life"] .room-life-note {
@@ -1089,14 +1489,14 @@
   }
 
   .page-home--room .site-nav__link {
-    min-height: 34px;
-    padding: 6px 8px;
+    min-height: 44px;
+    padding: 8px 9px;
     font-size: 0.76rem;
   }
 
   .page-home--room .theme-toggle {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    height: 44px;
     margin-left: 0;
   }
 
@@ -1198,7 +1598,7 @@
   }
 
   .room-workbench-surface {
-    color: #ead7b1;
+    color: var(--ink-nong);
   }
 
   .room-surface-heading h2 {
@@ -1244,6 +1644,12 @@
 
   .room-project-list strong {
     font-size: 0.92rem;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .room-home[data-room-view="projects"] .room-workbench-surface {
+    transform: translateY(0);
   }
 
   .room-home[data-room-view="writing"] .room-world {
@@ -1276,6 +1682,9 @@
     top: 16%;
     z-index: 36;
     gap: 12px;
+    max-height: 72svh;
+    padding-right: 8px;
+    overflow-y: auto;
     opacity: 0;
     transform: translateY(12px);
   }
@@ -1303,9 +1712,9 @@
     right: 20px;
     bottom: 24px;
     padding: 9px 10px;
-    border: 1px solid rgba(225, 179, 109, 0.32);
-    border-radius: 4px;
-    background: rgba(13, 11, 8, 0.78);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
   }
 }
 
@@ -1396,6 +1805,12 @@
 
   .room-project-list strong {
     font-size: 1rem;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .room-home[data-room-view="projects"] .room-workbench-surface {
+    transform: translateY(0);
   }
 
   .room-home[data-room-view="writing"] .room-world,
@@ -1438,7 +1853,7 @@
     padding: 24px 0 3px;
     border: 0;
     border-radius: 0;
-    background: linear-gradient(180deg, transparent, rgba(8, 7, 5, 0.82) 44%, rgba(8, 7, 5, 0.96));
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 82%, transparent) 44%, var(--bg));
     box-shadow: none;
   }
 
@@ -1461,6 +1876,7 @@
     background: transparent;
     box-shadow: none;
     transform: none;
+    transition: opacity 620ms var(--room-ease), color 180ms ease, background-color 180ms ease;
   }
 
   .room-hotspot + .room-hotspot {
@@ -1476,7 +1892,7 @@
     position: static;
     display: inline-flex;
     gap: 5px;
-    color: rgba(244, 230, 200, 0.76);
+    color: var(--ink-nong);
     font-family: var(--font-sans);
     font-size: clamp(0.7rem, 2.2vw, 0.82rem);
     letter-spacing: 0.02em;
@@ -1494,14 +1910,29 @@
   }
 
   .room-hotspot:is(:hover, :focus-visible) {
-    background: rgba(225, 179, 109, 0.06);
+    background: var(--surface-muted);
     box-shadow: none;
     transform: none;
   }
 
   .room-hotspot:focus-visible {
-    outline: 2px solid rgba(241, 196, 119, 0.72);
+    outline: 2px solid var(--focus-ring);
     outline-offset: 1px;
+  }
+
+  .room-home[data-room-discovery="person"] .room-destinations {
+    background: transparent;
+  }
+
+  .room-home[data-room-discovery="person"] :is(.room-hotspot--writing, .room-hotspot--projects) {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .room-home[data-room-discovery="person"] :is(.room-hotspot--writing, .room-hotspot--projects):focus-visible,
+  .no-js .room-home :is(.room-hotspot--writing, .room-hotspot--projects) {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 
@@ -1512,36 +1943,64 @@
    ============================================================ */
 
 html:not([data-theme="dark"]) .page-home--room {
-  background: #ece2cb;
-  color: #2c2414;
+  --room-veil: rgba(37, 34, 26, 0.72);
+  background: var(--bg);
+  color: var(--ink-jiao);
 }
 
 html:not([data-theme="dark"]) .room-home {
-  background: #ece2cb;
-  color: #2c2414;
+  background: var(--bg);
+  color: var(--ink-jiao);
 }
 
 html:not([data-theme="dark"]) .room-camera {
-  background: #ece2cb;
+  background: var(--bg);
 }
 
 html:not([data-theme="dark"]) .room-home :focus-visible {
-  outline-color: #a2402c;
+  outline-color: var(--focus-ring);
 }
 
 html:not([data-theme="dark"]) .room-world {
-  filter: brightness(1.46) saturate(0.58) contrast(0.86) sepia(0.2);
+  filter: brightness(1) saturate(0.96) contrast(1);
 }
 
-/* 宣纸罩：把摄影场景压成淡墨，z-index 低于帷幕/吉他/近景层 */
+html:not([data-theme="dark"]) .room-home[data-room-discovery="person"][data-room-view="overview"] .room-world {
+  opacity: 0.36;
+  filter: brightness(0.72) saturate(0.72) contrast(0.96) blur(0.5px);
+}
+
+html:not([data-theme="dark"]) .room-home[data-room-discovery="person"]:is([data-room-preview="writing"], [data-room-preview="projects"]) .room-world {
+  opacity: 0.82;
+  filter: brightness(0.94) saturate(0.86) contrast(0.98) blur(0.2px);
+  transition-delay: 0s;
+}
+
+html:not([data-theme="dark"]) .room-focus-plate {
+  filter: brightness(1) saturate(0.96) contrast(1);
+}
+
+html:not([data-theme="dark"]) .room-monitor-surface {
+  background:
+    radial-gradient(ellipse at 16% 5%, rgba(234, 185, 105, 0.1), transparent 34%),
+    linear-gradient(112deg, rgba(60, 42, 22, 0.12), transparent 34%, rgba(0, 0, 0, 0.2)),
+    rgba(5, 6, 5, 0.72);
+  box-shadow: inset 0 0 48px rgba(0, 0, 0, 0.42);
+}
+
+html:not([data-theme="dark"]) .room-monitor-surface::before {
+  opacity: 0.58;
+}
+
+/* 昼景本身承担真实晨光；这里只留极薄纸光，避免把白墙重新染成米黄。 */
 html:not([data-theme="dark"]) .room-canvas::before {
   position: absolute;
   inset: 0;
   z-index: 4;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 62% 48% at 30% 40%, rgba(250, 244, 228, 0.2), transparent 70%),
-    linear-gradient(180deg, rgba(236, 226, 203, 0.36), rgba(236, 226, 203, 0.12) 42%, rgba(224, 211, 182, 0.3));
+    radial-gradient(ellipse 62% 48% at 30% 40%, rgba(255, 255, 255, 0.08), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent 48%, rgba(230, 226, 216, 0.05));
   content: "";
 }
 
@@ -1572,8 +2031,8 @@ html:not([data-theme="dark"]) .room-atmosphere {
 }
 
 html:not([data-theme="dark"]) .room-intro {
-  border-left-color: rgba(162, 64, 44, 0.72);
-  color: #2c2414;
+  border-left-color: color-mix(in srgb, var(--ink-dan) 72%, transparent);
+  color: var(--ink-jiao);
   text-shadow: 0 2px 18px rgba(244, 236, 214, 0.92), 0 0 34px rgba(244, 236, 214, 0.7);
 }
 
@@ -1588,16 +2047,16 @@ html:not([data-theme="dark"]) .room-intro::before {
 }
 
 html:not([data-theme="dark"]) .room-intro p {
-  color: rgba(76, 71, 59, 0.92);
+  color: var(--ink-nong);
 }
 
 html:not([data-theme="dark"]) .room-hotspot span {
-  color: rgba(48, 38, 20, 0.94);
+  color: var(--ink-jiao);
   text-shadow: 0 2px 14px rgba(244, 236, 214, 0.95), 0 0 22px rgba(236, 226, 203, 0.9);
 }
 
 html:not([data-theme="dark"]) .room-hotspot small {
-  color: rgba(162, 64, 44, 0.72);
+  color: var(--ink-zhong);
 }
 
 html:not([data-theme="dark"]) .room-hotspot::after {
@@ -1605,12 +2064,12 @@ html:not([data-theme="dark"]) .room-hotspot::after {
 }
 
 html:not([data-theme="dark"]) .room-hotspot:is(:hover, :focus-visible) {
-  color: #1f1a0e;
+  color: var(--accent-strong);
 }
 
 html:not([data-theme="dark"]) .room-life-note {
-  border-left-color: rgba(162, 64, 44, 0.72);
-  color: #2c2414;
+  border-left-color: color-mix(in srgb, var(--ink-dan) 72%, transparent);
+  color: var(--ink-jiao);
   text-shadow: 0 2px 18px rgba(244, 236, 214, 0.92);
 }
 
@@ -1624,15 +2083,15 @@ html:not([data-theme="dark"]) .room-life-note::before {
 }
 
 html:not([data-theme="dark"]) .room-life-note p {
-  color: rgba(76, 71, 59, 0.92);
+  color: var(--ink-nong);
 }
 
 html:not([data-theme="dark"]) .room-life-note__links a {
-  color: #a2402c;
+  color: var(--link);
 }
 
 html:not([data-theme="dark"]) .room-life-note__links a:hover {
-  color: #86351f;
+  color: var(--accent-strong);
 }
 
 html:not([data-theme="dark"]) .room-hint {
@@ -1641,12 +2100,16 @@ html:not([data-theme="dark"]) .room-hint {
 }
 
 html:not([data-theme="dark"]) .room-reset {
-  border-bottom-color: rgba(162, 64, 44, 0.6);
-  color: #a2402c;
+  border-color: rgba(60, 52, 42, 0.24);
+  background: rgba(246, 241, 231, 0.92);
+  box-shadow: 0 10px 26px rgba(34, 29, 23, 0.18);
+  color: #20272a;
 }
 
 html:not([data-theme="dark"]) .room-reset:hover {
-  color: #86351f;
+  border-color: rgba(139, 89, 50, 0.55);
+  background: #fbf7ef;
+  color: #111719;
 }
 
 html:not([data-theme="dark"]) .page-home--room .site-header {
@@ -1656,59 +2119,234 @@ html:not([data-theme="dark"]) .page-home--room .site-header {
 html:not([data-theme="dark"]) .page-home--room .site-brand,
 html:not([data-theme="dark"]) .page-home--room .site-brand:hover,
 html:not([data-theme="dark"]) .page-home--room .site-brand__title {
-  color: #2c2414;
-}
-
-html:not([data-theme="dark"]) .page-home--room .site-brand__seal {
-  filter: drop-shadow(0 2px 8px rgba(74, 58, 34, 0.3));
+  color: var(--ink-jiao);
 }
 
 html:not([data-theme="dark"]) .page-home--room .site-brand__subtitle {
-  color: rgba(76, 71, 59, 0.72);
+  color: var(--ink-zhong);
 }
 
 html:not([data-theme="dark"]) .page-home--room .site-nav__link {
-  color: rgba(48, 38, 20, 0.78);
+  color: var(--ink-nong);
   text-shadow: 0 1px 10px rgba(243, 236, 220, 0.85);
 }
 
 html:not([data-theme="dark"]) .page-home--room .site-nav__link:hover,
 html:not([data-theme="dark"]) .page-home--room .site-nav__link[aria-current="page"] {
-  color: #1f1a0e;
-  background: rgba(250, 244, 228, 0.78);
+  color: var(--ink-jiao);
+  background: var(--surface-muted);
 }
 
 html:not([data-theme="dark"]) .page-home--room .theme-toggle {
-  border-color: rgba(150, 116, 66, 0.42);
-  background: rgba(250, 244, 228, 0.82);
-  color: #2c2414;
+  border-color: rgba(60, 52, 42, 0.24);
+  background: rgba(246, 241, 231, 0.92);
+  box-shadow: 0 8px 22px rgba(34, 29, 23, 0.16);
+  color: #20272a;
 }
 
 html:not([data-theme="dark"]) .page-home--room .theme-toggle:hover {
-  border-color: #a2402c;
-  background: rgba(250, 244, 228, 0.94);
-  color: #86351f;
+  border-color: rgba(139, 89, 50, 0.55);
+  background: #fbf7ef;
+  color: #111719;
+}
+
+.page-home--room:is([data-room-view="writing"], [data-room-view="projects"], [data-room-view="life"]) .site-header,
+html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [data-room-view="projects"], [data-room-view="life"]) .site-header {
+  background: transparent;
 }
 
 @media (max-width: 640px), (hover: none), (pointer: coarse), (min-width: 641px) and (max-width: 900px) and (orientation: portrait) {
   html:not([data-theme="dark"]) .room-destinations {
-    background: linear-gradient(180deg, transparent, rgba(236, 226, 203, 0.86) 44%, rgba(236, 226, 203, 0.96));
+    background: linear-gradient(180deg, transparent, color-mix(in srgb, var(--bg) 86%, transparent) 44%, var(--bg));
   }
 
   html:not([data-theme="dark"]) .room-hotspot span {
-    color: rgba(48, 38, 20, 0.82);
+    color: var(--ink-nong);
     text-shadow: 0 1px 10px rgba(243, 236, 220, 0.9);
   }
 
   html:not([data-theme="dark"]) .room-hotspot:is(:hover, :focus-visible) {
-    background: rgba(224, 170, 95, 0.16);
+    background: var(--surface-muted);
+  }
+
+  html:not([data-theme="dark"]) .room-home[data-room-discovery="person"] .room-destinations {
+    background: transparent;
   }
 }
 
 @media (max-width: 640px) {
   html:not([data-theme="dark"]) .room-reset {
-    border-color: rgba(162, 64, 44, 0.4);
-    background: rgba(243, 236, 220, 0.86);
+    border-color: var(--border);
+    background: color-mix(in srgb, var(--bg) 86%, transparent);
+  }
+}
+
+/* 窄屏不缩小桌面构图：平移镜头对准 Supro，三张项目卡纵向展开。 */
+@media (max-width: 640px), (min-width: 641px) and (max-width: 900px) and (orientation: portrait) {
+  .room-focus-layer--projects .room-focus-plate {
+    object-position: 88% center;
+  }
+
+  .page-home--room:is([data-room-view="writing"], [data-room-view="projects"], [data-room-view="life"]) .site-header__inner {
+    justify-content: flex-end;
+    width: calc(100% - 28px);
+    padding-block: 14px;
+  }
+
+  .page-home--room:is([data-room-view="writing"], [data-room-view="projects"], [data-room-view="life"]) .theme-toggle {
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+  }
+
+  .room-workbench-surface {
+    top: 12%;
+    right: 14px;
+    bottom: 84px;
+    left: 14px;
+    width: auto;
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .room-workbench-surface .room-surface-heading {
+    gap: 12px;
+    padding: 4px 3px 12px;
+    border-bottom-color: rgba(247, 241, 231, 0.42);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.72);
+  }
+
+  .room-workbench-surface .room-surface-heading h2 {
+    color: #f7f1e7;
+    font-size: 1.18rem;
+  }
+
+  .room-workbench-surface .room-surface-heading a {
+    color: rgba(255, 239, 207, 0.9);
+    font-size: 0.66rem;
+  }
+
+  .room-workbench-surface .room-project-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding-top: 14px;
+  }
+
+  .room-workbench-surface .room-project-list li {
+    min-width: 0;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(1),
+  .room-workbench-surface .room-project-list li:nth-child(2) {
+    width: 91%;
+  }
+
+  .room-workbench-surface .room-project-list li:nth-child(2) {
+    margin-left: auto;
+  }
+
+  .room-workbench-surface .room-project-list a {
+    position: relative;
+    isolation: isolate;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-areas:
+      "folio type cue"
+      "title title title"
+      "status status status";
+    min-height: 116px;
+    gap: 6px 9px;
+    padding: 15px 17px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.34);
+    border-radius: 18px;
+    background:
+      linear-gradient(134deg, rgba(255, 255, 255, 0.15), transparent 28%, transparent 76%, rgba(255, 255, 255, 0.05)),
+      rgba(13, 16, 17, 0.08);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.72),
+      inset 1px 0 0 rgba(255, 255, 255, 0.24),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.12),
+      inset -1px 0 0 rgba(0, 0, 0, 0.16),
+      0 14px 32px rgba(0, 0, 0, 0.2);
+    color: #f7f1e7;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+    -webkit-backdrop-filter: blur(0.7px) saturate(138%) contrast(108%) brightness(106%);
+    backdrop-filter: blur(0.7px) saturate(138%) contrast(108%) brightness(106%);
+  }
+
+  .room-workbench-surface .room-project-list a::before,
+  .room-workbench-surface .room-project-list a::after {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    content: "";
+    pointer-events: none;
+  }
+
+  .room-workbench-surface .room-project-list a::before {
+    background:
+      radial-gradient(ellipse 46% 20% at 22% 0%, rgba(255, 255, 255, 0.56), transparent 72%),
+      linear-gradient(108deg, rgba(255, 255, 255, 0.16), transparent 20%, transparent 80%, rgba(255, 255, 255, 0.06));
+    mix-blend-mode: screen;
+    opacity: 0.58;
+  }
+
+  .room-workbench-surface .room-project-list a::after {
+    inset: 1px;
+    box-shadow:
+      inset 9px 10px 13px -13px rgba(255, 255, 255, 0.76),
+      inset -10px -12px 14px -14px rgba(0, 0, 0, 0.46),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .room-workbench-surface .room-project-list a > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .room-workbench-surface .room-project-list strong {
+    color: #f7f1e7;
+    font-size: 1.02rem;
+    line-height: 1.24;
+  }
+
+  .room-workbench-surface .room-project-list__folio,
+  .room-workbench-surface .room-project-list__type,
+  .room-workbench-surface .room-project-list small {
+    color: rgba(239, 231, 216, 0.7);
+  }
+
+  .room-workbench-surface .room-project-list__cue {
+    color: rgba(255, 239, 207, 0.9);
+  }
+
+  .room-reset,
+  html:not([data-theme="dark"]) .room-reset {
+    right: 18px;
+    bottom: 20px;
+    min-height: 48px;
+    padding-inline: 18px;
+    border-color: rgba(240, 232, 213, 0.34);
+    background: rgba(17, 18, 18, 0.9);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.32);
+    color: #f7f1e7;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .room-workbench-surface .room-project-list a {
+    background: rgba(19, 22, 23, 0.88);
   }
 }
 
@@ -1730,7 +2368,8 @@ html:not([data-theme="dark"]) .page-home--room .theme-toggle:hover {
   .room-hint,
   .room-camera-progress,
   .room-camera-progress span,
-  .room-atmosphere {
+  .room-atmosphere,
+  .room-discovery-veil {
     animation: none !important;
     transition: none !important;
   }
