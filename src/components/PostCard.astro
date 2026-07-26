@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import { localizedPath, type Lang } from '../i18n';
 
 interface Props {
   post: {
@@ -15,11 +16,12 @@ interface Props {
     };
   };
   revealOrder?: number;
+  lang?: Lang;
 }
 
-const { post, revealOrder = 0 } = Astro.props;
+const { post, revealOrder = 0, lang = 'zh' } = Astro.props;
 const formattedDate = post.data.date.toISOString().slice(0, 10);
-const displayDate = new Intl.DateTimeFormat('zh-CN', {
+const displayDate = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-CN', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -28,14 +30,14 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
 <a
   class="post-card"
-  href={`/blog/posts/${post.id}/`}
+  href={localizedPath(`/blog/posts/${post.id}/`, lang)}
   data-reveal
   style={`--reveal-order: ${revealOrder};`}
 >
   <time class="post-card__date" datetime={formattedDate}>{displayDate}</time>
   <div class="post-card__cover">
     {post.data.ogImage ? (
-      <Image src={post.data.ogImage} alt={post.data.ogImageAlt || `《${post.data.title}》文章封面`} loading="lazy" />
+      <Image src={post.data.ogImage} alt={post.data.ogImageAlt || (lang === 'en' ? `Cover for ${post.data.title}` : `《${post.data.title}》文章封面`)} loading="lazy" />
     ) : (
       <div class="post-card__fallback" aria-hidden="true">千秋</div>
     )}
@@ -43,13 +45,13 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   <div class="post-card__body">
     <h2>{post.data.title}</h2>
     <p class="post-card__description">{post.data.description}</p>
-    <ul class="tag-list" aria-label="文章标签">
+    <ul class="tag-list" aria-label={lang === 'en' ? 'Article tags' : '文章标签'}>
       {post.data.tags.map((tag) => (
         <li><span class="tag-pill">{tag}</span></li>
       ))}
     </ul>
   </div>
-  <span class="post-card__cue" aria-hidden="true">阅读全文</span>
+  <span class="post-card__cue" aria-hidden="true">{lang === 'en' ? 'Read article' : '阅读全文'}</span>
 </a>
 
 <style>

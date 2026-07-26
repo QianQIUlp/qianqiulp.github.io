@@ -40,8 +40,9 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 ## Homepage
 
 - 第一眼只有千秋题字、吉他和极少的生活气息承担视觉焦点；完整导航、书桌、工作台和内容数量没有同时抢出来。
-- 暗处仍让人想靠近：桌面端停留/聚焦会让对应区域松开墨影，选择任一物件后其余房间入口才逐渐交出。
-- 移动端初见只显吉他/生活入口；从近景回到房间后才出现文章与作品入口。
+- 暗处仍让人想靠近：桌面端停留/聚焦只让对应区域松开墨影，文章与作品不会同时被照亮；
+  从近景或具体文章返回后，也只有最后访问区域保留局部显影。
+- 移动端首次进入时底部 dock 已完整、稳定显示文章/作品/生活三个入口，无需先进入生活再返回。
 - 渐进发现没有被做成步骤条、进度状态、说明面板或显眼的 onboarding 按钮。
 - 首页文案没有替构图解释人格；视觉隐喻先形成感受，真实文章与项目只在近景中出现。
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
@@ -98,7 +99,8 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 - Toggle updates the visible state and persists across reloads.
 - 转场为晕染收拢而非硬切；切换后 header、热点、题字在两态下均可读。
 - Page background, surfaces, borders, text, links, tags, and code blocks keep adequate contrast.
-- 昼宣态场景被宣纸罩与滤镜洗亮，题字与热点坐在纸光池内，无"直接反色"感。
+- 首页昼宣与夜墨共用黑色舞台、题字、热点和控件材质，只切换严格配准的白天/夜晚背景图；
+  浅色首页没有纸光池、浅色浮层或另一套前景滤镜。
 - Images and cover scrims do not make white text unreadable.
 - Native browser color scheme follows the active theme.
 - Directional paper and note shadows remain visible without turning into bright halos or crushed black blocks.

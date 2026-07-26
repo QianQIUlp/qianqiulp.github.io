@@ -14,16 +14,20 @@ function urlEntry(path: string, lastmod?: Date) {
 
 export async function GET() {
   const posts = await getCollection('posts');
-  const staticPages = ['/', '/blog/', '/projects/'].map((path) => urlEntry(path));
+  const staticPages = ['/', '/blog/', '/projects/', '/en/', '/en/blog/', '/en/projects/'].map((path) => urlEntry(path));
   const postPages = posts
     .sort((a, b) => a.id.localeCompare(b.id))
     .map((post) => urlEntry(`/blog/posts/${post.id}/`, post.data.date));
+  const englishPostPages = posts
+    .sort((a, b) => a.id.localeCompare(b.id))
+    .map((post) => urlEntry(`/en/blog/posts/${post.id}/`, post.data.date));
 
   const body = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
     ...staticPages,
     ...postPages,
+    ...englishPostPages,
     '</urlset>',
     '',
   ].join('\n');

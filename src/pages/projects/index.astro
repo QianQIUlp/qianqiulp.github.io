@@ -7,6 +7,27 @@ import {
   secondaryProjects,
   selectedGuidePostIds,
 } from '../../data/projects';
+import { featuredProjectsEn, projectsPageCopyEn, secondaryProjectsEn } from '../../data/projects.en';
+import { localizedPath, type Lang } from '../../i18n';
+
+const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
+const isEnglish = lang === 'en';
+const projects = isEnglish ? featuredProjectsEn : featuredProjects;
+const pageCopy = isEnglish ? projectsPageCopyEn : projectsPageCopy;
+const supportingProjects = isEnglish ? secondaryProjectsEn : secondaryProjects;
+const copy = isEnglish ? {
+  title: "Projects and explorations · Qiu's Room",
+  description: "Projects from Qiu's Room: public work, learning environments, and the decisions behind them.",
+  imageAlt: "Cover image for projects in Qiu's Room", kicker: 'Building and archives', heading: 'Projects and explorations',
+  featured: 'Featured work', realProjects: 'Public projects', links: 'links', caseNotes: 'case notes',
+  problem: 'Problem:', design: 'Design:', levers: 'implementation choices', startBoundary: 'getting started and boundaries',
+  start: 'Start', boundary: 'Boundary', next: 'Next step', tags: 'technology tags',
+} : {
+  title: '作品与探索 · Qiu 的小屋', description: 'Qiu 的小屋 · 作品集，展示正在进行的探索、学习项目与未来计划。',
+  imageAlt: 'Qiu 的小屋作品集封面图', kicker: '构建与档案', heading: '作品与探索', featured: '主打作品',
+  realProjects: '真实项目', links: '链接', caseNotes: '案例笔记', problem: '问题：', design: '设计：', levers: '实现抓手',
+  startBoundary: '开始与边界', start: '开始', boundary: '边界', next: '下一步', tags: '技术标签',
+};
 
 const posts = await getCollection('posts');
 const postsById = new Map(posts.map((post) => [post.id, post]));
@@ -24,7 +45,7 @@ const selectedGuidePosts = selectedGuidePostIds.map((postId) => {
   return post;
 });
 
-const displayDate = new Intl.DateTimeFormat('zh-CN', {
+const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -32,33 +53,34 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 ---
 
 <BaseLayout
-  title="作品与探索 · Qiu 的小屋"
-  description="Qiu 的小屋 · 作品集，展示正在进行的探索、学习项目与未来计划。"
-  ogTitle="作品与探索 · Qiu 的小屋"
-  ogUrl="https://qianqiulp.github.io/projects/"
+  lang={lang}
+  title={copy.title}
+  description={copy.description}
+  ogTitle={copy.title}
+  ogUrl={`https://qianqiulp.github.io${localizedPath('/projects/', lang)}`}
   ogImage="/assets/og/site.svg"
-  ogImageAlt="Qiu 的小屋作品集封面图"
+  ogImageAlt={copy.imageAlt}
   bodyClass="page-projects"
 >
   <main class="page-shell workbench-shell" id="main-content" tabindex="-1">
     <header class="page-hero workbench-hero">
       <div>
-        <p class="page-kicker">构建与档案</p>
-        <h1 class="hero-title hero-title--compact">作品与探索</h1>
-        <p class="hero-lead">{projectsPageCopy.heroLead}</p>
+        <p class="page-kicker">{copy.kicker}</p>
+        <h1 class="hero-title hero-title--compact">{copy.heading}</h1>
+        <p class="hero-lead">{pageCopy.heroLead}</p>
       </div>
-      <p class="workbench-note">{projectsPageCopy.heroNote}</p>
+      <p class="workbench-note">{pageCopy.heroNote}</p>
     </header>
 
     <section class="featured-work" aria-labelledby="featured-work-title">
       <div class="section-heading" data-reveal>
         <div>
-          <p class="page-kicker">主打作品</p>
-          <h2 id="featured-work-title">真实项目</h2>
+          <p class="page-kicker">{copy.featured}</p>
+          <h2 id="featured-work-title">{copy.realProjects}</h2>
         </div>
       </div>
 
-      {featuredProjects.map((project, index) => (
+      {projects.map((project, index) => (
         <article
           class="featured-work__card"
           id={`project-${index + 1}`}
@@ -74,7 +96,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
               <h3>{project.displayName}</h3>
               <p class="featured-work__repo">{project.repoSlug}</p>
             </div>
-            <div class="featured-work__links" aria-label={`${project.displayName} 链接`}>
+            <div class="featured-work__links" aria-label={`${project.displayName} ${copy.links}`}>
               {project.links.map((link) => (
                 <a
                   href={link.href}
@@ -92,36 +114,36 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
           </div>
 
           <div class="case-study">
-            <section class="case-study__main" aria-label={`${project.displayName} 案例笔记`}>
+            <section class="case-study__main" aria-label={`${project.displayName} ${copy.caseNotes}`}>
               <p class="case-study__eyebrow">Case Study</p>
-              <p><strong>问题：</strong>{project.caseStudy.problem}</p>
-              <p><strong>设计：</strong>{project.caseStudy.design}</p>
-              <ul class="case-study__points" aria-label={`${project.displayName} 实现抓手`}>
+              <p><strong>{copy.problem}</strong>{' '}{project.caseStudy.problem}</p>
+              <p><strong>{copy.design}</strong>{' '}{project.caseStudy.design}</p>
+              <ul class="case-study__points" aria-label={`${project.displayName} ${copy.levers}`}>
                 {project.highlights.slice(0, 3).map((highlight) => (
                   <li>{highlight}</li>
                 ))}
               </ul>
             </section>
 
-            <aside class="case-study__side" aria-label={`${project.displayName} 开始与边界`}>
+            <aside class="case-study__side" aria-label={`${project.displayName} ${copy.startBoundary}`}>
               <dl>
                 <div>
-                  <dt>开始</dt>
+                  <dt>{copy.start}</dt>
                   <dd>{project.caseStudy.start}</dd>
                 </div>
                 <div>
-                  <dt>边界</dt>
+                  <dt>{copy.boundary}</dt>
                   <dd>{project.caseStudy.boundary}</dd>
                 </div>
                 <div>
-                  <dt>下一步</dt>
+                  <dt>{copy.next}</dt>
                   <dd>{project.caseStudy.nextStep}</dd>
                 </div>
               </dl>
             </aside>
           </div>
 
-          <ul class="tag-list" aria-label={`${project.displayName} 技术标签`}>
+          <ul class="tag-list" aria-label={`${project.displayName} ${copy.tags}`}>
             {project.tags.map((tag) => (
               <li><span class="tag-pill">{tag}</span></li>
             ))}
@@ -132,15 +154,15 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
     <section class="supporting-traces editorial-section" aria-labelledby="secondary-work-title" data-reveal>
       <header class="editorial-section__heading">
-        <p class="page-kicker editorial-section__rail">{projectsPageCopy.infrastructure.eyebrow}</p>
+        <p class="page-kicker editorial-section__rail">{pageCopy.infrastructure.eyebrow}</p>
         <div class="editorial-section__copy">
-          <h2 id="secondary-work-title">{projectsPageCopy.infrastructure.title}</h2>
-          <p>{projectsPageCopy.infrastructure.description}</p>
+          <h2 id="secondary-work-title">{pageCopy.infrastructure.title}</h2>
+          <p>{pageCopy.infrastructure.description}</p>
         </div>
       </header>
       <div class="editorial-section__body">
         <ul class="trace-list">
-          {secondaryProjects.map((project, index) => (
+          {supportingProjects.map((project, index) => (
             <li class="trace-item" data-reveal style={`--reveal-order: ${index % 3};`}>
               <div class="trace-item__body">
                 <p class="trace-item__meta">{project.status} · {project.tags.join(' / ')}</p>
@@ -165,17 +187,17 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 
     <section class="playbook-section editorial-section" aria-labelledby="playbook-title" data-reveal>
       <header class="editorial-section__heading">
-        <p class="page-kicker editorial-section__rail">{projectsPageCopy.playbooks.eyebrow}</p>
+        <p class="page-kicker editorial-section__rail">{pageCopy.playbooks.eyebrow}</p>
         <div class="editorial-section__copy">
-          <h2 id="playbook-title">{projectsPageCopy.playbooks.title}</h2>
-          <p>{projectsPageCopy.playbooks.description}</p>
+          <h2 id="playbook-title">{pageCopy.playbooks.title}</h2>
+          <p>{pageCopy.playbooks.description}</p>
         </div>
       </header>
       <div class="editorial-section__body">
         <ol class="playbook-list">
           {selectedGuidePosts.map((post, index) => (
             <li class="playbook-item" data-reveal style={`--reveal-order: ${index % 3};`}>
-              <a class="playbook-item__link" href={`/blog/posts/${post.id}/`}>
+              <a class="playbook-item__link" href={localizedPath(`/blog/posts/${post.id}/`, lang)}>
                 <span class="playbook-item__body">
                   <strong>{post.data.title}</strong>
                   <span>{post.data.description}</span>

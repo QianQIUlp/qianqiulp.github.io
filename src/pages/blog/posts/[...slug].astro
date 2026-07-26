@@ -1,102 +1,32 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection, render } from 'astro:content';
-import { renderEntry } from 'astro/content/runtime';
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
-import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { localizedPath, type Lang } from '../../../i18n';
+import { getPostStaticPaths } from '../../../lib/post-static-paths';
 import '../../../styles/blog.css';
 
-export async function getStaticPaths() {
-  const introAsideRegex = /^\s*(<aside>[\s\S]*?<\/aside>)([\s\S]*)$/;
-  const introMarkerRegex = /(?:\*\*关于这篇文章\*\*|#{1,6}\s+关于这篇文章(?:\r?\n|$)|<h[1-6][^>]*>\s*关于这篇文章\s*<\/h[1-6]>)/;
-  const markdownRenderer = await createMarkdownProcessor();
-
-  function getPostFileURL(post) {
-    return post.filePath ? pathToFileURL(resolve(post.filePath)) : undefined;
-  }
-
-  function extractIntroAside(body) {
-    if (!body) return null;
-
-    const match = body.match(introAsideRegex);
-    if (!match) return null;
-
-    const [, introMarkdown, remainderMarkdown] = match;
-    if (!introMarkerRegex.test(introMarkdown)) return null;
-
-    return {
-      introMarkdown,
-      remainderMarkdown: remainderMarkdown.replace(/^\s+/, ''),
-    };
-  }
-
-  async function renderMarkdownSegment(post, markdown, idSuffix) {
-    const rendered = await markdownRenderer.render(markdown, {
-      fileURL: getPostFileURL(post),
-      frontmatter: post.data,
-    });
-
-    return renderEntry({
-      id: `${post.id}${idSuffix}`,
-      collection: post.collection,
-      data: post.data,
-      filePath: post.filePath,
-      rendered: {
-        html: rendered.code,
-        metadata: {
-          headings: rendered.metadata.headings,
-          frontmatter: rendered.metadata.frontmatter,
-          imagePaths: [
-            ...rendered.metadata.localImagePaths,
-            ...rendered.metadata.remoteImagePaths,
-          ],
-        },
-      },
-    });
-  }
-
-  async function getPostProps(post) {
-    const introAside = extractIntroAside(post.body);
-
-    if (introAside) {
-      const [introRendered, bodyRendered] = await Promise.all([
-        renderMarkdownSegment(post, introAside.introMarkdown, '#intro'),
-        renderMarkdownSegment(post, introAside.remainderMarkdown, '#body'),
-      ]);
-
-      return {
-        post,
-        Content: bodyRendered.Content,
-        headings: bodyRendered.headings,
-        IntroContent: introRendered.Content,
-      };
-    }
-
-    const { Content, headings } = await render(post);
-    return { post, Content, headings, IntroContent: null };
-  }
-
-  const posts = await getCollection('posts');
-  return Promise.all(
-    posts.map(async (post) => {
-      return {
-        params: { slug: post.id },
-        props: await getPostProps(post),
-      };
-    })
-  );
-}
+export const getStaticPaths = getPostStaticPaths;
 
 const { post, Content, headings, IntroContent } = Astro.props;
+const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
+const isEnglish = lang === 'en';
+const copy = isEnglish ? {
+  site: "Qiu's Room", start: 'Article start', back: 'Back to writing', kicker: 'Long read',
+  languageNote: 'This article is currently available in Chinese only.', tags: 'Article tags',
+  license: 'License · end note', tocAria: 'Open or close the table of contents', toc: 'Contents', close: 'Close',
+  imageAlt: 'Article cover',
+} : {
+  site: 'Qiu 的小屋', start: '文章开头', back: '返回文章列表', kicker: '长文',
+  languageNote: '', tags: '文章标签', license: '授权协议 · 文末记',
+  tocAria: '展开或收起文章目录', toc: '目录', close: '收起', imageAlt: '文章封面',
+};
 const tocHeadings = (headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 4);
 const tocItems = [
-  { slug: 'article-start', text: '文章开头', depth: 2 },
+  { slug: 'article-start', text: copy.start, depth: 2 },
   ...tocHeadings,
 ];
 const formattedDate = post.data.date.toISOString().slice(0, 10);
-const displayDate = new Intl.DateTimeFormat('zh-CN', {
+const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit',
@@ -104,29 +34,31 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
 ---
 
 <BaseLayout
-  title={`${post.data.title} · Qiu 的小屋`}
+  lang={lang}
+  title={`${post.data.title} · ${copy.site}`}
   description={post.data.description}
   ogType="article"
   ogTitle={post.data.title}
   ogDescription={post.data.description}
-  ogUrl={`https://qianqiulp.github.io/blog/posts/${post.id}/`}
+  ogUrl={`https://qianqiulp.github.io${localizedPath(`/blog/posts/${post.id}/`, lang)}`}
   ogImage={post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg'}
-  ogImageAlt={post.data.ogImageAlt || `${post.data.title} 文章封面`}
+  ogImageAlt={post.data.ogImageAlt || `${post.data.title} ${copy.imageAlt}`}
   bodyClass="page-post"
 >
   <main class="page-shell page-shell--reading article-shell" id="main-content" tabindex="-1">
-    <a class="article-back" href="/blog/">返回文章列表</a>
+    <a class="article-back" href={localizedPath('/blog/', lang)}>{copy.back}</a>
 
     <article class="post-article">
       <span class="article-start-anchor" id="article-start" aria-hidden="true"></span>
       <header class:list={['post-header', { 'post-header--with-image': post.data.ogImage, 'post-header--fallback': !post.data.ogImage }]}>
         <div class="post-header__copy">
-          <p class="page-kicker">长文</p>
+          <p class="page-kicker">{copy.kicker}</p>
+          {isEnglish && <p class="article-language-note" lang="en">{copy.languageNote}</p>}
           <h1>{post.data.title}</h1>
           <p class="post-description">{post.data.description}</p>
           <div class="post-meta">
             <time datetime={formattedDate}>{displayDate}</time>
-            <ul class="tag-list" aria-label="文章标签">
+            <ul class="tag-list" aria-label={copy.tags}>
               {post.data.tags.map((tag: string) => (
                 <li><span class="tag-pill">{tag}</span></li>
               ))}
@@ -167,7 +99,7 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
         {post.data.license && (
           <footer class="post-license">
             <div>
-              <span>授权协议 · 文末记</span>
+              <span>{copy.license}</span>
               <p>{post.data.license}</p>
             </div>
           </footer>
@@ -177,12 +109,12 @@ const displayDate = new Intl.DateTimeFormat('zh-CN', {
   </main>
 
   <details class="toc-drawer" data-toc-drawer>
-    <summary class="toc-toggle" aria-label="展开或收起文章目录">
-      <span class="toc-toggle__open">目录</span>
-      <span class="toc-toggle__close">收起</span>
+    <summary class="toc-toggle" aria-label={copy.tocAria}>
+      <span class="toc-toggle__open">{copy.toc}</span>
+      <span class="toc-toggle__close">{copy.close}</span>
     </summary>
-    <nav class="toc-block" aria-label="文章目录">
-      <div class="toc-header">目录</div>
+    <nav class="toc-block" aria-label={copy.toc}>
+      <div class="toc-header">{copy.toc}</div>
       <ul class="toc-list">
         {tocItems.map((heading) => (
           <li class={`toc-item depth-${heading.depth}`}>

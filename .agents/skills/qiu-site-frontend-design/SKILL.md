@@ -29,6 +29,8 @@ Use this skill for UI/UX design judgment on this repository only. It adapts upst
   Docker-Hadoop-Cluster 右下桌沿；禁止再自行重组为三角群组、倾斜、伪透视或通栏 HUD。
 - 只有三张项目卡使用液态玻璃：背景保持清晰，禁止高半径 blur；环境透色、折射增强、亮边、内侧折光和投影共同建立厚度；
   昼夜按钮、返回按钮与分区标题保持普通界面材质。窄屏背景应把 Supro 箱头作为主要视觉锚点。
+- 首页昼/夜共用黑色舞台与前景材质，只切换严格配准的白天/夜晚摄影图；桌面悬停只擦亮目标附近，
+  返回全景只记住最后访问区域；移动端三个入口的底部 dock 首次加载即完整可用。
 - 全站界面不再显示 Seal；页眉使用正常文字品牌。
 - 所有文章共用左中悬浮目录抽屉：原生 `details` 一键展开/收起，不挤压正文；无章节标题时仍显示
   「文章开头」，不得恢复为依赖单篇 `toc` frontmatter 的可选功能。
@@ -80,7 +82,8 @@ Core jobs:
    - Cinnabar used as a general accent/brand color on buttons or links.
    - QiuBrush brush type used for component titles or body text.
    - A second entrance animation besides 显影; hard-edged images instead of 边缘墨化.
-   - Elements visible in one theme but missing/moved in the other，或配对摄影图中的物件、接触面、线材位置漂移。
+   - Elements visible in one theme but missing/moved in the other，或配对摄影图中的物件、接触面、线材位置漂移；
+     或首页浅色主题重新出现纸光池、浅色悬浮控件与独立前景滤镜。
    - 用 sepia/纸纹/全局噪点把写实房间重新压成假材质，或让同一种生成纹理跨越墙、木、金属与织物。
    - Shadows falling any direction other than lower-right.
    - Homepage first view exposing full navigation/content taxonomy before the reader explores.
