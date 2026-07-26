@@ -10,11 +10,11 @@ Earlier homepage, workbench and article QA reports are preserved in
   - `/home/qiu/.codex/attachments/74603505-2536-4d6f-a796-268b3672f74b/codex-clipboard-668377f5-b891-4935-993f-86c6d752e258.png` — 183 × 331 Halfman OD wood/marker/stomp reference.
   - `/home/qiu/.codex/attachments/ac3d3d63-ea53-4673-a985-0106d2d42725/codex-clipboard-6f109f32-2670-4cc2-99e3-05b1ab334955.png` — 790 × 373 leather amplifier-head reference.
 - Implementation evidence:
-  - `/tmp/qiu-pedal-final-desktop-light.png` — 1440 × 900, DPR 1, light theme, `/#project-workbench`.
-  - `/tmp/qiu-pedal-final-desktop-dark.png` — 1440 × 900, DPR 1, dark theme, `/#project-workbench`.
+  - `docs/qa/screenshots/project-pedals/desktop-light.webp` — 1440 × 900, DPR 1, light theme, `/#project-workbench`.
+  - `docs/qa/screenshots/project-pedals/desktop-dark.webp` — 1440 × 900, DPR 1, dark theme, `/#project-workbench`.
   - `/tmp/qiu-pedal-final-tablet-light.png` — 768 × 1024, DPR 1, light theme.
-  - `/tmp/qiu-pedal-final-mobile-light.png` — 390 × 844, DPR 1, light theme.
-  - `/tmp/qiu-pedal-design-qa-comparison-final.png` — reference/implementation focused comparisons in one 1585 × 1119 image.
+  - `docs/qa/screenshots/project-pedals/mobile-light.webp` — 390 × 844, DPR 1, light theme.
+  - `docs/qa/screenshots/project-pedals/reference-comparison.webp` — reference/implementation focused comparisons in one 1600 × 1119 image.
 - State: JavaScript enabled; project focus view settled; reduced motion enabled to compare stable frames; MealCircuit and Crewlight lamps powered in desktop captures.
 - Density normalization: all browser captures use `deviceScaleFactor: 1`. The three source images have different native densities and aspect ratios, so the full scene was judged at native viewport size and each device was separately normalized inside the combined comparison board.
 
@@ -40,7 +40,7 @@ No actionable P0/P1/P2 mismatch remains.
 1. Earlier implementation finding — P1: all three devices shared one Blue Driver-shaped DOM and differed mainly by color. Fix: introduced separate wood, amplifier-head and BD-2 component structures with independent control/stomp systems.
 2. Earlier implementation finding — P2: serials wrapped vertically and Docker-Hadoop clipped against the footswitch. Fix: reset inherited legacy card rules, gave serials dedicated no-wrap layout, and restored the target's three-line Docker/Hadoop/Cluster title rhythm.
 3. Earlier implementation finding — P2: small mobile amplifier controls were narrower than the required target. Fix: widened the amplifier control rail and set every interactive knob/lamp target to at least 44 px in both dimensions.
-4. Post-fix evidence — `/tmp/qiu-pedal-design-qa-comparison-final.png`, desktop light/dark, tablet, and 390 px mobile captures show no remaining P0/P1/P2 mismatch.
+4. Post-fix evidence — `docs/qa/screenshots/project-pedals/reference-comparison.webp`, desktop light/dark, tablet, and 390 px mobile captures show no remaining P0/P1/P2 mismatch.
 
 ## Follow-up polish
 
