@@ -706,15 +706,15 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   .room-workbench-surface .room-project-list li:nth-child(1) {
     top: 19.2%;
     left: 11%;
-    width: 27.6%;
-    height: 25%;
+    width: 33.5%;
+    height: 29%;
   }
 
   .room-workbench-surface .room-project-list li:nth-child(2) {
     top: 61.5%;
     left: 12.3%;
-    width: 30.5%;
-    height: 27.5%;
+    width: 33.5%;
+    height: 31%;
   }
 
   .room-workbench-surface .room-project-list li:nth-child(3) {
@@ -3545,7 +3545,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__knob-label {
   margin-top: 0.1cqh;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive;
-  font-size: clamp(0.46rem, 1.8cqw, 0.98rem);
+  font-size: clamp(0.75rem, 2.1cqw, 0.96rem);
   font-weight: 800;
   letter-spacing: -0.07em;
   line-height: 1;
@@ -3564,7 +3564,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: visible;
   color: inherit;
   font-family: var(--font-mono);
-  font-size: clamp(0.31rem, 0.9cqw, 0.54rem);
+  font-size: clamp(0.56rem, 1.2cqw, 0.68rem);
   line-height: 1;
   text-overflow: clip;
   white-space: nowrap;
@@ -3573,12 +3573,12 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__identity {
   position: absolute;
   z-index: 3;
-  top: 25%;
-  left: 34%;
+  top: 23%;
+  left: 31.5%;
   display: grid;
-  width: 40%;
+  width: 44%;
   min-width: 0;
-  min-height: 38%;
+  min-height: 42%;
   align-content: center;
   padding: 4.2% 3.8%;
   border: max(1px, 0.24cqh) solid #9b9ba1;
@@ -3598,13 +3598,13 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .wood-pedal__identity p {
-  font-size: clamp(0.4rem, 1.25cqw, 0.68rem);
+  font-size: clamp(0.69rem, 1.5cqw, 0.84rem);
   letter-spacing: 0.015em;
 }
 
 .room-workbench-surface .room-project-list li .wood-pedal__identity small {
   margin-top: 0.35cqh;
-  font-size: clamp(0.38rem, 1.05cqw, 0.6rem);
+  font-size: clamp(0.56rem, 1.18cqw, 0.68rem);
 }
 
 .room-workbench-surface .room-project-list li .wood-pedal__identity strong {
@@ -3615,7 +3615,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: visible;
   color: inherit;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive;
-  font-size: clamp(1rem, 4.3cqw, 1.9rem);
+  font-size: clamp(1.5rem, 4.5cqw, 2.1rem);
   font-weight: 900;
   letter-spacing: -0.055em;
   line-height: 1;
@@ -3629,11 +3629,11 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   position: absolute;
   z-index: 3;
   bottom: 8%;
-  left: 34%;
-  width: 40%;
+  left: 31.5%;
+  width: 44%;
   color: rgba(239, 234, 223, 0.9);
   font-family: var(--font-mono);
-  font-size: clamp(0.42rem, 1.1cqw, 0.64rem);
+  font-size: clamp(0.625rem, 1.3cqw, 0.76rem);
   text-align: center;
 }
 
@@ -3707,7 +3707,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__stomp small {
   margin-top: 0.7cqh;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive !important;
-  font-size: clamp(0.4rem, 1.1cqw, 0.64rem) !important;
+  font-size: clamp(0.625rem, 1.3cqw, 0.76rem) !important;
   transform: rotate(-2deg);
 }
 
@@ -3762,7 +3762,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   top: 5%;
   right: 4%;
   left: 4%;
-  height: 51%;
+  height: 34%;
   border: max(1px, 0.25cqh) solid #5d4e3d;
   border-radius: clamp(3px, 1.2cqh, 7px) clamp(3px, 1.2cqh, 7px) 18% 18%;
   background:
@@ -3791,15 +3791,15 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__input small {
   margin-top: 0.7cqh;
-  font-size: clamp(0.3rem, 0.9cqw, 0.52rem);
+  font-size: clamp(0.56rem, 1.05cqw, 0.68rem);
   font-weight: 900;
 }
 
 .amp-pedal__controls {
   position: absolute;
-  top: 2%;
+  top: 0;
   right: 12%;
-  bottom: 2%;
+  bottom: 0;
   left: 11%;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -3818,7 +3818,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   display: grid;
   width: 100%;
   min-width: 44px;
-  min-height: 44px;
+  min-height: 52px;
   place-items: center;
   cursor: ns-resize;
   touch-action: none;
@@ -3827,7 +3827,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__knob > span {
   position: relative;
   display: block;
-  width: clamp(29px, 7.6cqw, 46px);
+  width: clamp(48px, 9.5cqw, 60px);
   aspect-ratio: 1;
   border: max(1px, 0.22cqh) solid #11100f;
   border-radius: 50%;
@@ -3857,7 +3857,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   max-width: 100%;
   color: #29241e;
   font-family: var(--font-mono);
-  font-size: clamp(0.5rem, 1.55cqw, 0.72rem);
+  font-size: clamp(0.75rem, 2.1cqw, 0.9rem);
   font-weight: 900;
   line-height: 1;
   text-overflow: ellipsis;
@@ -3867,7 +3867,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__knob-unit > span {
   margin-top: 0.2cqh;
   color: #746958;
-  font-size: clamp(0.38rem, 1.12cqw, 0.58rem);
+  font-size: clamp(0.625rem, 1.6cqw, 0.76rem);
 }
 
 .amp-pedal__power {
@@ -3881,7 +3881,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   justify-items: center;
   align-content: center;
   color: #27231e;
-  font-size: clamp(0.3rem, 0.9cqw, 0.52rem);
+  font-size: clamp(0.56rem, 1.05cqw, 0.68rem);
   font-weight: 900;
   cursor: pointer;
 }
@@ -3907,7 +3907,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   right: 4%;
   bottom: 4%;
   left: 4%;
-  height: 43%;
+  height: 62%;
   overflow: hidden;
   border: max(1px, 0.35cqh) solid #3e2719;
   border-radius: 2px clamp(4px, 1.7cqh, 9px) clamp(4px, 1.7cqh, 9px) 2px;
@@ -3922,12 +3922,12 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__nameplate {
   position: absolute;
-  top: 14%;
-  left: 20%;
+  top: 17%;
+  left: 14%;
   display: grid;
   justify-items: center;
-  width: 48%;
-  min-height: 52%;
+  width: 55%;
+  min-height: 56%;
   align-content: center;
   padding: 3.8% 3%;
   border: max(1px, 0.25cqh) solid #88765c;
@@ -3955,7 +3955,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__nameplate strong {
   font-family: "Arial Black", var(--font-sans) !important;
-  font-size: clamp(1rem, 3.8cqw, 1.8rem) !important;
+  font-size: clamp(1.6rem, 4.8cqw, 2.1rem) !important;
   font-weight: 950 !important;
   letter-spacing: -0.05em;
   line-height: 0.95 !important;
@@ -3964,7 +3964,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__nameplate span {
   overflow: hidden;
   max-width: 100%;
-  font-size: clamp(0.4rem, 1.08cqw, 0.62rem);
+  font-size: clamp(0.625rem, 1.45cqw, 0.78rem);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3972,21 +3972,18 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__nameplate small {
   margin-top: 0.35cqh;
   font-family: var(--font-mono) !important;
-  font-size: clamp(0.36rem, 0.98cqw, 0.56rem) !important;
+  font-size: clamp(0.56rem, 1.22cqw, 0.68rem) !important;
 }
 
-.amp-pedal__grille > p {
-  position: absolute;
-  bottom: 5%;
-  left: 4%;
-  width: 64%;
-  margin: 0;
+.amp-pedal__status {
+  max-width: 100%;
+  margin: 0.55cqh 0 0;
   overflow: hidden;
-  color: rgba(239, 224, 194, 0.94);
+  color: #4f4638;
   font-family: var(--font-mono);
-  font-size: clamp(0.42rem, 1.05cqw, 0.64rem);
+  font-size: clamp(0.56rem, 1.22cqw, 0.7rem);
+  line-height: 1.1;
   text-overflow: ellipsis;
-  text-shadow: 0 0.25cqh 0 rgba(0, 0, 0, 0.72);
   white-space: nowrap;
 }
 
@@ -4009,7 +4006,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__stomp > span {
   position: relative;
-  width: clamp(34px, 9cqw, 58px);
+  width: clamp(52px, 10.5cqw, 66px);
   aspect-ratio: 1;
   border: max(2px, 0.48cqh) solid #9fa3a0;
   border-radius: 50%;
@@ -4019,7 +4016,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .amp-pedal__stomp > span i { position: absolute; inset: 20%; border-radius: 50%; box-shadow: inset 0 0 0 max(1px, 0.2cqh) rgba(35, 38, 37, 0.46); }
-.amp-pedal__stomp small { margin-top: 0.5cqh; font-family: var(--font-mono) !important; font-size: clamp(0.4rem, 1.04cqw, 0.62rem) !important; }
+.amp-pedal__stomp small { margin-top: 0.5cqh; font-family: var(--font-mono) !important; font-size: clamp(0.625rem, 1.3cqw, 0.76rem) !important; }
 
 .room-workbench-surface .room-project-list li .amp-pedal__stomp:is(:hover, :focus-visible) { outline: 2px solid #eee0c4; outline-offset: 0.35cqh; }
 .amp-pedal.is-engaged .amp-pedal__stomp > span { transform: translateY(0.75cqh); box-shadow: 0 0.35cqh 0.55cqh rgba(0, 0, 0, 0.66); }
@@ -4074,29 +4071,55 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   .wood-pedal__knob-label {
     align-self: end;
     margin: 0;
-    font-size: clamp(0.42rem, 1.9vw, 0.55rem);
+    font-size: clamp(0.68rem, 2.8vw, 0.76rem);
   }
 
   .room-workbench-surface .room-project-list li .wood-pedal small {
     align-self: start;
-    font-size: clamp(0.3rem, 1.35vw, 0.42rem);
+    font-size: clamp(0.5rem, 2.15vw, 0.58rem);
   }
 
   .wood-pedal__identity {
-    left: 36%;
-    width: 39%;
+    left: 33%;
+    width: 43%;
   }
 
   .wood-pedal__status {
-    left: 36%;
-    width: 39%;
+    left: 33%;
+    width: 43%;
   }
 
   .wood-pedal__lamp { right: 11%; }
 
+  .amp-pedal__panel { height: 46%; }
+  .amp-pedal__grille { height: 49%; }
+
   .amp-pedal__knob { min-width: 44px; min-height: 44px; }
-  .amp-pedal__knob > span { width: clamp(27px, 7.7vw, 32px); }
-  .amp-pedal__nameplate strong { font-size: clamp(0.85rem, 3.8vw, 1rem) !important; }
+  .amp-pedal__knob > span { width: clamp(36px, 9.8vw, 42px); }
+
+  .room-workbench-surface .room-project-list li .amp-pedal__knob-unit small {
+    max-width: none;
+    font-size: 0.59rem;
+    letter-spacing: -0.04em;
+    transform: scaleX(0.82);
+  }
+
+  .amp-pedal__knob-unit > span { font-size: 0.5rem; }
+
+  .amp-pedal__nameplate {
+    top: 12%;
+    left: 12%;
+    width: 58%;
+    min-height: 72%;
+  }
+
+  .amp-pedal__nameplate strong { font-size: clamp(1.2rem, 5.2vw, 1.4rem) !important; }
+  .amp-pedal__nameplate span { font-size: 0.56rem; }
+  .room-workbench-surface .room-project-list li .amp-pedal__nameplate small { display: none; }
+  .amp-pedal__status { margin-top: 0.35cqh; font-size: 0.54rem; }
+
+  .amp-pedal__stomp > span { width: clamp(46px, 12vw, 54px); }
+  .amp-pedal__stomp small { font-size: 0.56rem !important; }
 
   .amp-pedal__controls {
     right: 11%;

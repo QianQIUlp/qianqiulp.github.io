@@ -6,7 +6,7 @@ Production-build captures for the three structurally independent homepage projec
 - `desktop-dark.webp`: 1440 × 900 dark-theme project focus with the same geometry.
 - `mobile-light.webp`: 390 × 844 light-theme stack; all controls remain inside the workbench and at least 44 px.
 - `reference-comparison.webp`: supplied Halfman OD, amplifier-head and horizontal Blue Driver references placed beside focused implementation crops.
-- `legibility-comparison.webp`: the annotated MealCircuit/Crewlight correction targets placed beside the current focused devices.
+- `legibility-comparison.webp`: the latest normal-distance MealCircuit/Crewlight targets placed beside the current focused devices; Crewlight includes the marked grille boundary.
 
 Interaction checks performed alongside capture:
 
@@ -14,4 +14,5 @@ Interaction checks performed alongside capture:
 - lamp buttons toggle independently;
 - all three stomp controls depress and link to their matching project dossier;
 - Chinese and English mobile project views have zero page/workbench overflow;
+- 1440px full-scene typography measures 24–26px for the two project names and 12px for their desktop control labels;
 - browser console errors: zero.
