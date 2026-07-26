@@ -14,11 +14,12 @@ function urlEntry(path: string, lastmod?: Date) {
 
 export async function GET() {
   const posts = await getCollection('posts');
+  const postsEn = await getCollection('postsEn');
   const staticPages = ['/', '/blog/', '/projects/', '/en/', '/en/blog/', '/en/projects/'].map((path) => urlEntry(path));
   const postPages = posts
     .sort((a, b) => a.id.localeCompare(b.id))
     .map((post) => urlEntry(`/blog/posts/${post.id}/`, post.data.date));
-  const englishPostPages = posts
+  const englishPostPages = postsEn
     .sort((a, b) => a.id.localeCompare(b.id))
     .map((post) => urlEntry(`/en/blog/posts/${post.id}/`, post.data.date));
 

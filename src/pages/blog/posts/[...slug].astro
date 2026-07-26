@@ -5,14 +5,14 @@ import { localizedPath, type Lang } from '../../../i18n';
 import { getPostStaticPaths } from '../../../lib/post-static-paths';
 import '../../../styles/blog.css';
 
-export const getStaticPaths = getPostStaticPaths;
+export const getStaticPaths = () => getPostStaticPaths('posts');
 
 const { post, Content, headings, IntroContent } = Astro.props;
 const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
 const isEnglish = lang === 'en';
 const copy = isEnglish ? {
   site: "Qiu's Room", start: 'Article start', back: 'Back to writing', kicker: 'Long read',
-  languageNote: 'This article is currently available in Chinese only.', tags: 'Article tags',
+  languageNote: '', tags: 'Article tags',
   license: 'License · end note', tocAria: 'Open or close the table of contents', toc: 'Contents', close: 'Close',
   imageAlt: 'Article cover',
 } : {
@@ -53,7 +53,7 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
       <header class:list={['post-header', { 'post-header--with-image': post.data.ogImage, 'post-header--fallback': !post.data.ogImage }]}>
         <div class="post-header__copy">
           <p class="page-kicker">{copy.kicker}</p>
-          {isEnglish && <p class="article-language-note" lang="en">{copy.languageNote}</p>}
+          {copy.languageNote && <p class="article-language-note" lang="en">{copy.languageNote}</p>}
           <h1>{post.data.title}</h1>
           <p class="post-description">{post.data.description}</p>
           <div class="post-meta">

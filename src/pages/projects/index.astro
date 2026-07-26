@@ -29,7 +29,9 @@ const copy = isEnglish ? {
   startBoundary: '开始与边界', start: '开始', boundary: '边界', next: '下一步', tags: '技术标签',
 };
 
-const posts = await getCollection('posts');
+const posts = isEnglish
+  ? await getCollection('postsEn')
+  : await getCollection('posts');
 const postsById = new Map(posts.map((post) => [post.id, post]));
 const missingGuidePostIds = selectedGuidePostIds.filter((postId) => !postsById.has(postId));
 

@@ -4,9 +4,9 @@ import { createMarkdownProcessor } from '@astrojs/markdown-remark';
 import { resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-export async function getPostStaticPaths() {
+export async function getPostStaticPaths(collection: 'posts' | 'postsEn') {
   const introAsideRegex = /^\s*(<aside>[\s\S]*?<\/aside>)([\s\S]*)$/;
-  const introMarkerRegex = /(?:\*\*关于这篇文章\*\*|#{1,6}\s+关于这篇文章(?:\r?\n|$)|<h[1-6][^>]*>\s*关于这篇文章\s*<\/h[1-6]>)/;
+  const introMarkerRegex = /(?:\*\*(?:关于这篇文章|About this piece)\*\*|#{1,6}\s+(?:关于这篇文章|About this piece)(?:\r?\n|$)|<h[1-6][^>]*>\s*(?:关于这篇文章|About this piece)\s*<\/h[1-6]>)/;
   const markdownRenderer = await createMarkdownProcessor();
 
   function getPostFileURL(post) {
@@ -61,7 +61,7 @@ export async function getPostStaticPaths() {
     return { post, Content, headings, IntroContent: null };
   }
 
-  const posts = await getCollection('posts');
+  const posts = await getCollection(collection);
   return Promise.all(posts.map(async (post) => ({
     params: { slug: post.id },
     props: await getPostProps(post),

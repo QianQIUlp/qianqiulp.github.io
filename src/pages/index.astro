@@ -58,7 +58,9 @@ const copy = isEnglish ? {
   returning: '视线正在回到房间全景。', returned: '已回到房间全景。',
 };
 
-const posts = await getCollection('posts');
+const posts = isEnglish
+  ? await getCollection('postsEn')
+  : await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
