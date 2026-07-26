@@ -77,6 +77,11 @@ const lifePosts = lifePostIds.map((postId) => {
   return post;
 });
 const roomProjectsList = (isEnglish ? featuredProjectsEn : featuredProjects).slice(0, 3);
+const roomPedalControls = [
+  ['CONTEXT', 'SCHEMA', 'HISTORY'],
+  ['AGENTS', 'DOCTOR', 'INGEST'],
+  ['NODES', 'HDFS', 'YARN'],
+];
 
 const dateFormatter = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   month: '2-digit',
@@ -248,6 +253,17 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
                     href={`${path('/projects/')}#project-${index + 1}`}
                     data-room-autofocus={index === 0 ? '' : undefined}
                   >
+                    <span class="room-pedal" aria-hidden="true">
+                      <span class="room-pedal__port room-pedal__port--output"></span>
+                      <span class="room-pedal__port room-pedal__port--input"></span>
+                      <span class="room-pedal__controls">
+                        {roomPedalControls[index].map((label) => (
+                          <i class="room-pedal__control" data-label={label}></i>
+                        ))}
+                      </span>
+                      <span class="room-pedal__led"></span>
+                      <span class="room-pedal__plate"><i></i></span>
+                    </span>
                     <span class="room-project-list__folio">
                       <span aria-hidden="true">{copy.file}</span>
                       {String(index + 1).padStart(2, '0')}

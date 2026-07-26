@@ -61,9 +61,9 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 - 全景与近景均从当前 1672 × 941 母图生成响应式衍生图；宽屏无放大造成的明显糊化、噪点或接缝。
 - 昼夜全景、电脑近景和工作台近景均使用对应主题资产；电脑 UI 落在显示器内；三个项目严格落在
   作者标注的左上桌面、左下机架、右下桌沿三个区域，没有擅自重组、倾斜或通栏 HUD。
-- 液态玻璃只出现在三张项目卡；昼夜按钮、返回按钮和分区标题是清晰的普通控件。窄屏工程近景以
-  Supro 箱头为主要背景，三卡轻微错宽，文字不截断且仍能辨认木桌和箱头；卡后背景保持清晰，
-  没有高半径模糊造成的毛玻璃观感。
+- 三张项目入口都是横向蓝色 CSS 单块效果器，仍位于作者标注的左上、左下、右下位置；旋钮、接口、
+  LED、黑踏板和脚钉完整，悬停/聚焦时 LED 点亮且踏板下压。昼夜按钮、返回按钮和分区标题没有套用
+  设备蓝色。窄屏以 Supro 箱头为主要背景，三块轻微错宽，标题/状态/入口不截断且仍能辨认木桌和箱头。
 - With JavaScript disabled, `#writing-desk`, `#project-workbench`, and `#life-corner` expose their content and the return link works without script.
 
 ## Blog Index
