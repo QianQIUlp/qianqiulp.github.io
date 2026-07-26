@@ -2,45 +2,67 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import PostCard from '../../components/PostCard.astro';
+import { type Lang } from '../../i18n';
 import '../../styles/blog.css';
 
-const posts = await getCollection('posts');
+const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
+const isEnglish = lang === 'en';
+const copy = isEnglish ? {
+  title: "Writing · Qiu's Room",
+  description: "Writing from Qiu's Room: reflections, technical notes, and things worth remembering.",
+  imageAlt: "Cover image for the writing archive in Qiu's Room",
+  kicker: 'Essays and notes', heading: 'Writing index',
+  lead: 'Reflections, technical notes, and things worth remembering, arranged in reverse chronological order for unhurried reading.',
+  summaryAria: 'Writing archive summary', articles: 'articles', topics: 'topics', listAria: 'Article list',
+} : {
+  title: '博客 · Qiu 的小屋',
+  description: 'Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。',
+  imageAlt: 'Qiu 的小屋博客封面图',
+  kicker: '随笔与笔记', heading: '文章索引',
+  lead: '记录随想、折腾笔记与一些不想忘掉的东西。这里按时间倒序排成阅读索引，方便慢慢翻。',
+  summaryAria: '文章归档概览', articles: '卷', topics: '题', listAria: '文章列表',
+};
+
+const posts = isEnglish
+  ? await getCollection('postsEn')
+  : await getCollection('posts');
 const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 const tagCount = new Set(sortedPosts.flatMap((post) => post.data.tags)).size;
 ---
 
 <BaseLayout
-  title="博客 · Qiu 的小屋"
-  description="Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。"
-  ogTitle="博客 · Qiu 的小屋"
-  ogDescription="Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。"
-  ogUrl="https://qianqiulp.github.io/blog/"
+  lang={lang}
+  title={copy.title}
+  description={copy.description}
+  ogTitle={copy.title}
+  ogDescription={copy.description}
+  ogUrl={`https://qianqiulp.github.io${isEnglish ? '/en/blog/' : '/blog/'}`}
   ogImage="/assets/og/site.svg"
-  ogImageAlt="Qiu 的小屋博客封面图"
+  ogImageAlt={copy.imageAlt}
   bodyClass="page-blog-index"
 >
   <main class="page-shell" id="main-content" tabindex="-1">
     <header class="page-hero archive-hero">
       <div>
-        <p class="page-kicker">随笔与笔记</p>
-        <h1 class="hero-title hero-title--compact">文章索引</h1>
-        <p class="hero-lead">记录随想、折腾笔记与一些不想忘掉的东西。这里按时间倒序排成阅读索引，方便慢慢翻。</p>
+        <p class="page-kicker">{copy.kicker}</p>
+        <h1 class="hero-title hero-title--compact">{copy.heading}</h1>
+        <p class="hero-lead">{copy.lead}</p>
       </div>
-      <dl class="archive-summary" aria-label="文章归档概览">
+      <dl class="archive-summary" aria-label={copy.summaryAria}>
         <div>
           <dt>{sortedPosts.length}</dt>
-          <dd>卷</dd>
+          <dd>{copy.articles}</dd>
         </div>
         <div>
           <dt>{tagCount}</dt>
-          <dd>题</dd>
+          <dd>{copy.topics}</dd>
         </div>
       </dl>
     </header>
 
-    <section class="post-ledger" aria-label="文章列表">
+    <section class="post-ledger" aria-label={copy.listAria}>
       {sortedPosts.map((post, index) => (
-        <PostCard post={post} revealOrder={index % 3} />
+        <PostCard post={post} revealOrder={index % 3} lang={lang} />
       ))}
     </section>
   </main>

@@ -2,7 +2,10 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RoomProjectPedal from '../components/RoomProjectPedal.astro';
 import { featuredProjects } from '../data/projects';
+import { featuredProjectsEn } from '../data/projects.en';
+import { localizedPath, type Lang } from '../i18n';
 import roomOverviewDay from '../assets/home/practice-room-overview-day.png';
 import roomOverviewNight from '../assets/home/practice-room-overview-night.png';
 import roomWritingDay from '../assets/home/practice-room-writing-day.png';
@@ -13,7 +16,52 @@ import roomCurtain from '../assets/home/practice-room-curtain-4k.webp';
 import qiuRelicGuitar from '../assets/home/qiu-relic-guitar-4k.webp';
 import '../styles/home-room.css';
 
-const posts = await getCollection('posts');
+const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
+const isEnglish = lang === 'en';
+const path = (value: string) => localizedPath(value, lang);
+const copy = isEnglish ? {
+  title: "Qianqiu's Home · Qiu's Room",
+  description: "Step into Qianqiu's room and meet his building, writing, and life through the desk, workbench, and guitar.",
+  ogDescription: 'Get to know Qianqiu slowly, through the things in this room.',
+  ogImageAlt: "Cover image for Qianqiu's home",
+  writingTitle: 'Recent writing', allPosts: 'All articles',
+  projectsTitle: 'Engineering archive', allProjects: 'Full projects page',
+  file: 'File', openFile: 'Open dossier',
+  introTitle: "I'm Qianqiu.", intro: 'Guitar, games, relationships, and many thoughts still unfinished.',
+  destinationsAria: 'Get to know Qianqiu through the room',
+  desk: 'Desk', writing: 'Writing', deskAria: 'Approach the desk and view articles',
+  workbench: 'Workbench', projects: 'Projects', workbenchAria: 'Approach the workbench and view projects',
+  guitar: 'Guitar', life: 'Life', guitarAria: 'Approach the guitar and view notes from life',
+  lifeTitle: 'This room also keeps the parts that never became projects.',
+  lifeBody: 'Guitar practice, games, relationships, and ordinary experience shape how I think. I write down what I can share and leave what remains unresolved as questions.',
+  lifeWriting: 'Writing shaped by life', lifePostsAria: 'Articles drawn from lived experience', linksAria: 'Other public links',
+  reset: 'Back to the room', hint: 'There is more beyond the light.',
+  moving: 'The view is moving toward ', object: 'something in the room', arrived: 'The view has reached ', target: 'the destination',
+  returning: 'The view is returning to the whole room.', returned: 'Back in the whole room.',
+} : {
+  title: '千秋的个人主页 · Qiu 的小屋',
+  description: '走进千秋的个人房间，从书桌、工作台与吉他认识他的构建、写作和生活。',
+  ogDescription: '从房间里的东西，慢慢认识千秋。',
+  ogImageAlt: '千秋的个人主页封面图',
+  writingTitle: '最近的文字', allPosts: '全部文章',
+  projectsTitle: '工程档案', allProjects: '完整作品页',
+  file: '档', openFile: '展开卷宗',
+  introTitle: '我是千秋。', intro: '练琴，游戏，关系，还有许多没想完的事。',
+  destinationsAria: '从房间里认识千秋',
+  desk: '书桌', writing: '文章', deskAria: '走近书桌，查看文章',
+  workbench: '工作台', projects: '作品', workbenchAria: '走近工作台，查看作品',
+  guitar: '吉他', life: '生活', guitarAria: '走近吉他，查看生活侧记',
+  lifeTitle: '这里也收着没有被做成作品的部分。',
+  lifeBody: '练琴、游戏、关系和日常经验会进入我的判断。我把能公开的部分写下来，也把还没想清楚的地方保留成问题。',
+  lifeWriting: '生活留下的文字', lifePostsAria: '来自生活经验的文章', linksAria: '其他公开入口',
+  reset: '回到房间', hint: '光外还有东西。',
+  moving: '视线正在走向', object: '房间里的物件', arrived: '已经走到', target: '目标',
+  returning: '视线正在回到房间全景。', returned: '已回到房间全景。',
+};
+
+const posts = isEnglish
+  ? await getCollection('postsEn')
+  : await getCollection('posts');
 const latestPosts = posts
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, 3);
@@ -29,9 +77,47 @@ const lifePosts = lifePostIds.map((postId) => {
   }
   return post;
 });
-const roomProjectsList = featuredProjects.slice(0, 3);
+const roomProjectsList = (isEnglish ? featuredProjectsEn : featuredProjects).slice(0, 3);
+const roomPedalDesigns = [
+  {
+    variant: 'wood',
+    serial: 'MC-01',
+    titleLines: ['Meal', 'Circuit'],
+    controls: [
+      { label: 'CONTEXT', value: 76 },
+      { label: 'SCHEMA', value: 48 },
+      { label: 'HISTORY', value: 67 },
+    ],
+    tags: ['Local-first', 'JSON Schema', 'SQLite'],
+  },
+  {
+    variant: 'amp',
+    serial: 'CL-02',
+    titleLines: ['Crew', 'light'],
+    controls: [
+      { label: 'AGENTS', value: 64 },
+      { label: 'DOCTOR', value: 42 },
+      { label: 'HOOKS', value: 56 },
+      { label: 'INGEST', value: 72 },
+      { label: 'DESKTOP', value: 61 },
+      { label: 'CLI', value: 48 },
+    ],
+    tags: ['AI Agents', 'Electron', 'CLI'],
+  },
+  {
+    variant: 'blue',
+    serial: 'DHC-03',
+    titleLines: ['Docker–Hadoop', 'Cluster'],
+    controls: [
+      { label: 'NODES', value: 58 },
+      { label: 'HDFS', value: 46 },
+      { label: 'YARN', value: 69 },
+    ],
+    tags: ['Docker Compose', 'HDFS', 'YARN'],
+  },
+];
 
-const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+const dateFormatter = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   month: '2-digit',
   day: '2-digit',
 });
@@ -39,14 +125,17 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 ---
 
 <BaseLayout
-  title="千秋的个人主页 · Qiu 的小屋"
-  description="走进千秋的个人房间，从书桌、工作台与吉他认识他的构建、写作和生活。"
-  ogTitle="千秋的个人主页 · Qiu 的小屋"
-  ogDescription="从房间里的东西，慢慢认识千秋。"
-  ogUrl="https://qianqiulp.github.io/"
+  lang={lang}
+  title={copy.title}
+  description={copy.description}
+  ogTitle={copy.title}
+  ogDescription={copy.ogDescription}
+  ogUrl={`https://qianqiulp.github.io${path('/')}`}
   ogImage="/assets/og/site.svg"
-  ogImageAlt="千秋的个人主页封面图"
+  ogImageAlt={copy.ogImageAlt}
   bodyClass="page-home page-home--room"
+  themeColorLight="#08090a"
+  themeColorDark="#08090a"
 >
   <main
     class="room-home"
@@ -138,14 +227,14 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
           <div class="room-monitor-surface" tabindex="-1">
             <header class="room-surface-heading">
-              <h2 id="writing-desk-title">最近的文字</h2>
-              <a href="/blog/">全部文章</a>
+              <h2 id="writing-desk-title">{copy.writingTitle}</h2>
+              <a href={path('/blog/')}>{copy.allPosts}</a>
             </header>
             <ol class="room-writing-list">
               {latestPosts.map((post, index) => (
                 <li>
                   <a
-                    href={`/blog/posts/${post.id}/`}
+                    href={path(`/blog/posts/${post.id}/`)}
                     data-room-autofocus={index === 0 ? '' : undefined}
                   >
                     <time datetime={formatDate(post.data.date)}>{dateFormatter.format(post.data.date)}</time>
@@ -188,27 +277,31 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
           <div class="room-workbench-surface" tabindex="-1">
             <header class="room-surface-heading">
-              <h2 id="project-workbench-title">工程档案</h2>
-              <a href="/projects/">完整作品页</a>
+              <h2 id="project-workbench-title">{copy.projectsTitle}</h2>
+              <a href={path('/projects/')}>{copy.allProjects}</a>
             </header>
             <ol class="room-project-list">
-              {roomProjectsList.map((project, index) => (
+              {roomProjectsList.map((project, index) => {
+                const pedal = roomPedalDesigns[index];
+                return (
                 <li>
-                  <a
-                    href={`/projects/#project-${index + 1}`}
-                    data-room-autofocus={index === 0 ? '' : undefined}
-                  >
-                    <span class="room-project-list__folio">
-                      <span aria-hidden="true">档</span>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span class="room-project-list__type">{project.type}</span>
-                    <strong>{project.displayName}</strong>
-                    <small>{project.status}</small>
-                    <span class="room-project-list__cue" aria-hidden="true">展开卷宗</span>
-                  </a>
+                  <RoomProjectPedal
+                    variant={pedal.variant}
+                    projectName={project.displayName}
+                    projectType={project.type}
+                    projectStatus={project.status}
+                    serial={pedal.serial}
+                    titleLines={pedal.titleLines}
+                    controls={pedal.controls}
+                    tags={pedal.tags}
+                    href={`${path('/projects/')}#project-${index + 1}`}
+                    openLabel={copy.openFile}
+                    isEnglish={isEnglish}
+                    autofocus={index === 0}
+                  />
                 </li>
-              ))}
+                );
+              })}
             </ol>
           </div>
         </section>
@@ -221,42 +314,45 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           <span></span>
         </div>
 
-        <div class="room-discovery-veil" aria-hidden="true"></div>
+        <div class="room-discovery-veil" aria-hidden="true">
+          <span class="room-discovery-shadow room-discovery-shadow--writing"></span>
+          <span class="room-discovery-shadow room-discovery-shadow--projects"></span>
+        </div>
       </div>
     </div>
 
     <section class="room-intro" aria-labelledby="home-title">
-      <h1 id="home-title">我是千秋。</h1>
-      <p>练琴，游戏，关系，还有许多没想完的事。</p>
+      <h1 id="home-title">{copy.introTitle}</h1>
+      <p>{copy.intro}</p>
     </section>
 
-    <nav class="room-destinations" aria-label="从房间里认识千秋">
+    <nav class="room-destinations" aria-label={copy.destinationsAria}>
       <a
         class="room-hotspot room-hotspot--writing"
         href="#writing-desk"
         data-room-destination="writing"
-        data-room-name="书桌"
-        aria-label="走近书桌，查看文章"
+        data-room-name={copy.desk}
+        aria-label={copy.deskAria}
       >
-        <span aria-hidden="true"><small>书桌</small>文章</span>
+        <span aria-hidden="true"><small>{copy.desk}</small>{copy.writing}</span>
       </a>
       <a
         class="room-hotspot room-hotspot--projects"
         href="#project-workbench"
         data-room-destination="projects"
-        data-room-name="工作台"
-        aria-label="走近工作台，查看作品"
+        data-room-name={copy.workbench}
+        aria-label={copy.workbenchAria}
       >
-        <span aria-hidden="true"><small>工作台</small>作品</span>
+        <span aria-hidden="true"><small>{copy.workbench}</small>{copy.projects}</span>
       </a>
       <a
         class="room-hotspot room-hotspot--life"
         href="#life-corner"
         data-room-destination="life"
-        data-room-name="吉他"
-        aria-label="走近吉他，查看生活侧记"
+        data-room-name={copy.guitar}
+        aria-label={copy.guitarAria}
       >
-        <span aria-hidden="true"><small>吉他</small>生活</span>
+        <span aria-hidden="true"><small>{copy.guitar}</small>{copy.life}</span>
       </a>
     </nav>
 
@@ -267,24 +363,22 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       aria-labelledby="life-note-title"
       tabindex="-1"
     >
-      <h2 id="life-note-title">这里也收着没有被做成作品的部分。</h2>
-      <p>
-        练琴、游戏、关系和日常经验会进入我的判断。我把能公开的部分写下来，也把还没想清楚的地方保留成问题。
-      </p>
+      <h2 id="life-note-title">{copy.lifeTitle}</h2>
+      <p>{copy.lifeBody}</p>
       <div class="room-life-note__evidence">
-        <span>生活留下的文字</span>
-        <ul class="room-life-note__traces" aria-label="来自生活经验的文章">
+        <span>{copy.lifeWriting}</span>
+        <ul class="room-life-note__traces" aria-label={copy.lifePostsAria}>
           {lifePosts.map((post, index) => (
             <li>
               <a
-                href={`/blog/posts/${post.id}/`}
+                href={path(`/blog/posts/${post.id}/`)}
                 data-room-autofocus={index === 0 ? '' : undefined}
               >{post.data.title}</a>
             </li>
           ))}
         </ul>
       </div>
-      <div class="room-life-note__links" aria-label="其他公开入口">
+      <div class="room-life-note__links" aria-label={copy.linksAria}>
         <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a
           href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"
@@ -294,13 +388,16 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       </div>
     </aside>
 
-    <a class="room-reset" href="/" data-room-reset>回到房间</a>
-    <p class="room-hint" aria-hidden="true">光外还有东西。</p>
+    <a class="room-reset" href={path('/')} data-room-reset>{copy.reset}</a>
+    <p class="room-hint" aria-hidden="true">{copy.hint}</p>
     <div class="room-camera-progress" aria-hidden="true"><span></span></div>
     <p class="room-sr-only" aria-live="polite" data-room-status></p>
   </main>
 
-  <script is:inline>
+  <script is:inline define:vars={{ roomCopy: {
+    moving: copy.moving, object: copy.object, arrived: copy.arrived, target: copy.target,
+    returning: copy.returning, returned: copy.returned,
+  } }}>
     (function(){
       var stage = document.querySelector('[data-room-stage]');
       if (!stage) return;
@@ -325,6 +422,39 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         '#project-workbench': 'projects',
         '#life-corner': 'life'
       };
+      var discoverableViews = ['writing', 'projects'];
+      var discoveredViews = new Set();
+      var discoveryStorageKey = 'room-stage-lit-v2';
+
+      function restoreDiscovery() {
+        try {
+          var storedViews = JSON.parse(sessionStorage.getItem(discoveryStorageKey) || '[]');
+          if (Array.isArray(storedViews)) {
+            storedViews.forEach(function(view){
+              if (discoverableViews.indexOf(view) !== -1) discoveredViews.add(view);
+            });
+          }
+          /* 舞台分区已改变；清理旧版三块/单块记忆，避免右侧错误恢复为全亮。 */
+          sessionStorage.removeItem('room-lit');
+          sessionStorage.removeItem('room-memory');
+        } catch (error) {}
+      }
+
+      function renderDiscovery() {
+        discoverableViews.forEach(function(view){
+          stage.toggleAttribute('data-room-lit-' + view, discoveredViews.has(view));
+        });
+        stage.dataset.roomDiscovery = discoveredViews.size ? 'room' : 'person';
+        try {
+          sessionStorage.setItem(discoveryStorageKey, JSON.stringify(Array.from(discoveredViews)));
+        } catch (error) {}
+      }
+
+      function rememberView(view) {
+        if (discoverableViews.indexOf(view) === -1) return;
+        discoveredViews.add(view);
+        renderDiscovery();
+      }
 
       function announce(message) {
         if (status) status.textContent = message;
@@ -360,7 +490,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
         window.clearTimeout(transitionTimer);
         stage.removeAttribute('data-room-preview');
-        stage.dataset.roomDiscovery = 'room';
+        rememberView(view);
         setPanelAccess(view);
         stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
         stage.dataset.roomView = view;
@@ -375,7 +505,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           return link.getAttribute('data-room-destination') === view;
         });
         var name = destination && destination.getAttribute('data-room-name');
-        announce('视线正在走向' + (name || '房间里的物件') + '。');
+        announce(roomCopy.moving + (name || roomCopy.object) + '.');
 
         if (reduceMotion.matches) {
           settle(view, !options || options.focus !== false);
@@ -383,7 +513,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         }
 
         transitionTimer = window.setTimeout(function(){
-          announce('已经走到' + (name || '目标') + '前。');
+          announce(roomCopy.arrived + (name || roomCopy.target) + '.');
           settle(view, !options || options.focus !== false);
         }, transitionDuration);
       }
@@ -392,8 +522,10 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         window.clearTimeout(transitionTimer);
         stage.removeAttribute('data-room-preview');
         var wasOverview = stage.dataset.roomView === 'overview';
+        var returnView = stage.dataset.roomView;
         stage.dataset.roomMoving = reduceMotion.matches || wasOverview ? 'false' : 'true';
         stage.dataset.roomView = 'overview';
+        renderDiscovery();
         document.body.dataset.roomView = 'overview';
         stage.setAttribute('aria-busy', 'true');
 
@@ -401,15 +533,18 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           history.replaceState({ roomView: 'overview' }, '', window.location.pathname + window.location.search);
         }
 
-        announce('视线正在回到房间全景。');
+        announce(roomCopy.returning);
 
         var finish = function(){
           setPanelAccess('overview');
           stage.dataset.roomMoving = 'false';
           stage.removeAttribute('aria-busy');
-          announce('已回到房间全景。');
-          if (options && options.focus && destinations[0]) {
-            destinations[0].focus({ preventScroll: true });
+          announce(roomCopy.returned);
+          if (options && options.focus) {
+            var returnDestination = destinations.find(function(link){
+              return link.getAttribute('data-room-destination') === returnView;
+            });
+            if (returnDestination) returnDestination.focus({ preventScroll: true });
           }
         };
 
@@ -469,18 +604,97 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         else showOverview({ history: false });
       });
 
+      restoreDiscovery();
       var initialView = viewByHash[window.location.hash];
       if (initialView) {
+        rememberView(initialView);
         setPanelAccess(initialView);
-        stage.dataset.roomDiscovery = 'room';
         stage.dataset.roomView = initialView;
         document.body.dataset.roomView = initialView;
       } else {
+        renderDiscovery();
         setPanelAccess('overview');
         document.body.dataset.roomView = 'overview';
       }
       stage.dataset.roomMoving = 'false';
       stage.removeAttribute('aria-busy');
+
+      function setPedalKnobValue(knob, nextValue) {
+        var value = Math.max(0, Math.min(100, Math.round(nextValue)));
+        knob.dataset.value = String(value);
+        knob.style.setProperty('--knob-angle', String(-135 + value * 2.7) + 'deg');
+        knob.setAttribute('aria-valuenow', String(value));
+        var unit = knob.closest('[data-pedal-knob-unit]');
+        var readout = unit && unit.querySelector('[data-pedal-readout]');
+        if (readout) readout.textContent = String(value).padStart(2, '0');
+      }
+
+      stage.querySelectorAll('[data-pedal-knob]').forEach(function(knob){
+        var dragStartY = 0;
+        var dragStartValue = 0;
+        var dragDistance = 0;
+
+        knob.addEventListener('pointerdown', function(event){
+          if (event.button !== 0) return;
+          dragStartY = event.clientY;
+          dragStartValue = Number(knob.dataset.value || 0);
+          dragDistance = 0;
+          knob.setPointerCapture(event.pointerId);
+          knob.closest('[data-project-pedal]')?.classList.add('is-tuning');
+          event.preventDefault();
+        });
+
+        knob.addEventListener('pointermove', function(event){
+          if (!knob.hasPointerCapture(event.pointerId)) return;
+          dragDistance = dragStartY - event.clientY;
+          setPedalKnobValue(knob, dragStartValue + dragDistance * 0.72);
+        });
+
+        var finishKnobDrag = function(event){
+          var hadCapture = knob.hasPointerCapture(event.pointerId);
+          if (hadCapture) knob.releasePointerCapture(event.pointerId);
+          knob.closest('[data-project-pedal]')?.classList.remove('is-tuning');
+          if (hadCapture && event.type !== 'pointercancel' && Math.abs(dragDistance) < 3) {
+            var value = Number(knob.dataset.value || 0);
+            setPedalKnobValue(knob, value >= 100 ? 0 : value + 10);
+          }
+        };
+
+        knob.addEventListener('pointerup', finishKnobDrag);
+        knob.addEventListener('pointercancel', finishKnobDrag);
+        knob.addEventListener('keydown', function(event){
+          var value = Number(knob.dataset.value || 0);
+          var handled = true;
+          if (event.key === 'ArrowUp' || event.key === 'ArrowRight') value += 5;
+          else if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') value -= 5;
+          else if (event.key === 'Home') value = 0;
+          else if (event.key === 'End') value = 100;
+          else handled = false;
+          if (!handled) return;
+          event.preventDefault();
+          setPedalKnobValue(knob, value);
+        });
+      });
+
+      stage.querySelectorAll('[data-pedal-check]').forEach(function(check){
+        check.addEventListener('click', function(){
+          var pedal = check.closest('[data-project-pedal]');
+          var nextState = check.getAttribute('aria-pressed') !== 'true';
+          check.setAttribute('aria-pressed', String(nextState));
+          if (pedal) pedal.classList.toggle('is-powered', nextState);
+        });
+      });
+
+      stage.querySelectorAll('[data-pedal-footswitch]').forEach(function(footswitch){
+        var pedal = footswitch.closest('[data-project-pedal]');
+        var release = function(){ if (pedal) pedal.classList.remove('is-engaged'); };
+        footswitch.addEventListener('pointerdown', function(event){
+          if (event.button === 0 && pedal) pedal.classList.add('is-engaged');
+        });
+        footswitch.addEventListener('pointerup', release);
+        footswitch.addEventListener('pointercancel', release);
+        footswitch.addEventListener('pointerleave', release);
+      });
     })();
   </script>
 </BaseLayout>

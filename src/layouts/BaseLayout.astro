@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import SiteHeader from '../components/SiteHeader.astro';
+import { siteCopy, type Lang } from '../i18n';
 
 export interface Props {
   title: string;
@@ -12,6 +13,9 @@ export interface Props {
   ogImage?: string;
   ogImageAlt?: string;
   bodyClass?: string;
+  lang?: Lang;
+  themeColorLight?: string;
+  themeColorDark?: string;
 }
 
 const {
@@ -22,12 +26,20 @@ const {
   ogDescription = description,
   ogUrl,
   ogImage = '/assets/og/site.svg',
-  ogImageAlt = 'Qiu 的小屋封面图',
+  lang = 'zh',
+  ogImageAlt = siteCopy[lang].defaultImageAlt,
   bodyClass = '',
+  themeColorLight = '#f1ebdb',
+  themeColorDark = '#14171a',
 } = Astro.props;
+const copy = siteCopy[lang];
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const alternatePath = lang === 'en'
+  ? (Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/')
+  : `/en${Astro.url.pathname}`;
 ---
 <!doctype html>
-<html lang="zh-CN" class="no-js">
+<html lang={copy.htmlLang} class="no-js">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -43,30 +55,34 @@ const {
     })();
   </script>
   <meta name="description" content={description} />
-  <meta name="theme-color" content="#f1ebdb" media="(prefers-color-scheme: light)" />
-  <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content={themeColorLight} media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content={themeColorDark} media="(prefers-color-scheme: dark)" />
   <!-- 标题衬线：preconnect + 样式表直链，避免 CSS @import 链式阻塞 -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700&family=Permanent+Marker&display=swap" />
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <meta property="og:type" content={ogType} />
   <meta property="og:site_name" content="qianqiulp" />
-  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:locale" content={copy.locale} />
   <meta property="og:title" content={ogTitle} />
   <meta property="og:description" content={ogDescription} />
   <meta property="og:url" content={ogUrl} />
   <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
   <meta property="og:image:alt" content={ogImageAlt} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="alternate" hreflang="zh-CN" href={new URL(lang === 'zh' ? Astro.url.pathname : alternatePath, Astro.site).href} />
+  <link rel="alternate" hreflang="en" href={new URL(lang === 'en' ? Astro.url.pathname : alternatePath, Astro.site).href} />
+  <link rel="alternate" hreflang="x-default" href={new URL(lang === 'zh' ? Astro.url.pathname : alternatePath, Astro.site).href} />
   <slot name="extraHead" />
   <title>{title}</title>
   <slot name="extraCss" />
 </head>
 <body class:list={[bodyClass]}>
-  <a class="skip-link" href="#main-content">跳到主要内容</a>
+  <a class="skip-link" href="#main-content">{copy.skip}</a>
 
   <!-- 氛围层：几粒墨絮与花瓣的呼吸，不参与交互 -->
   <div class="atmosphere" aria-hidden="true">
@@ -78,14 +94,14 @@ const {
     <span class="atmosphere__petal atmosphere__petal--2"></span>
   </div>
 
-  <SiteHeader />
+  <SiteHeader lang={lang} />
 
   <slot />
 
   <footer class="site-footer">
     <div class="site-footer__inner">
       <span class="site-footer__brand">
-        <p>© 2026 千秋 · Qiu 的小屋</p>
+        <p>{copy.footer}</p>
       </span>
       <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">github.com/qianqiulp</a>
     </div>
@@ -95,7 +111,7 @@ const {
   <div class="theme-wipe" aria-hidden="true"><div class="theme-wipe__mist"></div></div>
 
   <!-- 主题切换逻辑：昼宣 ↔ 夜墨，以晕染过渡；减少动态偏好下即时切换 -->
-  <script is:inline>
+  <script is:inline define:vars={{ dayLabel: copy.day, nightLabel: copy.night }}>
     (function(){
       var btn = document.getElementById('themeToggle');
       if (!btn) return;
@@ -106,7 +122,7 @@ const {
 
       function render() {
         var isDark = html.getAttribute('data-theme') === 'dark';
-        btn.textContent = isDark ? '昼' : '夜';
+        btn.textContent = isDark ? dayLabel : nightLabel;
         btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
       }
 

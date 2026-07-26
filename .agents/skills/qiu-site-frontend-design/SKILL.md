@@ -27,8 +27,18 @@ Use this skill for UI/UX design judgment on this repository only. It adapts upst
 - 「显影」（data-reveal）是唯一入场动效；氛围层是"空气"，不得遮挡内容。
 - 首页工程近景严格遵循作者标注位置：MealCircuit 左上桌面、Crewlight 左下机架、
   Docker-Hadoop-Cluster 右下桌沿；禁止再自行重组为三角群组、倾斜、伪透视或通栏 HUD。
-- 只有三张项目卡使用液态玻璃：背景保持清晰，禁止高半径 blur；环境透色、折射增强、亮边、内侧折光和投影共同建立厚度；
+- 三张项目入口使用三套独立 HTML/CSS 设备并保留作者标注位置，禁止再次简化成同模板换色：Docker-Hadoop
+  是横置 Blue Driver（蓝色双层机箱、信号栏、纵向金色旋钮、大黑踏板）；MealCircuit 是 Halfman OD
+  式深色木盒（三枚实木旋钮排成左侧纵列、中部放大涂鸦铭牌、红灯、金属彩钉）；Crewlight 是复古箱头式
+  单块（放大的皮革包边机身、奶油六旋钮面板、青色电源灯、蜂窝网罩、独立彩钉）。项目名、控制标签和入口
+  必须以 1440px 全场中的实际显示尺寸验收，不得用局部放大图代替；项目名约不低于 24px、控制标签约不低于
+  11px、次要状态约不低于 9px。Crewlight 奶油面板只占上方约三分之一，蜂窝网罩至少占六成；旋钮、灯和脚踏
+  均可交互，不使用品牌摄影图或 blur 玻璃；
   昼夜按钮、返回按钮与分区标题保持普通界面材质。窄屏背景应把 Supro 箱头作为主要视觉锚点。
+- 首页昼/夜共用近乎全黑的舞台与前景材质，只切换严格配准的白天/夜晚摄影图；仅文章与作品
+  使用左右两块黑幕覆盖完整背景，生活/吉他没有第三块状态且吉他固定在其上；悬停时缓慢整块退去，访问后在当前
+  会话累计保留，两块访问后黑幕完全消失；
+  移动端三个入口的底部 dock 首次加载即完整可用。
 - 全站界面不再显示 Seal；页眉使用正常文字品牌。
 - 所有文章共用左中悬浮目录抽屉：原生 `details` 一键展开/收起，不挤压正文；无章节标题时仍显示
   「文章开头」，不得恢复为依赖单篇 `toc` frontmatter 的可选功能。
@@ -80,7 +90,8 @@ Core jobs:
    - Cinnabar used as a general accent/brand color on buttons or links.
    - QiuBrush brush type used for component titles or body text.
    - A second entrance animation besides 显影; hard-edged images instead of 边缘墨化.
-   - Elements visible in one theme but missing/moved in the other，或配对摄影图中的物件、接触面、线材位置漂移。
+   - Elements visible in one theme but missing/moved in the other，或配对摄影图中的物件、接触面、线材位置漂移；
+     或首页浅色主题重新出现纸光池、浅色悬浮控件与独立前景滤镜。
    - 用 sepia/纸纹/全局噪点把写实房间重新压成假材质，或让同一种生成纹理跨越墙、木、金属与织物。
    - Shadows falling any direction other than lower-right.
    - Homepage first view exposing full navigation/content taxonomy before the reader explores.

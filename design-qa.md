@@ -1,149 +1,68 @@
-# Person-first reveal · Design QA
+# Homepage Project Pedals · Design QA
 
-## Creative source
+Earlier homepage, workbench and article QA reports are preserved in
+[`docs/qa/design-qa-history.md`](./docs/qa/design-qa-history.md).
 
-- Governing art direction: `docs/uiux/homepage-art-direction.md`
-- Long-term intent and PR #66 baseline: `docs/uiux/person-first-intent.md`
-- Current material/interaction contract: `docs/uiux/ink-and-light-study.md`
+## Comparison target
 
-The current review no longer treats the old interactive-room reference as the final target. The target is the
-user's stated feeling: **东西很多，初见很少** — first meet Qiu, the guitar, and lived experience; let writing
-and engineering emerge from shadow only after the visitor approaches.
+- Source visual truth:
+  - `/home/qiu/.codex/attachments/2ec32756-5b5e-49be-8281-281cbcaef7a4/codex-clipboard-fd52c99d-1944-437c-bbb8-13d38d382226.png` — 1400 × 850 horizontal Blue Driver project prototype.
+  - `/home/qiu/.codex/attachments/74603505-2536-4d6f-a796-268b3672f74b/codex-clipboard-668377f5-b891-4935-993f-86c6d752e258.png` — 183 × 331 Halfman OD wood/marker/stomp reference.
+  - `/home/qiu/.codex/attachments/ac3d3d63-ea53-4673-a985-0106d2d42725/codex-clipboard-6f109f32-2670-4cc2-99e3-05b1ab334955.png` — 790 × 373 leather amplifier-head reference.
+  - `/home/qiu/.codex/attachments/de4cb44b-517e-426e-8fae-40d48dd88cb8/codex-clipboard-b665be93-8354-490e-8e44-a76a122303e9.png` — 476 × 252 annotated MealCircuit correction: three knobs in a left column and an enlarged central nameplate.
+  - `/home/qiu/.codex/attachments/628d1c69-d539-4d9e-9fb7-ed1dbff796c6/codex-clipboard-28c57719-8a15-4cd4-b30b-c906fa6df103.png` — 461 × 252 Crewlight correction target: enlarge the amplifier controls and project identity.
+  - `/home/qiu/.codex/attachments/986bca64-5359-43da-8892-650fd7281309/codex-clipboard-22a98ebc-c999-4ce4-8c03-25f20d50fdc8.png` — 514 × 267 latest Crewlight markup: the grille must rise to the red line and the text must read at normal distance.
+  - `/home/qiu/.codex/attachments/562aa144-7fb3-4d3-a60e-bdf1dd3d225e/codex-clipboard-49e5c3f0-4eac-4e3d-a60e-bdf1dd3d225e.png` — 463 × 247 latest MealCircuit normal-distance legibility target.
+- Implementation evidence:
+  - `docs/qa/screenshots/project-pedals/desktop-light.webp` — 1440 × 900, DPR 1, light theme, `/#project-workbench`.
+  - `docs/qa/screenshots/project-pedals/desktop-dark.webp` — 1440 × 900, DPR 1, dark theme, `/#project-workbench`.
+  - `/tmp/qiu-readable-final-tablet-light.png` — 768 × 1024, DPR 1, light theme.
+  - `docs/qa/screenshots/project-pedals/mobile-light.webp` — 390 × 844, DPR 1, light theme.
+  - `docs/qa/screenshots/project-pedals/reference-comparison.webp` — reference/implementation focused comparisons in one 1600 × 1119 image.
+  - `docs/qa/screenshots/project-pedals/legibility-comparison.webp` — the two latest correction targets and current focused implementations in one 1120 × 776 comparison.
+- State: JavaScript enabled; project focus view settled; reduced motion enabled to compare stable frames.
+- Density normalization: all browser captures use `deviceScaleFactor: 1`. The three source images have different native densities and aspect ratios, so the full scene was judged at native viewport size and each device was separately normalized inside the combined comparison board.
 
-## Current screenshot evidence
+## Findings
 
-All images below were captured from the production build in headless Chromium on 2026-07-21. The complete set
-and viewport manifest live in `docs/qa/screenshots/person-first-reveal/`.
+No actionable P0/P1/P2 mismatch remains.
 
-- Initial night composition: `home-initial-dark-1440.webp`
-- Writing area discovered on hover/focus: `home-discover-writing-dark-1440.webp`
-- Life close view with real article traces: `home-life-dark-1440.webp`
-- Returned room after discovery: `home-discovered-dark-1440.webp`
-- Same initial composition in day mode: `home-initial-light-1440.webp`
-- Initial/returned mobile states: `home-initial-dark-375.webp`, `home-discovered-dark-375.webp`
-- Interior continuity: `blog-light-1440.webp`, `projects-dark-1440.webp`, `post-light-1440.webp`, `post-dark-375.webp`
+- Typography: Docker-Hadoop keeps the large condensed orange hierarchy from the target. At the actual 1440 × 900 full-scene viewport, MealCircuit now renders its project name at 24.12 px, all three marker labels at 12 px and status at 10 px; Crewlight renders its project name at 25.73 px, all six control labels at 12 px and status at 8.96 px. These values are measured on the full scene rather than inferred from a focused crop. No title clips at 1440, 768, or 390 px.
+- Spacing and layout: MealCircuit and Crewlight each grow to 33.5% of the scene width while keeping their authored left-top and left-bottom anchors. MealCircuit's three knobs remain in the requested left column. Crewlight's cream control panel measures 33.3% of the device height, while its grille measures 60.7% and rises to the latest red-line target. Mobile stacks all three inside the workbench with no vertical or horizontal overflow.
+- Colors and tokens: the wood/purple, leather/cream/copper, and BD-2 blue/orange palettes follow the supplied references and remain confined to physical scene objects. Light/dark themes keep the same device geometry.
+- Image and material fidelity: brand photography is used only as reference, per the explicit request to reconstruct the visible elements in HTML/CSS. Wood rings, marker lettering, leather seams, cream panel, circular grille, brushed blue metal, jacks, screws and three different stomp mechanisms are all represented.
+- Copy and content: control labels map to confirmed project facts (`CONTEXT`, `SCHEMA`, `HISTORY`; `AGENTS`, `DOCTOR`, `HOOKS`, `INGEST`, `DESKTOP`, `CLI`; `NODES`, `HDFS`, `YARN`). Status and project links come from the repository project data.
+- Interaction and accessibility: pointer drag changed a wood control from 76 to 93; ArrowUp changed an amplifier control from 42 to 47; lamp buttons update `aria-pressed`; metal/black stomps enter the correct project anchors and expose a pressed displacement. Chinese and English mobile routes have no workbench overflow; all mobile lamp and knob targets are at least 44 × 44 px, and stomp targets are larger. Browser console reported no errors.
 
-## Visual findings
+## Intentional adaptations
 
-- **First glance:** full navigation, writing, projects, counts, and status copy no longer compete with the person.
-  The title and guitar remain concrete; the room drops to a low-contrast field and the single life label stays near
-  the instrument.
-- **Discovery:** hovering or keyboard-focusing a shadowed desk lets the room and its label return together. Selecting
-  any object releases the veil; returning to the overview reveals the complete navigation and, on mobile, the three
-  destination dock items. There is no visible step counter, tutorial panel, or “next” workflow.
-- **Day/night:** both themes keep the same composition. Night lets the room fall into black ink; day lets it recede
-  into the paper while the guitar remains materially present.
-- **Living person:** the first screen uses one short life fragment rather than a biography. The life close view then
-  connects the guitar metaphor to two existing reflective essays before showing external profiles.
-- **One world:** blog, projects, and article pages use the page itself as paper. Unnecessary card fills, rounded paper
-  boxes, duplicate seals, and hard image borders are gone; hierarchy comes from spacing, ink lines, and fading edges.
-- **Restraint:** QiuBrush now appears only in the TOC title and fallback cover signature. The interface no longer
-  displays a Seal, and ordinary links no longer inherit cinnabar through `--warm`.
-
-## Runtime and accessibility evidence
-
-- `npm run build`: passed; 10 static pages generated.
-- Browser console/page errors: 0 across tested states.
-- Page-level horizontal overflow: 0 at 1440px and 375px on home, blog, projects, and representative article routes.
-- Mobile theme and visible navigation targets: 44px; room destination targets: 44px minimum.
-- Reduced motion: selecting Writing settles immediately (`data-room-moving="false"`) and exposes the panel.
-- No JavaScript: `#writing-desk` remains visible with opacity `1`; native links and hash targets remain usable.
-- Initial homepage navigation is visually and interactively hidden, not removed from the no-JS fallback. After any
-  room choice, it returns with the rest of the discovered room.
-
-## Review conclusion
-
-No unresolved functional or responsive defect was found in the tested routes. The screenshots are evidence of the
-implemented hierarchy, not a substitute for the author's final aesthetic judgment; future homepage work must begin
-from the original words in `homepage-art-direction.md`, not from this pass/fail document.
-
----
-
-# Annotated liquid-glass workbench · Design QA
-
-## Source and implementation
-
-- Source annotation: `/home/qiu/.codex/attachments/42ee63a8-0a12-4dc8-ad1c-a65be874f3f0/codex-clipboard-7e0764a4-a9d5-47db-bf16-6e3c09bc5997.png`
-- Desktop light, 1639 × 826: `docs/qa/screenshots/room-photoreal-pair/light-project-workbench.png`
-- Desktop dark, 1639 × 826: `docs/qa/screenshots/room-photoreal-pair/dark-project-workbench.png`
-- Mobile light, 375 × 812: `docs/qa/screenshots/room-photoreal-pair/light-mobile-project-workbench.png`
+- The Halfman source is portrait, while the requested homepage object is horizontal. The later annotated target intentionally supersedes its triangular knob relationship: the wood caps now form a left column, with the marker nameplate enlarged in the center and the red lamp/metal stomp retained on the right.
+- The amplifier source has seven audio controls. Crewlight uses six truthful project controls so the UI does not invent a seventh project fact; the leather frame, cream panel, cyan power lamp and grille remain faithful.
+- The project devices sit on the authored room photograph rather than the standalone dark prototype stage.
 
 ## Comparison history
 
-1. The first implementation filled the three red regions literally, used thick blur on every card, and also gave
-   the theme and return controls the same glass material. Mobile still showed the center of the panorama instead of
-   the requested Supro focus.
-2. The final implementation keeps the three red-region anchors but tightens their dimensions into an asymmetric
-   upper-left / lower-left / lower-right composition. Blur and tint were reduced so the wall, rack, wood, and amp
-   remain legible through each card. The theme and return controls are now opaque ordinary controls.
-3. Mobile uses an 88% horizontal crop anchor on the project focus image and slightly staggered card widths, keeping
-   Supro and the wood worktop visibly present behind the project links.
+1. Earlier implementation finding — P1: all three devices shared one Blue Driver-shaped DOM and differed mainly by color. Fix: introduced separate wood, amplifier-head and BD-2 component structures with independent control/stomp systems.
+2. Earlier implementation finding — P2: serials wrapped vertically and Docker-Hadoop clipped against the footswitch. Fix: reset inherited legacy card rules, gave serials dedicated no-wrap layout, and restored the target's three-line Docker/Hadoop/Cluster title rhythm.
+3. Earlier implementation finding — P2: small mobile amplifier controls were narrower than the required target. Fix: widened the amplifier control rail and set every interactive knob/lamp target to at least 44 px in both dimensions.
+4. Post-fix evidence — `docs/qa/screenshots/project-pedals/reference-comparison.webp`, desktop light/dark, tablet, and 390 px mobile captures show no remaining P0/P1/P2 mismatch.
+5. User correction — P1: MealCircuit wasted its center while splitting three knobs across the face; Crewlight compressed six controls and labels into a device too small to read in the scene. Fix: moved all MealCircuit knobs into one left column, enlarged and centered its identity, widened Crewlight, and increased its knob, label, nameplate, status and stomp scale.
+6. Post-correction evidence — `docs/qa/screenshots/project-pedals/legibility-comparison.webp` shows the annotated targets and focused current devices side by side. The 1440 px full scene and 390 px mobile capture have no overflow, primary labels are readable, and all mobile control targets remain at least 44 px.
+7. Latest user correction — P1: the prior pass still accepted 6.7–8 px text because it judged enlarged component crops rather than the normal-distance full scene; Crewlight's cream panel also occupied too much height, keeping the grille below the marked line. Fix: enlarged both devices to 33.5% scene width, imposed full-scene typography floors, moved Crewlight status into the readable nameplate, reduced its cream panel to one third and raised the grille to 60.7%.
+8. Post-correction evidence — the refreshed `legibility-comparison.webp` and 1440 × 900 full-scene captures show 24–26 px project names, 12 px desktop control labels and the grille boundary aligned with the latest markup. Tablet, Chinese mobile and English mobile all report zero workbench/page overflow; mobile interaction targets remain at least 44 × 44 px.
 
-## Final review
+## Follow-up polish
 
-- No card is tilted; all three sit on stable horizontal and vertical axes.
-- The three project links are the only elements using backdrop blur, translucent tint, refractive rim, and glass shadow.
-- Project names, metadata, status, and action cues remain readable in both themes and at 375px.
-- The source's three annotated placement regions are respected without covering the pedals or the Supro control panel
-  on desktop.
-- `npm run build` passes with 10 static pages generated; `git diff --check` passes.
+- P3: the exact handwritten glyph outline depends on Google Fonts availability; the fallback stack remains legible but is not pixel-identical to Permanent Marker.
 
-final result: passed
+## Implementation checklist
 
-# Author-annotated workbench positions and serif identity · Design QA
-
-## Sources and implementation
-
-- Font source crop: `/home/qiu/.codex/attachments/4f1ff16c-3893-4ddf-a7a3-1dd554faeffb/codex-clipboard-82a176c6-98dc-42c7-bd06-10418f77b7d1.png`
-- Position source, 1630 × 816: `/home/qiu/.codex/attachments/8d34a0dd-3fe0-458a-982c-f4dcb616cbe1/codex-clipboard-b1c4c8e5-1e88-47f1-8b31-5524fad268a1.png`
-- Homepage implementation, dark, 1630 × 816: `docs/qa/screenshots/room-photoreal-pair/dark-overview-serif.png`
-- Workbench implementation, dark, 1630 × 816: `docs/qa/screenshots/room-photoreal-pair/dark-project-workbench.png`
-
-## Measured comparison
-
-- “我是千秋。” now uses the same `var(--font-serif)` and 700 weight as the project-page heading
-  “作品与探索”; QiuBrush is not applied.
-- MealCircuit occupies x 179–628 / y 126–354, matching the annotated upper-left region.
-- Crewlight occupies x 200–580 / y 515–743, matching the annotated lower-left region.
-- Docker-Hadoop-Cluster occupies x 779–1480 / y 407–728, matching the annotated lower-right region.
-- The desktop percentages are calibrated against the 16:9 room canvas rather than the viewport, so the positions
-  preserve the measured screenshot coordinates when the scene canvas is taller than the viewport.
-
-## Final review
-
-- No unresolved P0/P1/P2 position or typography mismatch remains in the same-state comparison.
-- Existing liquid-glass material, links, theme behavior, mobile rules, and return control remain unchanged.
-- `npm run build` and `git diff --check` pass.
-
-final result: passed
-
----
-
-# Universal collapsible article TOC · Design QA
-
-## Evidence
-
-- Closed desktop state, 1630 × 816: `docs/qa/screenshots/post-toc-drawer/dark-closed-1630.png`
-- Open desktop state, 1630 × 816: `docs/qa/screenshots/post-toc-drawer/dark-open-1630.png`
-- Open light-theme state, 1630 × 816: `docs/qa/screenshots/post-toc-drawer/light-open-1630.png`
-- Heading-free essay, 1630 × 816: `docs/qa/screenshots/post-toc-drawer/dark-open-qiyuniao-1630.png`
-- Open mobile state, 375 × 812: `docs/qa/screenshots/post-toc-drawer/dark-open-375.png`
-
-## Functional review
-
-- All seven generated article routes contain exactly one `data-toc-drawer`; the feature no longer depends on a
-  per-article `toc` frontmatter flag.
-- The representative SSH article exposes 39 links. The heading-free essay exposes one useful fallback link,
-  「文章开头」, instead of an empty drawer.
-- The same native summary control opens and closes the drawer on successive clicks. The article width and scroll
-  position do not reflow when the drawer changes state. When closed, the panel computes to `display: none` and
-  exposes zero focusable TOC links.
-- At 1630px and 375px, the drawer stays anchored to the viewport's left-middle and page-level horizontal overflow is 0.
-- The long desktop and mobile TOCs scroll inside their own panel; the page remains independently scrollable.
-
-## Final review
-
-- `npm run build` passes with 10 static pages generated.
-- `git diff --check` passes.
+- [x] Three distinct structures, not palette variants.
+- [x] Knob drag/click/keyboard interaction.
+- [x] Independent lamp toggles and visible stomp feedback.
+- [x] Correct internal project links.
+- [x] Light/dark, 1440 px, 768 px and 390 px screenshots.
+- [x] No console errors or page-level overflow.
+- [x] Production build passes.
 
 final result: passed

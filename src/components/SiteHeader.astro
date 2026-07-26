@@ -1,22 +1,32 @@
 ---
+import { localizedPath, siteCopy, type Lang } from '../i18n';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = 'zh' } = Astro.props;
+const copy = siteCopy[lang];
 const currentPath = Astro.url.pathname;
+const routePath = currentPath.replace(/^\/en(?=\/|$)/, '') || '/';
 const navItems = [
-  { href: '/', label: '首页', active: currentPath === '/' },
-  { href: '/blog/', label: '文章', active: currentPath === '/blog' || currentPath === '/blog/' || currentPath.startsWith('/blog/') },
-  { href: '/projects/', label: '作品', active: currentPath === '/projects' || currentPath === '/projects/' || currentPath.startsWith('/projects/') },
+  { href: localizedPath('/', lang), label: copy.nav.home, active: routePath === '/' },
+  { href: localizedPath('/blog/', lang), label: copy.nav.blog, active: routePath === '/blog' || routePath === '/blog/' || routePath.startsWith('/blog/') },
+  { href: localizedPath('/projects/', lang), label: copy.nav.projects, active: routePath === '/projects' || routePath === '/projects/' || routePath.startsWith('/projects/') },
 ];
+const languageHref = localizedPath(routePath, lang === 'en' ? 'zh' : 'en');
 ---
 
 <header class="site-header">
   <div class="site-header__inner">
-    <a class="site-brand" href="/" aria-label="Qiu 的小屋首页">
+    <a class="site-brand" href={localizedPath('/', lang)} aria-label={copy.brandAria}>
       <span class="site-brand__text">
-        <span class="site-brand__title">Qiu 的小屋</span>
-        <span class="site-brand__subtitle">千秋的构建、写作与生活</span>
+        <span class="site-brand__title">{copy.brand}</span>
+        <span class="site-brand__subtitle">{copy.brandSubtitle}</span>
       </span>
     </a>
 
-    <nav class="site-nav" aria-label="主导航">
+    <nav class="site-nav" aria-label={copy.navAria}>
       {navItems.map((item) => (
         <a
           class="site-nav__link"
@@ -28,14 +38,18 @@ const navItems = [
       ))}
     </nav>
 
+    <a class="language-toggle" href={languageHref} hreflang={lang === 'en' ? 'zh-CN' : 'en'} aria-label={copy.languageAria}>
+      {copy.languageLabel}
+    </a>
+
     <button
       class="theme-toggle"
       id="themeToggle"
       type="button"
-      aria-label="切换深浅色模式"
-      title="切换深浅色模式"
+      aria-label={copy.themeAria}
+      title={copy.themeAria}
     >
-      夜
+      {copy.night}
     </button>
   </div>
 </header>

@@ -40,8 +40,11 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 ## Homepage
 
 - 第一眼只有千秋题字、吉他和极少的生活气息承担视觉焦点；完整导航、书桌、工作台和内容数量没有同时抢出来。
-- 暗处仍让人想靠近：桌面端停留/聚焦会让对应区域松开墨影，选择任一物件后其余房间入口才逐渐交出。
-- 移动端初见只显吉他/生活入口；从近景回到房间后才出现文章与作品入口。
+- 初始背景在昼/夜两态下由文章与作品左右两块黑幕完整覆盖，只留下题字、位于黑幕上方的吉他与必要控件；
+  桌面端停留/聚焦会让文章或作品所属的整块黑幕缓慢淡去，互不串光，没有圆形聚光灯或瞬时跳亮。
+- 从近景或具体文章返回后，所有已访问区域累计保持明亮；依次访问文章与作品后黑幕完全消失，
+  刷新或跨文章返回仍在当前会话内保留累计状态。
+- 移动端首次进入时底部 dock 已完整、稳定显示文章/作品/生活三个入口，无需先进入生活再返回。
 - 渐进发现没有被做成步骤条、进度状态、说明面板或显眼的 onboarding 按钮。
 - 首页文案没有替构图解释人格；视觉隐喻先形成感受，真实文章与项目只在近景中出现。
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
@@ -58,9 +61,14 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 - 全景与近景均从当前 1672 × 941 母图生成响应式衍生图；宽屏无放大造成的明显糊化、噪点或接缝。
 - 昼夜全景、电脑近景和工作台近景均使用对应主题资产；电脑 UI 落在显示器内；三个项目严格落在
   作者标注的左上桌面、左下机架、右下桌沿三个区域，没有擅自重组、倾斜或通栏 HUD。
-- 液态玻璃只出现在三张项目卡；昼夜按钮、返回按钮和分区标题是清晰的普通控件。窄屏工程近景以
-  Supro 箱头为主要背景，三卡轻微错宽，文字不截断且仍能辨认木桌和箱头；卡后背景保持清晰，
-  没有高半径模糊造成的毛玻璃观感。
+- 三张项目入口仍位于作者标注的左上、左下、右下位置，并且结构一眼可区分：MealCircuit 是深色木盒、
+  左侧三枚纵列实木旋钮、中部放大的涂鸦铭牌和金属彩钉；Crewlight 是放大的皮革箱头、奶油六旋钮面板、
+  青灯、蜂窝网罩和彩钉；其奶油面板约止于机身上方三分之一，网罩占至少六成。项目名、旋钮标签、状态和入口
+  必须在 1440px 全场截图的正常观看距离下直接辨认，不得用局部放大图验收；项目名约不低于 24px、控制标签
+  约不低于 11px、次要状态约不低于 9px；
+  Docker-Hadoop 是蓝色双层机箱、顶部信号栏、纵向金色旋钮和大黑踏板，未退化成同模板换色。
+  所有旋钮可由拖动/点击/方向键调节，灯可切换，脚踏按下有位移并进入正确项目；窄屏标题/状态/入口
+  不截断、主要触控区至少 44px 且无水平滚动。
 - With JavaScript disabled, `#writing-desk`, `#project-workbench`, and `#life-corner` expose their content and the return link works without script.
 
 ## Blog Index
@@ -98,7 +106,8 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 - Toggle updates the visible state and persists across reloads.
 - 转场为晕染收拢而非硬切；切换后 header、热点、题字在两态下均可读。
 - Page background, surfaces, borders, text, links, tags, and code blocks keep adequate contrast.
-- 昼宣态场景被宣纸罩与滤镜洗亮，题字与热点坐在纸光池内，无"直接反色"感。
+- 首页昼宣与夜墨共用黑色舞台、题字、热点和控件材质，只切换严格配准的白天/夜晚背景图；
+  浅色首页没有纸光池、浅色浮层或另一套前景滤镜。
 - Images and cover scrims do not make white text unreadable.
 - Native browser color scheme follows the active theme.
 - Directional paper and note shadows remain visible without turning into bright halos or crushed black blocks.

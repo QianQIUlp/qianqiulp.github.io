@@ -1,0 +1,209 @@
+---
+type PedalControl = {
+  label: string;
+  value: number;
+};
+
+interface Props {
+  variant: 'wood' | 'amp' | 'blue';
+  projectName: string;
+  projectType: string;
+  projectStatus: string;
+  serial: string;
+  titleLines: string[];
+  controls: PedalControl[];
+  tags: string[];
+  href: string;
+  openLabel: string;
+  isEnglish: boolean;
+  autofocus?: boolean;
+}
+
+const {
+  variant,
+  projectName,
+  projectType,
+  projectStatus,
+  serial,
+  titleLines,
+  controls,
+  tags,
+  href,
+  openLabel,
+  isEnglish,
+  autofocus = false,
+} = Astro.props;
+
+const knobAngle = (value: number) => -135 + value * 2.7;
+const controlLabel = (label: string) => `${label} ${isEnglish ? 'control' : '旋钮'}`;
+const pedalLabel = `${projectName} ${isEnglish ? 'interactive project pedal' : '交互式项目单块'}`;
+const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${projectName} 状态灯`;
+---
+
+{variant === 'wood' ? (
+  <article class="wood-pedal" data-project-pedal aria-label={pedalLabel}>
+    <span class="wood-pedal__grain" aria-hidden="true"></span>
+    <span class="wood-pedal__jack wood-pedal__jack--left" aria-hidden="true"><i></i></span>
+    <span class="wood-pedal__jack wood-pedal__jack--right" aria-hidden="true"><i></i></span>
+
+    <section class="wood-pedal__controls" aria-label={isEnglish ? `${projectName} controls` : `${projectName} 项目特征旋钮`}>
+      {controls.map((control) => (
+        <div class="wood-pedal__knob-unit" data-pedal-knob-unit>
+          <button
+            class="wood-pedal__knob"
+            type="button"
+            style={`--knob-angle:${knobAngle(control.value)}deg`}
+            aria-label={controlLabel(control.label)}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow={control.value}
+            data-pedal-knob
+            data-value={control.value}
+          ><span aria-hidden="true"></span></button>
+          <span class="wood-pedal__knob-label">{control.label}</span>
+          <small data-pedal-readout>{String(control.value).padStart(2, '0')}</small>
+        </div>
+      ))}
+    </section>
+
+    <div class="wood-pedal__identity">
+      <p>{projectType}</p>
+      <strong>{projectName}</strong>
+      <small>{serial}</small>
+    </div>
+    <p class="wood-pedal__status">{projectStatus}</p>
+
+    <button
+      class="wood-pedal__lamp"
+      type="button"
+      aria-label={checkLabel}
+      aria-pressed="false"
+      data-pedal-check
+    ><i aria-hidden="true"></i></button>
+
+    <a
+      class="wood-pedal__stomp"
+      href={href}
+      data-pedal-footswitch
+      data-room-autofocus={autofocus ? '' : undefined}
+    >
+      <span aria-hidden="true"><i></i></span>
+      <small>{openLabel}</small>
+    </a>
+  </article>
+) : variant === 'amp' ? (
+  <article class="amp-pedal" data-project-pedal aria-label={pedalLabel}>
+    <span class="amp-pedal__corner amp-pedal__corner--tl" aria-hidden="true"></span>
+    <span class="amp-pedal__corner amp-pedal__corner--tr" aria-hidden="true"></span>
+    <span class="amp-pedal__corner amp-pedal__corner--bl" aria-hidden="true"></span>
+    <span class="amp-pedal__corner amp-pedal__corner--br" aria-hidden="true"></span>
+
+    <section class="amp-pedal__panel">
+      <span class="amp-pedal__input" aria-hidden="true"><i></i><small>INPUT</small></span>
+      <div class="amp-pedal__controls" aria-label={isEnglish ? `${projectName} controls` : `${projectName} 箱头控制旋钮`}>
+        {controls.map((control) => (
+          <div class="amp-pedal__knob-unit" data-pedal-knob-unit>
+            <button
+              class="amp-pedal__knob"
+              type="button"
+              style={`--knob-angle:${knobAngle(control.value)}deg`}
+              aria-label={controlLabel(control.label)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow={control.value}
+              data-pedal-knob
+              data-value={control.value}
+            ><span aria-hidden="true"></span></button>
+            <small>{control.label}</small>
+            <span data-pedal-readout>{String(control.value).padStart(2, '0')}</span>
+          </div>
+        ))}
+      </div>
+      <button
+        class="amp-pedal__power"
+        type="button"
+        aria-label={checkLabel}
+        aria-pressed="false"
+        data-pedal-check
+      ><span>POWER</span><i aria-hidden="true"></i></button>
+    </section>
+
+    <section class="amp-pedal__grille">
+      <div class="amp-pedal__nameplate">
+        <strong>{projectName}</strong>
+        <span>{projectType}</span>
+        <small>{serial}</small>
+        <p class="amp-pedal__status">{projectStatus}</p>
+      </div>
+      <a
+        class="amp-pedal__stomp"
+        href={href}
+        data-pedal-footswitch
+        data-room-autofocus={autofocus ? '' : undefined}
+      ><span aria-hidden="true"><i></i></span><small>{openLabel}</small></a>
+    </section>
+  </article>
+) : (
+  <article class="project-pedal project-pedal--blue" data-project-pedal aria-label={pedalLabel}>
+    <span class="project-pedal__edge project-pedal__edge--top" aria-hidden="true"></span>
+    <span class="project-pedal__edge project-pedal__edge--bottom" aria-hidden="true"></span>
+    <span class="project-pedal__jack project-pedal__jack--left" aria-hidden="true"><i></i></span>
+    <span class="project-pedal__jack project-pedal__jack--right" aria-hidden="true"><i></i></span>
+    <span class="project-pedal__screw project-pedal__screw--tl" aria-hidden="true"></span>
+    <span class="project-pedal__screw project-pedal__screw--tr" aria-hidden="true"></span>
+    <span class="project-pedal__screw project-pedal__screw--bl" aria-hidden="true"></span>
+    <span class="project-pedal__screw project-pedal__screw--br" aria-hidden="true"></span>
+
+    <header class="project-pedal__signal-row">
+      <span>← OUTPUT</span>
+      <button class="project-pedal__check" type="button" aria-label={checkLabel} aria-pressed="false" data-pedal-check>
+        <span>CHECK</span><i aria-hidden="true"></i>
+      </button>
+      <span>INPUT →</span>
+    </header>
+
+    <div class="project-pedal__grid">
+      <section class="project-pedal__controls" aria-label={isEnglish ? `${projectName} controls` : `${projectName} 项目特征旋钮`}>
+        {controls.map((control, controlIndex) => (
+          <div class:list={['project-pedal__knob-unit', { 'project-pedal__knob-unit--small': controlIndex === 1 }]} data-pedal-knob-unit>
+            <button
+              class="project-pedal__knob"
+              type="button"
+              style={`--knob-angle:${knobAngle(control.value)}deg`}
+              aria-label={controlLabel(control.label)}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              aria-valuenow={control.value}
+              data-pedal-knob
+              data-value={control.value}
+            ><span aria-hidden="true"></span></button>
+            <span class="project-pedal__knob-label">{control.label}</span>
+            <small><span data-pedal-readout>{String(control.value).padStart(2, '0')}</span></small>
+          </div>
+        ))}
+      </section>
+
+      <section class="project-pedal__identity">
+        <p>{projectType}</p>
+        <h3>{titleLines.map((line) => <span>{line}</span>)}</h3>
+        <div class="project-pedal__meta">
+          <span><i aria-hidden="true"></i>{projectStatus}</span><strong>{serial}</strong>
+        </div>
+        <div class="project-pedal__tags" aria-label={isEnglish ? 'Technology tags' : '技术标签'}>
+          {tags.map((tag) => <span>{tag}</span>)}
+        </div>
+      </section>
+
+      <a
+        class="project-pedal__footswitch"
+        href={href}
+        data-pedal-footswitch
+        data-room-autofocus={autofocus ? '' : undefined}
+      >
+        <span class="project-pedal__mark" aria-hidden="true">Q</span>
+        <span class="project-pedal__footswitch-copy"><strong>EXPLORE CASE</strong><small>{openLabel} ↗</small></span>
+      </a>
+    </div>
+    <span class="project-pedal__latch" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </article>
+)}

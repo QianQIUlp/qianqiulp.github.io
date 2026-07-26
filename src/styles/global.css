@@ -314,27 +314,35 @@ body:not(.page-home--room) .site-header {
   background: var(--accent-soft);
 }
 
-.theme-toggle {
+.theme-toggle,
+.language-toggle {
   display: inline-grid;
   flex: 0 0 auto;
-  width: 44px;
+  min-width: 44px;
   height: 44px;
+  padding-inline: 11px;
   place-items: center;
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   background: var(--paper);
   color: var(--text);
   cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
   transition:
     border-color var(--motion-fast) var(--ease-out),
     color var(--motion-fast) var(--ease-out),
     background-color var(--motion-fast) var(--ease-out);
 }
 
-.theme-toggle:hover {
+.theme-toggle:hover,
+.language-toggle:hover {
   border-color: var(--accent);
   color: var(--accent-strong);
   background: var(--accent-soft);
+  text-decoration: none;
 }
 
 /* 显影：内容如墨迹在纸上显出，一次、克制、尊重减少动态偏好 */
@@ -1173,8 +1181,12 @@ body:not(.page-home--room) .site-header {
     flex: 1 0 auto;
   }
 
-  .theme-toggle {
+  .language-toggle {
     margin-left: auto;
+  }
+
+  .theme-toggle {
+    margin-left: 0;
   }
 
   .page-shell,
