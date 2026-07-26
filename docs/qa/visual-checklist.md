@@ -61,9 +61,11 @@ Always check light (昼宣) and dark (夜墨) mode for changed routes.
 - 全景与近景均从当前 1672 × 941 母图生成响应式衍生图；宽屏无放大造成的明显糊化、噪点或接缝。
 - 昼夜全景、电脑近景和工作台近景均使用对应主题资产；电脑 UI 落在显示器内；三个项目严格落在
   作者标注的左上桌面、左下机架、右下桌沿三个区域，没有擅自重组、倾斜或通栏 HUD。
-- 三张项目入口都是横向蓝色 CSS 单块效果器，仍位于作者标注的左上、左下、右下位置；旋钮、接口、
-  LED、黑踏板和脚钉完整，悬停/聚焦时 LED 点亮且踏板下压。昼夜按钮、返回按钮和分区标题没有套用
-  设备蓝色。窄屏以 Supro 箱头为主要背景，三块轻微错宽，标题/状态/入口不截断且仍能辨认木桌和箱头。
+- 三张项目入口仍位于作者标注的左上、左下、右下位置，并且结构一眼可区分：MealCircuit 是深色木盒、
+  三角实木旋钮、涂鸦标签和金属彩钉；Crewlight 是皮革箱头、奶油六旋钮面板、青灯、蜂窝网罩和彩钉；
+  Docker-Hadoop 是蓝色双层机箱、顶部信号栏、纵向金色旋钮和大黑踏板，未退化成同模板换色。
+  所有旋钮可由拖动/点击/方向键调节，灯可切换，脚踏按下有位移并进入正确项目；窄屏标题/状态/入口
+  不截断、主要触控区至少 44px 且无水平滚动。
 - With JavaScript disabled, `#writing-desk`, `#project-workbench`, and `#life-corner` expose their content and the return link works without script.
 
 ## Blog Index

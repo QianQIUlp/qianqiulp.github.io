@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RoomProjectPedal from '../components/RoomProjectPedal.astro';
 import { featuredProjects } from '../data/projects';
 import { featuredProjectsEn } from '../data/projects.en';
 import { localizedPath, type Lang } from '../i18n';
@@ -77,10 +78,43 @@ const lifePosts = lifePostIds.map((postId) => {
   return post;
 });
 const roomProjectsList = (isEnglish ? featuredProjectsEn : featuredProjects).slice(0, 3);
-const roomPedalControls = [
-  ['CONTEXT', 'SCHEMA', 'HISTORY'],
-  ['AGENTS', 'DOCTOR', 'INGEST'],
-  ['NODES', 'HDFS', 'YARN'],
+const roomPedalDesigns = [
+  {
+    variant: 'wood',
+    serial: 'MC-01',
+    titleLines: ['Meal', 'Circuit'],
+    controls: [
+      { label: 'CONTEXT', value: 76 },
+      { label: 'SCHEMA', value: 48 },
+      { label: 'HISTORY', value: 67 },
+    ],
+    tags: ['Local-first', 'JSON Schema', 'SQLite'],
+  },
+  {
+    variant: 'amp',
+    serial: 'CL-02',
+    titleLines: ['Crew', 'light'],
+    controls: [
+      { label: 'AGENTS', value: 64 },
+      { label: 'DOCTOR', value: 42 },
+      { label: 'HOOKS', value: 56 },
+      { label: 'INGEST', value: 72 },
+      { label: 'DESKTOP', value: 61 },
+      { label: 'CLI', value: 48 },
+    ],
+    tags: ['AI Agents', 'Electron', 'CLI'],
+  },
+  {
+    variant: 'blue',
+    serial: 'DHC-03',
+    titleLines: ['Docker–Hadoop', 'Cluster'],
+    controls: [
+      { label: 'NODES', value: 58 },
+      { label: 'HDFS', value: 46 },
+      { label: 'YARN', value: 69 },
+    ],
+    tags: ['Docker Compose', 'HDFS', 'YARN'],
+  },
 ];
 
 const dateFormatter = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
@@ -247,34 +281,27 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
               <a href={path('/projects/')}>{copy.allProjects}</a>
             </header>
             <ol class="room-project-list">
-              {roomProjectsList.map((project, index) => (
+              {roomProjectsList.map((project, index) => {
+                const pedal = roomPedalDesigns[index];
+                return (
                 <li>
-                  <a
+                  <RoomProjectPedal
+                    variant={pedal.variant}
+                    projectName={project.displayName}
+                    projectType={project.type}
+                    projectStatus={project.status}
+                    serial={pedal.serial}
+                    titleLines={pedal.titleLines}
+                    controls={pedal.controls}
+                    tags={pedal.tags}
                     href={`${path('/projects/')}#project-${index + 1}`}
-                    data-room-autofocus={index === 0 ? '' : undefined}
-                  >
-                    <span class="room-pedal" aria-hidden="true">
-                      <span class="room-pedal__port room-pedal__port--output"></span>
-                      <span class="room-pedal__port room-pedal__port--input"></span>
-                      <span class="room-pedal__controls">
-                        {roomPedalControls[index].map((label) => (
-                          <i class="room-pedal__control" data-label={label}></i>
-                        ))}
-                      </span>
-                      <span class="room-pedal__led"></span>
-                      <span class="room-pedal__plate"><i></i></span>
-                    </span>
-                    <span class="room-project-list__folio">
-                      <span aria-hidden="true">{copy.file}</span>
-                      {String(index + 1).padStart(2, '0')}
-                    </span>
-                    <span class="room-project-list__type">{project.type}</span>
-                    <strong>{project.displayName}</strong>
-                    <small>{project.status}</small>
-                    <span class="room-project-list__cue" aria-hidden="true">{copy.openFile}</span>
-                  </a>
+                    openLabel={copy.openFile}
+                    isEnglish={isEnglish}
+                    autofocus={index === 0}
+                  />
                 </li>
-              ))}
+                );
+              })}
             </ol>
           </div>
         </section>
@@ -591,6 +618,83 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
       }
       stage.dataset.roomMoving = 'false';
       stage.removeAttribute('aria-busy');
+
+      function setPedalKnobValue(knob, nextValue) {
+        var value = Math.max(0, Math.min(100, Math.round(nextValue)));
+        knob.dataset.value = String(value);
+        knob.style.setProperty('--knob-angle', String(-135 + value * 2.7) + 'deg');
+        knob.setAttribute('aria-valuenow', String(value));
+        var unit = knob.closest('[data-pedal-knob-unit]');
+        var readout = unit && unit.querySelector('[data-pedal-readout]');
+        if (readout) readout.textContent = String(value).padStart(2, '0');
+      }
+
+      stage.querySelectorAll('[data-pedal-knob]').forEach(function(knob){
+        var dragStartY = 0;
+        var dragStartValue = 0;
+        var dragDistance = 0;
+
+        knob.addEventListener('pointerdown', function(event){
+          if (event.button !== 0) return;
+          dragStartY = event.clientY;
+          dragStartValue = Number(knob.dataset.value || 0);
+          dragDistance = 0;
+          knob.setPointerCapture(event.pointerId);
+          knob.closest('[data-project-pedal]')?.classList.add('is-tuning');
+          event.preventDefault();
+        });
+
+        knob.addEventListener('pointermove', function(event){
+          if (!knob.hasPointerCapture(event.pointerId)) return;
+          dragDistance = dragStartY - event.clientY;
+          setPedalKnobValue(knob, dragStartValue + dragDistance * 0.72);
+        });
+
+        var finishKnobDrag = function(event){
+          var hadCapture = knob.hasPointerCapture(event.pointerId);
+          if (hadCapture) knob.releasePointerCapture(event.pointerId);
+          knob.closest('[data-project-pedal]')?.classList.remove('is-tuning');
+          if (hadCapture && event.type !== 'pointercancel' && Math.abs(dragDistance) < 3) {
+            var value = Number(knob.dataset.value || 0);
+            setPedalKnobValue(knob, value >= 100 ? 0 : value + 10);
+          }
+        };
+
+        knob.addEventListener('pointerup', finishKnobDrag);
+        knob.addEventListener('pointercancel', finishKnobDrag);
+        knob.addEventListener('keydown', function(event){
+          var value = Number(knob.dataset.value || 0);
+          var handled = true;
+          if (event.key === 'ArrowUp' || event.key === 'ArrowRight') value += 5;
+          else if (event.key === 'ArrowDown' || event.key === 'ArrowLeft') value -= 5;
+          else if (event.key === 'Home') value = 0;
+          else if (event.key === 'End') value = 100;
+          else handled = false;
+          if (!handled) return;
+          event.preventDefault();
+          setPedalKnobValue(knob, value);
+        });
+      });
+
+      stage.querySelectorAll('[data-pedal-check]').forEach(function(check){
+        check.addEventListener('click', function(){
+          var pedal = check.closest('[data-project-pedal]');
+          var nextState = check.getAttribute('aria-pressed') !== 'true';
+          check.setAttribute('aria-pressed', String(nextState));
+          if (pedal) pedal.classList.toggle('is-powered', nextState);
+        });
+      });
+
+      stage.querySelectorAll('[data-pedal-footswitch]').forEach(function(footswitch){
+        var pedal = footswitch.closest('[data-project-pedal]');
+        var release = function(){ if (pedal) pedal.classList.remove('is-engaged'); };
+        footswitch.addEventListener('pointerdown', function(event){
+          if (event.button === 0 && pedal) pedal.classList.add('is-engaged');
+        });
+        footswitch.addEventListener('pointerup', release);
+        footswitch.addEventListener('pointercancel', release);
+        footswitch.addEventListener('pointerleave', release);
+      });
     })();
   </script>
 </BaseLayout>
