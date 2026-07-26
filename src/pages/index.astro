@@ -269,7 +269,11 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           <span></span>
         </div>
 
-        <div class="room-discovery-veil" aria-hidden="true"></div>
+        <div class="room-discovery-veil" aria-hidden="true">
+          <span class="room-discovery-shadow room-discovery-shadow--writing"></span>
+          <span class="room-discovery-shadow room-discovery-shadow--projects"></span>
+          <span class="room-discovery-shadow room-discovery-shadow--life"></span>
+        </div>
       </div>
     </div>
 
@@ -374,6 +378,40 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         '#project-workbench': 'projects',
         '#life-corner': 'life'
       };
+      var discoverableViews = ['writing', 'projects', 'life'];
+      var discoveredViews = new Set();
+
+      function restoreDiscovery() {
+        try {
+          var storedViews = JSON.parse(sessionStorage.getItem('room-lit') || '[]');
+          if (Array.isArray(storedViews)) {
+            storedViews.forEach(function(view){
+              if (discoverableViews.indexOf(view) !== -1) discoveredViews.add(view);
+            });
+          }
+
+          /* 从上一版的单区域记忆平滑迁移，不让已经发现的区域重新变暗。 */
+          var legacyView = sessionStorage.getItem('room-memory');
+          if (discoverableViews.indexOf(legacyView) !== -1) discoveredViews.add(legacyView);
+          sessionStorage.removeItem('room-memory');
+        } catch (error) {}
+      }
+
+      function renderDiscovery() {
+        discoverableViews.forEach(function(view){
+          stage.toggleAttribute('data-room-lit-' + view, discoveredViews.has(view));
+        });
+        stage.dataset.roomDiscovery = discoveredViews.size ? 'room' : 'person';
+        try {
+          sessionStorage.setItem('room-lit', JSON.stringify(Array.from(discoveredViews)));
+        } catch (error) {}
+      }
+
+      function rememberView(view) {
+        if (discoverableViews.indexOf(view) === -1) return;
+        discoveredViews.add(view);
+        renderDiscovery();
+      }
 
       function announce(message) {
         if (status) status.textContent = message;
@@ -409,9 +447,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
         window.clearTimeout(transitionTimer);
         stage.removeAttribute('data-room-preview');
-        stage.dataset.roomDiscovery = 'room';
-        stage.dataset.roomMemory = view;
-        try { sessionStorage.setItem('room-memory', view); } catch (error) {}
+        rememberView(view);
         setPanelAccess(view);
         stage.dataset.roomMoving = reduceMotion.matches ? 'false' : 'true';
         stage.dataset.roomView = view;
@@ -443,9 +479,10 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         window.clearTimeout(transitionTimer);
         stage.removeAttribute('data-room-preview');
         var wasOverview = stage.dataset.roomView === 'overview';
+        var returnView = stage.dataset.roomView;
         stage.dataset.roomMoving = reduceMotion.matches || wasOverview ? 'false' : 'true';
         stage.dataset.roomView = 'overview';
-        stage.dataset.roomDiscovery = 'room';
+        renderDiscovery();
         document.body.dataset.roomView = 'overview';
         stage.setAttribute('aria-busy', 'true');
 
@@ -460,8 +497,11 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
           stage.dataset.roomMoving = 'false';
           stage.removeAttribute('aria-busy');
           announce(roomCopy.returned);
-          if (options && options.focus && destinations[0]) {
-            destinations[0].focus({ preventScroll: true });
+          if (options && options.focus) {
+            var returnDestination = destinations.find(function(link){
+              return link.getAttribute('data-room-destination') === returnView;
+            });
+            if (returnDestination) returnDestination.focus({ preventScroll: true });
           }
         };
 
@@ -521,20 +561,15 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         else showOverview({ history: false });
       });
 
+      restoreDiscovery();
       var initialView = viewByHash[window.location.hash];
       if (initialView) {
+        rememberView(initialView);
         setPanelAccess(initialView);
-        stage.dataset.roomDiscovery = 'room';
         stage.dataset.roomView = initialView;
         document.body.dataset.roomView = initialView;
       } else {
-        try {
-          var rememberedView = sessionStorage.getItem('room-memory');
-          if (hashByView[rememberedView]) {
-            stage.dataset.roomMemory = rememberedView;
-            stage.dataset.roomDiscovery = 'room';
-          }
-        } catch (error) {}
+        renderDiscovery();
         setPanelAccess('overview');
         document.body.dataset.roomView = 'overview';
       }
