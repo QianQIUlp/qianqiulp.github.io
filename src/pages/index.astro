@@ -272,7 +272,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         <div class="room-discovery-veil" aria-hidden="true">
           <span class="room-discovery-shadow room-discovery-shadow--writing"></span>
           <span class="room-discovery-shadow room-discovery-shadow--projects"></span>
-          <span class="room-discovery-shadow room-discovery-shadow--life"></span>
         </div>
       </div>
     </div>
@@ -378,21 +377,20 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         '#project-workbench': 'projects',
         '#life-corner': 'life'
       };
-      var discoverableViews = ['writing', 'projects', 'life'];
+      var discoverableViews = ['writing', 'projects'];
       var discoveredViews = new Set();
+      var discoveryStorageKey = 'room-stage-lit-v2';
 
       function restoreDiscovery() {
         try {
-          var storedViews = JSON.parse(sessionStorage.getItem('room-lit') || '[]');
+          var storedViews = JSON.parse(sessionStorage.getItem(discoveryStorageKey) || '[]');
           if (Array.isArray(storedViews)) {
             storedViews.forEach(function(view){
               if (discoverableViews.indexOf(view) !== -1) discoveredViews.add(view);
             });
           }
-
-          /* 从上一版的单区域记忆平滑迁移，不让已经发现的区域重新变暗。 */
-          var legacyView = sessionStorage.getItem('room-memory');
-          if (discoverableViews.indexOf(legacyView) !== -1) discoveredViews.add(legacyView);
+          /* 舞台分区已改变；清理旧版三块/单块记忆，避免右侧错误恢复为全亮。 */
+          sessionStorage.removeItem('room-lit');
           sessionStorage.removeItem('room-memory');
         } catch (error) {}
       }
@@ -403,7 +401,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         });
         stage.dataset.roomDiscovery = discoveredViews.size ? 'room' : 'person';
         try {
-          sessionStorage.setItem('room-lit', JSON.stringify(Array.from(discoveredViews)));
+          sessionStorage.setItem(discoveryStorageKey, JSON.stringify(Array.from(discoveredViews)));
         } catch (error) {}
       }
 

@@ -359,7 +359,7 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   100% { opacity: 0; transform: translate3d(11vw, 105vh, 0) rotate(306deg); }
 }
 
-/* 三块舞台遮光分别守住书桌、工作台与生活区；初见近乎全黑，访问后逐块退场。 */
+/* 两块舞台遮光只守住书桌与工作台；生活/吉他区不设黑幕，吉他始终在遮光层上方。 */
 .room-discovery-veil {
   position: absolute;
   inset: 0;
@@ -380,32 +380,19 @@ html:not([data-theme="dark"]) .room-theme-image--day {
 
 .room-discovery-shadow--writing {
   left: -1px;
-  width: 56%;
-  -webkit-mask-image: linear-gradient(90deg, #000 0 89%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0 89%, transparent 100%);
+  width: 52%;
 }
 
 .room-discovery-shadow--projects {
-  left: 49%;
-  width: 36%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 11%, #000 89%, transparent 100%);
-}
-
-.room-discovery-shadow--life {
   right: -1px;
-  width: 21%;
-  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 16%);
-  mask-image: linear-gradient(90deg, transparent 0, #000 16%);
+  width: 50%;
 }
 
 .room-home:not([data-room-view="overview"]) .room-discovery-shadow,
 .room-home[data-room-lit-writing] .room-discovery-shadow--writing,
 .room-home[data-room-lit-projects] .room-discovery-shadow--projects,
-.room-home[data-room-lit-life] .room-discovery-shadow--life,
 .room-home[data-room-preview="writing"] .room-discovery-shadow--writing,
-.room-home[data-room-preview="projects"] .room-discovery-shadow--projects,
-.room-home[data-room-preview="life"] .room-discovery-shadow--life {
+.room-home[data-room-preview="projects"] .room-discovery-shadow--projects {
   opacity: 0;
 }
 
