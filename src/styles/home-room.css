@@ -713,8 +713,8 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   .room-workbench-surface .room-project-list li:nth-child(2) {
     top: 61.5%;
     left: 12.3%;
-    width: 23.3%;
-    height: 25.1%;
+    width: 30.5%;
+    height: 27.5%;
   }
 
   .room-workbench-surface .room-project-list li:nth-child(3) {
@@ -3366,12 +3366,14 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   .room-workbench-surface .room-project-list li:nth-child(2),
   .room-workbench-surface .room-project-list li:nth-child(3) {
     width: 100%;
-    height: clamp(132px, 18.5svh, 160px);
+    height: clamp(142px, 19.5svh, 170px);
     margin: 0;
   }
 
-  .room-workbench-surface .room-project-list li:nth-child(1) { width: 94%; }
-  .room-workbench-surface .room-project-list li:nth-child(2) { width: 91%; margin-left: auto; }
+  .room-workbench-surface .room-project-list li:nth-child(1),
+  .room-workbench-surface .room-project-list li:nth-child(2) {
+    width: 100%;
+  }
 
   .project-pedal {
     min-height: 132px;
@@ -3422,7 +3424,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 }
 
-/* MealCircuit：Halfman OD 式深色木盒，三角实木旋钮与金属彩钉脚踏。 */
+/* MealCircuit：Halfman OD 式深色木盒，左列实木旋钮、中央铭牌与金属彩钉脚踏。 */
 .wood-pedal {
   position: relative;
   isolation: isolate;
@@ -3475,29 +3477,35 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__controls {
   position: absolute;
   z-index: 3;
-  top: 7%;
-  bottom: 7%;
+  top: 3.5%;
+  bottom: 3.5%;
   left: 6%;
-  width: 58%;
+  display: grid;
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  width: 25%;
+  align-items: center;
 }
 
 .wood-pedal__knob-unit {
-  position: absolute;
+  position: relative;
   display: grid;
   justify-items: center;
-  width: 36%;
+  width: 100%;
+  min-height: 0;
   color: #f0ede4;
   text-align: center;
 }
 
-.wood-pedal__knob-unit:nth-child(1) { top: 1%; left: 2%; }
-.wood-pedal__knob-unit:nth-child(2) { top: 1%; right: 2%; }
-.wood-pedal__knob-unit:nth-child(3) { bottom: -1%; left: 32%; }
+.wood-pedal__knob-unit:nth-child(1),
+.wood-pedal__knob-unit:nth-child(2),
+.wood-pedal__knob-unit:nth-child(3) {
+  inset: auto;
+}
 
 .wood-pedal__knob {
   all: unset;
   position: relative;
-  width: clamp(36px, 11cqw, 82px);
+  width: clamp(38px, 11.5cqw, 72px);
   aspect-ratio: 1;
   border: max(1px, 0.28cqh) solid #17100e;
   border-radius: 50%;
@@ -3535,9 +3543,9 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .wood-pedal__knob-label {
-  margin-top: 0.25cqh;
+  margin-top: 0.1cqh;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive;
-  font-size: clamp(0.4rem, 1.55cqw, 0.92rem);
+  font-size: clamp(0.46rem, 1.8cqw, 0.98rem);
   font-weight: 800;
   letter-spacing: -0.07em;
   line-height: 1;
@@ -3556,7 +3564,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: visible;
   color: inherit;
   font-family: var(--font-mono);
-  font-size: clamp(0.24rem, 0.72cqw, 0.46rem);
+  font-size: clamp(0.31rem, 0.9cqw, 0.54rem);
   line-height: 1;
   text-overflow: clip;
   white-space: nowrap;
@@ -3565,12 +3573,14 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__identity {
   position: absolute;
   z-index: 3;
-  top: 20%;
-  right: 6%;
+  top: 25%;
+  left: 34%;
   display: grid;
-  width: 28%;
+  width: 40%;
   min-width: 0;
-  padding: 3.2% 3.4%;
+  min-height: 38%;
+  align-content: center;
+  padding: 4.2% 3.8%;
   border: max(1px, 0.24cqh) solid #9b9ba1;
   background: linear-gradient(180deg, #eeece7, #c7c6c7);
   box-shadow: inset 0 0.3cqh 0 rgba(255, 255, 255, 0.72), 0 0.8cqh 1.1cqh rgba(0, 0, 0, 0.42);
@@ -3588,7 +3598,13 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .wood-pedal__identity p {
-  font-size: clamp(0.25rem, 0.76cqw, 0.52rem);
+  font-size: clamp(0.4rem, 1.25cqw, 0.68rem);
+  letter-spacing: 0.015em;
+}
+
+.room-workbench-surface .room-project-list li .wood-pedal__identity small {
+  margin-top: 0.35cqh;
+  font-size: clamp(0.38rem, 1.05cqw, 0.6rem);
 }
 
 .room-workbench-surface .room-project-list li .wood-pedal__identity strong {
@@ -3599,7 +3615,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: visible;
   color: inherit;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive;
-  font-size: clamp(0.62rem, 2.75cqw, 1.4rem);
+  font-size: clamp(1rem, 4.3cqw, 1.9rem);
   font-weight: 900;
   letter-spacing: -0.055em;
   line-height: 1;
@@ -3612,12 +3628,12 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__status {
   position: absolute;
   z-index: 3;
-  right: 5.5%;
-  bottom: 5.5%;
-  width: 30%;
-  color: rgba(239, 234, 223, 0.74);
+  bottom: 8%;
+  left: 34%;
+  width: 40%;
+  color: rgba(239, 234, 223, 0.9);
   font-family: var(--font-mono);
-  font-size: clamp(0.24rem, 0.72cqw, 0.48rem);
+  font-size: clamp(0.42rem, 1.1cqw, 0.64rem);
   text-align: center;
 }
 
@@ -3625,8 +3641,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   all: unset;
   position: absolute;
   z-index: 5;
-  right: 24.5%;
-  bottom: 22%;
+  right: 12%;
+  bottom: 40%;
   display: grid;
   width: 44px;
   height: 44px;
@@ -3635,7 +3651,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .wood-pedal__lamp i {
-  width: clamp(7px, 2.1cqw, 14px);
+  width: clamp(9px, 2.5cqw, 16px);
   aspect-ratio: 1;
   border: max(1px, 0.2cqh) solid #2b1110;
   border-radius: 50%;
@@ -3658,11 +3674,11 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   box-sizing: border-box;
   position: absolute;
   z-index: 4;
-  right: 5%;
-  bottom: 10%;
+  right: 2.5%;
+  bottom: 5%;
   display: grid;
-  width: 20%;
-  height: 34%;
+  width: 22%;
+  height: 42%;
   align-content: center;
   justify-items: center;
   color: #f1ece3;
@@ -3672,7 +3688,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .wood-pedal__stomp > span {
   position: relative;
-  width: clamp(25px, 7.2cqw, 52px);
+  width: clamp(31px, 8.4cqw, 56px);
   aspect-ratio: 1;
   border: max(2px, 0.5cqh) solid #8f9291;
   border-radius: 50%;
@@ -3691,6 +3707,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__stomp small {
   margin-top: 0.7cqh;
   font-family: "Permanent Marker", "Comic Sans MS", "Marker Felt", "Segoe Print", cursive !important;
+  font-size: clamp(0.4rem, 1.1cqw, 0.64rem) !important;
   transform: rotate(-2deg);
 }
 
@@ -3718,7 +3735,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .wood-pedal__jack--left { left: -0.7%; }
 .wood-pedal__jack--right { right: -0.7%; }
 
-/* Crewlight：把复古皮革箱头压成单块，奶油面板、六旋钮、蜂窝网罩与独立彩钉。 */
+/* Crewlight：放大的复古皮革箱头，奶油六旋钮面板、蜂窝网罩与独立彩钉。 */
 .amp-pedal {
   position: relative;
   isolation: isolate;
@@ -3745,7 +3762,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   top: 5%;
   right: 4%;
   left: 4%;
-  height: 44%;
+  height: 51%;
   border: max(1px, 0.25cqh) solid #5d4e3d;
   border-radius: clamp(3px, 1.2cqh, 7px) clamp(3px, 1.2cqh, 7px) 18% 18%;
   background:
@@ -3764,7 +3781,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .amp-pedal__input i {
-  width: clamp(8px, 2.6cqw, 18px);
+  width: clamp(11px, 3.2cqw, 21px);
   aspect-ratio: 1;
   border: max(1px, 0.25cqh) solid #78694f;
   border-radius: 50%;
@@ -3774,16 +3791,16 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__input small {
   margin-top: 0.7cqh;
-  font-size: clamp(0.2rem, 0.65cqw, 0.42rem);
+  font-size: clamp(0.3rem, 0.9cqw, 0.52rem);
   font-weight: 900;
 }
 
 .amp-pedal__controls {
   position: absolute;
-  top: 5%;
-  right: 14%;
-  bottom: 1%;
-  left: 12%;
+  top: 2%;
+  right: 12%;
+  bottom: 2%;
+  left: 11%;
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: start;
@@ -3800,8 +3817,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   all: unset;
   display: grid;
   width: 100%;
-  min-width: 30px;
-  min-height: 40px;
+  min-width: 44px;
+  min-height: 44px;
   place-items: center;
   cursor: ns-resize;
   touch-action: none;
@@ -3810,7 +3827,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__knob > span {
   position: relative;
   display: block;
-  width: clamp(20px, 5cqw, 38px);
+  width: clamp(29px, 7.6cqw, 46px);
   aspect-ratio: 1;
   border: max(1px, 0.22cqh) solid #11100f;
   border-radius: 50%;
@@ -3840,14 +3857,18 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   max-width: 100%;
   color: #29241e;
   font-family: var(--font-mono);
-  font-size: clamp(0.19rem, 0.62cqw, 0.4rem);
+  font-size: clamp(0.5rem, 1.55cqw, 0.72rem);
   font-weight: 900;
   line-height: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.amp-pedal__knob-unit > span { margin-top: 0.3cqh; color: #746958; }
+.amp-pedal__knob-unit > span {
+  margin-top: 0.2cqh;
+  color: #746958;
+  font-size: clamp(0.38rem, 1.12cqw, 0.58rem);
+}
 
 .amp-pedal__power {
   all: unset;
@@ -3860,13 +3881,13 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   justify-items: center;
   align-content: center;
   color: #27231e;
-  font-size: clamp(0.2rem, 0.65cqw, 0.42rem);
+  font-size: clamp(0.3rem, 0.9cqw, 0.52rem);
   font-weight: 900;
   cursor: pointer;
 }
 
 .amp-pedal__power i {
-  width: clamp(9px, 2.8cqw, 19px);
+  width: clamp(12px, 3.25cqw, 22px);
   aspect-ratio: 1;
   margin-top: 0.4cqh;
   border: max(1px, 0.2cqh) solid #47786f;
@@ -3886,7 +3907,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   right: 4%;
   bottom: 4%;
   left: 4%;
-  height: 48%;
+  height: 43%;
   overflow: hidden;
   border: max(1px, 0.35cqh) solid #3e2719;
   border-radius: 2px clamp(4px, 1.7cqh, 9px) clamp(4px, 1.7cqh, 9px) 2px;
@@ -3901,12 +3922,14 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__nameplate {
   position: absolute;
-  top: 20%;
-  left: 33%;
+  top: 14%;
+  left: 20%;
   display: grid;
   justify-items: center;
-  width: 34%;
-  padding: 3% 2.5%;
+  width: 48%;
+  min-height: 52%;
+  align-content: center;
+  padding: 3.8% 3%;
   border: max(1px, 0.25cqh) solid #88765c;
   border-radius: clamp(3px, 1.4cqh, 8px);
   background: linear-gradient(150deg, #eee9dc, #cfc4ad);
@@ -3932,7 +3955,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__nameplate strong {
   font-family: "Arial Black", var(--font-sans) !important;
-  font-size: clamp(0.55rem, 2.45cqw, 1.35rem) !important;
+  font-size: clamp(1rem, 3.8cqw, 1.8rem) !important;
   font-weight: 950 !important;
   letter-spacing: -0.05em;
   line-height: 0.95 !important;
@@ -3941,7 +3964,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__nameplate span {
   overflow: hidden;
   max-width: 100%;
-  font-size: clamp(0.2rem, 0.62cqw, 0.42rem);
+  font-size: clamp(0.4rem, 1.08cqw, 0.62rem);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -3949,19 +3972,19 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__nameplate small {
   margin-top: 0.35cqh;
   font-family: var(--font-mono) !important;
-  font-size: clamp(0.2rem, 0.6cqw, 0.4rem) !important;
+  font-size: clamp(0.36rem, 0.98cqw, 0.56rem) !important;
 }
 
 .amp-pedal__grille > p {
   position: absolute;
   bottom: 5%;
   left: 4%;
-  width: 58%;
+  width: 64%;
   margin: 0;
   overflow: hidden;
-  color: rgba(239, 224, 194, 0.82);
+  color: rgba(239, 224, 194, 0.94);
   font-family: var(--font-mono);
-  font-size: clamp(0.22rem, 0.65cqw, 0.44rem);
+  font-size: clamp(0.42rem, 1.05cqw, 0.64rem);
   text-overflow: ellipsis;
   text-shadow: 0 0.25cqh 0 rgba(0, 0, 0, 0.72);
   white-space: nowrap;
@@ -3975,8 +3998,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   right: 3%;
   bottom: 5%;
   display: grid;
-  width: 22%;
-  height: 84%;
+  width: 25%;
+  height: 90%;
   align-content: center;
   justify-items: center;
   color: #e9ddc5;
@@ -3986,7 +4009,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__stomp > span {
   position: relative;
-  width: clamp(25px, 6.6cqw, 50px);
+  width: clamp(34px, 9cqw, 58px);
   aspect-ratio: 1;
   border: max(2px, 0.48cqh) solid #9fa3a0;
   border-radius: 50%;
@@ -3996,7 +4019,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .amp-pedal__stomp > span i { position: absolute; inset: 20%; border-radius: 50%; box-shadow: inset 0 0 0 max(1px, 0.2cqh) rgba(35, 38, 37, 0.46); }
-.amp-pedal__stomp small { margin-top: 0.5cqh; font-family: var(--font-mono) !important; font-size: clamp(0.2rem, 0.62cqw, 0.42rem) !important; }
+.amp-pedal__stomp small { margin-top: 0.5cqh; font-family: var(--font-mono) !important; font-size: clamp(0.4rem, 1.04cqw, 0.62rem) !important; }
 
 .room-workbench-surface .room-project-list li .amp-pedal__stomp:is(:hover, :focus-visible) { outline: 2px solid #eee0c4; outline-offset: 0.35cqh; }
 .amp-pedal.is-engaged .amp-pedal__stomp > span { transform: translateY(0.75cqh); box-shadow: 0 0.35cqh 0.55cqh rgba(0, 0, 0, 0.66); }
@@ -4025,19 +4048,60 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   .wood-pedal,
   .amp-pedal { min-height: 132px; }
 
-  .wood-pedal__knob { width: clamp(42px, 12vw, 50px); }
-  .wood-pedal__lamp { right: 24%; }
-
-  .amp-pedal__knob { min-width: 39px; min-height: 44px; }
-  .amp-pedal__knob > span { width: clamp(22px, 6.6vw, 28px); }
-  .amp-pedal__nameplate strong { font-size: clamp(0.52rem, 2.5vw, 0.7rem) !important; }
-
-  .amp-pedal__controls {
-    right: 10%;
-    left: 9%;
+  .wood-pedal__controls {
+    top: 4%;
+    bottom: 4%;
+    left: 5%;
+    width: 29%;
   }
 
-  .amp-pedal__knob { min-width: 44px; }
+  .wood-pedal__knob-unit {
+    grid-template-columns: clamp(44px, 9.5vw, 52px) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    justify-items: start;
+    column-gap: 4px;
+  }
+
+  .wood-pedal__knob {
+    grid-row: 1 / 3;
+    width: clamp(44px, 9.5vw, 52px);
+    min-width: 44px;
+    min-height: 44px;
+    justify-self: center;
+  }
+
+  .wood-pedal__knob-label {
+    align-self: end;
+    margin: 0;
+    font-size: clamp(0.42rem, 1.9vw, 0.55rem);
+  }
+
+  .room-workbench-surface .room-project-list li .wood-pedal small {
+    align-self: start;
+    font-size: clamp(0.3rem, 1.35vw, 0.42rem);
+  }
+
+  .wood-pedal__identity {
+    left: 36%;
+    width: 39%;
+  }
+
+  .wood-pedal__status {
+    left: 36%;
+    width: 39%;
+  }
+
+  .wood-pedal__lamp { right: 11%; }
+
+  .amp-pedal__knob { min-width: 44px; min-height: 44px; }
+  .amp-pedal__knob > span { width: clamp(27px, 7.7vw, 32px); }
+  .amp-pedal__nameplate strong { font-size: clamp(0.85rem, 3.8vw, 1rem) !important; }
+
+  .amp-pedal__controls {
+    right: 11%;
+    left: 10%;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
