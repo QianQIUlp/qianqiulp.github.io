@@ -8,6 +8,7 @@ ogImageAlt: "世界不是 liar game，是 role game 封面图"
 license: "CC BY-NC-ND 4.0"
 ---
 <aside>
+📖
 
 **关于这篇文章**
 

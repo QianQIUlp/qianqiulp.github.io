@@ -23,11 +23,14 @@ The 2026-07 user correction controls current implementation:
 
 - Keep the real room, the guitar, three distinct project effects units, warm light, progressive discovery, restrained red,
   Light/Dark themes and comfortable long-form reading.
-- Remove visible ancient-book terminology, seals, calligraphic/QiuBrush UI, xuan-paper texture, global grain, petals and
-  ink-fluff particles. Do not replace them with another decorative particle system.
+- Remove seals, calligraphic/QiuBrush UI, xuan-paper texture, global grain, petals and ink-fluff particles. Do not replace
+  them with another decorative particle system.
 - Red is a restrained accent for focus, state or a small brand detail; it has no mandatory cinnabar, seal or annotation meaning.
 - Theme transition and `data-reveal` may remain as quiet interface feedback. Describe them neutrally and respect reduced motion.
-- User-facing copy is direct, natural and specific. Do not rename ordinary UI as 卷题、题跋、朱批、文末记 or similar labels.
+- Copy is frozen to `f6ed8fd` except for four explicit changes: remove 「展开卷宗」 and its English counterpart; change
+  Chinese blog counts from 「卷 / 题」 to 「篇 / 标签」; remove the generated 「题跋」 label; remove the visible
+  「授权协议 · 文末记」 block. Preserve every other visible and assistive string byte-for-byte, including 「昼 / 夜」
+  and `Day / Night`. Visual cleanup never authorizes copy rewriting.
 - Homepage project positions and structures remain fixed: MealCircuit at the upper-left work surface, Crewlight at the
   lower-left rack, Docker-Hadoop-Cluster at the lower-right desk edge. Do not regroup, tilt or flatten them into one template.
 - The three entries remain separate HTML/CSS devices: blue horizontal driver, walnut effect box and vintage amp-head unit.
@@ -74,13 +77,13 @@ Core jobs:
      `docs/uiux/ink-and-light-study.md` before inspecting the layout, components, routes and styles.
    - Inspect representative content frontmatter and one long Markdown post when article UX matters.
 2. Identify drift against the active contract:
-   - Visible ancient-book labels, QiuBrush/calligraphy, seals, xuan-paper texture, global grain or decorative particles.
+   - QiuBrush/calligraphy, seals, xuan-paper texture, global grain or decorative particles.
+   - Copy differences from `f6ed8fd` outside the four-item copy allowlist above.
    - Light and Dark assets with moved/missing objects, mismatched hotspots or different layouts.
    - Red used as a general button/link color or explained through obsolete cinnabar/seal semantics.
    - Real wall, wood, metal, fabric, leather and rubber flattened under one shared generated texture.
    - Homepage first view exposing full navigation or content taxonomy before exploration.
    - Three project devices regrouped, simplified to one template, made illegible at normal distance or unusable by touch/keyboard.
-   - Literary copy used where a direct label or instruction is needed.
 3. Evaluate hierarchy with ordinary design tools:
    - Use size, weight, contrast, spacing and alignment before adding surfaces or colors.
    - Preserve real device-local colors while keeping global UI accents restrained.
@@ -90,7 +93,8 @@ Core jobs:
    - Judge the first glance: person, guitar, warm light, quiet space, visual order and invitation to explore.
    - Do not fix a weak composition by adding explanatory or poetic copy.
 5. Recommend the smallest coherent fix:
-   - Prefer token, spacing, hierarchy, copy and responsive adjustments over a broad redesign.
+   - Prefer token, spacing, hierarchy and responsive adjustments over a broad redesign; do not propose copy changes unless
+     the user explicitly expands the allowlist.
    - Prioritize reading comfort, focus states, 44px touch targets, 375 × 667 short-screen fit and Light/Dark consistency.
 
 ## Output Format
@@ -117,7 +121,8 @@ Any visual change must end with:
 1. `npm run build` passing.
 2. The affected `docs/qa/visual-checklist.md` entries checked in both Light and Dark.
 3. Responsive checks at 1440px, 768px, 375px and specifically 375 × 667; narrow-screen primary targets are at least 44 × 44px.
-4. Confirmation that visible copy is direct and no ancient labels, calligraphic UI, xuan texture or decorative particles returned.
+4. Confirmation that copy matches `f6ed8fd` except for the four allowed changes, and no calligraphic UI, xuan texture or
+   decorative particles returned.
 5. If the change touches a governed system, update `docs/uiux/ink-and-light-study.md` and this skill together.
    Homepage changes must also be reviewed against `docs/uiux/homepage-art-direction.md`; do not rewrite the original quote.
 

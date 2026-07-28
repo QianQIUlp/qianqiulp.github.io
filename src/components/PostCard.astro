@@ -39,7 +39,7 @@ const displayDate = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-CN', {
     {post.data.ogImage ? (
       <Image src={post.data.ogImage} alt={post.data.ogImageAlt || (lang === 'en' ? `Cover for ${post.data.title}` : `《${post.data.title}》文章封面`)} loading="lazy" />
     ) : (
-      <div class="post-card__fallback" aria-hidden="true">{lang === 'en' ? 'Qianqiu' : '千秋'}</div>
+      <div class="post-card__fallback" aria-hidden="true">千秋</div>
     )}
   </div>
   <div class="post-card__body">

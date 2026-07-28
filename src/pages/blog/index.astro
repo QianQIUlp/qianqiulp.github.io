@@ -8,19 +8,19 @@ import '../../styles/blog.css';
 const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
 const isEnglish = lang === 'en';
 const copy = isEnglish ? {
-  title: "Writing · Qianqiu's Site",
-  description: "Qianqiu's technical notes, personal reflections, and practical guides.",
-  imageAlt: "Cover image for writing on Qianqiu's site",
-  kicker: 'Articles and notes', heading: 'Writing',
-  lead: 'Technical notes, personal reflections, and practical guides, arranged in reverse chronological order.',
-  summaryAria: 'Writing summary', articles: 'articles', topics: 'topics', listAria: 'Article list',
+  title: "Writing · Qiu's Room",
+  description: "Writing from Qiu's Room: reflections, technical notes, and things worth remembering.",
+  imageAlt: "Cover image for the writing archive in Qiu's Room",
+  kicker: 'Essays and notes', heading: 'Writing index',
+  lead: 'Reflections, technical notes, and things worth remembering, arranged in reverse chronological order for unhurried reading.',
+  summaryAria: 'Writing archive summary', articles: 'articles', topics: 'topics', listAria: 'Article list',
 } : {
-  title: '文章 · 千秋的个人站',
-  description: '千秋的技术笔记、个人思考和实用指南。',
-  imageAlt: '千秋的个人站文章封面图',
-  kicker: '文章与笔记', heading: '文章',
-  lead: '技术笔记、个人思考和实用指南，按时间倒序排列。',
-  summaryAria: '文章概览', articles: '篇', topics: '标签', listAria: '文章列表',
+  title: '博客 · Qiu 的小屋',
+  description: 'Qiu 的小屋 · 博客，记录随想、折腾笔记与一些不想忘掉的东西。',
+  imageAlt: 'Qiu 的小屋博客封面图',
+  kicker: '随笔与笔记', heading: '文章索引',
+  lead: '记录随想、折腾笔记与一些不想忘掉的东西。这里按时间倒序排成阅读索引，方便慢慢翻。',
+  summaryAria: '文章归档概览', articles: '篇', topics: '标签', listAria: '文章列表',
 };
 
 const posts = isEnglish

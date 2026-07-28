@@ -14,7 +14,6 @@ interface Props {
   controls: PedalControl[];
   tags: string[];
   href: string;
-  openLabel: string;
   isEnglish: boolean;
   autofocus?: boolean;
 }
@@ -29,7 +28,6 @@ const {
   controls,
   tags,
   href,
-  openLabel,
   isEnglish,
   autofocus = false,
 } = Astro.props;
@@ -86,11 +84,11 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
     <a
       class="wood-pedal__stomp"
       href={href}
+      aria-label={projectName}
       data-pedal-footswitch
       data-room-autofocus={autofocus ? '' : undefined}
     >
       <span aria-hidden="true"><i></i></span>
-      <small>{openLabel}</small>
     </a>
   </article>
 ) : variant === 'amp' ? (
@@ -142,9 +140,10 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
       <a
         class="amp-pedal__stomp"
         href={href}
+        aria-label={projectName}
         data-pedal-footswitch
         data-room-autofocus={autofocus ? '' : undefined}
-      ><span aria-hidden="true"><i></i></span><small>{openLabel}</small></a>
+      ><span aria-hidden="true"><i></i></span></a>
     </section>
   </article>
 ) : (
@@ -203,11 +202,12 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
       <a
         class="project-pedal__footswitch"
         href={href}
+        aria-label={projectName}
         data-pedal-footswitch
         data-room-autofocus={autofocus ? '' : undefined}
       >
         <span class="project-pedal__mark" aria-hidden="true">Q</span>
-        <span class="project-pedal__footswitch-copy"><strong>{openLabel}</strong><small>{projectName} ↗</small></span>
+        <span class="project-pedal__footswitch-copy"><strong>EXPLORE CASE</strong></span>
       </a>
     </div>
     <span class="project-pedal__latch" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>

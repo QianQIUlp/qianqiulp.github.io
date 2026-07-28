@@ -13,20 +13,22 @@ richness lives in depth, while the first glance leads with Qiu, the guitar and l
 ## Design Intent
 
 - Preserve the real room, guitar, warm light and physically credible materials.
-- Use modern **Light / Dark** names; paired assets keep the same composition, objects, hotspots and contact relationships.
+- Use **Light / Dark** as internal documentation names while preserving visible 「昼 / 夜」 and `Day / Night`; paired assets
+  keep the same composition, objects, hotspots and contact relationships.
 - Keep red as a restrained accent rather than a seal/cinnabar semantic or general brand fill.
-- Use normal readable serif/sans/mono roles. Do not show QiuBrush, calligraphy, seals or ancient-book labels.
+- Use normal readable serif/sans/mono roles. Do not show QiuBrush, calligraphy or seals.
 - Do not use xuan-paper texture, global grain, petals, ink fluff or replacement decorative particles.
 - Keep progressive discovery: first view stays quiet; writing and engineering appear through exploration.
 - Keep the three project entries visually distinct and fixed to their authored positions: walnut box, vintage amp head and blue driver.
 - Let long-form content carry inner pages through type, spacing, contrast and a usable table of contents.
 - Theme transition and reveal may remain as neutral, reduced-motion-safe feedback.
-- User-facing copy is direct, natural and specific, not deliberately archaic or literary.
+- Preserve user-facing and assistive copy from `f6ed8fd` except for the four-item allowlist in the active contract.
 
 ## Avoid
 
 - Generic AI SaaS gradients, dashboard heroes and stacked cards.
-- Visible 卷题、题跋、朱批、文末记 or similar labels for ordinary UI.
+- Any copy change outside the explicit removal/replacement of 「展开卷宗」, blog 「卷 / 题」 counts, generated 「题跋」,
+  and the visible 「授权协议 · 文末记」 block.
 - QiuBrush/calligraphic component text, seals, xuan texture, global noise and decorative particles.
 - Red on every link/button, or obsolete cinnabar/annotation meaning attached to it.
 - Elements that exist in only one theme; moved room objects or mismatched day/night hotspots.
@@ -37,7 +39,8 @@ richness lives in depth, while the first glance leads with Qiu, the guitar and l
 
 ## Preferred Review Bias
 
-- Prefer small improvements to spacing, type scale, contrast, focus states, responsive behavior and copy.
+- Prefer small improvements to spacing, type scale, contrast, focus states and responsive behavior; copy stays frozen unless
+  the user explicitly expands its allowlist.
 - Check 375 × 667 explicitly; narrow-screen primary controls and device interactions need at least 44 × 44px targets.
 - Judge the first view by person, guitar, warm light, quiet space and invitation to explore.
 - Preserve existing content schema, routes and real project evidence.

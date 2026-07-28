@@ -27,7 +27,8 @@ Always check **Light** and **Dark** mode for changed routes.
 - 红色只作少量 accent；普通按钮、链接与大段文字没有整体染红，也没有附加朱砂、印章或批注语义。
 - 房间主光、物件接触阴影和 UI 阴影方向一致，没有互相矛盾的漂浮效果。
 - 首页姓名、组件标题、导航、目录和正文均使用正常可读字体；可见界面没有 QiuBrush、书法字或印章。
-- 用户可见标签没有使用「卷、题、题跋、朱批、文末记」等古籍化名称，普通操作文案直白、自然。
+- 文案与 `f6ed8fd` 一致，唯一例外是：删除「展开卷宗」及英文对应项；博客计数改为「篇 / 标签」；
+  删除生成的「题跋」；删除可见的「授权协议 · 文末记」区块。主题按钮仍是「昼 / 夜」与 `Day / Night`。
 - `data-reveal` 若保留，只做轻微、短暂的淡入/位移，首屏和正文不等待动画才可读。
 - 主题转场短而稳定，连点不残留遮罩；文案和实现说明不把它包装成传统媒介效果；
   `prefers-reduced-motion` 下即时切换。
@@ -45,8 +46,8 @@ Always check **Light** and **Dark** mode for changed routes.
   刷新或跨文章返回仍在当前会话内保留累计状态。
 - 移动端首次进入时底部 dock 已完整、稳定显示文章/作品/生活三个入口，无需先进入生活再返回。
 - 渐进发现没有被做成步骤条、进度状态、说明面板或显眼的 onboarding 按钮。
-- 首页文案没有替构图解释人格；文字具体、自然、直白，没有刻意古风或过度文学化；真实文章与项目只在近景中出现。
-- 首页没有书法字、印章、古籍标签、宣纸噪点、花瓣、墨絮或其他装饰粒子。
+- 首页文案逐字保持 `f6ed8fd` 基线，仅删除「展开卷宗」及英文对应项；真实文章与项目只在近景中出现。
+- 首页没有书法字、印章、宣纸噪点、花瓣、墨絮或其他装饰粒子；文字只按上方四项白名单变化。
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
 - The first viewport reads as Qiu's personal rehearsal room rather than a product landing page or metrics dashboard.
 - The room, title, three hotspots, and guitar identity remain legible without layout-breaking overlap at desktop, tablet, and mobile widths.
@@ -93,7 +94,7 @@ Always check **Light** and **Dark** mode for changed routes.
 - A post without section headings still has the fallback entry 「文章开头」 and that link returns to the article masthead.
 - Inline images have useful alt text, preserve aspect ratio, and do not cause visible layout jumps.
 - Long code blocks and tables scroll inside their own containers instead of causing page-level horizontal scroll.
-- License and source links are present and readable when configured.
+- Article `license` frontmatter remains intact, while the visible 「授权协议 · 文末记」 block is not rendered.
 
 ## Projects Page
 

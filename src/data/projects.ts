@@ -56,8 +56,8 @@ export type SecondaryProject = {
 };
 
 export const projectsPageCopy: ProjectsPageCopy = {
-  heroLead: '这里展示已经公开、可以运行或复现的项目，以及仍在学习和验证中的实践。',
-  heroNote: '每个项目都说明它解决的问题、主要设计、使用方式、边界和下一步。',
+  heroLead: '这里收着那些已经长出形状、可以被打开、复现或继续接手的公开产物；尚未成形的学习，只先留下几枚路标。',
+  heroNote: '比起陈列一个名字，我更想记下它因何而生、在哪些岔路作过取舍，也替后来者留一扇可以推开的门。',
   infrastructure: {
     eyebrow: '站点基础',
     title: '站点与写作基础',
@@ -279,20 +279,20 @@ export const featuredProjects: FeaturedProject[] = [
 
 export const secondaryProjects: SecondaryProject[] = [
   {
-    title: '千秋的个人站',
+    title: 'Qiu 的小屋',
     status: '维护中',
     tags: ['Astro', '个人站', '写作'],
-    description: '当前这个静态站，用来整理技术实践、学习笔记和个人思考。',
+    description: '当前这个静态站，用来整理技术实践、学习随笔和个人思考。',
     href: '/',
     linkLabel: '回到首页',
   },
   {
-    title: '文章列表',
+    title: '博客归档',
     status: '更新中',
     tags: ['阅读', '笔记'],
-    description: '按时间倒序排列的文章，覆盖技术、AI、心理、游戏与学习。',
+    description: '按时间倒序整理的文章入口，覆盖技术、AI、心理、游戏与学习路径。',
     href: '/blog/',
-    linkLabel: '查看文章',
+    linkLabel: '前往博客',
   },
 ];
 
