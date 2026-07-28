@@ -21,7 +21,7 @@ export const projectsPageCopyEn: ProjectsPageCopy = {
   },
 };
 
-const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summary' | 'caseStudy' | 'highlights' | 'links'>> = [
+const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summary' | 'caseStudy' | 'caseStudyLabels' | 'caseStudySideAria' | 'highlights' | 'links'>> = [
   {
     status: 'Available / v0.2.0 released',
     type: 'Local-first nutrition feedback workbench',
@@ -41,20 +41,25 @@ const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summ
     links: featuredProjects[0].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label })),
   },
   {
-    status: 'Archived prototype / v0.4.0 reference',
-    type: 'Local-first developer tool',
-    summary: 'A local activity radar for AI coding agents, with Windows Desktop as the primary v0.4.0 experience.',
+    status: 'Stabilizing / v0.5.0 release candidate',
+    type: 'Local-first AI agent activity radar',
+    summary: 'A local activity radar for parallel AI coding agents: it brings running, waiting, permission-request, completed, and failed states from Claude Code, Codex, and other tools into read-only Desktop, Companion, Dashboard, and CLI surfaces.',
     caseStudy: {
-      problem: 'When several coding agents run in parallel, active, waiting, failed, and possibly stalled states are scattered across tools. It is hard to see what needs attention without reading the underlying work.',
-      design: 'A local-first, read-only event layer aggregates activity. Windows Desktop provides Home, Doctor, Agents, Companion, Demo, Appearance, Settings, and About; the browser dashboard remains a secondary inspection surface, while the CLI handles advanced configuration, ingest, automation, and diagnostics.',
-      start: 'Use the GitHub repository or Chinese README to understand the desktop app, integration tiers, and v0.4.0 boundaries, then review the matching release notes.',
-      boundary: 'v0.4.0 is an archived prototype and reference release with known issues, not a promise of maintenance or production readiness. It observes activity but does not control agents or approve permissions.',
-      nextStep: 'No continued maintenance is promised. The v0.4.0 code, documentation, and release remain available as a reference implementation for local-first agent activity visualization.',
+      problem: 'When several coding agents run at once, running, waiting, permission-request, completed, and failed states are scattered across terminals and tools. Developers cannot quickly tell which task needs attention without reading the full work contents.',
+      design: 'Crewlight uses a local-first, read-only event aggregation model. It receives status events through allowlisted adapters, organizes current sessions in Desktop, a floating Companion, a browser Dashboard, and a CLI, and avoids storing prompts, transcripts, tool I/O, or complete platform payloads.',
+      start: 'v0.5.0 is under stabilization. This round completed Linux x64 build, standalone, daemon, dashboard, ingest, status, and doctor smoke verification; all 55 test files and 690 tests passed.',
+      boundary: 'Windows x64 and macOS x64/arm64 have not yet completed hands-on fixes and verification. v0.5.0 has no release yet; the newest public release remains v0.4.0. This page does not describe unverified platforms as available or complete.',
+      nextStep: 'Continue verifying desktop installers, native notifications, SSH, signing, and end-to-end workflows on Windows and macOS. Decide on v0.5.0\'s release date only after the relevant platform fixes are complete.',
     },
+    caseStudyLabels: {
+      start: 'Current',
+    },
+    caseStudySideAria: 'Current status and boundaries',
     highlights: [
-      'Makes Windows Desktop the main surface for local service state, diagnostics, integrations, demos, and companion controls.',
-      'Distinguishes exact hooks, narrow notify support, unverified implementations, and manual experimental bridges instead of overstating coverage.',
-      'Keeps a read-only, data-minimizing boundary: no agent control, permission approval, or persistence of prompts, transcripts, tool I/O, or session history.',
+      'Runs on the local loopback by default, needs no cloud service, and neither controls agents nor automatically approves permissions.',
+      'Sets explicit safety boundaries for event size, timeouts, duplicate notifications, malformed input, SSH host verification, and notifier failures.',
+      'Keeps sessions in memory only, retaining at most the latest 1,000 by default; stable events are exactly deduplicated during their retention period.',
+      'Existing adapters have been data-minimized and protocol-corrected; unreliable automatic setup for MiMo, Pi Agent, OpenClaw, and Reasonix is temporarily disabled.',
     ],
     links: featuredProjects[1].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label === '中文 README' ? 'Chinese README' : link.label })),
   },

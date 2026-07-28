@@ -121,24 +121,24 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
               <p><strong>{copy.problem}</strong>{' '}{project.caseStudy.problem}</p>
               <p><strong>{copy.design}</strong>{' '}{project.caseStudy.design}</p>
               <ul class="case-study__points" aria-label={`${project.displayName} ${copy.levers}`}>
-                {project.highlights.slice(0, 3).map((highlight) => (
+              {project.highlights.slice(0, project.caseStudyHighlightCount ?? 3).map((highlight) => (
                   <li>{highlight}</li>
                 ))}
               </ul>
             </section>
 
-            <aside class="case-study__side" aria-label={`${project.displayName} ${copy.startBoundary}`}>
+            <aside class="case-study__side" aria-label={`${project.displayName} ${project.caseStudySideAria ?? copy.startBoundary}`}>
               <dl>
                 <div>
-                  <dt>{copy.start}</dt>
+                  <dt>{project.caseStudyLabels?.start ?? copy.start}</dt>
                   <dd>{project.caseStudy.start}</dd>
                 </div>
                 <div>
-                  <dt>{copy.boundary}</dt>
+                  <dt>{project.caseStudyLabels?.boundary ?? copy.boundary}</dt>
                   <dd>{project.caseStudy.boundary}</dd>
                 </div>
                 <div>
-                  <dt>{copy.next}</dt>
+                  <dt>{project.caseStudyLabels?.next ?? copy.next}</dt>
                   <dd>{project.caseStudy.nextStep}</dd>
                 </div>
               </dl>

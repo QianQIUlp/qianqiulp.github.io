@@ -4017,14 +4017,15 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .amp-pedal__nameplate span {
-  overflow: hidden;
+  display: block;
   max-width: 100%;
   color: #5d4e35;
   font-size: clamp(0.625rem, 1.45cqw, 0.78rem);
   font-weight: 600;
   letter-spacing: 0.04em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .amp-pedal__nameplate small {
@@ -4038,14 +4039,13 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .amp-pedal__status {
   display: block;
   max-width: 100%;
-  margin: 0.3cqh 0 0;
-  overflow: hidden;
+  margin: 0.2cqh 0 0;
   color: #55472e;
   font-family: var(--font-mono);
-  font-size: clamp(0.5625rem, 1.22cqw, 0.7rem);
-  line-height: 1.1;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: clamp(0.5rem, 1.12cqw, 0.68rem);
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+  text-align: center;
 }
 
 .amp-pedal__status::before {
