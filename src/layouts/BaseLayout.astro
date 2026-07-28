@@ -84,16 +84,6 @@ const alternatePath = lang === 'en'
 <body class:list={[bodyClass]}>
   <a class="skip-link" href="#main-content">{copy.skip}</a>
 
-  <!-- 氛围层：几粒墨絮与花瓣的呼吸，不参与交互 -->
-  <div class="atmosphere" aria-hidden="true">
-    <span class="atmosphere__mote atmosphere__mote--1"></span>
-    <span class="atmosphere__mote atmosphere__mote--2"></span>
-    <span class="atmosphere__mote atmosphere__mote--3"></span>
-    <span class="atmosphere__mote atmosphere__mote--4"></span>
-    <span class="atmosphere__petal atmosphere__petal--1"></span>
-    <span class="atmosphere__petal atmosphere__petal--2"></span>
-  </div>
-
   <SiteHeader lang={lang} />
 
   <slot />
@@ -107,10 +97,10 @@ const alternatePath = lang === 'en'
     </div>
   </footer>
 
-  <!-- 主题晕染转场覆盖层 -->
+  <!-- 主题圆形转场覆盖层 -->
   <div class="theme-wipe" aria-hidden="true"><div class="theme-wipe__mist"></div></div>
 
-  <!-- 主题切换逻辑：昼宣 ↔ 夜墨，以晕染过渡；减少动态偏好下即时切换 -->
+  <!-- 深浅主题切换；减少动态偏好下即时切换 -->
   <script is:inline define:vars={{ dayLabel: copy.day, nightLabel: copy.night }}>
     (function(){
       var btn = document.getElementById('themeToggle');

@@ -7,8 +7,8 @@ import {
 } from './projects';
 
 export const projectsPageCopyEn: ProjectsPageCopy = {
-  heroLead: 'This is where I keep public work that has taken shape—things others can open, reproduce, or carry forward. Learning that is still taking shape remains a set of signposts for now.',
-  heroNote: 'More than displaying a name, I want to record why each project began, the trade-offs made at its forks, and a door the next person can still push open.',
+  heroLead: 'This page presents public projects that can be run or reproduced, along with work that is still being tested and developed.',
+  heroNote: 'Each project explains the problem it addresses, its main design, how to use it, its boundaries, and what comes next.',
   infrastructure: {
     eyebrow: 'Site foundations',
     title: 'Site and writing foundations',
@@ -86,7 +86,7 @@ export const featuredProjectsEn: FeaturedProject[] = featuredProjects.map((proje
 const secondaryTranslations: SecondaryProject[] = [
   {
     ...secondaryProjects[0],
-    title: "Qiu's Room",
+    title: "Qianqiu's personal site",
     status: 'Maintained',
     tags: ['Astro', 'Personal site', 'Writing'],
     description: 'This static site organizes technical practice, learning notes, and personal reflections.',
@@ -95,10 +95,10 @@ const secondaryTranslations: SecondaryProject[] = [
   },
   {
     ...secondaryProjects[1],
-    title: 'Writing archive',
+    title: 'Writing',
     status: 'Updated',
     tags: ['Reading', 'Notes'],
-    description: 'A reverse-chronological archive spanning technology, AI, psychology, games, and learning paths.',
+    description: 'Reverse-chronological writing about technology, AI, psychology, games, and learning.',
     href: '/en/blog/',
     linkLabel: 'View writing',
   },

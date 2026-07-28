@@ -10,7 +10,6 @@ license: "CC BY-NC-ND 4.0"
 ---
 
 <aside>
-📖
 
 **关于这篇文章**
 

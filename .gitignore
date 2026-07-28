@@ -12,4 +12,3 @@ node_modules/
 
 # Local tooling artifacts
 .playwright-cli/
-scripts/.signature-font-source.ttf

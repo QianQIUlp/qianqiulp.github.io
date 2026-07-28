@@ -9,7 +9,6 @@ license: "CC BY-NC-ND 4.0"
 ---
 
 <aside>
-📖
 
 **关于这篇文章**
 
@@ -34,7 +33,7 @@ license: "CC BY-NC-ND 4.0"
 
 **首发与转载**
 
-- 首发于：Qiu 的小屋（本站）
+- 首发于：千秋的个人站（本站）
 - 本文采用 [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh) 协议发布——允许非商业整篇转载，转载请**保留作者署名**与**原文链接**，**禁止商业用途**，**禁止改编与衍生创作**。
 </aside>
 

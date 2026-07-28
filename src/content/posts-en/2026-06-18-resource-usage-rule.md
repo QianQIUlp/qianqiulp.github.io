@@ -33,7 +33,7 @@ This is a personal reflection. References to Codex, resets, quotas, and resource
 
 **First publication and sharing**
 
-- First published in Qiu's Room
+- First published on Qianqiu's personal site
 - Licensed under [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/). Non-commercial redistribution is welcome with attribution and a link to the original; adaptations and commercial use are not permitted.
 </aside>
 

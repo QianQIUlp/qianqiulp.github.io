@@ -20,43 +20,43 @@ const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
 const isEnglish = lang === 'en';
 const path = (value: string) => localizedPath(value, lang);
 const copy = isEnglish ? {
-  title: "Qianqiu's Home · Qiu's Room",
-  description: "Step into Qianqiu's room and meet his building, writing, and life through the desk, workbench, and guitar.",
-  ogDescription: 'Get to know Qianqiu slowly, through the things in this room.',
-  ogImageAlt: "Cover image for Qianqiu's home",
-  writingTitle: 'Recent writing', allPosts: 'All articles',
-  projectsTitle: 'Engineering archive', allProjects: 'Full projects page',
-  file: 'File', openFile: 'Open dossier',
+  title: 'Qianqiu · Personal site',
+  description: "Qianqiu's projects, writing, and life.",
+  ogDescription: "Qianqiu's projects, writing, and life.",
+  ogImageAlt: "Cover image for Qianqiu's personal site",
+  writingTitle: 'Latest articles', allPosts: 'All articles',
+  projectsTitle: 'Projects', allProjects: 'View all projects',
+  openFile: 'View project',
   introTitle: "I'm Qianqiu.", intro: 'Guitar, games, relationships, and many thoughts still unfinished.',
-  destinationsAria: 'Get to know Qianqiu through the room',
-  desk: 'Desk', writing: 'Writing', deskAria: 'Approach the desk and view articles',
-  workbench: 'Workbench', projects: 'Projects', workbenchAria: 'Approach the workbench and view projects',
-  guitar: 'Guitar', life: 'Life', guitarAria: 'Approach the guitar and view notes from life',
-  lifeTitle: 'This room also keeps the parts that never became projects.',
-  lifeBody: 'Guitar practice, games, relationships, and ordinary experience shape how I think. I write down what I can share and leave what remains unresolved as questions.',
-  lifeWriting: 'Writing shaped by life', lifePostsAria: 'Articles drawn from lived experience', linksAria: 'Other public links',
-  reset: 'Back to the room', hint: 'There is more beyond the light.',
-  moving: 'The view is moving toward ', object: 'something in the room', arrived: 'The view has reached ', target: 'the destination',
-  returning: 'The view is returning to the whole room.', returned: 'Back in the whole room.',
+  destinationsAria: 'Homepage sections',
+  desk: 'Desk', writing: 'Writing', deskAria: 'Open the latest articles',
+  workbench: 'Workbench', projects: 'Projects', workbenchAria: 'Open projects',
+  guitar: 'Guitar', life: 'Life', guitarAria: 'Open life content',
+  lifeTitle: 'I also write about life outside projects.',
+  lifeBody: 'I write about guitar practice, games, relationships, everyday life, and the ideas they bring up.',
+  lifeWriting: 'Articles about life', lifePostsAria: 'Articles about life', linksAria: 'Other links',
+  reset: 'Back to overview',
+  moving: 'Opening ', object: 'this section', arrived: 'Opened ', target: 'the selected section',
+  returning: 'Returning to the overview.', returned: 'Returned to the overview.',
 } : {
-  title: '千秋的个人主页 · Qiu 的小屋',
-  description: '走进千秋的个人房间，从书桌、工作台与吉他认识他的构建、写作和生活。',
-  ogDescription: '从房间里的东西，慢慢认识千秋。',
+  title: '千秋 · 个人主页',
+  description: '千秋的个人主页：项目、文章与生活。',
+  ogDescription: '千秋的项目、文章与生活。',
   ogImageAlt: '千秋的个人主页封面图',
-  writingTitle: '最近的文字', allPosts: '全部文章',
-  projectsTitle: '工程档案', allProjects: '完整作品页',
-  file: '档', openFile: '展开卷宗',
+  writingTitle: '最新文章', allPosts: '全部文章',
+  projectsTitle: '项目', allProjects: '查看全部项目',
+  openFile: '查看项目',
   introTitle: '我是千秋。', intro: '练琴，游戏，关系，还有许多没想完的事。',
-  destinationsAria: '从房间里认识千秋',
-  desk: '书桌', writing: '文章', deskAria: '走近书桌，查看文章',
-  workbench: '工作台', projects: '作品', workbenchAria: '走近工作台，查看作品',
-  guitar: '吉他', life: '生活', guitarAria: '走近吉他，查看生活侧记',
-  lifeTitle: '这里也收着没有被做成作品的部分。',
-  lifeBody: '练琴、游戏、关系和日常经验会进入我的判断。我把能公开的部分写下来，也把还没想清楚的地方保留成问题。',
-  lifeWriting: '生活留下的文字', lifePostsAria: '来自生活经验的文章', linksAria: '其他公开入口',
-  reset: '回到房间', hint: '光外还有东西。',
-  moving: '视线正在走向', object: '房间里的物件', arrived: '已经走到', target: '目标',
-  returning: '视线正在回到房间全景。', returned: '已回到房间全景。',
+  destinationsAria: '主页内容导航',
+  desk: '书桌', writing: '文章', deskAria: '打开最新文章',
+  workbench: '工作台', projects: '作品', workbenchAria: '打开项目',
+  guitar: '吉他', life: '生活', guitarAria: '打开生活内容',
+  lifeTitle: '项目之外，我也会记录生活。',
+  lifeBody: '我也会写练琴、游戏、关系和日常生活，以及它们带来的想法。',
+  lifeWriting: '生活相关文章', lifePostsAria: '生活相关文章', linksAria: '其他链接',
+  reset: '返回全景',
+  moving: '正在打开', object: '此内容', arrived: '已打开', target: '所选内容',
+  returning: '正在返回主页全景。', returned: '已返回主页全景。',
 };
 
 const posts = isEnglish
@@ -308,12 +308,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
 
         <div class="room-atmosphere" aria-hidden="true"></div>
 
-        <div class="room-petals" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-
         <div class="room-discovery-veil" aria-hidden="true">
           <span class="room-discovery-shadow room-discovery-shadow--writing"></span>
           <span class="room-discovery-shadow room-discovery-shadow--projects"></span>
@@ -389,7 +383,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
     </aside>
 
     <a class="room-reset" href={path('/')} data-room-reset>{copy.reset}</a>
-    <p class="room-hint" aria-hidden="true">{copy.hint}</p>
     <div class="room-camera-progress" aria-hidden="true"><span></span></div>
     <p class="room-sr-only" aria-live="polite" data-room-status></p>
   </main>

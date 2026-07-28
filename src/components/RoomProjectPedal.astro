@@ -52,8 +52,10 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
           <button
             class="wood-pedal__knob"
             type="button"
+            role="slider"
             style={`--knob-angle:${knobAngle(control.value)}deg`}
             aria-label={controlLabel(control.label)}
+            aria-orientation="vertical"
             aria-valuemin="0"
             aria-valuemax="100"
             aria-valuenow={control.value}
@@ -68,7 +70,7 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
 
     <div class="wood-pedal__identity">
       <p>{projectType}</p>
-      <strong>{projectName}</strong>
+      <h3>{projectName}</h3>
       <small>{serial}</small>
     </div>
     <p class="wood-pedal__status">{projectStatus}</p>
@@ -106,8 +108,10 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
             <button
               class="amp-pedal__knob"
               type="button"
+              role="slider"
               style={`--knob-angle:${knobAngle(control.value)}deg`}
               aria-label={controlLabel(control.label)}
+              aria-orientation="vertical"
               aria-valuemin="0"
               aria-valuemax="100"
               aria-valuenow={control.value}
@@ -130,7 +134,7 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
 
     <section class="amp-pedal__grille">
       <div class="amp-pedal__nameplate">
-        <strong>{projectName}</strong>
+        <h3>{projectName}</h3>
         <span>{projectType}</span>
         <small>{serial}</small>
         <p class="amp-pedal__status">{projectStatus}</p>
@@ -169,8 +173,10 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
             <button
               class="project-pedal__knob"
               type="button"
+              role="slider"
               style={`--knob-angle:${knobAngle(control.value)}deg`}
               aria-label={controlLabel(control.label)}
+              aria-orientation="vertical"
               aria-valuemin="0"
               aria-valuemax="100"
               aria-valuenow={control.value}
@@ -201,7 +207,7 @@ const checkLabel = isEnglish ? `Toggle ${projectName} status light` : `切换 ${
         data-room-autofocus={autofocus ? '' : undefined}
       >
         <span class="project-pedal__mark" aria-hidden="true">Q</span>
-        <span class="project-pedal__footswitch-copy"><strong>EXPLORE CASE</strong><small>{openLabel} ↗</small></span>
+        <span class="project-pedal__footswitch-copy"><strong>{openLabel}</strong><small>{projectName} ↗</small></span>
       </a>
     </div>
     <span class="project-pedal__latch" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>

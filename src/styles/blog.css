@@ -1,7 +1,7 @@
-/* 乌丝栏：墨线分行的开放索引，不堆卡片 */
+/* 开放式文章索引，以分隔线组织内容。 */
 .post-ledger {
   display: grid;
-  border-top: 4px double var(--border-strong);
+  border-top: 1px solid var(--border-strong);
 }
 
 .article-shell {
@@ -42,8 +42,8 @@
   grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
   overflow: visible;
   border: 0;
-  border-top: 4px double var(--border-strong);
-  border-bottom: 4px double var(--border-strong);
+  border-top: 1px solid var(--border-strong);
+  border-bottom: 1px solid var(--border-strong);
   border-radius: 0;
   background: transparent;
   box-shadow: none;
@@ -199,9 +199,10 @@
   padding-bottom: 2px;
   border-bottom: 2px solid var(--cinnabar);
   color: var(--cinnabar);
-  font-family: var(--font-brush);
+  font-family: var(--font-sans);
   font-size: 1.02rem;
-  letter-spacing: 0.14em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 }
 
 .toc-list {
@@ -255,32 +256,17 @@
   margin-bottom: 0;
 }
 
-/* 题跋：正文前的导读，以朱砂边注与小引呈现 */
+/* 正文前的导读保留红色边线，不再额外添加标签。 */
 .post-intro aside {
   position: relative;
   margin: 0;
-  padding: var(--space-6) 0 var(--space-2) var(--space-5);
+  padding: var(--space-3) 0 var(--space-3) var(--space-5);
   border: 0;
   border-left: 4px solid var(--cinnabar);
   border-radius: 0;
   background: transparent;
   color: var(--text-secondary);
   box-shadow: none;
-}
-
-.post-intro aside::before {
-  position: absolute;
-  top: 0;
-  left: var(--space-5);
-  padding: 0;
-  background: transparent;
-  color: var(--cinnabar);
-  content: "题跋";
-  font-family: var(--font-sans);
-  font-size: 0.76rem;
-  font-weight: 800;
-  letter-spacing: 0.2em;
-  line-height: 1.4;
 }
 
 .post-intro h3 {

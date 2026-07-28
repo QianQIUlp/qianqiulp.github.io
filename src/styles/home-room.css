@@ -310,55 +310,6 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   transition: opacity 700ms ease;
 }
 
-/* 房间里斜落的花瓣：两三片，克制，移动端与减少动态偏好下关闭 */
-.room-petals {
-  position: absolute;
-  inset: 0;
-  z-index: 24;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.room-petals span {
-  position: absolute;
-  top: -4%;
-  width: 14px;
-  height: 10px;
-  border-radius: 64% 36% 62% 38% / 58% 44% 56% 42%;
-  background: color-mix(in srgb, var(--ink-zhong) 44%, transparent);
-  opacity: 0;
-  animation: room-petal-fall 27s linear infinite;
-}
-
-.room-petals span:nth-child(2) {
-  left: 55%;
-  width: 11px;
-  height: 8px;
-  animation-delay: -11s;
-  animation-duration: 34s;
-}
-
-.room-petals span:nth-child(3) {
-  left: 76%;
-  width: 12px;
-  height: 9px;
-  animation-delay: -21s;
-  animation-duration: 30s;
-}
-
-.room-petals span:nth-child(1) {
-  left: 30%;
-  animation-delay: -3s;
-}
-
-@keyframes room-petal-fall {
-  0% { opacity: 0; transform: translate3d(0, -5vh, 0) rotate(0deg); }
-  8% { opacity: 0.5; }
-  50% { transform: translate3d(5vw, 48vh, 0) rotate(168deg); }
-  92% { opacity: 0.38; }
-  100% { opacity: 0; transform: translate3d(11vw, 105vh, 0) rotate(306deg); }
-}
-
 /* 两块舞台遮光只守住书桌与工作台；生活/吉他区不设黑幕，吉他始终在遮光层上方。 */
 .room-discovery-veil {
   position: absolute;
@@ -1537,7 +1488,8 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   }
 
   .page-home--room .theme-toggle {
-    width: 44px;
+    width: auto;
+    min-width: 56px;
     height: 44px;
     margin-left: 0;
   }
@@ -1597,10 +1549,6 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   }
 
   .room-hint {
-    display: none;
-  }
-
-  .room-petals {
     display: none;
   }
 
@@ -2241,7 +2189,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .page-home--room:is([data-room-view="writing"], [data-room-view="projects"], [data-room-view="life"]) .theme-toggle {
-    width: 44px;
+    width: auto;
+    min-width: 56px;
     height: 44px;
     margin-left: auto;
   }
@@ -2725,6 +2674,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   --pedal-cap-high: #fff1c6;
   --pedal-cap: #c7a361;
   --pedal-cap-low: #6f5227;
+  --pedal-readable: var(--pedal-silk);
+  --pedal-signal: var(--pedal-silk);
   position: relative;
   isolation: isolate;
   width: 100%;
@@ -2795,7 +2746,9 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   --pedal-shell-low: #06436f;
   --pedal-shell-edge: #76c2e6;
   --pedal-silk: #f2a300;
-  --pedal-copy: rgba(255, 211, 86, 0.82);
+  --pedal-copy: #fffde5;
+  --pedal-readable: #fffde5;
+  --pedal-signal: #001018;
   --pedal-cap-high: #f8df9e;
   --pedal-cap: #c39a4e;
   --pedal-cap-low: #72501f;
@@ -2824,8 +2777,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: start;
-  color: var(--pedal-silk);
-  font-size: clamp(0.38rem, 1.25cqw, 0.95rem);
+  color: var(--pedal-signal);
+  font-size: clamp(0.6875rem, 1.25cqw, 0.95rem);
   font-weight: 900;
   letter-spacing: 0.055em;
   line-height: 1;
@@ -2849,7 +2802,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .project-pedal__check:focus-visible {
   border-radius: 3px;
-  outline: max(1px, 0.3cqh) solid color-mix(in srgb, var(--pedal-silk) 88%, #fff);
+  outline: max(2px, 0.3cqh) solid var(--pedal-readable);
   outline-offset: 0.7cqh;
 }
 
@@ -2909,7 +2862,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   column-gap: 9%;
-  color: var(--pedal-silk);
+  color: var(--pedal-readable);
 }
 
 .project-pedal__knob-unit:nth-child(1) {
@@ -2953,7 +2906,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 }
 
 .project-pedal__knob:focus-visible {
-  outline: max(2px, 0.38cqh) solid var(--pedal-silk);
+  outline: max(2px, 0.38cqh) solid var(--pedal-readable);
   outline-offset: 0.65cqh;
 }
 
@@ -2987,7 +2940,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .project-pedal__knob-label {
   align-self: end;
   justify-self: start;
-  font-size: clamp(0.38rem, 1.5cqw, 0.85rem);
+  font-size: clamp(0.6875rem, 1.5cqw, 0.85rem);
   font-weight: 950;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -2999,9 +2952,9 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   justify-self: start;
   width: auto;
   margin-top: 0.35cqh;
-  color: rgba(255, 208, 96, 0.62);
+  color: color-mix(in srgb, var(--pedal-readable) 78%, transparent);
   font-family: var(--font-mono);
-  font-size: clamp(0.26rem, 0.9cqw, 0.55rem);
+  font-size: clamp(0.5rem, 0.9cqw, 0.6rem);
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -3019,7 +2972,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: hidden;
   color: var(--pedal-copy);
   font-family: var(--font-mono);
-  font-size: clamp(0.32rem, 1.15cqw, 0.74rem);
+  font-size: clamp(0.5625rem, 1.15cqw, 0.74rem);
   font-weight: 800;
   letter-spacing: 0.08em;
   line-height: 1.2;
@@ -3053,14 +3006,19 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   white-space: normal;
 }
 
+.project-pedal--blue .project-pedal__identity h3 {
+  color: #ffefad;
+  text-shadow: 0 0.2cqh 0.35cqh #04314c;
+}
+
 .project-pedal__meta {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   gap: 5%;
   align-items: center;
   min-width: 0;
-  color: var(--pedal-silk);
-  font-size: clamp(0.3rem, 1.15cqw, 0.72rem);
+  color: var(--pedal-readable);
+  font-size: clamp(0.5625rem, 1.15cqw, 0.72rem);
   font-weight: 850;
 }
 
@@ -3075,7 +3033,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .project-pedal__meta > strong {
   overflow: visible;
-  font-size: clamp(0.3rem, 1.18cqw, 0.74rem);
+  font-size: clamp(0.5625rem, 1.18cqw, 0.74rem);
   letter-spacing: 0.02em;
   text-overflow: clip;
   white-space: nowrap;
@@ -3109,7 +3067,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .room-workbench-surface .room-project-list li .project-pedal .project-pedal__meta > strong {
   grid-area: auto;
-  font-size: clamp(0.3rem, 1.18cqw, 0.74rem);
+  font-size: clamp(0.5625rem, 1.18cqw, 0.74rem);
   letter-spacing: 0.02em;
   white-space: nowrap;
 }
@@ -3124,9 +3082,9 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 .project-pedal__tags span {
   overflow: hidden;
   padding: 0.34em 0.62em;
-  border: max(1px, 0.18cqh) solid color-mix(in srgb, var(--pedal-silk) 66%, transparent);
+  border: max(1px, 0.18cqh) solid color-mix(in srgb, var(--pedal-readable) 66%, transparent);
   border-radius: 2px;
-  color: var(--pedal-silk);
+  color: var(--pedal-readable);
   font-family: var(--font-mono);
   font-size: clamp(0.25rem, 0.82cqw, 0.54rem);
   font-weight: 800;
@@ -3178,7 +3136,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .room-workbench-surface .room-project-list .project-pedal__footswitch:is(:hover, :focus-visible) {
   border-color: #050708;
-  outline: max(2px, 0.32cqh) solid color-mix(in srgb, var(--pedal-silk) 78%, #fff);
+  outline: max(2px, 0.32cqh) solid var(--pedal-readable);
   outline-offset: 0.65cqh;
   background:
     repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0 2px, transparent 2px 5px),
@@ -3223,17 +3181,17 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .project-pedal__footswitch-copy strong {
   overflow: visible;
-  color: #9aa5aa;
-  font-size: clamp(0.38rem, 1.55cqw, 0.95rem) !important;
+  color: #dce7ea;
+  font-size: clamp(0.75rem, 1.55cqw, 0.95rem) !important;
   font-weight: 900 !important;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   text-overflow: clip;
   white-space: nowrap !important;
 }
 
 .project-pedal__footswitch-copy small {
-  color: #6d7a7f;
-  font-size: clamp(0.26rem, 0.95cqw, 0.6rem);
+  color: #aab8bd;
+  font-size: clamp(0.5625rem, 0.95cqw, 0.65rem);
   font-weight: 700;
   letter-spacing: 0.06em;
 }
@@ -3327,11 +3285,15 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .project-pedal__identity > p {
-    font-size: clamp(0.28rem, 1.05cqw, 0.53rem);
+    font-size: clamp(0.5rem, 2.2cqw, 0.5625rem);
   }
 
   .project-pedal__meta {
-    font-size: clamp(0.27rem, 1cqw, 0.5rem);
+    font-size: clamp(0.5rem, 2.2cqw, 0.5625rem);
+  }
+
+  .room-workbench-surface .room-project-list li .project-pedal .project-pedal__meta > strong {
+    font-size: clamp(0.5rem, 2.2cqw, 0.5625rem);
   }
 
   .project-pedal__footswitch-copy small {
@@ -3367,7 +3329,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .project-pedal__signal-row {
-    font-size: clamp(0.34rem, 1.5vw, 0.48rem);
+    font-size: clamp(0.5625rem, 2vw, 0.6875rem);
   }
 
   .project-pedal__identity h3 {
@@ -3375,7 +3337,42 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .project-pedal__knob {
-    width: clamp(28px, 8.6vw, 38px);
+    --mobile-knob-size: clamp(28px, 8.6vw, 38px);
+    display: grid;
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    place-items: center;
+    border-radius: 0;
+    background: none;
+    box-shadow: none;
+  }
+
+  .project-pedal__knob::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--mobile-knob-size);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle, transparent 52%, rgba(255, 255, 255, 0.08) 54% 58%, transparent 59%),
+      repeating-conic-gradient(from 2deg, #0e1112 0 8deg, #313536 8deg 13deg, #0b0e0f 13deg 20deg);
+    box-shadow:
+      inset 0 0 0 max(3px, 0.8cqh) #111516,
+      inset 0 0 0 max(5px, 1.35cqh) rgba(116, 124, 124, 0.24),
+      0 1.15cqh 1.5cqh rgba(0, 0, 0, 0.62);
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+
+  .project-pedal__knob > span {
+    position: relative;
+    inset: auto;
+    z-index: 1;
+    width: calc(var(--mobile-knob-size) * 0.58);
+    aspect-ratio: 1;
   }
 
   .project-pedal__check {
@@ -3384,7 +3381,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .project-pedal__knob-label {
-    font-size: clamp(0.34rem, 1.6vw, 0.46rem);
+    font-size: clamp(0.5625rem, 2.4vw, 0.625rem);
+    letter-spacing: 0.04em;
   }
 
   .project-pedal__mark {
@@ -3393,7 +3391,17 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   }
 
   .project-pedal__footswitch-copy strong {
-    font-size: clamp(0.34rem, 1.6vw, 0.46rem) !important;
+    max-width: 100%;
+    font-size: clamp(0.625rem, 2.7vw, 0.75rem) !important;
+    line-height: 1.15;
+    text-wrap: balance;
+    white-space: normal !important;
+  }
+
+  .room-workbench-surface .room-project-list .project-pedal__footswitch,
+  .room-workbench-surface .room-project-list li:nth-child(3) .project-pedal__footswitch {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 
@@ -3530,7 +3538,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   margin-top: 0.55cqh;
   color: #e9d9ba;
   font-family: var(--font-sans);
-  font-size: clamp(0.62rem, 1.6cqw, 0.8rem);
+  font-size: clamp(0.6875rem, 1.6cqw, 0.8rem);
   font-weight: 800;
   letter-spacing: 0.13em;
   line-height: 1;
@@ -3550,7 +3558,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: visible;
   color: inherit;
   font-family: var(--font-mono);
-  font-size: clamp(0.56rem, 1.2cqw, 0.68rem);
+  font-size: clamp(0.5625rem, 1.2cqw, 0.68rem);
   line-height: 1;
   text-overflow: clip;
   white-space: nowrap;
@@ -3607,10 +3615,11 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   text-overflow: ellipsis;
 }
 
-.room-workbench-surface .room-project-list li .wood-pedal__identity strong {
+.room-workbench-surface .room-project-list li .wood-pedal__identity h3 {
   position: static;
   grid-area: auto;
   width: auto;
+  margin: 0;
   padding: 0;
   overflow: visible;
   color: #241f15;
@@ -3830,7 +3839,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
 
 .amp-pedal__input small {
   margin-top: 0.7cqh;
-  font-size: clamp(0.56rem, 1.05cqw, 0.68rem);
+  font-size: clamp(0.6875rem, 1.05cqw, 0.75rem);
   font-weight: 900;
 }
 
@@ -3897,7 +3906,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   margin-top: 0.5cqh;
   color: #352b1d;
   font-family: var(--font-sans);
-  font-size: clamp(0.62rem, 1.8cqw, 0.78rem);
+  font-size: clamp(0.6875rem, 1.8cqw, 0.78rem);
   font-weight: 800;
   letter-spacing: 0.045em;
   line-height: 1;
@@ -3920,7 +3929,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   justify-items: center;
   align-content: center;
   color: #27231e;
-  font-size: clamp(0.56rem, 1.05cqw, 0.68rem);
+  font-size: clamp(0.6875rem, 1.05cqw, 0.75rem);
   font-weight: 900;
   cursor: pointer;
 }
@@ -3982,7 +3991,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   text-align: center;
 }
 
-.room-workbench-surface .room-project-list li .amp-pedal strong,
+.room-workbench-surface .room-project-list li .amp-pedal h3,
 .room-workbench-surface .room-project-list li .amp-pedal small {
   position: static;
   grid-area: auto;
@@ -3997,7 +4006,8 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   white-space: nowrap;
 }
 
-.amp-pedal__nameplate strong {
+.amp-pedal__nameplate h3 {
+  margin: 0;
   color: #231c11;
   font-family: "Arial Black", var(--font-sans) !important;
   font-size: clamp(1.7rem, 5cqw, 2.25rem) !important;
@@ -4021,7 +4031,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   margin-top: 0.15cqh;
   color: #82704f;
   font-family: var(--font-mono) !important;
-  font-size: clamp(0.56rem, 1.22cqw, 0.68rem) !important;
+  font-size: clamp(0.5625rem, 1.22cqw, 0.68rem) !important;
   letter-spacing: 0.14em;
 }
 
@@ -4032,7 +4042,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   overflow: hidden;
   color: #55472e;
   font-family: var(--font-mono);
-  font-size: clamp(0.56rem, 1.22cqw, 0.7rem);
+  font-size: clamp(0.5625rem, 1.22cqw, 0.7rem);
   line-height: 1.1;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -4171,14 +4181,14 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
     margin: 0;
     overflow: hidden;
     max-width: 100%;
-    font-size: clamp(0.5rem, 2.3vw, 0.58rem);
+    font-size: clamp(0.5625rem, 2.4vw, 0.625rem);
     letter-spacing: 0.03em;
     white-space: nowrap;
   }
 
   .room-workbench-surface .room-project-list li .wood-pedal small {
     align-self: start;
-    font-size: clamp(0.5rem, 2.15vw, 0.58rem);
+    font-size: clamp(0.5625rem, 2.3vw, 0.625rem);
   }
 
   .wood-pedal__identity {
@@ -4191,7 +4201,7 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
     font-size: clamp(0.5rem, 2.55vw, 0.6rem);
   }
 
-  .room-workbench-surface .room-project-list li .wood-pedal__identity strong {
+  .room-workbench-surface .room-project-list li .wood-pedal__identity h3 {
     font-size: clamp(1.02rem, 5.4vw, 1.32rem);
   }
 
@@ -4202,19 +4212,29 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   .wood-pedal__status {
     left: 33.5%;
     width: 43.5%;
-    font-size: 0.55rem;
+    font-size: 0.5625rem;
   }
 
   .wood-pedal__lamp { right: 11%; }
 
-  .amp-pedal__panel { height: 46%; }
+  .amp-pedal__panel {
+    right: 0;
+    left: 0;
+    height: 46%;
+  }
+
+  .amp-pedal__input { display: none; }
   .amp-pedal__grille { height: 49%; }
 
-  .amp-pedal__knob { min-width: 0; min-height: 44px; }
+  .amp-pedal__knob {
+    width: 44px;
+    min-width: 44px;
+    min-height: 44px;
+  }
   .amp-pedal__knob > span { width: clamp(26px, 7.2vw, 30px); }
 
   .room-workbench-surface .room-project-list li .amp-pedal__controls .amp-pedal__knob-unit small {
-    font-size: clamp(0.45rem, 2vw, 0.52rem);
+    font-size: clamp(0.5625rem, 2.3vw, 0.625rem);
     letter-spacing: 0;
   }
 
@@ -4225,23 +4245,57 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
     min-height: 72%;
   }
 
-  .amp-pedal__nameplate strong { font-size: clamp(1.2rem, 5.2vw, 1.4rem) !important; }
+  .amp-pedal__nameplate h3 { font-size: clamp(1.2rem, 5.2vw, 1.4rem) !important; }
   .amp-pedal__nameplate span { font-size: 0.56rem; }
   .room-workbench-surface .room-project-list li .amp-pedal__nameplate small { display: none; }
-  .amp-pedal__status { margin-top: 0.35cqh; font-size: 0.54rem; }
+  .amp-pedal__status { margin-top: 0.35cqh; font-size: 0.5625rem; }
 
   .amp-pedal__stomp > span { width: clamp(46px, 12vw, 54px); }
   .amp-pedal__stomp small { font-size: 0.56rem !important; }
 
   .amp-pedal__controls {
-    right: 15%;
-    left: 13%;
+    right: 19%;
+    left: 0;
+    justify-items: center;
   }
 
   .amp-pedal__power {
     right: 0.5%;
-    width: 36px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .room-workbench-surface .room-project-list li .wood-pedal__stomp,
+  .room-workbench-surface .room-project-list li .amp-pedal__stomp {
+    min-width: 44px;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 640px) and (max-height: 700px) {
+  .room-workbench-surface {
+    top: 10%;
+  }
+
+  .room-workbench-surface .room-surface-heading {
+    padding: 2px 3px 7px;
+  }
+
+  .room-workbench-surface .room-project-list {
+    gap: 8px;
+    padding-top: 4px;
+  }
+
+  .room-workbench-surface .room-project-list li,
+  .room-workbench-surface .room-project-list li:nth-child(1),
+  .room-workbench-surface .room-project-list li:nth-child(2),
+  .room-workbench-surface .room-project-list li:nth-child(3) {
+    height: 140px;
+  }
+
+  .wood-pedal__controls {
+    top: 1.5%;
+    bottom: 1.5%;
   }
 }
 

@@ -11,13 +11,13 @@ const { post, Content, headings, IntroContent } = Astro.props;
 const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
 const isEnglish = lang === 'en';
 const copy = isEnglish ? {
-  site: "Qiu's Room", start: 'Article start', back: 'Back to writing', kicker: 'Long read',
+  site: "Qianqiu's Site", start: 'Article start', back: 'Back to writing', kicker: 'Article',
   languageNote: '', tags: 'Article tags',
-  license: 'License · end note', tocAria: 'Open or close the table of contents', toc: 'Contents', close: 'Close',
+  license: 'License', tocAria: 'Open or close the table of contents', toc: 'Contents', close: 'Close',
   imageAlt: 'Article cover',
 } : {
-  site: 'Qiu 的小屋', start: '文章开头', back: '返回文章列表', kicker: '长文',
-  languageNote: '', tags: '文章标签', license: '授权协议 · 文末记',
+  site: '千秋的个人站', start: '文章开头', back: '返回文章列表', kicker: '文章',
+  languageNote: '', tags: '文章标签', license: '授权协议',
   tocAria: '展开或收起文章目录', toc: '目录', close: '收起', imageAlt: '文章封面',
 };
 const tocHeadings = (headings ?? []).filter((heading) => heading.depth >= 2 && heading.depth <= 4);
