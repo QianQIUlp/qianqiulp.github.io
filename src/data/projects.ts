@@ -225,19 +225,19 @@ export const featuredProjects: FeaturedProject[] = [
   {
     displayName: 'Docker-Hadoop-Cluster',
     repoSlug: 'docker-hadoop-cluster',
-    status: '可用 / 教学实验环境',
+    status: '教学 / 本地实验环境',
     type: '本地 Hadoop 学习实验室',
     repoUrl: 'https://github.com/QianQIUlp/docker-hadoop-cluster',
-    summary: '一座可重复搭建的本地 Hadoop 实验室，把环境准备、服务观察、MapReduce 执行，以及节点故障与恢复接成一条引导式学习路径。',
+    summary: '一个可重复搭建的本地 Hadoop 实验室，将环境准备、服务观察、MapReduce 执行、节点故障与恢复串成一条引导式学习路径。',
     positioning:
-      '面向 Hadoop 初学者与本地实验：先用单节点模式完成第一次运行，再进入三节点角色模式观察 HDFS、YARN、MapReduce 及故障恢复；它不是生产 Hadoop 平台。',
+      '面向 Hadoop 初学者的本地教学实验：一套生命周期 CLI 覆盖单节点 first-run 与三节点角色模式；预检、明确健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
     caseStudy: {
       problem: '初学者往往还没来得及观察 HDFS 或 YARN，就先被下载、端口、配置和不透明的 daemon 故障消耗掉整节课。',
       design:
-        '用一套生命周期 CLI 同时包住单节点首次运行与三节点角色模式；预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断，让环境始终可理解、可恢复。',
-      start: '从 README 按引导完成一次干净的 standalone 运行：先执行 `doctor` 与 `status`，再完成 WordCount 课程检查，随后进入三节点故障与恢复实验。',
+        '一套生命周期 CLI 包住单节点首次运行模式与三节点角色模式；预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
+      start: '完成一次干净的 standalone 运行后，依次保留 `doctor` 通过、健康的 `status` 服务图、WordCount 结果及其成功的课程检查。',
       boundary: '这是教学与本地实验环境，不是生产 Hadoop 平台；它明确不包含 HA、Kerberos、多主机编排和运维 SLA。',
-      nextStep: '从仓库 README 复现完整学习路径，并用 NameNode、ResourceManager、WordCount 与三节点降级/恢复状态作为可核验的实验结果。',
+      nextStep: '作为案例证据，记录 9870 的 NameNode 概览、8088 的 ResourceManager 应用页，以及一组三节点降级 / 恢复的 status 对照。',
     },
     confirmedFacts: [
       '项目提供可重复搭建的本地 Hadoop 教学与实验环境。',
@@ -248,9 +248,9 @@ export const featuredProjects: FeaturedProject[] = [
       '项目公开提供 Hadoop 3.4.1 容器镜像，并明确排除生产环境能力声明。',
     ],
     highlights: [
-      '以单节点 first-run 降低第一次进入 Hadoop 的门槛，再自然过渡到三节点角色实验。',
-      '把 `doctor`、健康状态图和课程检查变成显式证据，而不是只以“容器启动了”判断成功。',
-      'WordCount 不只是示例命令，还连接成功结果与课程检查，形成可验证的 MapReduce 学习节点。',
+      '一套生命周期 CLI 覆盖单节点 first-run 与三节点角色模式，让学习从第一次运行自然进入节点故障与恢复。',
+      '预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
+      '将 `doctor`、健康的 `status` 服务图、WordCount 结果及其课程检查作为可复核的学习证据，而不是只以“容器启动了”判断成功。',
       '支持观察三节点降级与恢复，让故障不再只是报错，而成为学习路径的一部分。',
       '安全重置与脱敏诊断帮助初学者从错误中恢复，不必靠删除整个环境重新开始。',
     ],
