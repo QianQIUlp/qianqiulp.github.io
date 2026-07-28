@@ -68,7 +68,7 @@ const displayDate = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-CN', {
     transition: background-color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
   }
 
-  /* 纸面微光泛起，墨线加深，不做位移 */
+  /* 悬停时只增强光线与分隔线，不移动卡片。 */
   .post-card:hover {
     border-color: var(--border-strong);
     background: radial-gradient(ellipse 72% 130% at 12% 50%, var(--glow-lamp), transparent 68%);
@@ -121,7 +121,7 @@ const displayDate = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-CN', {
     overflow-wrap: anywhere;
   }
 
-  /* 无封面时的留白落款：纸上一枚淡朱砂 */
+  /* 无封面时使用普通标题字体显示作者名。 */
   .post-card__fallback {
     display: grid;
     width: 100%;
@@ -129,8 +129,9 @@ const displayDate = new Intl.DateTimeFormat(lang === 'en' ? 'en-US' : 'zh-CN', {
     place-items: center;
     background: radial-gradient(ellipse 70% 80% at 50% 42%, var(--surface-muted), transparent 72%);
     color: color-mix(in srgb, var(--cinnabar) 58%, transparent);
-    font-family: var(--font-brush);
+    font-family: var(--font-serif);
     font-size: 1.6rem;
+    font-weight: 700;
     letter-spacing: 0.2em;
   }
 

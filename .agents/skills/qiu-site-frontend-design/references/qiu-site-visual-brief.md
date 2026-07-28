@@ -2,44 +2,47 @@
 
 ## Identity
 
-Qiu's site is 墨光书房 — a warm Chinese study room for slow reading: ink-dark at night with
-one lamp, xuan-paper bright by day. Personal, calm, literate, and practical. It supports long
-Chinese text, technical notes, reflective essays, project browsing, and contact discovery.
+Qiu's site is a modern, realistic personal rehearsal/work room paired with clean editorial reading pages.
+It is warm, calm, personal and practical without leaning on visible ancient-book styling. It supports long
+Chinese text, technical notes, reflective essays, project browsing and contact discovery.
 
-The current visual implementation contract is `docs/uiux/ink-and-light-study.md`; this brief is the quick
-orientation summary.
-
-For the homepage, `docs/uiux/homepage-art-direction.md` is the higher creative source:
-richness lives in depth, while the first glance stays quiet and leads with Qiu, the guitar,
-and lived experience. Visual metaphor speaks first; real content appears as the visitor explores.
+The active implementation contract is `docs/uiux/ink-and-light-study.md`; the legacy filename is retained
+for link stability. For the homepage, `docs/uiux/homepage-art-direction.md` remains the higher creative source:
+richness lives in depth, while the first glance leads with Qiu, the guitar and lived experience.
 
 ## Design Intent
 
-- 界画四原则：统一纸底、统一左上光源、边缘墨化、墨分五色（焦浓重淡清）。
-- 昼宣 / 夜墨双主题使用严格配准的真实摄影资产；同一构图、同一物件与接触关系，只变时间、灯态、曝光和对应阴影；切换为晕染收拢转场。
-- 朱砂 #a2402c 是唯一彩色，只用于卷题、题跋侧签与朱批；站点界面不显示印章。
-- 书体 QiuBrush 是签名，只出现在空封面落款「千秋」与目录题字；首页名字复用项目页标题的正常宋体系。
-- 「显影」（data-reveal）是唯一入场动效；氛围层（墨絮/花瓣）是空气。
-- 首页是一间可探索的房间：全景开场 → 热点 → 近景 → 回到房间；
-  内页是乌丝栏卷轴（双墨线）、题跋、落款。
-- 首页初见不展示完整栏目总览：全站导航、书桌与工作台先退入墨影，靠停留、聚焦或选择显出；
-  不把这个过程做成步骤条、教程或显眼的“下一步”。
-- Lead with writing and reading, not marketing; the interface stays quiet so content carries the page.
+- Preserve the real room, guitar, warm light and physically credible materials.
+- Use **Light / Dark** as internal documentation names while preserving visible 「昼 / 夜」 and `Day / Night`; paired assets
+  keep the same composition, objects, hotspots and contact relationships.
+- Keep red as a restrained accent rather than a seal/cinnabar semantic or general brand fill.
+- Use normal readable serif/sans/mono roles. Do not show QiuBrush, calligraphy or seals.
+- Do not use xuan-paper texture, global grain, petals, ink fluff or replacement decorative particles.
+- Keep progressive discovery: first view stays quiet; writing and engineering appear through exploration.
+- Keep the three project entries visually distinct and fixed to their authored positions: walnut box, vintage amp head and blue driver.
+- Let long-form content carry inner pages through type, spacing, contrast and a usable table of contents.
+- Theme transition and reveal may remain as neutral, reduced-motion-safe feedback.
+- Preserve user-facing and assistive copy from `f6ed8fd` except for the four-item allowlist in the active contract.
 
 ## Avoid
 
-- Generic AI SaaS gradients; second "paper"/surface colors; second accent hues.
-- Cinnabar on ordinary buttons/links/errors; brush type on component titles or body text.
-- Decorative cards inside cards; hard-edged "sticker" images; second entrance animations.
-- Elements that exist in only one theme; shadows from any direction but upper-left light.
-- Excessive emoji decoration; landing-page hero patterns that hide actual content.
-- Adding frontend dependencies to solve static CSS problems.
-- Turning the homepage into a dashboard, personality checklist, or onboarding wizard.
+- Generic AI SaaS gradients, dashboard heroes and stacked cards.
+- Any copy change outside the explicit removal/replacement of 「展开卷宗」, blog 「卷 / 题」 counts, generated 「题跋」,
+  and the visible 「授权协议 · 文末记」 block.
+- QiuBrush/calligraphic component text, seals, xuan texture, global noise and decorative particles.
+- Red on every link/button, or obsolete cinnabar/annotation meaning attached to it.
+- Elements that exist in only one theme; moved room objects or mismatched day/night hotspots.
+- Shared generated texture across wall, wood, metal, fabric, leather and rubber.
+- Rebuilding the three effects units as one recolored template, or sacrificing normal-distance legibility.
+- Extra frontend dependencies for static CSS problems.
+- Turning the homepage into a content inventory, personality checklist or onboarding wizard.
 
 ## Preferred Review Bias
 
-- Prefer small improvements to tokens, spacing, type scale, focus states, and responsive behavior.
-- Judge hierarchy by ink grades (焦浓重淡清) before suggesting any new color.
-- Preserve existing content schema and routes.
+- Prefer small improvements to spacing, type scale, contrast, focus states and responsive behavior; copy stays frozen unless
+  the user explicitly expands its allowlist.
+- Check 375 × 667 explicitly; narrow-screen primary controls and device interactions need at least 44 × 44px targets.
+- Judge the first view by person, guitar, warm light, quiet space and invitation to explore.
+- Preserve existing content schema, routes and real project evidence.
 - Document low-severity aesthetic preferences instead of turning them into mandatory fixes.
-- When changing anything the contract governs, update the contract and the skill together.
+- When changing a governed system, update the active contract, QA checklist and skill together without rewriting history.

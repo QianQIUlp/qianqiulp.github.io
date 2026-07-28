@@ -26,7 +26,7 @@ const copy = isEnglish ? {
   ogImageAlt: "Cover image for Qianqiu's home",
   writingTitle: 'Recent writing', allPosts: 'All articles',
   projectsTitle: 'Engineering archive', allProjects: 'Full projects page',
-  file: 'File', openFile: 'Open dossier',
+  file: 'File',
   introTitle: "I'm Qianqiu.", intro: 'Guitar, games, relationships, and many thoughts still unfinished.',
   destinationsAria: 'Get to know Qianqiu through the room',
   desk: 'Desk', writing: 'Writing', deskAria: 'Approach the desk and view articles',
@@ -45,7 +45,7 @@ const copy = isEnglish ? {
   ogImageAlt: '千秋的个人主页封面图',
   writingTitle: '最近的文字', allPosts: '全部文章',
   projectsTitle: '工程档案', allProjects: '完整作品页',
-  file: '档', openFile: '展开卷宗',
+  file: '档',
   introTitle: '我是千秋。', intro: '练琴，游戏，关系，还有许多没想完的事。',
   destinationsAria: '从房间里认识千秋',
   desk: '书桌', writing: '文章', deskAria: '走近书桌，查看文章',
@@ -295,7 +295,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
                     controls={pedal.controls}
                     tags={pedal.tags}
                     href={`${path('/projects/')}#project-${index + 1}`}
-                    openLabel={copy.openFile}
                     isEnglish={isEnglish}
                     autofocus={index === 0}
                   />
@@ -307,12 +306,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         </section>
 
         <div class="room-atmosphere" aria-hidden="true"></div>
-
-        <div class="room-petals" aria-hidden="true">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
 
         <div class="room-discovery-veil" aria-hidden="true">
           <span class="room-discovery-shadow room-discovery-shadow--writing"></span>
