@@ -38,6 +38,13 @@ export type FeaturedProject = {
     boundary: string;
     nextStep: string;
   };
+  caseStudyLabels?: {
+    start?: string;
+    boundary?: string;
+    next?: string;
+  };
+  caseStudyHighlightCount?: number;
+  caseStudySideAria?: string;
   confirmedFacts: string[];
   highlights: string[];
   limitations: string[];
@@ -150,48 +157,52 @@ export const featuredProjects: FeaturedProject[] = [
   {
     displayName: 'Crewlight',
     repoSlug: 'Crewlight',
-    status: '归档原型 / v0.4.0 参考版本',
-    type: '本地优先开发者工具',
+    status: '稳定化中 / v0.5.0 候选版本',
+    type: '本地优先的 AI Agent 活动雷达',
     repoUrl: 'https://github.com/QianQIUlp/Crewlight',
-    summary: '面向 AI coding agents 的本地活动雷达，以 Windows Desktop 作为 v0.4.0 的主要用户体验。',
+    summary: '面向并行 AI coding agents 的本地活动雷达：把分散在 Claude Code、Codex 等工具中的运行、等待、权限请求、完成与失败状态，汇总到只读的 Desktop、Companion、Dashboard 和 CLI。',
     positioning:
-      '用于在本地观察并汇总多个 AI coding agents 的当前活动与待处理状态；桌面端是主要入口，浮动 companion、浏览器 dashboard 和 CLI 分别承担常驻概览、开发者检查与高级设置、自动化和诊断。',
+      '用于在本地观察并汇总多个 AI coding agents 的当前活动与待处理状态；Desktop、浮动 Companion、浏览器 Dashboard 和 CLI 共同提供只读视图，不控制 agent 或自动批准权限。',
     caseStudy: {
-      problem: '并行使用多个 coding agents 时，活跃、等待、失败或可能停滞的状态分散在不同工具里，很难在不读取完整工作内容的前提下快速判断哪里需要关注。',
+      problem: '同时运行多个 coding agents 时，运行、等待、权限请求、完成与失败状态分散在不同终端和工具中。开发者很难在不读取完整工作内容的前提下，快速判断哪个任务需要注意。',
       design:
-        '以本地优先、只读的事件汇总层组织状态，Windows Desktop 集中提供 Home、Doctor、Agents、Companion、Demo、Appearance、Settings 和 About；浏览器 dashboard 保留为次级检查界面，CLI 用于高级配置、ingest、脚本和诊断。',
-      start: '从 GitHub 仓库或中文 README 了解桌面端、集成层级与 v0.4.0 的使用边界，并查看对应 release 说明。',
-      boundary: 'v0.4.0 是已归档的原型 / 参考版本，存在已知问题，不代表持续维护或生产可用；项目只观察活动，不控制 agent 或批准权限。',
-      nextStep: '当前不承诺继续维护；保留 v0.4.0 的代码、文档与 release，作为本地优先 agent 活动可视化的参考实现。',
+        'Crewlight 采用本地优先、只读的事件汇总模型。它通过经过白名单约束的适配器接收状态事件，在 Desktop、浮动 Companion、浏览器 Dashboard 与 CLI 中组织当前会话，同时避免保存 prompt、transcript、tool I/O 或完整平台载荷。',
+      start: 'v0.5.0 正在进行稳定化。本轮已完成 Linux x64 的构建、standalone、daemon、dashboard、ingest、status 与 doctor smoke 验证；55 个测试文件、690 个测试全部通过。',
+      boundary: 'Windows x64 与 macOS x64/arm64 尚未完成实机修复和验证。v0.5.0 还没有正式 Release，当前最新公开版本仍是 v0.4.0。本页面不把未验证平台描述为可用或已完成。',
+      nextStep: '在 Windows 和 macOS 上继续验证桌面安装包、原生通知、SSH、签名及完整运行流程；完成对应平台修复后，再决定 v0.5.0 的正式发布时间。',
     },
+    caseStudyLabels: {
+      start: '当前',
+    },
+    caseStudyHighlightCount: 4,
+    caseStudySideAria: '当前状态与边界',
     confirmedFacts: [
-      'README 将 Crewlight v0.4.0 定义为存在已知问题、不再维护、仅供参考的 archived prototype。',
-      'Crewlight Desktop 是主要用户体验，浮动 companion、浏览器 dashboard 和 CLI 是不同层级的次级入口。',
-      '桌面端包含 Home、Doctor、Agents、Companion、Demo、Appearance、Settings 和 About 等界面。',
-      '集成资料覆盖 Claude Code hooks、Codex hooks、Codex notify、OpenCode、Cursor 手动实验 bridge，以及 manual/custom ingest。',
-      'OpenCode 标注为已实现但仍待验证，Cursor 仅为手动 / 实验性 bridge，不声明自动生命周期观察。',
-      '项目坚持本地优先和只读边界：无云服务、不抓取私有 API、不自动批准权限，也不保留 prompt、transcript、tool I/O 或 v0.4.0 session 历史。',
+      'v0.5.0 是稳定化中的候选版本，尚未发布；最新公开 Release 仍是 v0.4.0。',
+      'Linux x64 已完成本地修复和验证；Windows x64 与 macOS x64/arm64 尚未完成实机修复和验证。',
+      '当前稳定性工作由 PR #33 跟踪：https://github.com/QianQIUlp/Crewlight/pull/33。',
+      '本轮仓库验证结果为 55 个测试文件、690 个测试全部通过。',
+      '项目坚持本地优先和只读边界：无云服务、不控制 agent、不自动批准权限，也不保存 prompt、transcript、tool I/O 或完整平台载荷。',
     ],
     highlights: [
-      'Windows Desktop 优先，将本地服务状态、诊断、集成配置、demo 和 companion 控制收进统一桌面入口。',
-      '按集成来源明确区分精确 hooks、窄范围 notify、待验证实现和手动实验 bridge，避免夸大支持范围。',
-      '明确只读与数据最小化边界，不控制 agent、不批准权限，也不持久化 prompt、transcript、tool I/O 或 session 历史。',
-      '浮动 companion 提供常驻概览，浏览器 dashboard 保留为 loopback-only 的次级开发者检查界面。',
-      'CLI 面向高级配置、hook/notify ingest、自动化、诊断和 standalone 使用。',
+      '默认只在本机 loopback 上运行，不依赖云服务，也不控制 agent 或自动批准权限。',
+      '对事件大小、超时、重复通知、异常输入、SSH 主机验证和 notifier 失败设置了明确的安全边界。',
+      '会话只保存在内存中，默认最多保留最新 1,000 个；稳定事件在保留期内精确去重。',
+      '现有适配器经过数据最小化和协议校正；MiMo、Pi Agent、OpenClaw、Reasonix 的不可靠自动 setup 暂时禁用。',
     ],
     limitations: [
-      'v0.4.0 是存在已知问题的归档原型 / 参考版本，不声明持续维护或生产可用。',
-      'OpenCode 集成仍待真实环境验证；Cursor 仅支持显式命令驱动的手动 / 实验性 bridge。',
+      'Windows x64 与 macOS x64/arm64 尚未完成实机修复和验证，不能描述为可下载、可用或可用于生产。',
+      'v0.5.0 尚未发布；当前最新公开 Release 仍是 v0.4.0。',
     ],
     tags: [
       'Local-first',
       'AI Coding Agents',
-      'Windows Desktop',
+      'Linux Verified',
       'TypeScript',
       'Electron',
       'CLI',
       'Claude Code',
       'Codex',
+      'SSH',
     ],
     links: [
       {
@@ -214,19 +225,19 @@ export const featuredProjects: FeaturedProject[] = [
   {
     displayName: 'Docker-Hadoop-Cluster',
     repoSlug: 'docker-hadoop-cluster',
-    status: '可用 / 教学实验环境',
+    status: '教学 / 本地实验环境',
     type: '本地 Hadoop 学习实验室',
     repoUrl: 'https://github.com/QianQIUlp/docker-hadoop-cluster',
-    summary: '一座可重复搭建的本地 Hadoop 实验室，把环境准备、服务观察、MapReduce 执行，以及节点故障与恢复接成一条引导式学习路径。',
+    summary: '一个可重复搭建的本地 Hadoop 实验室，将环境准备、服务观察、MapReduce 执行、节点故障与恢复串成一条引导式学习路径。',
     positioning:
-      '面向 Hadoop 初学者与本地实验：先用单节点模式完成第一次运行，再进入三节点角色模式观察 HDFS、YARN、MapReduce 及故障恢复；它不是生产 Hadoop 平台。',
+      '面向 Hadoop 初学者的本地教学实验：一套生命周期 CLI 覆盖单节点 first-run 与三节点角色模式；预检、明确健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
     caseStudy: {
       problem: '初学者往往还没来得及观察 HDFS 或 YARN，就先被下载、端口、配置和不透明的 daemon 故障消耗掉整节课。',
       design:
-        '用一套生命周期 CLI 同时包住单节点首次运行与三节点角色模式；预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断，让环境始终可理解、可恢复。',
-      start: '从 README 按引导完成一次干净的 standalone 运行：先执行 `doctor` 与 `status`，再完成 WordCount 课程检查，随后进入三节点故障与恢复实验。',
+        '一套生命周期 CLI 包住单节点首次运行模式与三节点角色模式；预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
+      start: '完成一次干净的 standalone 运行后，依次保留 `doctor` 通过、健康的 `status` 服务图、WordCount 结果及其成功的课程检查。',
       boundary: '这是教学与本地实验环境，不是生产 Hadoop 平台；它明确不包含 HA、Kerberos、多主机编排和运维 SLA。',
-      nextStep: '从仓库 README 复现完整学习路径，并用 NameNode、ResourceManager、WordCount 与三节点降级/恢复状态作为可核验的实验结果。',
+      nextStep: '作为案例证据，记录 9870 的 NameNode 概览、8088 的 ResourceManager 应用页，以及一组三节点降级 / 恢复的 status 对照。',
     },
     confirmedFacts: [
       '项目提供可重复搭建的本地 Hadoop 教学与实验环境。',
@@ -237,9 +248,9 @@ export const featuredProjects: FeaturedProject[] = [
       '项目公开提供 Hadoop 3.4.1 容器镜像，并明确排除生产环境能力声明。',
     ],
     highlights: [
-      '以单节点 first-run 降低第一次进入 Hadoop 的门槛，再自然过渡到三节点角色实验。',
-      '把 `doctor`、健康状态图和课程检查变成显式证据，而不是只以“容器启动了”判断成功。',
-      'WordCount 不只是示例命令，还连接成功结果与课程检查，形成可验证的 MapReduce 学习节点。',
+      '一套生命周期 CLI 覆盖单节点 first-run 与三节点角色模式，让学习从第一次运行自然进入节点故障与恢复。',
+      '预检、明确的健康证据、命名空间化实验、安全重置和脱敏诊断让环境始终可理解、可恢复。',
+      '将 `doctor`、健康的 `status` 服务图、WordCount 结果及其课程检查作为可复核的学习证据，而不是只以“容器启动了”判断成功。',
       '支持观察三节点降级与恢复，让故障不再只是报错，而成为学习路径的一部分。',
       '安全重置与脱敏诊断帮助初学者从错误中恢复，不必靠删除整个环境重新开始。',
     ],
