@@ -853,6 +853,16 @@ html:not([data-theme="dark"]) .room-theme-image--day {
   line-height: 1.9;
 }
 
+.room-intro .room-intro__identity {
+  color: color-mix(in srgb, var(--room-gold) 78%, var(--room-cream));
+  font-family: var(--font-mono);
+  font-size: clamp(0.66rem, 0.72vw, 0.76rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
 .room-destinations {
   position: absolute;
   inset: 0;
@@ -1166,8 +1176,10 @@ html:not([data-theme="dark"]) .room-theme-image--day {
 
 .room-life-note__links a {
   display: inline-flex;
+  min-width: 44px;
   min-height: 44px;
   align-items: center;
+  justify-content: center;
   color: var(--link);
   font-size: 0.84rem;
   font-weight: 700;
@@ -1536,6 +1548,12 @@ html:not([data-theme="dark"]) .room-theme-image--day {
 
   .room-intro {
     gap: 8px;
+  }
+
+  .room-intro .room-intro__identity {
+    max-width: none;
+    font-size: 0.68rem;
+    line-height: 1.35;
   }
 
   .room-intro h1 {
@@ -3412,6 +3430,46 @@ html:not([data-theme="dark"]) .page-home--room:is([data-room-view="writing"], [d
   .project-pedal__footswitch {
     transition: none !important;
   }
+}
+
+/* Static 1200 × 630 capture state used to produce locale-specific social cards. */
+.og-capture body.page-home--room {
+  width: 1200px;
+  height: 630px;
+  overflow: hidden;
+}
+
+.og-capture .page-home--room .site-header,
+.og-capture .page-home--room .site-footer,
+.og-capture .room-destinations,
+.og-capture .room-hint,
+.og-capture .room-camera-progress,
+.og-capture .room-focus-layer,
+.og-capture .room-reset {
+  display: none;
+}
+
+.og-capture .room-home,
+.og-capture .room-camera,
+.og-capture .room-canvas {
+  width: 1200px;
+  min-height: 630px;
+  height: 630px;
+}
+
+.og-capture .room-intro {
+  top: 52%;
+  left: 76px;
+  width: 610px;
+}
+
+.og-capture .room-intro h1 {
+  font-size: 4.7rem;
+}
+
+.og-capture .room-intro p:not(.room-intro__identity) {
+  max-width: 570px;
+  font-size: 0.94rem;
 }
 
 /* MealCircuit：Halfman OD 式深色木盒，左列实木旋钮、中央铭牌与金属彩钉脚踏。 */

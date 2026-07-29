@@ -1,0 +1,243 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copy, links, type Locale } from '../content';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const content = copy[locale];
+const homeHref = locale === 'en' ? '/' : '/zh/';
+const languageHref = locale === 'en' ? '/zh/' : '/';
+const roomHref = locale === 'en' ? links.roomEn : links.roomZh;
+const emailHref = 'mailto:qstudio@qiu.works';
+---
+
+<BaseLayout
+  locale={locale}
+  title={content.meta.title}
+  description={content.meta.description}
+  image={content.meta.image}
+  imageAlt={content.meta.imageAlt}
+>
+  <a class="skip-link" href="#main-content">{content.skip}</a>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a class="wordmark" href={homeHref} aria-label={content.brandAria}>Qiu<span>.</span></a>
+      <nav class="site-nav" aria-label={content.navAria}>
+        <a href="#work">{content.nav.work}</a>
+        <a href="#approach">{content.nav.approach}</a>
+        <a href="#writing">{content.nav.writing}</a>
+        <a href="#contact">{content.nav.contact}</a>
+      </nav>
+      <div class="site-controls">
+        <a
+          class="language-toggle"
+          href={languageHref}
+          hreflang={locale === 'en' ? 'zh-CN' : 'en'}
+          aria-label={content.languageAria}
+        >{content.languageLabel}</a>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label={content.themeAria}>
+          {content.night}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero section-shell" aria-labelledby="hero-title">
+      <div class="hero__copy">
+        <p class="eyebrow">{content.hero.eyebrow}</p>
+        <h1 id="hero-title">
+          <span>{content.hero.name}</span>
+          <strong>{content.hero.headline}</strong>
+        </h1>
+        <p class="hero__body">{content.hero.body}</p>
+        <div class="hero__actions">
+          <a class="button button--primary" href="#work">{content.hero.workAction}</a>
+          <a class="button button--quiet" href={links.github} target="_blank" rel="noopener noreferrer">{content.hero.githubAction}</a>
+          <a class="text-link" href={roomHref}>{content.hero.roomAction}</a>
+        </div>
+      </div>
+
+      <aside class="current-work" aria-label={content.hero.nowLabel}>
+        <p class="current-work__label">{content.hero.nowLabel}</p>
+        <div class="current-work__heading">
+          <a href={links.verisilo}>{content.hero.nowProject}</a>
+          <span>{content.hero.nowStatus}</span>
+        </div>
+        <p>{content.hero.nowBody}</p>
+        <p class="current-work__evidence">{content.hero.nowEvidence}</p>
+      </aside>
+    </section>
+
+    <section class="work section-shell" id="work" aria-labelledby="work-title">
+      <header class="section-heading" data-reveal>
+        <p class="eyebrow">{content.work.eyebrow}</p>
+        <div>
+          <h2 id="work-title">{content.work.title}</h2>
+          <p>{content.work.lead}</p>
+        </div>
+      </header>
+
+      <article class="featured-project" data-reveal>
+        <figure class="featured-project__visual">
+          <img
+            src={content.work.image}
+            width="1440"
+            height={content.work.imageHeight}
+            loading="lazy"
+            alt={content.work.imageAlt}
+          />
+        </figure>
+        <div class="featured-project__copy">
+          <p class="project-index">{content.work.featuredLabel}</p>
+          <h3>{content.work.featuredTitle}</h3>
+          <p>{content.work.featuredBody}</p>
+          <p class="boundary-note">{content.work.featuredBoundary}</p>
+          <div class="project-links">
+            <a href={links.verisilo}>{content.work.featuredProduct}</a>
+            <a href={links.verisiloRepo} target="_blank" rel="noopener noreferrer">{content.work.featuredSource}</a>
+          </div>
+        </div>
+      </article>
+
+      <ol class="project-list" aria-label={content.work.listAria}>
+        {content.projects.map((project, index) => (
+          <li data-reveal style={`--reveal-order:${index};`}>
+            <article class="project-row">
+              <div class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</div>
+              <div class="project-row__identity">
+                <p>{project.status} · {project.type}</p>
+                <h3>{project.name}</h3>
+              </div>
+              <div class="project-row__body">
+                <p>{project.summary}</p>
+                <p>{project.decision}</p>
+              </div>
+              <div class="project-links project-row__links">
+                <a href={project.primaryHref} target="_blank" rel="noopener noreferrer">{project.primaryLabel}</a>
+                <a href={project.secondaryHref}>{project.secondaryLabel}</a>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="approach section-shell" id="approach" aria-labelledby="approach-title">
+      <header class="section-heading" data-reveal>
+        <p class="eyebrow">{content.approach.eyebrow}</p>
+        <div>
+          <h2 id="approach-title">{content.approach.title}</h2>
+          <p>{content.approach.lead}</p>
+        </div>
+      </header>
+      <ol class="principle-list">
+        {content.approach.principles.map((principle, index) => (
+          <li data-reveal style={`--reveal-order:${index};`}>
+            <span>{String(index + 1).padStart(2, '0')}</span>
+            <h3>{principle.title}</h3>
+            <p>{principle.body}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="writing section-shell" id="writing" aria-labelledby="writing-title">
+      <header class="section-heading" data-reveal>
+        <p class="eyebrow">{content.writing.eyebrow}</p>
+        <div>
+          <h2 id="writing-title">{content.writing.title}</h2>
+          <p>{content.writing.lead}</p>
+        </div>
+      </header>
+      <ol class="writing-list">
+        {content.writing.items.map((item, index) => (
+          <li data-reveal style={`--reveal-order:${index};`}>
+            <a href={item.href}>
+              <time datetime={item.date.replaceAll('/', '-')}>{item.date}</time>
+              <span>
+                <strong>{item.title}</strong>
+                <small>{item.description}</small>
+              </span>
+              <em>{content.writing.action}</em>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="room-portal section-shell" aria-labelledby="room-title" data-reveal>
+      <a class="room-portal__visual" href={roomHref} aria-label={content.room.action}>
+        <img
+          src={content.room.image}
+          width="1440"
+          height="900"
+          loading="lazy"
+          alt={content.room.imageAlt}
+        />
+      </a>
+      <div class="room-portal__copy">
+        <p class="eyebrow">{content.room.eyebrow}</p>
+        <h2 id="room-title">{content.room.title}</h2>
+        <p>{content.room.body}</p>
+        <a class="text-link" href={roomHref}>{content.room.action}</a>
+      </div>
+    </section>
+
+    <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
+      <p class="eyebrow" data-reveal>{content.contact.eyebrow}</p>
+      <div class="contact__body" data-reveal>
+        <div>
+          <h2 id="contact-title">{content.contact.title}</h2>
+          <p>{content.contact.body}</p>
+        </div>
+        <div class="contact__actions">
+          <a class="contact-email" href={emailHref}>qstudio@qiu.works</a>
+          <a class="text-link" href={links.github} target="_blank" rel="noopener noreferrer">{content.contact.githubLabel}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <p>{content.footer}</p>
+      <nav aria-label={locale === 'en' ? 'Footer links' : '页脚链接'}>
+        <a href={roomHref}>{content.hero.roomAction}</a>
+        <a href={emailHref}>{content.nav.contact}</a>
+        <a href={links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night }}>
+    (function () {
+      var button = document.getElementById('theme-toggle');
+      if (button) {
+        var html = document.documentElement;
+        var render = function () {
+          var dark = html.getAttribute('data-theme') === 'dark';
+          button.textContent = dark ? dayLabel : nightLabel;
+          button.setAttribute('aria-pressed', dark ? 'true' : 'false');
+        };
+        render();
+        button.addEventListener('click', function () {
+          var dark = html.getAttribute('data-theme') !== 'dark';
+          if (dark) {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+          } else {
+            html.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+          }
+          render();
+        });
+      }
+
+    })();
+  </script>
+</BaseLayout>

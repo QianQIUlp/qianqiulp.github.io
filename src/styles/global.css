@@ -1038,6 +1038,14 @@ body:not(.page-home--room) .site-header {
   text-decoration: underline;
 }
 
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-4);
+}
+
 /* 主题圆形转场：新主题从点击处显现。 */
 .theme-wipe {
   position: fixed;

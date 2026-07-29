@@ -20,6 +20,7 @@ export type ProjectsPageCopy = {
 };
 
 export type FeaturedProject = {
+  key: string;
   displayName: string;
   repoSlug: string;
   status: string;
@@ -79,6 +80,76 @@ export const projectsPageCopy: ProjectsPageCopy = {
 
 export const featuredProjects: FeaturedProject[] = [
   {
+    key: 'verisilo',
+    displayName: 'VeriSilo',
+    repoSlug: 'VeriSilo',
+    status: '发布前工程阶段',
+    type: '浏览器环境隔离与隐私审计平台',
+    repoUrl: 'https://github.com/QianQIUlp/VeriSilo',
+    summary:
+      'VeriSilo 为每个 Silo 创建独立、受管理的 Chrome 或 Edge 数据目录，让 Cookie、存储、缓存、权限与历史记录留在各自环境中，并把能够控制、只能观察和明确做不到的边界讲清楚。',
+    positioning:
+      'Windows 优先、开源的浏览器环境隔离与隐私审计平台。桌面端负责独立浏览器数据目录与本地 Silo 元数据，Companion 扩展提供用户主动触发的观察、验证和解释；项目不复制或修改默认浏览器 Profile。',
+    caseStudy: {
+      problem:
+        '同时使用多个网站身份时，浏览器拥有的 Cookie、Storage、Service Worker、权限和历史记录容易混在默认 Profile 中；许多工具又会把“环境隔离”夸大成设备伪装或不可检测，令真实能力边界变得模糊。',
+      design:
+        '桌面端为每个 Silo 使用独立的 `--user-data-dir` 启动 Chrome 或 Edge，并以本地加密保险库保存 VeriSilo 自己的元数据与种子；可选 Companion 只在用户触发时观察和解释当前环境，报告默认在本机保存并对高敏感信号做脱敏。',
+      start:
+        '当前处于首个签名 Windows 版本之前的公开工程阶段；可从产品站了解隔离模型，从 GitHub 查看源码、产品范围、能力矩阵、威胁模型与开发说明。',
+      boundary:
+        'VeriSilo 提供浏览器状态分离与透明隐私控制，不承诺设备伪装、欺诈绕过、TLS/QUIC 修改、硬件隔离或通用 Worker 指纹修改；当前产品站不会在发布门槛完成前提供安装包。',
+      nextStep:
+        '继续完成签名 Windows 构建、发布检查和真实环境验证；所有公开页面继续以源代码、能力状态和可复查边界为准。',
+    },
+    confirmedFacts: [
+      'README 将 VeriSilo 定义为面向 Windows、开源的 Chrome 与 Edge 浏览器环境隔离和隐私审计平台。',
+      '每个 Silo 使用独立、受管理的浏览器数据目录，不导入、复制或修改用户的默认浏览器 Profile。',
+      '桌面应用是隔离核心；Companion 扩展只承担浏览器上下文观察、验证和解释。',
+      '本地保险库保护 VeriSilo 元数据和种子，不声称加密 Chrome 或 Edge 自身管理的整个 Profile。',
+      '项目明确排除设备伪装、欺诈绕过、TLS/QUIC 修改、硬件隔离和通用 Worker 指纹修改等能力声明。',
+      '产品站把当前状态标记为发布前工程阶段，并在公开发布门槛完成前不展示安装器或商店入口。',
+    ],
+    highlights: [
+      '每个 Silo 对应独立浏览器数据目录，使浏览器拥有的 Cookie、存储、缓存、Service Worker、权限和历史记录自然分离。',
+      '用 capability state 区分可靠控制、尽力观察和明确做不到的能力，不用匿名分数掩盖证据边界。',
+      'Native Messaging、页面消息与报告导出均采用显式校验、用户触发和本地脱敏策略。',
+      '默认不导入或修改现有 Profile，也不把浏览活动、Cookie、凭据或报告同步到 VeriSilo 服务。',
+    ],
+    limitations: [
+      '当前仍处于发布前工程阶段，尚未提供首个签名 Windows 安装包。',
+      '不提供设备伪装、反检测保证、欺诈绕过、TLS/QUIC 修改或硬件级隔离。',
+    ],
+    tags: [
+      'Windows-first',
+      'Open Source',
+      'Tauri 2',
+      'Rust',
+      'Chrome / Edge',
+      'Browser Isolation',
+      'Privacy Auditing',
+      'Local-first',
+    ],
+    links: [
+      {
+        label: '产品网站',
+        href: 'https://verisilo.qiu.works',
+        external: true,
+      },
+      {
+        label: 'GitHub 仓库',
+        href: 'https://github.com/QianQIUlp/VeriSilo',
+        external: true,
+      },
+      {
+        label: '产品边界',
+        href: 'https://github.com/QianQIUlp/VeriSilo/blob/main/docs/product-scope.md',
+        external: true,
+      },
+    ],
+  },
+  {
+    key: 'meal-circuit',
     displayName: 'MealCircuit',
     repoSlug: 'meal-circuit',
     status: '可用 / v0.2.0 已发布',
@@ -155,6 +226,7 @@ export const featuredProjects: FeaturedProject[] = [
     ],
   },
   {
+    key: 'crewlight',
     displayName: 'Crewlight',
     repoSlug: 'Crewlight',
     status: '稳定化中 / v0.5.0 候选版本',
@@ -223,6 +295,7 @@ export const featuredProjects: FeaturedProject[] = [
     ],
   },
   {
+    key: 'docker-hadoop-cluster',
     displayName: 'Docker-Hadoop-Cluster',
     repoSlug: 'docker-hadoop-cluster',
     status: '教学 / 本地实验环境',

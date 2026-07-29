@@ -23,6 +23,31 @@ export const projectsPageCopyEn: ProjectsPageCopy = {
 
 const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summary' | 'caseStudy' | 'caseStudyLabels' | 'caseStudySideAria' | 'highlights' | 'links'>> = [
   {
+    status: 'Pre-release engineering',
+    type: 'Browser environment isolation and privacy-auditing platform',
+    summary: 'VeriSilo gives every Silo a separate, managed Chrome or Edge data directory, so cookies, storage, cache, permissions, and history stay in that environment while controllable, observable, and impossible capabilities remain visibly distinct.',
+    caseStudy: {
+      problem: 'People managing several web identities can easily mix browser-owned cookies, storage, service workers, permissions, and history inside a default profile. Many tools then overstate environment separation as device impersonation or undetectability, obscuring the real boundary.',
+      design: 'The desktop app launches Chrome or Edge with a dedicated `--user-data-dir` per Silo and keeps VeriSilo metadata and seeds in a local encrypted vault. The optional Companion observes and explains the current environment only after an explicit user action, with local redacted report storage by default.',
+      start: 'The project is being built in public before its first signed Windows release. The product site explains the isolation model; GitHub exposes the source, product scope, capability matrix, threat model, and development guide.',
+      boundary: 'VeriSilo provides browser-state separation and transparent privacy controls. It does not claim device impersonation, fraud bypass, TLS or QUIC modification, hardware isolation, or universal Worker fingerprint modification, and the site does not offer an installer before release gates are complete.',
+      nextStep: 'Complete the signed Windows build, release checks, and real-environment verification while keeping every public claim tied to source, capability state, and inspectable boundaries.',
+    },
+    highlights: [
+      'Uses a dedicated browser data directory per Silo so browser-owned cookies, storage, cache, service workers, permissions, and history separate naturally.',
+      'Distinguishes reliable control, best-effort observation, and unavailable capabilities instead of hiding evidence behind an anonymous score.',
+      'Keeps Native Messaging, page messages, and report export explicitly validated, user-triggered, local, and redacted by default.',
+    ],
+    links: featuredProjects[0].links.map((link) => ({
+      ...link,
+      label: link.label === '产品网站'
+        ? 'Product site'
+        : link.label === 'GitHub 仓库'
+          ? 'GitHub repository'
+          : 'Product scope',
+    })),
+  },
+  {
     status: 'Available / v0.2.0 released',
     type: 'Local-first nutrition feedback workbench',
     summary: 'Its most interesting job is not logging every meal. It connects photos, daily state, trends, and corrections into a judgment loop that accumulates, helping you learn what actually works for you.',
@@ -38,7 +63,7 @@ const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summ
       'Supports question-by-question daily check-ins, per-question drafts, skipping, and version history without turning missing information into conclusions.',
       'Uses CLI tasks, context export, schema validation, and explicit result submission instead of opaque background analysis.',
     ],
-    links: featuredProjects[0].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label })),
+    links: featuredProjects[1].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label })),
   },
   {
     status: 'Stabilizing / v0.5.0 release candidate',
@@ -61,7 +86,7 @@ const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summ
       'Keeps sessions in memory only, retaining at most the latest 1,000 by default; stable events are exactly deduplicated during their retention period.',
       'Existing adapters have been data-minimized and protocol-corrected; unreliable automatic setup for MiMo, Pi Agent, OpenClaw, and Reasonix is temporarily disabled.',
     ],
-    links: featuredProjects[1].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label === '中文 README' ? 'Chinese README' : link.label })),
+    links: featuredProjects[2].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label === '中文 README' ? 'Chinese README' : link.label })),
   },
   {
     status: 'Teaching / local experimentation',
@@ -79,7 +104,7 @@ const projectTranslations: Array<Pick<FeaturedProject, 'status' | 'type' | 'summ
       'Preflight checks, explicit health evidence, namespaced labs, safe resets, and redacted diagnostics keep the environment understandable and recoverable.',
       'Uses a passing `doctor`, healthy `status` service map, WordCount result, and its lesson check as reviewable learning evidence instead of treating “containers started” as success.',
     ],
-    links: featuredProjects[2].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label === 'GHCR 镜像' ? 'GHCR image' : link.label })),
+    links: featuredProjects[3].links.map((link) => ({ ...link, label: link.label === 'GitHub 仓库' ? 'GitHub repository' : link.label === 'GHCR 镜像' ? 'GHCR image' : link.label })),
   },
 ];
 

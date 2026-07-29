@@ -9,7 +9,6 @@ export interface Props {
   ogType?: 'website' | 'article';
   ogTitle?: string;
   ogDescription?: string;
-  ogUrl: string;
   ogImage?: string;
   ogImageAlt?: string;
   bodyClass?: string;
@@ -24,8 +23,7 @@ const {
   ogType = 'website',
   ogTitle = title,
   ogDescription = description,
-  ogUrl,
-  ogImage = '/assets/og/site.svg',
+  ogImage,
   lang = 'zh',
   ogImageAlt = siteCopy[lang].defaultImageAlt,
   bodyClass = '',
@@ -33,7 +31,12 @@ const {
   themeColorDark = '#14171a',
 } = Astro.props;
 const copy = siteCopy[lang];
+const resolvedOgImage = ogImage ?? (lang === 'en' ? '/assets/og/room-en.png' : '/assets/og/room-zh.png');
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const developerHref = lang === 'en' ? 'https://qiu.works/' : 'https://qiu.works/zh/';
+const contactHref = `${developerHref}#contact`;
+const developerLabel = lang === 'en' ? 'Developer profile' : '开发者主页';
+const contactLabel = lang === 'en' ? 'Contact' : '联系我';
 const alternatePath = lang === 'en'
   ? (Astro.url.pathname.replace(/^\/en(?=\/|$)/, '') || '/')
   : `/en${Astro.url.pathname}`;
@@ -48,6 +51,9 @@ const alternatePath = lang === 'en'
     (function(){
       document.documentElement.classList.remove('no-js');
       document.documentElement.classList.add('js');
+      if (new URLSearchParams(window.location.search).has('og')) {
+        document.documentElement.classList.add('og-capture');
+      }
       var t = localStorage.getItem('theme');
       if (t === 'dark' || (!t && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -66,13 +72,15 @@ const alternatePath = lang === 'en'
   <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
   <meta property="og:type" content={ogType} />
-  <meta property="og:site_name" content="qianqiulp" />
+  <meta property="og:site_name" content="Qiu's Room" />
   <meta property="og:locale" content={copy.locale} />
   <meta property="og:title" content={ogTitle} />
   <meta property="og:description" content={ogDescription} />
-  <meta property="og:url" content={ogUrl} />
-  <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={new URL(resolvedOgImage, Astro.site).href} />
   <meta property="og:image:alt" content={ogImageAlt} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <link rel="canonical" href={canonicalUrl} />
   <link rel="alternate" hreflang="zh-CN" href={new URL(lang === 'zh' ? Astro.url.pathname : alternatePath, Astro.site).href} />
   <link rel="alternate" hreflang="en" href={new URL(lang === 'en' ? Astro.url.pathname : alternatePath, Astro.site).href} />
@@ -93,7 +101,11 @@ const alternatePath = lang === 'en'
       <span class="site-footer__brand">
         <p>{copy.footer}</p>
       </span>
-      <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">github.com/qianqiulp</a>
+      <nav class="site-footer__links" aria-label={lang === 'en' ? 'Footer links' : '页脚链接'}>
+        <a href={developerHref}>{developerLabel}</a>
+        <a href={contactHref}>{contactLabel}</a>
+        <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
     </div>
   </footer>
 

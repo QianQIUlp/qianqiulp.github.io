@@ -36,8 +36,6 @@ const tagCount = new Set(sortedPosts.flatMap((post) => post.data.tags)).size;
   description={copy.description}
   ogTitle={copy.title}
   ogDescription={copy.description}
-  ogUrl={`https://qianqiulp.github.io${isEnglish ? '/en/blog/' : '/blog/'}`}
-  ogImage="/assets/og/site.svg"
   ogImageAlt={copy.imageAlt}
   bodyClass="page-blog-index"
 >

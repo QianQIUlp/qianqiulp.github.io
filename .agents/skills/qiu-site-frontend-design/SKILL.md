@@ -16,8 +16,9 @@ The documents have a strict order. Do not start from component convenience:
    richness exists in depth; the first view leads with Qiu, the guitar and lived experience; writing and engineering
    appear as the visitor explores. Never rewrite that quote to match a later implementation.
 2. `docs/uiux/person-first-intent.md` preserves the long-term human intent, content boundaries and historical PR audits.
-3. `docs/uiux/ink-and-light-study.md` is the active implementation contract. Its legacy filename is retained for link stability;
+3. `docs/uiux/ink-and-light-study.md` is the active Room implementation contract. Its legacy filename is retained for link stability;
    the active direction is **Modern Room**, not a requirement to recreate the former ancient-book system.
+4. `docs/uiux/developer-workbench.md` governs the separate `developer/` Astro app and its editorial-workbench direction.
 
 The 2026-07 user correction controls current implementation:
 
@@ -27,10 +28,10 @@ The 2026-07 user correction controls current implementation:
   them with another decorative particle system.
 - Red is a restrained accent for focus, state or a small brand detail; it has no mandatory cinnabar, seal or annotation meaning.
 - Theme transition and `data-reveal` may remain as quiet interface feedback. Describe them neutrally and respect reduced motion.
-- Copy is frozen to `f6ed8fd` except for four explicit changes: remove 「展开卷宗」 and its English counterpart; change
-  Chinese blog counts from 「卷 / 题」 to 「篇 / 标签」; remove the generated 「题跋」 label; remove the visible
-  「授权协议 · 文末记」 block. Preserve every other visible and assistive string byte-for-byte, including 「昼 / 夜」
-  and `Day / Night`. Visual cleanup never authorizes copy rewriting.
+- Room copy is frozen to `f6ed8fd` except for the original four changes and the 2026-07-29 user-approved identity anchor,
+  developer/contact links and VeriSilo project entry documented in the active contract. Preserve every other visible and
+  assistive string byte-for-byte, including 「昼 / 夜」 and `Day / Night`. Developer-profile copy is governed by its own
+  bilingual content contract. Visual cleanup never authorizes copy rewriting.
 - Homepage project positions and structures remain fixed: MealCircuit at the upper-left work surface, Crewlight at the
   lower-left rack, Docker-Hadoop-Cluster at the lower-right desk edge. Do not regroup, tilt or flatten them into one template.
 - The three entries remain separate HTML/CSS devices: blue horizontal driver, walnut effect box and vintage amp-head unit.
@@ -48,9 +49,14 @@ with the active rules above.
 
 ## Design Brief
 
-This is a Chinese personal blog and portfolio built with Astro. The homepage is a modern, realistic personal rehearsal/work room:
+This repository contains two static Astro sites. Room is a modern, realistic personal rehearsal/work room:
 quiet at first glance, warm without looking nostalgic, and grounded by the guitar and physical project devices. Inner pages are
 clean editorial surfaces for long Chinese essays, technical notes and project evidence.
+
+The `developer/` app is an English-first professional entry: editorial workbench, clear grid, warm neutral palette, restrained
+serif/mono accents and concise real evidence. It does not reuse the Room scene as a background or imitate a terminal, dashboard,
+generic SaaS landing page, or the VeriSilo product site. Its real VeriSilo evidence image must match the page language and retain a complete composition;
+its Beyond Work image is a locale-matched, fully lit Room overview while the outbound Room route keeps normal progressive discovery.
 
 The homepage is an artistic encounter, not a content dashboard. Do not expose every route, category, project, status and
 explanation at first glance. The visitor should discover writing, engineering and life through space, shadow and deliberate choice.
@@ -78,7 +84,7 @@ Core jobs:
    - Inspect representative content frontmatter and one long Markdown post when article UX matters.
 2. Identify drift against the active contract:
    - QiuBrush/calligraphy, seals, xuan-paper texture, global grain or decorative particles.
-   - Copy differences from `f6ed8fd` outside the four-item copy allowlist above.
+   - Room copy differences from `f6ed8fd` outside the documented old allowlist and 2026-07-29 additions.
    - Light and Dark assets with moved/missing objects, mismatched hotspots or different layouts.
    - Red used as a general button/link color or explained through obsolete cinnabar/seal semantics.
    - Real wall, wood, metal, fabric, leather and rubber flattened under one shared generated texture.
@@ -118,10 +124,11 @@ For implementation planning, state exact boundaries:
 
 Any visual change must end with:
 
-1. `npm run build` passing.
+1. The affected build passing; use `npm run build:all` for changes spanning both sites.
 2. The affected `docs/qa/visual-checklist.md` entries checked in both Light and Dark.
 3. Responsive checks at 1440px, 768px, 375px and specifically 375 × 667; narrow-screen primary targets are at least 44 × 44px.
-4. Confirmation that copy matches `f6ed8fd` except for the four allowed changes, and no calligraphic UI, xuan texture or
+4. Confirmation that Room copy only differs within the documented allowlist, developer copy matches its bilingual content,
+   locale-specific Room previews are fully lit without changing Room entry behavior, and no calligraphic UI, xuan texture or
    decorative particles returned.
 5. If the change touches a governed system, update `docs/uiux/ink-and-light-study.md` and this skill together.
    Homepage changes must also be reviewed against `docs/uiux/homepage-art-direction.md`; do not rewrite the original quote.
