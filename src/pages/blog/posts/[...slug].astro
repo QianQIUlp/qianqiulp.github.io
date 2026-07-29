@@ -31,6 +31,7 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   month: '2-digit',
   day: '2-digit',
 }).format(post.data.date);
+const defaultOgImage = isEnglish ? '/assets/og/room-en.png' : '/assets/og/room-zh.png';
 ---
 
 <BaseLayout
@@ -40,8 +41,7 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   ogType="article"
   ogTitle={post.data.title}
   ogDescription={post.data.description}
-  ogUrl={`https://qianqiulp.github.io${localizedPath(`/blog/posts/${post.id}/`, lang)}`}
-  ogImage={post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg'}
+  ogImage={post.data.ogImage ? post.data.ogImage.src : defaultOgImage}
   ogImageAlt={post.data.ogImageAlt || `${post.data.title} ${copy.imageAlt}`}
   bodyClass="page-post"
 >
@@ -179,7 +179,7 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
       "headline": post.data.title,
       "description": post.data.description,
       "image": [
-        new URL(post.data.ogImage ? post.data.ogImage.src : '/assets/og/site.svg', Astro.site).href
+        new URL(post.data.ogImage ? post.data.ogImage.src : defaultOgImage, Astro.site).href
       ],
       "datePublished": formattedDate,
       "author": [{

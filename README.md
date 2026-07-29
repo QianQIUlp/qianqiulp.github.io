@@ -1,114 +1,82 @@
-# 🏡 qianqiulp.github.io
+# Qiu's Room + Developer Profile
 
-这是千秋的个人主页与写作空间，使用 **Astro** 构建。网站以「墨光书房」为视觉契约——界画四原则（统一纸底、左上光源、边缘墨化、墨分五色）、朱砂印章与书体题字，组织项目、技术实践、阅读随笔、游戏观察与仍在成形的想法，并支持响应式布局和昼宣/夜墨双主题。
+一个仓库中的两套独立 Astro 静态站：`qiu.works` 是英文优先的开发者主页，`room.qiu.works` 是保留人物叙事与房间探索的 Qiu's Room。VeriSilo 产品官网继续由自己的仓库维护。
 
-[![Astro](https://img.shields.io/badge/Astro-v6.0-FF5D01.svg?style=flat&logo=astro&logoColor=white)](https://astro.build)
+[![Astro](https://img.shields.io/badge/Astro-7.1-FF5D01.svg?style=flat&logo=astro&logoColor=white)](https://astro.build)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Deploy to GitHub Pages](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml)
+[![Build both Astro sites](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/qianqiulp/qianqiulp.github.io/actions/workflows/deploy.yml)
 
----
+## 站点边界
 
-## 🌟 核心特性
+| 入口 | 作用 | 应用目录 |
+|---|---|---|
+| `https://qiu.works` | 开发者身份、代表作品、工程原则、精选写作与联系入口 | `developer/` |
+| `https://room.qiu.works` | 房间、吉他、文章、项目档案与生活近景 | 仓库根目录 |
+| `https://verisilo.qiu.works` | VeriSilo 产品说明与转化 | VeriSilo 独立仓库 |
 
-- **持续场景式个人房间**：首页以 4K 2.5D 排练室容纳写作、工程与生活，点击物件会在同一空间里自然推近并把真实内容落入显示器或工作台。
-- **昼宣 · 夜墨双主题**：同一构图的两种光——夜墨灯下读、昼宣纸上读，切换时以墨晕收拢转场，并记住用户选择、消除加载闪烁（FOUC）。
-- **界画视觉系统**：墨分五色承担层级、朱砂印章落款、书体题字签名、「显影」入场动效与乌丝栏卷轴排版贯穿全站。
-- **动态博客系统**：基于 Astro 6.0 Content Collections 构建，支持 Markdown 编写并自动生成 SEO Meta 头和站点地图。
-- **长文动态目录**：博客文章页支持滚动联动目录，并针对中文长文、代码块、表格和图片优化阅读体验。
-- **真实内容驱动**：房间内直接读取最新文章和重点项目，场景入口、无 JavaScript hash 落点与既有内容路由互相衔接。
-- **性能优化**：使用 Astro 原生图像优化（`astro:assets`）、书体子集（11KB）和极低的 CSS 与 JS 体积，秒级加载。
+两套个人站互相链接，但不复制彼此的职责：开发者主页负责快速建立职业认知，Room 负责呈现一个更完整的人。
 
-## 🛠️ 本地开发与预览
+## 本地开发
 
-本项目使用 Astro 构建，本地运行非常简单：
-
-### 1. 准备工作
-
-项目要求 Node.js 22（最低 `22.12.0`），并通过根目录的 `mise.toml` 固定为 `22.23.1`。推荐安装
-[mise](https://mise.jdx.dev/getting-started.html) 后在仓库目录运行：
+项目要求 Node.js `>=22.12.0 <23`，仓库通过 `mise.toml` 固定为 `22.23.1`。
 
 ```bash
-mise install
-node --version
+# 安装两套应用的依赖
+npm install
+npm --prefix developer install
+
+# Qiu's Room
+npm run dev
+
+# Developer Profile
+npm run dev:developer
+
+# 一次构建两套应用
+npm run build:all
 ```
 
-`mise` 会按项目切换 Node 版本，不会覆盖其他项目各自声明的版本。也可以自行安装符合要求的 Node.js 22。
+也可以分别使用 `npm run build`、`npm run build:developer`、`npm run preview` 和 `npm run preview:developer`。构建产物位于 `dist/` 与 `developer/dist/`，均不提交。
 
-### 2. 安装步骤
+## Cloudflare Pages
 
-1. 克隆本仓库到本地：
-   ```bash
-   git clone https://github.com/qianqiulp/qianqiulp.github.io.git
-   cd qianqiulp.github.io
-   ```
-2. 安装项目依赖：
-   ```bash
-   npm install
-   ```
+同一 GitHub 仓库连接两个 Pages 项目，生产分支均为 `main`，环境变量均设置 `NODE_VERSION=22.23.1`。
 
-### 3. 开发命令
+| Pages 项目 | Root directory | Build command | Output directory | Custom domain |
+|---|---|---|---|---|
+| Developer | `developer` | `npm run build` | `dist` | `qiu.works` |
+| Room | 留空（仓库根目录） | `npm run build` | `dist` | `room.qiu.works` |
 
-- **本地预览开发服务器**：
-  ```bash
-  npm run dev
-  ```
-  启动后，在浏览器访问 `http://localhost:4321` 即可预览站点，修改文件后浏览器将实时热更新（HMR）。
+`.github/workflows/deploy.yml` 只执行两套静态构建检查，不再发布 GitHub Pages。邮箱相关的 MX、SPF、DKIM 与 DMARC 不属于网站部署配置。
 
-- **项目打包构建**：
-  ```bash
-  npm run build
-  ```
-  该命令会验证 TypeScript 和编译所有 Astro 页面，在本地生成打包后的静态文件，存放在 `dist` 目录中。
-
-- **预览打包后站点**：
-  ```bash
-  npm run preview
-  ```
-
----
-
-## 🧭 维护文档
-
-- [站点维护说明](./docs/site-maintenance.md)：本地启动、新增文章、新增项目、字段边界和 Codex UI 改动前置阅读清单。
-- [墨光书房设计契约](./docs/uiux/ink-and-light-study.md)：现行视觉契约——界画四原则、昼宣夜墨、色彩/字体/印章/动效边界与防漂移清单。
-- [人本房间与编辑工作台设计契约](./docs/uiux/person-first-editorial-system.md)（已废止，留档）：房间叙事与内容边界的原始决策。
-- [场景资产提示词](./docs/asset-prompts/)：首页房间场景图的再生成提示词与过审清单。
-- [Visual QA Checklist](./docs/qa/visual-checklist.md)：UI 改动后的手动检查项，覆盖设计系统、首页、博客、文章页、项目页、双主题、移动端、键盘焦点和图片稳定性。
-
----
-
-## 📂 仓库结构说明
+## 仓库结构
 
 ```text
 qianqiulp.github.io/
-├── .github/
-│   ├── ISSUE_TEMPLATE/       # GitHub 反馈模板 (Bug, Feature)
-│   ├── PULL_REQUEST_TEMPLATE.md # GitHub PR 预填模板
-│   └── workflows/            # GitHub Actions CI 自动化部署工作流
-├── src/
-│   ├── assets/               # 博客封面及插图等静态媒体资产
-│   ├── components/           # 公共 Astro 页面组件
-│   ├── content/              # Markdown 技术博客文章源文件
-│   │   └── posts/            # 博客 markdown 文件
-│   ├── layouts/              # 站点整体页面布局架构
-│   ├── pages/                # 站点路由页面 (index.astro, projects.astro)
-│   └── styles/               # 站点全局及局部公共样式
-├── public/                   # 存放在站点的全局非编译资产 (favicon 等)
-├── astro.config.mjs          # Astro 项目配置文件
-├── CONTRIBUTING.md           # 贡献者协作指引手册
-├── CHANGELOG.md              # Keep a Changelog 标准更新历史
-├── LICENSE                   # MIT 开源许可证协议
-└── package.json              # 项目依赖及运行指令配置
+├── developer/               # qiu.works 独立 Astro 应用
+│   ├── public/              # 产品实图、Room 裁图、分享卡与 favicon
+│   └── src/                 # 双语单页、布局、内容与样式
+├── src/                     # room.qiu.works Astro 源码
+│   ├── assets/
+│   ├── components/
+│   ├── content/
+│   ├── data/
+│   ├── layouts/
+│   ├── pages/
+│   └── styles/
+├── public/                  # Room 静态资源与分享卡
+├── docs/                    # 内容维护、设计契约与 QA
+└── .github/workflows/       # 双站构建检查
 ```
 
----
+## 设计与维护文档
 
-## 🤝 参与贡献
+- [Room 首页艺术方向](./docs/uiux/homepage-art-direction.md)
+- [Room 人物优先意图](./docs/uiux/person-first-intent.md)
+- [Room 现行视觉契约](./docs/uiux/ink-and-light-study.md)
+- [Developer 编辑工作台契约](./docs/uiux/developer-workbench.md)
+- [Visual QA Checklist](./docs/qa/visual-checklist.md)
+- [站点维护说明](./docs/site-maintenance.md)
 
-如果你想为我提供建议、发现 Bug 或者想提交代码：
-- 请先阅读我们的 [CONTRIBUTING.md](./CONTRIBUTING.md) 以了解我们的开发准则和提交流程。
-- 欢迎通过 [Issue](../../issues) 与我沟通！
+## License
 
-## 📄 开源许可证
-
-本项目基于 [MIT](./LICENSE) 许可证开源，任何人均可自由地获取、修改和使用本仓库的代码，但须保留版权声明与免责声明。
+[MIT](./LICENSE)

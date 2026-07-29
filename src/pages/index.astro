@@ -19,6 +19,8 @@ import '../styles/home-room.css';
 const lang: Lang = Astro.props.lang === 'en' ? 'en' : 'zh';
 const isEnglish = lang === 'en';
 const path = (value: string) => localizedPath(value, lang);
+const developerHref = isEnglish ? 'https://qiu.works/' : 'https://qiu.works/zh/';
+const contactHref = `${developerHref}#contact`;
 const copy = isEnglish ? {
   title: "Qianqiu's Home · Qiu's Room",
   description: "Step into Qianqiu's room and meet his building, writing, and life through the desk, workbench, and guitar.",
@@ -27,7 +29,8 @@ const copy = isEnglish ? {
   writingTitle: 'Recent writing', allPosts: 'All articles',
   projectsTitle: 'Engineering archive', allProjects: 'Full projects page',
   file: 'File',
-  introTitle: "I'm Qianqiu.", intro: 'Guitar, games, relationships, and many thoughts still unfinished.',
+  identity: 'CS student · indie developer',
+  introTitle: "I'm Qiu.", intro: 'I build local-first tools and write about software, music, games, and questions still unresolved.',
   destinationsAria: 'Get to know Qianqiu through the room',
   desk: 'Desk', writing: 'Writing', deskAria: 'Approach the desk and view articles',
   workbench: 'Workbench', projects: 'Projects', workbenchAria: 'Approach the workbench and view projects',
@@ -35,6 +38,7 @@ const copy = isEnglish ? {
   lifeTitle: 'This room also keeps the parts that never became projects.',
   lifeBody: 'Guitar practice, games, relationships, and ordinary experience shape how I think. I write down what I can share and leave what remains unresolved as questions.',
   lifeWriting: 'Writing shaped by life', lifePostsAria: 'Articles drawn from lived experience', linksAria: 'Other public links',
+  developerProfile: 'Developer profile', contact: 'Contact',
   reset: 'Back to the room', hint: 'There is more beyond the light.',
   moving: 'The view is moving toward ', object: 'something in the room', arrived: 'The view has reached ', target: 'the destination',
   returning: 'The view is returning to the whole room.', returned: 'Back in the whole room.',
@@ -46,7 +50,8 @@ const copy = isEnglish ? {
   writingTitle: '最近的文字', allPosts: '全部文章',
   projectsTitle: '工程档案', allProjects: '完整作品页',
   file: '档',
-  introTitle: '我是千秋。', intro: '练琴，游戏，关系，还有许多没想完的事。',
+  identity: '学生开发者 · 独立构建者',
+  introTitle: '我是千秋。', intro: '我做本地优先的软件工具，也写技术、练琴、游戏和那些还没想完的事。',
   destinationsAria: '从房间里认识千秋',
   desk: '书桌', writing: '文章', deskAria: '走近书桌，查看文章',
   workbench: '工作台', projects: '作品', workbenchAria: '走近工作台，查看作品',
@@ -54,6 +59,7 @@ const copy = isEnglish ? {
   lifeTitle: '这里也收着没有被做成作品的部分。',
   lifeBody: '练琴、游戏、关系和日常经验会进入我的判断。我把能公开的部分写下来，也把还没想清楚的地方保留成问题。',
   lifeWriting: '生活留下的文字', lifePostsAria: '来自生活经验的文章', linksAria: '其他公开入口',
+  developerProfile: '开发者主页', contact: '联系我',
   reset: '回到房间', hint: '光外还有东西。',
   moving: '视线正在走向', object: '房间里的物件', arrived: '已经走到', target: '目标',
   returning: '视线正在回到房间全景。', returned: '已回到房间全景。',
@@ -77,7 +83,16 @@ const lifePosts = lifePostIds.map((postId) => {
   }
   return post;
 });
-const roomProjectsList = (isEnglish ? featuredProjectsEn : featuredProjects).slice(0, 3);
+const allProjects = isEnglish ? featuredProjectsEn : featuredProjects;
+const roomProjectKeys = ['meal-circuit', 'crewlight', 'docker-hadoop-cluster'];
+const projectsByKey = new Map(allProjects.map((project) => [project.key, project]));
+const roomProjectsList = roomProjectKeys.map((key) => {
+  const project = projectsByKey.get(key);
+  if (!project) {
+    throw new Error(`Homepage project missing from projects data: ${key}`);
+  }
+  return project;
+});
 const roomPedalDesigns = [
   {
     variant: 'wood',
@@ -130,8 +145,6 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
   description={copy.description}
   ogTitle={copy.title}
   ogDescription={copy.ogDescription}
-  ogUrl={`https://qianqiulp.github.io${path('/')}`}
-  ogImage="/assets/og/site.svg"
   ogImageAlt={copy.ogImageAlt}
   bodyClass="page-home page-home--room"
   themeColorLight="#08090a"
@@ -294,7 +307,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
                     titleLines={pedal.titleLines}
                     controls={pedal.controls}
                     tags={pedal.tags}
-                    href={`${path('/projects/')}#project-${index + 1}`}
+                    href={`${path('/projects/')}#project-${project.key}`}
                     isEnglish={isEnglish}
                     autofocus={index === 0}
                   />
@@ -315,6 +328,7 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
     </div>
 
     <section class="room-intro" aria-labelledby="home-title">
+      <p class="room-intro__identity">{copy.identity}</p>
       <h1 id="home-title">{copy.introTitle}</h1>
       <p>{copy.intro}</p>
     </section>
@@ -372,6 +386,8 @@ const formatDate = (date: Date) => date.toISOString().slice(0, 10);
         </ul>
       </div>
       <div class="room-life-note__links" aria-label={copy.linksAria}>
+        <a href={developerHref}>{copy.developerProfile}</a>
+        <a href={contactHref}>{copy.contact}</a>
         <a href="https://github.com/qianqiulp" target="_blank" rel="noopener noreferrer">GitHub</a>
         <a
           href="https://space.bilibili.com/400485069?spm_id_from=333.33.0.0"

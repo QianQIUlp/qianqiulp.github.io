@@ -2,13 +2,17 @@
 
 ## Identity
 
-Qiu's site is a modern, realistic personal rehearsal/work room paired with clean editorial reading pages.
+Qiu's Room is a modern, realistic personal rehearsal/work room paired with clean editorial reading pages.
 It is warm, calm, personal and practical without leaning on visible ancient-book styling. It supports long
 Chinese text, technical notes, reflective essays, project browsing and contact discovery.
 
 The active implementation contract is `docs/uiux/ink-and-light-study.md`; the legacy filename is retained
 for link stability. For the homepage, `docs/uiux/homepage-art-direction.md` remains the higher creative source:
 richness lives in depth, while the first glance leads with Qiu, the guitar and lived experience.
+
+The same repository also contains an English-first developer profile in `developer/`. It is an editorial workbench using warm
+neutral surfaces, a clear grid, restrained serif/mono accents and real project evidence. It is not a Room-scene background,
+terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone.
 
 ## Design Intent
 
@@ -22,13 +26,12 @@ richness lives in depth, while the first glance leads with Qiu, the guitar and l
 - Keep the three project entries visually distinct and fixed to their authored positions: walnut box, vintage amp head and blue driver.
 - Let long-form content carry inner pages through type, spacing, contrast and a usable table of contents.
 - Theme transition and reveal may remain as neutral, reduced-motion-safe feedback.
-- Preserve user-facing and assistive copy from `f6ed8fd` except for the four-item allowlist in the active contract.
+- Preserve Room copy from `f6ed8fd` except for the old four-item allowlist and the exact 2026-07-29 additions in the active contract.
 
 ## Avoid
 
 - Generic AI SaaS gradients, dashboard heroes and stacked cards.
-- Any copy change outside the explicit removal/replacement of 「展开卷宗」, blog 「卷 / 题」 counts, generated 「题跋」,
-  and the visible 「授权协议 · 文末记」 block.
+- Any Room copy change outside the active contract's exact allowlist and 2026-07-29 identity/link/VeriSilo additions.
 - QiuBrush/calligraphic component text, seals, xuan texture, global noise and decorative particles.
 - Red on every link/button, or obsolete cinnabar/annotation meaning attached to it.
 - Elements that exist in only one theme; moved room objects or mismatched day/night hotspots.

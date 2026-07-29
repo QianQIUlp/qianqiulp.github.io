@@ -59,8 +59,6 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
   title={copy.title}
   description={copy.description}
   ogTitle={copy.title}
-  ogUrl={`https://qianqiulp.github.io${localizedPath('/projects/', lang)}`}
-  ogImage="/assets/og/site.svg"
   ogImageAlt={copy.imageAlt}
   bodyClass="page-projects"
 >
@@ -85,7 +83,7 @@ const displayDate = new Intl.DateTimeFormat(isEnglish ? 'en-US' : 'zh-CN', {
       {projects.map((project, index) => (
         <article
           class="featured-work__card"
-          id={`project-${index + 1}`}
+          id={`project-${project.key}`}
           data-reveal
           style={`--reveal-order: ${index % 3};`}
         >
