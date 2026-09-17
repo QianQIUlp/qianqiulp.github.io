@@ -102,7 +102,7 @@ license: "CC BY-NC 4.0"
 - `secondaryProjects` 用于站点基础设施、归档入口、学习线索等次级内容。
 - `selectedGuidePostIds` 必须对应 `src/content/posts/` 中存在的文章 slug。
 - 外部链接设置 `external: true`，渲染时会使用新标签页和安全 `rel`。
-- `docker-hadoop-cluster` 是当前项目的真实仓库 slug；旧的 `dockder-hadoop-cluster` 链接均为错误拼写。
+- `docker-hadoop-cluster` 是当前项目的真实仓库 slug；旧的 `dockder-hadoop-cluster` 链接均为错误拼写。该项目的公开显示名是 `Hadoop Lab`，slug 只用于仓库地址与链接。
 
 ## UI 检查
 
@@ -173,6 +173,6 @@ Codex 或其他维护者在做 UI 改动前，至少先读这些文件：
 如果改项目页，还要读：
 
 - `src/data/projects.ts`
-- `docs/project-briefs/docker-hadoop-cluster.md`
+- `docs/project-briefs/` 下对应的项目 brief（`verisilo.md`、`meal-circuit.md`、`crewlight.md`、`docker-hadoop-cluster.md`）
 
 UI 方向保持“温暖书房”：安静、可读、个人化、适合中文长文。不要把站点改成泛 AI SaaS、营销落地页或堆叠卡片式仪表盘。

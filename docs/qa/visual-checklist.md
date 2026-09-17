@@ -49,7 +49,7 @@ Always check **Light** and **Dark** mode for changed routes.
 - 中文首屏显示「学生开发者 · 独立构建者」「我是千秋。」与批准的新自述；英文首屏显示
   `CS student · indie developer`、`I'm Qiu.` 与批准的新自述；其他首页文案保持基线。
 - 生活近景与页脚的 Developer profile / 开发者主页、Contact / 联系我链接进入相应语言的 `qiu.works`。
-- 首页三台设备仍明确固定为 MealCircuit、Crewlight、Docker-Hadoop-Cluster；VeriSilo 只进入项目档案。
+- 首页三台设备仍明确固定为 MealCircuit、Crewlight、Hadoop Lab；VeriSilo 只进入项目档案。
 - 首页没有书法字、印章、宣纸噪点、花瓣、墨絮或其他装饰粒子；文字只按上方四项白名单变化。
 - Header brand, nav, and theme toggle fit without wrapping awkwardly.
 - The first viewport reads as Qiu's personal rehearsal room rather than a product landing page or metrics dashboard.
@@ -102,7 +102,7 @@ Always check **Light** and **Dark** mode for changed routes.
 ## Projects Page
 
 - Hero copy and note remain balanced at desktop, 768px, and 375px.
-- VeriSilo is first, uses the stable `#project-verisilo` anchor, and states Pre-release engineering / 发布前工程阶段.
+- VeriSilo is first, uses the stable `#project-verisilo` anchor, and states Public pre-release · v0.1.0-rc4 / 公开预发布 · v0.1.0-rc4 while naming the installer as unsigned.
 - Every featured case uses a stable `project-{key}` anchor rather than its array position.
 - Featured project dossiers keep ordinal, title, repo slug, links, summary, case study, boundaries, and tags readable.
 - External project links are clearly focusable and tappable.
@@ -115,7 +115,7 @@ Always check **Light** and **Dark** mode for changed routes.
 - The first viewport reads as a clear developer profile, not a duplicate Room scene, VeriSilo product page, terminal skin, or SaaS card grid.
 - Hero identity, current VeriSilo status, Selected Work, GitHub and Enter Qiu's Room are immediately understandable.
 - VeriSilo uses a complete, naturally framed real product-site or application image in the matching page language; no clipped composition, invented product UI, metrics, customers, or capability claims appear.
-- Selected Work remains concise and ordered VeriSilo, MealCircuit, Crewlight, Docker-Hadoop-Cluster.
+- Selected Work remains concise and ordered VeriSilo, MealCircuit, Crewlight, Hadoop Lab.
 - How I Build contains the five approved principles; Selected Writing links to the three real localized Room articles.
 - Beyond Work uses a fully lit real Room crop in the matching language and reaches that language's normal progressive-discovery Room route.
 - Contact exposes `qstudio@qiu.works`, GitHub, and the approved focused-help copy without prices or an unlimited support promise.

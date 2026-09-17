@@ -450,7 +450,7 @@ button {
 .featured-project__visual {
   position: relative;
   overflow: hidden;
-  aspect-ratio: 1440 / 910;
+  aspect-ratio: 1440 / 710;
   align-self: start;
   border: 1px solid var(--line-strong);
   background: var(--surface-muted);
