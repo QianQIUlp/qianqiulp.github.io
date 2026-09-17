@@ -108,7 +108,7 @@ Light/Dark 主题不因域名和站点分工变化而重排。
 ### 三台项目设备
 
 三件作品继续严格位于作者标注位置：MealCircuit 左上桌面，Crewlight 左下机架，
-Docker-Hadoop-Cluster 右下桌沿。它们是三套独立 HTML/CSS 设备，不得简化为同模板换色、倾斜卡片或通栏 HUD。
+Hadoop Lab 右下桌沿。它们是三套独立 HTML/CSS 设备，不得简化为同模板换色、倾斜卡片或通栏 HUD。
 
 - **Docker-Hadoop**：横置 Blue Driver 结构，蓝色双层机箱、顶部信号栏、纵向金色旋钮和大黑踏板。
 - **MealCircuit**：深色胡桃木盒、左侧三枚纵列实木旋钮、中部现代 maker-style 设备铭牌、状态灯和金属彩钉。
