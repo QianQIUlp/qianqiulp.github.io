@@ -132,8 +132,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
       featuredProduct: 'Visit product site',
       featuredSource: 'Inspect source',
       image: '/assets/evidence/verisilo-site-en.png',
-      imageHeight: 910,
-      imageAlt: 'VeriSilo capability evidence model distinguishing reliable, best-effort, and unsupported browser controls',
+      imageHeight: 710,
+      imageAlt: 'VeriSilo evidence view comparing declared and observed configuration, marked Matched with the caveat that a match is not an unlimited guarantee',
       listAria: 'Selected software projects',
     },
     projects: [
@@ -270,8 +270,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
       featuredProduct: '前往产品网站',
       featuredSource: '检查源代码',
       image: '/assets/evidence/verisilo-site-zh.png',
-      imageHeight: 843,
-      imageAlt: 'VeriSilo 产品站的能力证据模型，区分可靠、尽力而为与不支持的浏览器控制',
+      imageHeight: 710,
+      imageAlt: 'VeriSilo 证据视图对比配置声明与实测结果，状态为「匹配」，并注明一致并不代表对整个身份的无限保证',
       listAria: '代表软件项目',
     },
     projects: [

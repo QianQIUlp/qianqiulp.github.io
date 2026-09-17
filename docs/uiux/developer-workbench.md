@@ -21,8 +21,7 @@ X、LinkedIn、合作方与未来客户的职业入口，不承担完整人物�
 - 暖米白与炭黑构成 Light/Dark 基础，左上有轻微暖光，暗红只用于线、状态与小型强调；
 - 系统无衬线承担正文与主信息，serif 只用于姓名和少量编辑性标题，mono 只用于状态、编号与项目元信息；
 - 留白、细线、对齐和明确网格承担分组，不堆通用圆角卡片；
-- 使用真实 VeriSilo 页面/应用图与真实 Room 裁图，不生成虚构产品 UI；VeriSilo 证据图和 Room 裁图都按语言分别取自对应页面，前者保留完整、自洽的画面构图，后者展示已完整照亮的概览；
-- 不使用房间场景作全页背景，不使用技术 Logo 墙、终端皮肤、SaaS 渐变、仪表盘或同模板卡片矩阵；
+- 使用真实 VeriSilo 页面/应用图与真实 Room 裁图，不生成虚构产品 UI；VeriSilo 证据图和 Room 裁图都按语言分别取自对应页面，前者保留完整、自洽的画面构图，后者展示已完整照亮的概览；- 不使用房间场景作全页背景，不使用技术 Logo 墙、终端皮肤、SaaS 渐变、仪表盘或同模板卡片矩阵；
 - 动效只允许短淡入与必要反馈，`prefers-reduced-motion` 下信息立即呈现。
 
 ## 固定信息架构
@@ -44,6 +43,8 @@ X、LinkedIn、合作方与未来客户的职业入口，不承担完整人物�
 - 跳转链接、导航、语言、主题、项目与联系入口均可键盘操作并有可见焦点；
 - Light/Dark 的内容、顺序和证据相同；可见按钮保持 `Day / Night` 与「昼 / 夜」；
 - 图片预留稳定比例，文字和链接不得依赖动画才能出现。
+- VeriSilo 证据图与 Room 裁图必须取自对应语言的**当前**线上页面。产品站或 Room 视觉改版后，这两组图需重新截取，不能沿用旧版表面。
+- 证据图当前取自 `verisilo.qiu.works` 的 `.evidence-section`（`Confidence, with a trace.` / 「安心，有迹可循。」），两种语言均为 1440 × 710。换图时必须同步 `developer/src/content.ts` 的 `work.imageHeight` 与 `developer/src/styles/global.css` 的 `.featured-project__visual` `aspect-ratio`，三者保持一致以免变形。
 
 ## 元数据与部署
 
