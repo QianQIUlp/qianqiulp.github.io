@@ -3,9 +3,11 @@ export type Locale = 'en' | 'zh';
 type Project = {
   key: string;
   name: string;
+  tier: string;
   status: string;
   type: string;
   summary: string;
+  audience: string;
   decision: string;
   primaryLabel: string;
   primaryHref: string;
@@ -30,7 +32,7 @@ export type DeveloperCopy = {
   skip: string;
   brandAria: string;
   navAria: string;
-  nav: { work: string; approach: string; writing: string; contact: string };
+  nav: { work: string; studio: string; approach: string; writing: string; contact: string };
   languageLabel: string;
   languageAria: string;
   themeAria: string;
@@ -38,7 +40,8 @@ export type DeveloperCopy = {
   night: string;
   hero: {
     eyebrow: string;
-    name: string;
+    studio: string;
+    studioLead: string;
     headline: string;
     body: string;
     workAction: string;
@@ -54,6 +57,8 @@ export type DeveloperCopy = {
     eyebrow: string;
     title: string;
     lead: string;
+    featuredTier: string;
+    featuredAudience: string;
     featuredLabel: string;
     featuredTitle: string;
     featuredBody: string;
@@ -66,6 +71,14 @@ export type DeveloperCopy = {
     listAria: string;
   };
   projects: Project[];
+  studio: {
+    eyebrow: string;
+    title: string;
+    lead: string;
+    body: string;
+    facts: { term: string; detail: string; href?: string; linkLabel?: string }[];
+    factsAria: string;
+  };
   approach: { eyebrow: string; title: string; lead: string; principles: Principle[] };
   writing: { eyebrow: string; title: string; lead: string; items: Writing[]; action: string };
   room: { eyebrow: string; title: string; body: string; action: string; image: string; imageAlt: string };
@@ -93,38 +106,41 @@ const links = {
 export const copy: Record<Locale, DeveloperCopy> = {
   en: {
     meta: {
-      title: 'Qiu · CS student and indie developer',
-      description: 'Qiu builds local-first software with explicit boundaries, including VeriSilo and other inspectable developer tools.',
+      title: 'Q Studio · Independent software studio by Qian Qiu',
+      description: 'Q Studio is an independent, self-funded software studio founded and operated by Qian Qiu, building local-first and inspectable software including VeriSilo.',
       image: '/assets/og/developer-en.png',
-      imageAlt: 'Qiu developer profile — local-first software with explicit boundaries',
+      imageAlt: 'Q Studio by Qian Qiu — local-first software with explicit boundaries',
     },
     skip: 'Skip to main content',
-    brandAria: 'Qiu developer home',
+    brandAria: 'Q Studio developer home',
     navAria: 'Primary navigation',
-    nav: { work: 'Work', approach: 'Approach', writing: 'Writing', contact: 'Contact' },
+    nav: { work: 'Work', studio: 'Studio', approach: 'Approach', writing: 'Writing', contact: 'Contact' },
     languageLabel: '中文',
     languageAria: '切换到中文',
     themeAria: 'Switch color theme',
     day: 'Day',
     night: 'Night',
     hero: {
-      eyebrow: 'CS student · indie developer',
-      name: 'Qiu',
-      headline: 'I build local-first software with explicit boundaries.',
-      body: 'Currently building VeriSilo, a Windows-first, open-source browser environment isolation and privacy-auditing project for Chrome and Edge.',
+      eyebrow: 'Q Studio · Independent software studio',
+      studio: 'Q Studio',
+      studioLead: 'Founded and operated by Qian Qiu · CS student and indie developer',
+      headline: 'Focused software with explicit boundaries.',
+      body: 'Q Studio builds local-first and inspectable software with an emphasis on user-controlled data, explicit capability boundaries, and reproducible systems. The current focus is VeriSilo, a Windows-first, open-source browser environment isolation and privacy-auditing project for Chrome and Edge.',
       workAction: 'View selected work',
       githubAction: 'GitHub',
       roomAction: "Enter Qiu's Room",
-      nowLabel: 'Now building',
+      nowLabel: 'Current focus',
       nowProject: 'VeriSilo',
       nowStatus: 'Public pre-release · v0.1.0-rc4',
       nowBody: 'Separate browser-owned state without pretending to change what ordinary browser software cannot control.',
-      nowEvidence: 'A Windows x64 installer is available for download, alongside checksums, SBOMs, provenance, and an open threat model.',
+      nowEvidence: 'A Windows x64 installer is available for download, alongside checksums, SBOMs, provenance, an open threat model, and explicit capability states.',
     },
     work: {
-      eyebrow: 'Selected work',
+      eyebrow: 'Selected software',
       title: 'Evidence before adjectives.',
       lead: 'Each project starts with a concrete problem, keeps its boundary visible, and leaves behind something another person can inspect.',
+      featuredTier: 'Primary · current product',
+      featuredAudience: 'Built for individuals and technical users who need browser identities kept visibly separate.',
       featuredLabel: '01 · Current focus',
       featuredTitle: 'Browser state, visibly separated.',
       featuredBody: 'Every Silo launches Chrome or Edge with its own managed data directory. Cookies, storage, cache, service workers, permissions, and history stay inside that environment rather than the default profile.',
@@ -134,15 +150,17 @@ export const copy: Record<Locale, DeveloperCopy> = {
       image: '/assets/evidence/verisilo-site-en.png',
       imageHeight: 710,
       imageAlt: 'VeriSilo evidence view comparing declared and observed configuration, marked Matched with the caveat that a match is not an unlimited guarantee',
-      listAria: 'Selected software projects',
+      listAria: 'Other public software',
     },
     projects: [
       {
         key: 'meal-circuit',
         name: 'MealCircuit',
+        tier: 'Public software',
         status: 'Available · v0.3.0',
         type: 'Local-first nutrition feedback workbench',
         summary: 'Connects meal photos, daily state, trends, and corrections into a feedback history that can improve the next decision.',
+        audience: 'Built for individuals who want long-horizon diet feedback without handing their history to a cloud service.',
         decision: 'The application keeps facts, schemas, and correction history local, and v0.3.0 shares one encrypted data model with a native Android client. It does not call an external model API itself.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.mealCircuit,
@@ -152,9 +170,11 @@ export const copy: Record<Locale, DeveloperCopy> = {
       {
         key: 'crewlight',
         name: 'Crewlight',
+        tier: 'Public software',
         status: 'v0.5.0 released · Windows-first candidate',
         type: 'Local-first AI agent activity radar',
         summary: 'Brings running, waiting, permission-request, completed, and failed states from parallel Claude Code, Codex, and other tools into read-only Desktop, Companion, Dashboard, and CLI views.',
+        audience: 'Built for developers running parallel AI coding agents who need to see which task needs attention.',
         decision: 'Windows x64 artifacts shipped as a pre-release and are unsigned; Linux and macOS publish no native binaries. Crewlight stores no prompts, transcripts, tool I/O, or complete platform payloads.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.crewlight,
@@ -164,9 +184,11 @@ export const copy: Record<Locale, DeveloperCopy> = {
       {
         key: 'docker-hadoop-cluster',
         name: 'Hadoop Lab',
+        tier: 'Teaching · not a product',
         status: 'Teaching · local experimentation',
         type: 'Repeatable local Hadoop laboratory',
         summary: 'Connects environment setup, service observation, MapReduce, and three-node failure and recovery into a guided learning path across seven labs.',
+        audience: 'Built for classroom teaching, self-study, and local experimentation with Hadoop.',
         decision: 'A lifecycle CLI plus doctor, status, WordCount, safe reset, and redacted diagnostics keep the lab reproducible without presenting it as a production platform.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.hadoop,
@@ -174,6 +196,22 @@ export const copy: Record<Locale, DeveloperCopy> = {
         secondaryHref: `${links.roomEn}projects/#project-docker-hadoop-cluster`,
       },
     ],
+    studio: {
+      eyebrow: 'Studio',
+      title: 'Q Studio, stated plainly.',
+      lead: 'An independent, self-funded software studio founded and operated by Qian Qiu.',
+      body: 'Q Studio builds local-first and inspectable software: user data stays with the user, capability boundaries are written down, and setup and recovery can be repeated by someone else. The current focus is VeriSilo; Crewlight and MealCircuit are public, inspectable software; Hadoop Lab is a teaching lab, not a product.',
+      facts: [
+        { term: 'Studio', detail: 'Q Studio · independent software studio' },
+        { term: 'Founder', detail: 'Qian Qiu' },
+        { term: 'Model', detail: 'Independent · self-funded' },
+        { term: 'Focus', detail: 'Local-first software · developer tools · inspectable privacy systems' },
+        { term: 'Current focus', detail: 'VeriSilo', href: links.verisilo, linkLabel: 'Visit product site' },
+        { term: 'Contact', detail: 'qstudio@qiu.works', href: 'mailto:qstudio@qiu.works', linkLabel: 'qstudio@qiu.works' },
+        { term: 'Public source', detail: 'GitHub', href: links.github, linkLabel: 'github.com/QianQIUlp' },
+      ],
+      factsAria: 'Studio facts',
+    },
     approach: {
       eyebrow: 'How I build',
       title: 'The boundary is part of the product.',
@@ -213,9 +251,9 @@ export const copy: Record<Locale, DeveloperCopy> = {
       ],
     },
     room: {
-      eyebrow: 'Beyond work',
+      eyebrow: 'Beyond work · founder’s personal space',
       title: 'The projects are only one part of the room.',
-      body: 'Writing, guitar, games, relationships, and questions that have not turned into software live in a slower, more personal space.',
+      body: 'Writing, guitar, games, relationships, and questions that have not turned into software live in a slower, more personal space belonging to Qian Qiu.',
       action: "Enter Qiu's Room",
       image: '/assets/evidence/qius-room-en.png',
       imageAlt: "Qiu's personal room with a guitar under warm light",
@@ -223,46 +261,49 @@ export const copy: Record<Locale, DeveloperCopy> = {
     contact: {
       eyebrow: 'Contact',
       title: 'A focused problem is a good place to start.',
-      body: 'Open to technical conversations, project feedback, and focused software help.',
+      body: 'Open to product feedback, technical collaboration, and focused software work.',
       emailLabel: 'Email qstudio@qiu.works',
       githubLabel: 'Continue on GitHub',
     },
-    footer: '© 2026 Qiu · Built as a static, inspectable site.',
+    footer: '© 2026 Q Studio · Founded and operated by Qian Qiu · Built as a static, inspectable site.',
   },
   zh: {
     meta: {
-      title: 'Qiu · 学生开发者与独立构建者',
-      description: 'Qiu 构建本地优先、边界清楚的软件，包括已可下载的 VeriSilo 公开预发布版本。',
+      title: 'Q Studio · 由 Qian Qiu 创建的独立软件工作室',
+      description: 'Q Studio 是由 Qian Qiu 独立创建和运营的自筹软件工作室，构建本地优先、可检查的软件，包括已可下载的 VeriSilo 公开预发布版本。',
       image: '/assets/og/developer-zh.png',
-      imageAlt: 'Qiu 开发者主页——本地优先、边界清楚的软件',
+      imageAlt: 'Q Studio by Qian Qiu —— 本地优先、边界清楚的软件',
     },
     skip: '跳到主要内容',
-    brandAria: 'Qiu 开发者主页',
+    brandAria: 'Q Studio 开发者主页',
     navAria: '主导航',
-    nav: { work: '作品', approach: '方法', writing: '写作', contact: '联系' },
+    nav: { work: '作品', studio: '工作室', approach: '方法', writing: '写作', contact: '联系' },
     languageLabel: 'EN',
     languageAria: 'Switch to English',
     themeAria: '切换深浅色模式',
     day: '昼',
     night: '夜',
     hero: {
-      eyebrow: '学生开发者 · 独立构建者',
-      name: 'Qiu / 千秋',
-      headline: '我构建本地优先、边界清楚的软件工具。',
-      body: '目前正在开发 VeriSilo：一个面向 Windows、开源的 Chrome 与 Edge 浏览器环境隔离和隐私审计项目。',
+      eyebrow: 'Q Studio · 独立软件工作室',
+      studio: 'Q Studio',
+      studioLead: '由 Qian Qiu 独立创建和运营 · 学生开发者与独立构建者',
+      headline: '聚焦的软件，边界明确。',
+      body: 'Q Studio 构建本地优先、可检查的软件，强调用户对数据和系统行为的控制、明确的能力边界，以及可复现的系统。当前重点是 VeriSilo，一个面向 Windows、开源的 Chrome 与 Edge 浏览器环境隔离和隐私审计项目。',
       workAction: '查看代表作品',
       githubAction: 'GitHub',
       roomAction: '进入 Qiu 的小屋',
-      nowLabel: '当前构建',
+      nowLabel: '当前重点',
       nowProject: 'VeriSilo',
       nowStatus: '公开预发布 · v0.1.0-rc4',
       nowBody: '分开浏览器拥有的状态，同时不假装普通浏览器软件可以改变它无法控制的部分。',
-      nowEvidence: 'Windows x64 安装包已开放下载，并附校验和、SBOM、provenance 与公开的威胁模型。',
+      nowEvidence: 'Windows x64 安装包已开放下载，并附校验和、SBOM、provenance、公开的威胁模型与明确的能力状态。',
     },
     work: {
-      eyebrow: '代表作品',
+      eyebrow: '代表软件',
       title: '先给证据，再给形容词。',
       lead: '每个项目都从一个具体问题出发，保留可检查的边界，也留下别人能够打开、复现或继续接手的东西。',
+      featuredTier: '主要 · 当前产品',
+      featuredAudience: '面向需要把浏览器身份清楚分开的个人与技术用户。',
       featuredLabel: '01 · 当前重点',
       featuredTitle: '让浏览器状态真正分开，也让边界看得见。',
       featuredBody: '每个 Silo 都以独立、受管理的数据目录启动 Chrome 或 Edge。Cookie、存储、缓存、Service Worker、权限和历史记录留在自己的环境里，而不是默认 Profile。',
@@ -272,15 +313,17 @@ export const copy: Record<Locale, DeveloperCopy> = {
       image: '/assets/evidence/verisilo-site-zh.png',
       imageHeight: 710,
       imageAlt: 'VeriSilo 证据视图对比配置声明与实测结果，状态为「匹配」，并注明一致并不代表对整个身份的无限保证',
-      listAria: '代表软件项目',
+      listAria: '其他公开软件',
     },
     projects: [
       {
         key: 'meal-circuit',
         name: 'MealCircuit',
+        tier: '公开软件',
         status: '可用 · v0.3.0',
         type: '本地优先饮食反馈工作台',
         summary: '把餐食照片、每日状态、趋势和纠错接进一段会累积的反馈历史，让下一次判断不必重新猜。',
+        audience: '面向希望保留长期饮食反馈、但不把历史交给云服务的个人。',
         decision: '应用在本地保存事实、schema 与纠错历史，v0.3.0 起与原生 Android 客户端共用同一套加密数据模型；它本身不调用外部模型 API。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.mealCircuit,
@@ -290,9 +333,11 @@ export const copy: Record<Locale, DeveloperCopy> = {
       {
         key: 'crewlight',
         name: 'Crewlight',
+        tier: '公开软件',
         status: 'v0.5.0 已发布 · Windows 优先候选版本',
         type: '本地优先的 AI Agent 活动雷达',
         summary: '把并行 Claude Code、Codex 等工具中的运行、等待、权限请求、完成与失败状态汇总到只读的 Desktop、Companion、Dashboard 和 CLI。',
+        audience: '面向同时运行多个 AI 编程 Agent、需要一眼看出哪个任务在等待的开发者。',
         decision: 'Windows x64 产物已作为预发布提供且未签名，Linux 与 macOS 不发布原生二进制；Crewlight 不保存 prompt、transcript、tool I/O 或完整平台载荷。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.crewlight,
@@ -302,9 +347,11 @@ export const copy: Record<Locale, DeveloperCopy> = {
       {
         key: 'docker-hadoop-cluster',
         name: 'Hadoop Lab',
+        tier: '教学 · 非产品',
         status: '教学 · 本地实验环境',
         type: '可重复搭建的本地 Hadoop 实验室',
         summary: '把环境准备、服务观察、MapReduce 与三节点故障恢复接成一条引导式学习路径，并用七个实验把结果接到原理。',
+        audience: '面向课堂、自学与本地 Hadoop 实验的学习者。',
         decision: '生命周期 CLI、doctor、status、WordCount、安全重置和脱敏诊断让实验可重复，同时明确它不是生产平台。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.hadoop,
@@ -312,6 +359,22 @@ export const copy: Record<Locale, DeveloperCopy> = {
         secondaryHref: `${links.roomZh}projects/#project-docker-hadoop-cluster`,
       },
     ],
+    studio: {
+      eyebrow: '工作室',
+      title: '把 Q Studio 说清楚。',
+      lead: '由 Qian Qiu 独立创建和运营的自筹软件工作室。',
+      body: 'Q Studio 构建本地优先、可检查的软件：用户数据留在用户手里，能力边界写在纸面上，安装、检查与恢复可以被别人重复验证。当前重点是 VeriSilo；Crewlight 与 MealCircuit 是公开、可检查的软件；Hadoop Lab 是教学实验，不是产品。',
+      facts: [
+        { term: '工作室', detail: 'Q Studio · 独立软件工作室' },
+        { term: '创建与运营', detail: 'Qian Qiu' },
+        { term: '模式', detail: '独立 · 自筹' },
+        { term: '方向', detail: '本地优先软件 · 开发者工具 · 可检查的隐私系统' },
+        { term: '当前重点', detail: 'VeriSilo', href: links.verisilo, linkLabel: '访问产品站' },
+        { term: '联系', detail: 'qstudio@qiu.works', href: 'mailto:qstudio@qiu.works', linkLabel: 'qstudio@qiu.works' },
+        { term: '公开源码', detail: 'GitHub', href: links.github, linkLabel: 'github.com/QianQIUlp' },
+      ],
+      factsAria: '工作室信息',
+    },
     approach: {
       eyebrow: '构建方法',
       title: '边界本身就是产品的一部分。',
@@ -351,9 +414,9 @@ export const copy: Record<Locale, DeveloperCopy> = {
       ],
     },
     room: {
-      eyebrow: '工作之外',
+      eyebrow: '工作之外 · 创始人的个人空间',
       title: '项目只是这个房间的一部分。',
-      body: '写作、吉他、游戏、关系和那些还没有长成软件的问题，留在一个更慢、更个人的空间里。',
+      body: '写作、吉他、游戏、关系和那些还没有长成软件的问题，留在一个更慢、更个人的属于 Qian Qiu 的空间里。',
       action: '进入 Qiu 的小屋',
       image: '/assets/evidence/qius-room-zh.png',
       imageAlt: '暖光下摆放着吉他的 Qiu 个人房间',
@@ -361,11 +424,11 @@ export const copy: Record<Locale, DeveloperCopy> = {
     contact: {
       eyebrow: '联系',
       title: '一个边界清楚的问题，就是很好的开始。',
-      body: '欢迎讨论技术、交流项目反馈，也可以联系我处理边界明确的软件问题。',
+      body: '欢迎提供产品反馈、讨论技术合作，也可以联系工作室处理边界明确的软件问题。',
       emailLabel: '发送邮件到 qstudio@qiu.works',
       githubLabel: '前往 GitHub',
     },
-    footer: '© 2026 Qiu · 一个静态、可检查的网站。',
+    footer: '© 2026 Q Studio · 由 Qian Qiu 创建和运营 · 一个静态、可检查的网站。',
   },
 };
 

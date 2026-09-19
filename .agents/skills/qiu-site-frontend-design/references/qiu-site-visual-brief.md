@@ -10,9 +10,11 @@ The active implementation contract is `docs/uiux/ink-and-light-study.md`; the le
 for link stability. For the homepage, `docs/uiux/homepage-art-direction.md` remains the higher creative source:
 richness lives in depth, while the first glance leads with Qiu, the guitar and lived experience.
 
-The same repository also contains an English-first developer profile in `developer/`. It is an editorial workbench using warm
+The same repository also contains the Q Studio official site in `developer/`: an independent, self-funded software studio
+founded and operated by Qian Qiu. It is an editorial workbench using warm
 neutral surfaces, a clear grid, restrained serif/mono accents and real project evidence. It is not a Room-scene background,
-terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone.
+terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone. Its homepage order is
+Hero, current VeriSilo product, selected software, Studio, approach, writing, Beyond Work, and contact.
 
 ## Design Intent
 
