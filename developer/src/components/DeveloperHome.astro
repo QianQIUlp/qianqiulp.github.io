@@ -12,6 +12,17 @@ const homeHref = locale === 'en' ? '/' : '/zh/';
 const languageHref = locale === 'en' ? '/zh/' : '/';
 const roomHref = locale === 'en' ? links.roomEn : links.roomZh;
 const emailHref = 'mailto:qstudio@qiu.works';
+const siteUrl = 'https://qiu.works';
+const studioJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Q Studio',
+  url: siteUrl,
+  email: 'qstudio@qiu.works',
+  description: content.meta.description,
+  founder: { '@type': 'Person', name: 'Qian Qiu' },
+  sameAs: [links.github, links.verisilo],
+};
 ---
 
 <BaseLayout
@@ -25,9 +36,10 @@ const emailHref = 'mailto:qstudio@qiu.works';
 
   <header class="site-header">
     <div class="site-header__inner">
-      <a class="wordmark" href={homeHref} aria-label={content.brandAria}>Qiu<span>.</span></a>
+      <a class="wordmark" href={homeHref} aria-label={content.brandAria}>Q Studio<span>.</span></a>
       <nav class="site-nav" aria-label={content.navAria}>
         <a href="#work">{content.nav.work}</a>
+        <a href="#studio">{content.nav.studio}</a>
         <a href="#approach">{content.nav.approach}</a>
         <a href="#writing">{content.nav.writing}</a>
         <a href="#contact">{content.nav.contact}</a>
@@ -51,9 +63,10 @@ const emailHref = 'mailto:qstudio@qiu.works';
       <div class="hero__copy">
         <p class="eyebrow">{content.hero.eyebrow}</p>
         <h1 id="hero-title">
-          <span>{content.hero.name}</span>
+          <span>{content.hero.studio}</span>
           <strong>{content.hero.headline}</strong>
         </h1>
+        <p class="hero__founder">{content.hero.studioLead}</p>
         <p class="hero__body">{content.hero.body}</p>
         <div class="hero__actions">
           <a class="button button--primary" href="#work">{content.hero.workAction}</a>
@@ -93,7 +106,8 @@ const emailHref = 'mailto:qstudio@qiu.works';
           />
         </figure>
         <div class="featured-project__copy">
-          <p class="project-index">{content.work.featuredLabel}</p>
+          <p class="project-index">{content.work.featuredLabel} · {content.work.featuredTier}</p>
+          <p class="featured-project__audience">{content.work.featuredAudience}</p>
           <h3>{content.work.featuredTitle}</h3>
           <p>{content.work.featuredBody}</p>
           <p class="boundary-note">{content.work.featuredBoundary}</p>
@@ -110,11 +124,12 @@ const emailHref = 'mailto:qstudio@qiu.works';
             <article class="project-row">
               <div class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</div>
               <div class="project-row__identity">
-                <p>{project.status} · {project.type}</p>
+                <p>{project.tier} · {project.status} · {project.type}</p>
                 <h3>{project.name}</h3>
               </div>
               <div class="project-row__body">
                 <p>{project.summary}</p>
+                <p>{project.audience}</p>
                 <p>{project.decision}</p>
               </div>
               <div class="project-links project-row__links">
@@ -125,6 +140,29 @@ const emailHref = 'mailto:qstudio@qiu.works';
           </li>
         ))}
       </ol>
+    </section>
+
+    <section class="studio section-shell" id="studio" aria-labelledby="studio-title">
+      <header class="section-heading" data-reveal>
+        <p class="eyebrow">{content.studio.eyebrow}</p>
+        <div>
+          <h2 id="studio-title">{content.studio.title}</h2>
+          <p>{content.studio.lead}</p>
+        </div>
+      </header>
+      <div class="studio__body" data-reveal>
+        <p>{content.studio.body}</p>
+        <dl class="studio__facts" aria-label={content.studio.factsAria}>
+          {content.studio.facts.map((fact) => (
+            <div class="studio__fact">
+              <dt>{fact.term}</dt>
+              <dd>
+                {fact.href ? <a href={fact.href}>{fact.linkLabel ?? fact.detail}</a> : fact.detail}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     </section>
 
     <section class="approach section-shell" id="approach" aria-labelledby="approach-title">
@@ -213,6 +251,8 @@ const emailHref = 'mailto:qstudio@qiu.works';
       </nav>
     </div>
   </footer>
+
+  <script type="application/ld+json" set:html={JSON.stringify(studioJsonLd)} />
 
   <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night }}>
     (function () {

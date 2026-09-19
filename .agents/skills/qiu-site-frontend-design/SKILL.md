@@ -53,7 +53,8 @@ This repository contains two static Astro sites. Room is a modern, realistic per
 quiet at first glance, warm without looking nostalgic, and grounded by the guitar and physical project devices. Inner pages are
 clean editorial surfaces for long Chinese essays, technical notes and project evidence.
 
-The `developer/` app is an English-first professional entry: editorial workbench, clear grid, warm neutral palette, restrained
+The `developer/` app is the Q Studio official site: an independent, self-funded studio founded and operated by Qian Qiu,
+presented as an editorial workbench with clear grid, warm neutral palette, restrained
 serif/mono accents and concise real evidence. It does not reuse the Room scene as a background or imitate a terminal, dashboard,
 generic SaaS landing page, or the VeriSilo product site. Its real VeriSilo evidence image must match the page language and retain a complete composition;
 its Beyond Work image is a locale-matched, fully lit Room overview while the outbound Room route keeps normal progressive discovery.

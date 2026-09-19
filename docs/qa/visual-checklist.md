@@ -111,14 +111,15 @@ Always check **Light** and **Dark** mode for changed routes.
 
 ## Developer Profile
 
-- `/` is English-first and `/zh/` is the complete Chinese counterpart; canonical and hreflang use `https://qiu.works`.
-- The first viewport reads as a clear developer profile, not a duplicate Room scene, VeriSilo product page, terminal skin, or SaaS card grid.
-- Hero identity, current VeriSilo status, Selected Work, GitHub and Enter Qiu's Room are immediately understandable.
+- `/` is English-first and `/zh/` is the complete Chinese counterpart with the same facts; canonical and hreflang use `https://qiu.works`.
+- The first viewport reads as Q Studio by Qian Qiu, not a duplicate Room scene, VeriSilo product page, terminal skin, or SaaS card grid.
+- Hero identity, current VeriSilo status, Selected Software, Studio, GitHub and Enter Qiu's Room are immediately understandable.
 - VeriSilo uses a complete, naturally framed real product-site or application image in the matching page language; no clipped composition, invented product UI, metrics, customers, or capability claims appear.
-- Selected Work remains concise and ordered VeriSilo, MealCircuit, Crewlight, Hadoop Lab.
+- Selected Software remains concise and ordered VeriSilo, MealCircuit, Crewlight, Hadoop Lab, with tiers and audiences; Hadoop Lab is labeled teaching, not a product.
+- Studio facts expose Q Studio, founder Qian Qiu, independent self-funded model, focus, current focus VeriSilo, `qstudio@qiu.works`, and public GitHub source.
 - How I Build contains the five approved principles; Selected Writing links to the three real localized Room articles.
-- Beyond Work uses a fully lit real Room crop in the matching language and reaches that language's normal progressive-discovery Room route.
-- Contact exposes `qstudio@qiu.works`, GitHub, and the approved focused-help copy without prices or an unlimited support promise.
+- Beyond Work uses a fully lit real Room crop in the matching language, is labeled as the founder's personal space, and reaches that language's normal progressive-discovery Room route.
+- Contact exposes `qstudio@qiu.works`, GitHub, and the approved product-feedback/technical-collaboration copy without prices or an unlimited support promise.
 - System sans leads; serif is limited to the name/editorial headings and mono to status metadata. Warm cream, charcoal and restrained red work in Light and Dark.
 - At 1440, 768, 375 and 375 × 667 there is no page-level horizontal scroll; navigation and contact controls are at least 44 × 44px.
 - Theme, language, skip link and section anchors work by keyboard; reduced motion never hides information.
