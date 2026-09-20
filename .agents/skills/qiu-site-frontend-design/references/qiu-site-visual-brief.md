@@ -16,7 +16,9 @@ neutral surfaces, a clear grid, restrained serif/mono accents and real project e
 terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone. Its homepage order is
 Hero, current VeriSilo product, selected software, Studio, approach, writing, Beyond Work, and contact. Its restrained
 editorial devices are clean brand typography, a FILE-serial current-focus card, red-outlined
-product-tier chips, and an indexed Studio fact table.
+product-tier chips, and an indexed Studio fact table. Its nav follows the reader with a short red section rule
+(JS scrollspy with a no-JS `:target` fallback), and the theme toggle reveals the new theme as a circle growing
+from the toggle where View Transitions are supported.
 
 ## Design Intent
 

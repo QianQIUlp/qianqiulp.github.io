@@ -194,11 +194,44 @@ button {
 }
 
 .site-nav a {
+  position: relative;
   padding-inline: 11px;
+}
+
+/* Section indicator: a short red rule slides in under the nav item whose
+   section is being read, echoing the FILE/ruler language of the desk. */
+.site-nav a::after {
+  position: absolute;
+  right: 11px;
+  bottom: 7px;
+  left: 11px;
+  height: 2px;
+  background: var(--accent);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease);
 }
 
 .site-nav a:hover {
   color: var(--text);
+}
+
+.site-nav a:hover::after {
+  transform: scaleX(0.45);
+}
+
+.site-nav a.is-active {
+  color: var(--text);
+}
+
+.site-nav a.is-active::after,
+body:has(#work:target) .site-nav a[data-spy="work"]::after,
+body:has(#studio:target) .site-nav a[data-spy="studio"]::after,
+body:has(#approach:target) .site-nav a[data-spy="approach"]::after,
+body:has(#writing:target) .site-nav a[data-spy="writing"]::after,
+body:has(#contact:target) .site-nav a[data-spy="contact"]::after {
+  transform: scaleX(1);
 }
 
 .site-controls {
@@ -221,6 +254,29 @@ button {
   border-color: var(--line-strong);
   color: var(--text);
   background: var(--accent-soft);
+}
+
+/* Theme switch reveal: when the toggle uses the View Transitions API, the new
+   theme grows outward from the toggle as a warm circle; without the API the
+   swap stays instant. Reduced motion keeps it instant too. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  animation: none;
+}
+
+::view-transition-new(root) {
+  animation: theme-reveal 520ms var(--ease) both;
+  clip-path: circle(0 at var(--theme-x, 50%) var(--theme-y, 0px));
+}
+
+@keyframes theme-reveal {
+  to {
+    clip-path: circle(150% at var(--theme-x, 50%) var(--theme-y, 0px));
+  }
 }
 
 .hero {
@@ -523,6 +579,13 @@ a tall section-padding gap above them. */
   height: 100%;
   object-fit: contain;
   object-position: center;
+  transition: transform 0.5s var(--ease);
+}
+
+/* The evidence frame reacts like something on the desk being picked up:
+   a barely-there lift and zoom, no rotation or tilt. */
+.featured-project__visual:hover img {
+  transform: scale(1.018);
 }
 
 .featured-project__copy h3 {
@@ -584,10 +647,31 @@ a tall section-padding gap above them. */
   color: var(--text);
   font-size: 0.8rem;
   font-weight: 760;
+  text-decoration: none;
+}
+
+/* Link labels carry a quiet underline that extends on hover, matching the
+   ruler language instead of a color-only change. */
+.project-links a::after {
+  align-self: center;
+  width: 14px;
+  height: 1.5px;
+  margin-left: 8px;
+  background: currentColor;
+  content: "";
+  opacity: 0.45;
+  transition:
+    width 0.25s var(--ease),
+    opacity 0.25s var(--ease);
 }
 
 .project-links a:hover {
   color: var(--accent-strong);
+}
+
+.project-links a:hover::after {
+  width: 26px;
+  opacity: 1;
 }
 
 .project-list > li {
@@ -832,6 +916,23 @@ a tall section-padding gap above them. */
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 760;
+  transition: color 0.2s var(--ease);
+}
+
+.writing-list em::after {
+  display: inline-block;
+  margin-left: 7px;
+  content: "→";
+  transform: translateX(0);
+  transition: transform 0.25s var(--ease);
+}
+
+.writing-list a:hover em {
+  color: var(--accent-strong);
+}
+
+.writing-list a:hover em::after {
+  transform: translateX(5px);
 }
 
 .room-portal {
@@ -1223,6 +1324,12 @@ a tall section-padding gap above them. */
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+    clip-path: none !important;
   }
 
   .js [data-reveal] {

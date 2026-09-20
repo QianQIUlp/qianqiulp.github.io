@@ -123,6 +123,8 @@ Always check **Light** and **Dark** mode for changed routes.
 - System sans leads; serif is limited to the name/editorial headings and mono to status metadata. Warm cream, charcoal and restrained red work in Light and Dark.
 - At 1440, 768, 375 and 375 × 667 there is no page-level horizontal scroll; navigation and contact controls are at least 44 × 44px.
 - Theme, language, skip link and section anchors work by keyboard; reduced motion never hides information.
+- The primary nav shows which section is being read: a short red rule under the active item (JS scrollspy via `is-active`, with a no-JS `:target`/`:has()` fallback); `aria-current` tracks the active item.
+- The theme toggle reveals the new theme as a circle growing from the toggle when View Transitions are available; it stays instant without the API and under reduced motion.
 - Locale-specific 1200 × 630 OG cards contain no development toolbar or clipped controls.
 
 ## Light / Dark Themes

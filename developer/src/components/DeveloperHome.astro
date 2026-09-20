@@ -38,11 +38,11 @@ const studioJsonLd = {
     <div class="site-header__inner">
       <a class="wordmark" href={homeHref} aria-label={content.brandAria}>Q Studio<span>.</span></a>
       <nav class="site-nav" aria-label={content.navAria}>
-        <a href="#work">{content.nav.work}</a>
-        <a href="#studio">{content.nav.studio}</a>
-        <a href="#approach">{content.nav.approach}</a>
-        <a href="#writing">{content.nav.writing}</a>
-        <a href="#contact">{content.nav.contact}</a>
+        <a href="#work" data-spy="work">{content.nav.work}</a>
+        <a href="#studio" data-spy="studio">{content.nav.studio}</a>
+        <a href="#approach" data-spy="approach">{content.nav.approach}</a>
+        <a href="#writing" data-spy="writing">{content.nav.writing}</a>
+        <a href="#contact" data-spy="contact">{content.nav.contact}</a>
       </nav>
       <div class="site-controls">
         <a
@@ -58,7 +58,7 @@ const studioJsonLd = {
     </div>
   </header>
 
-  <main id="main-content" tabindex="-1">
+  <main id="main-content">
     <section class="hero section-shell" aria-labelledby="hero-title">
       <div class="hero__copy">
         <p class="eyebrow">{content.hero.eyebrow}</p>
@@ -266,16 +266,20 @@ const studioJsonLd = {
 
   <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night }}>
     (function () {
+      var html = document.documentElement;
+      var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      /* Theme toggle: instant swap by default; when View Transitions are
+         available and motion is allowed, reveal the new theme as a circle
+         growing from the toggle, like a lamp being switched on the desk. */
       var button = document.getElementById('theme-toggle');
       if (button) {
-        var html = document.documentElement;
         var render = function () {
           var dark = html.getAttribute('data-theme') === 'dark';
           button.textContent = dark ? dayLabel : nightLabel;
           button.setAttribute('aria-pressed', dark ? 'true' : 'false');
         };
-        render();
-        button.addEventListener('click', function () {
+        var applyTheme = function () {
           var dark = html.getAttribute('data-theme') !== 'dark';
           if (dark) {
             html.setAttribute('data-theme', 'dark');
@@ -285,9 +289,82 @@ const studioJsonLd = {
             localStorage.setItem('theme', 'light');
           }
           render();
+        };
+        render();
+        button.addEventListener('click', function () {
+          var canTransition =
+            typeof document.startViewTransition === 'function' && !reducedMotion.matches;
+          if (!canTransition) {
+            applyTheme();
+            return;
+          }
+          var x = button.getBoundingClientRect().left + button.offsetWidth / 2;
+          var y = button.getBoundingClientRect().top + button.offsetHeight / 2;
+          html.style.setProperty('--theme-x', x + 'px');
+          html.style.setProperty('--theme-y', y + 'px');
+          document.startViewTransition(applyTheme);
         });
       }
 
+      /* Scrollspy: the nav quietly follows the section being read, so the
+         header behaves like a ruler that knows where the page is. */
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-spy]'));
+      if (navLinks.length > 0 && 'IntersectionObserver' in window) {
+        var bySection = {};
+        navLinks.forEach(function (link) {
+          var id = link.getAttribute('data-spy');
+          var target = document.getElementById(id);
+          if (target) {
+            bySection[id] = link;
+          }
+        });
+        var current = null;
+        var mark = function (id) {
+          if (current === id) {
+            return;
+          }
+          current = id;
+          navLinks.forEach(function (link) {
+            var active = link.getAttribute('data-spy') === id;
+            link.classList.toggle('is-active', active);
+            if (active) {
+              link.setAttribute('aria-current', 'true');
+            } else {
+              link.removeAttribute('aria-current');
+            }
+          });
+        };
+        var visible = {};
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              visible[entry.target.dataset.spySection] = entry.isIntersecting
+                ? entry.intersectionRatio
+                : 0;
+            });
+            var best = null;
+            var bestRatio = 0;
+            Object.keys(visible).forEach(function (id) {
+              if (visible[id] > bestRatio) {
+                best = id;
+                bestRatio = visible[id];
+              }
+            });
+            if (best) {
+              mark(best);
+            }
+          },
+          { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.15, 0.5, 1] }
+        );
+        Object.keys(bySection).forEach(function (id) {
+          var heading = document.getElementById(id);
+          var section = heading && heading.closest('section');
+          if (section) {
+            section.dataset.spySection = id;
+            observer.observe(section);
+          }
+        });
+      }
     })();
   </script>
 </BaseLayout>
