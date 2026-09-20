@@ -15,7 +15,7 @@ founded and operated by Qian Qiu. It is an editorial workbench using warm
 neutral surfaces, a clear grid, restrained serif/mono accents and real project evidence. It is not a Room-scene background,
 terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone. Its homepage order is
 Hero, current VeriSilo product, selected software, Studio, approach, writing, Beyond Work, and contact. Its restrained
-editorial devices are the thin red ruler mark beside the brand name, a FILE-serial current-focus card, red-outlined
+editorial devices are clean brand typography, a FILE-serial current-focus card, red-outlined
 product-tier chips, and an indexed Studio fact table.
 
 ## Design Intent

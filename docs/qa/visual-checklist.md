@@ -113,7 +113,7 @@ Always check **Light** and **Dark** mode for changed routes.
 
 - `/` is English-first and `/zh/` is the complete Chinese counterpart with the same facts; canonical and hreflang use `https://qiu.works`.
 - The first viewport reads as Q Studio by Qian Qiu, not a duplicate Room scene, VeriSilo product page, terminal skin, or SaaS card grid.
-- Hero identity, current VeriSilo status, Selected Software, Studio, GitHub and Enter Qiu's Room are immediately understandable. The brand name carries the thin red ruler mark (desktop left, mobile top); the current-focus card shows the FILE 01 serial and status dot; product tiers render as red-outlined chips; Studio facts carry 01–07 indices with the current-focus square marker.
+- Hero identity, current VeriSilo status, Selected Software, Studio, GitHub and Enter Qiu's Room are immediately understandable. The brand name keeps clean typography with no ruler decoration; the current-focus card shows the FILE 01 serial and status dot; product tiers render as red-outlined chips; Studio facts carry 01–07 indices with the current-focus square marker.
 - VeriSilo uses a complete, naturally framed real product-site or application image in the matching page language; no clipped composition, invented product UI, metrics, customers, or capability claims appear.
 - Selected Software remains concise and ordered VeriSilo, MealCircuit, Crewlight, Hadoop Lab, with tiers and audiences; Hadoop Lab is labeled teaching, not a product.
 - Studio facts expose Q Studio, founder Qian Qiu, independent self-funded model, focus, current focus VeriSilo, `qstudio@qiu.works`, and public GitHub source.

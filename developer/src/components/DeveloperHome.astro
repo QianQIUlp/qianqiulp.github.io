@@ -63,7 +63,7 @@ const studioJsonLd = {
       <div class="hero__copy">
         <p class="eyebrow">{content.hero.eyebrow}</p>
         <h1 id="hero-title">
-          <span class="hero__brand"><i aria-hidden="true"></i>{content.hero.studio}</span>
+          <span>{content.hero.studio}</span>
           <strong>{content.hero.headline}</strong>
         </h1>
         <p class="hero__founder">{content.hero.studioLead}</p>
@@ -92,8 +92,8 @@ const studioJsonLd = {
       </aside>
     </section>
 
-    <section class="work section-shell" id="work" aria-labelledby="work-title">
-      <header class="section-heading" data-reveal>
+    <section class="work section-shell" aria-labelledby="work-title">
+      <header class="section-heading" id="work" data-reveal>
         <p class="eyebrow">{content.work.eyebrow}</p>
         <div>
           <h2 id="work-title">{content.work.title}</h2>
@@ -149,8 +149,8 @@ const studioJsonLd = {
       </ol>
     </section>
 
-    <section class="studio section-shell" id="studio" aria-labelledby="studio-title">
-      <header class="section-heading" data-reveal>
+    <section class="studio section-shell" aria-labelledby="studio-title">
+      <header class="section-heading" id="studio" data-reveal>
         <p class="eyebrow">{content.studio.eyebrow}</p>
         <div>
           <h2 id="studio-title">{content.studio.title}</h2>
@@ -175,8 +175,8 @@ const studioJsonLd = {
       </div>
     </section>
 
-    <section class="approach section-shell" id="approach" aria-labelledby="approach-title">
-      <header class="section-heading" data-reveal>
+    <section class="approach section-shell" aria-labelledby="approach-title">
+      <header class="section-heading" id="approach" data-reveal>
         <p class="eyebrow">{content.approach.eyebrow}</p>
         <div>
           <h2 id="approach-title">{content.approach.title}</h2>
@@ -194,8 +194,8 @@ const studioJsonLd = {
       </ol>
     </section>
 
-    <section class="writing section-shell" id="writing" aria-labelledby="writing-title">
-      <header class="section-heading" data-reveal>
+    <section class="writing section-shell" aria-labelledby="writing-title">
+      <header class="section-heading" id="writing" data-reveal>
         <p class="eyebrow">{content.writing.eyebrow}</p>
         <div>
           <h2 id="writing-title">{content.writing.title}</h2>
@@ -236,8 +236,8 @@ const studioJsonLd = {
       </div>
     </section>
 
-    <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow" data-reveal>{content.contact.eyebrow}</p>
+    <section class="contact section-shell" aria-labelledby="contact-title">
+      <p class="eyebrow" id="contact" data-reveal>{content.contact.eyebrow}</p>
       <div class="contact__body" data-reveal>
         <div>
           <h2 id="contact-title">{content.contact.title}</h2>
