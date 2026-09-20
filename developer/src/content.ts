@@ -200,7 +200,7 @@ export const copy: Record<Locale, DeveloperCopy> = {
       eyebrow: 'Studio',
       title: 'Q Studio, stated plainly.',
       lead: 'An independent, self-funded software studio founded and operated by Qian Qiu.',
-      body: 'Q Studio builds local-first and inspectable software: user data stays with the user, capability boundaries are written down, and setup and recovery can be repeated by someone else. The current focus is VeriSilo; Crewlight and MealCircuit are public, inspectable software; Hadoop Lab is a teaching lab, not a product.',
+      body: 'One studio, one founder, public evidence. Q Studio builds local-first and inspectable software: user data stays with the user, capability boundaries are written down, and setup and recovery can be repeated by someone else. The current focus is VeriSilo; Crewlight and MealCircuit are public, inspectable software; Hadoop Lab is a teaching lab, not a product.',
       facts: [
         { term: 'Studio', detail: 'Q Studio · independent software studio' },
         { term: 'Founder', detail: 'Qian Qiu' },
@@ -363,7 +363,7 @@ export const copy: Record<Locale, DeveloperCopy> = {
       eyebrow: '工作室',
       title: '把 Q Studio 说清楚。',
       lead: '由 Qian Qiu 独立创建和运营的自筹软件工作室。',
-      body: 'Q Studio 构建本地优先、可检查的软件：用户数据留在用户手里，能力边界写在纸面上，安装、检查与恢复可以被别人重复验证。当前重点是 VeriSilo；Crewlight 与 MealCircuit 是公开、可检查的软件；Hadoop Lab 是教学实验，不是产品。',
+      body: '一个工作室，一个人，一套公开证据。Q Studio 构建本地优先、可检查的软件：用户数据留在用户手里，能力边界写在纸面上，安装、检查与恢复可以被别人重复验证。当前重点是 VeriSilo；Crewlight 与 MealCircuit 是公开、可检查的软件；Hadoop Lab 是教学实验，不是产品。',
       facts: [
         { term: '工作室', detail: 'Q Studio · 独立软件工作室' },
         { term: '创建与运营', detail: 'Qian Qiu' },

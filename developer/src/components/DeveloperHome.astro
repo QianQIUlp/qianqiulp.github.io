@@ -63,7 +63,7 @@ const studioJsonLd = {
       <div class="hero__copy">
         <p class="eyebrow">{content.hero.eyebrow}</p>
         <h1 id="hero-title">
-          <span>{content.hero.studio}</span>
+          <span class="hero__brand"><i aria-hidden="true"></i>{content.hero.studio}</span>
           <strong>{content.hero.headline}</strong>
         </h1>
         <p class="hero__founder">{content.hero.studioLead}</p>
@@ -76,9 +76,15 @@ const studioJsonLd = {
       </div>
 
       <aside class="current-work" aria-label={content.hero.nowLabel}>
-        <p class="current-work__label">{content.hero.nowLabel}</p>
+        <p class="current-work__label">
+          <span>{content.hero.nowLabel}</span>
+          <span class="current-work__serial" aria-hidden="true">FILE&nbsp;01</span>
+        </p>
         <div class="current-work__heading">
-          <a href={links.verisilo}>{content.hero.nowProject}</a>
+          <a href={links.verisilo}>
+            <i class="current-work__dot" aria-hidden="true"></i>
+            {content.hero.nowProject}
+          </a>
           <span>{content.hero.nowStatus}</span>
         </div>
         <p>{content.hero.nowBody}</p>
@@ -106,7 +112,8 @@ const studioJsonLd = {
           />
         </figure>
         <div class="featured-project__copy">
-          <p class="project-index">{content.work.featuredLabel} · {content.work.featuredTier}</p>
+          <p class="project-index">{content.work.featuredLabel}</p>
+          <p class="featured-project__tier">{content.work.featuredTier}</p>
           <p class="featured-project__audience">{content.work.featuredAudience}</p>
           <h3>{content.work.featuredTitle}</h3>
           <p>{content.work.featuredBody}</p>
@@ -124,7 +131,7 @@ const studioJsonLd = {
             <article class="project-row">
               <div class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</div>
               <div class="project-row__identity">
-                <p>{project.tier} · {project.status} · {project.type}</p>
+                <p><span class="project-row__tier">{project.tier}</span><span class="project-row__meta">{project.status} · {project.type}</span></p>
                 <h3>{project.name}</h3>
               </div>
               <div class="project-row__body">
@@ -153,9 +160,12 @@ const studioJsonLd = {
       <div class="studio__body" data-reveal>
         <p>{content.studio.body}</p>
         <dl class="studio__facts" aria-label={content.studio.factsAria}>
-          {content.studio.facts.map((fact) => (
-            <div class="studio__fact">
-              <dt>{fact.term}</dt>
+          {content.studio.facts.map((fact, index) => (
+            <div class:list={['studio__fact', { 'studio__fact--active': fact.href === links.verisilo }]}>
+              <dt>
+                <span class="studio__index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+                {fact.term}
+              </dt>
               <dd>
                 {fact.href ? <a href={fact.href}>{fact.linkLabel ?? fact.detail}</a> : fact.detail}
               </dd>
