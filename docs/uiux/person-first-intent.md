@@ -1,5 +1,9 @@
 # 先认识一个活生生的人
 
+## 2026-09-22 · 已确认的实现边界
+
+个人站目标域名改为 `me.qiu.works`；`qiu.works` 由 QStudio 表达工作。用户确认以「千秋」、本人吉他及音乐互动组成新的空间首页。当前实施规则见 [`ink-and-light-study.md`](./ink-and-light-study.md) 最新补充；下文原话、旧版文案冻结与 PR 审计记录保留为历史，不覆盖本次明确批准的新首页。既有文章与项目档案内容不变。
+
 > 首页的上位创作原点见 [`homepage-art-direction.md`](./homepage-art-direction.md)。
 > 本文件只保存由它推导出的长期意图、内容边界与 PR #66 审计，不替代感性构图判断。
 > `ink-and-light-study.md` 描述当前视觉实现；三者冲突时，先回到创作原点。

@@ -1,0 +1,65 @@
+---
+import Room from '../components/me/Room.astro';
+import { siteCopy, localizedPath, type Lang } from '../i18n';
+import '../styles/me/style.css';
+import '../styles/me/music.css';
+import '../styles/me/english.css';
+import '../styles/me/site.css';
+
+interface Props { lang?: Lang }
+const { lang = 'zh' } = Astro.props;
+const english = lang === 'en';
+const title = english ? '千秋 — Qiu, between notes.' : '千秋 — 六根弦，以及它们以外的事。';
+const description = english
+  ? 'Make yourself at home. Pick up my guitar, make a little music, turn a page, or leave a line.'
+  : '我是千秋。欢迎来坐坐。拿起吉他，拨几根弦，翻一张散页，或者随手留一笔。';
+const canonical = new URL(localizedPath('/', lang), Astro.site);
+const socialImage = new URL(`/assets/og/me-${lang}.jpg`, Astro.site);
+---
+<!doctype html>
+<html lang={siteCopy[lang].htmlLang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#eeede7" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="zh-CN" href={new URL('/', Astro.site)} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', Astro.site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', Astro.site)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="千秋 · Qiu" />
+    <meta property="og:locale" content={siteCopy[lang].locale} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={english ? '千秋, and my wine-red guitar.' : '千秋，与我的酒红色吉他。'} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <Room lang={lang} />
+    <noscript>
+      <div class="no-script-note">
+        <p>{english ? 'The room comes alive with JavaScript. You can still read my writing and project archive.' : '打开 JavaScript，就可以拨弦、翻纸和在小屋里漫游。也可以直接去读文章和项目档案。'}</p>
+        <a href={localizedPath('/blog/', lang)}>{english ? 'Writing ↗' : '文章 ↗'}</a>
+        <a href={localizedPath('/projects/', lang)}>{english ? 'Project archive ↗' : '项目档案 ↗'}</a>
+      </div>
+      <style is:inline>
+        .place:not(.home), .room-bar, .audio-toggle, .home button { display: none; }
+        .no-script-note { position: fixed; z-index: 30; bottom: 8%; left: 6%; right: 6%; max-width: 32rem; font-size: 14px; line-height: 1.8; }
+        .no-script-note a { margin-right: 2rem; text-decoration: underline; }
+      </style>
+    </noscript>
+    <script>
+      import '../scripts/me/scene.js';
+      import '../scripts/me/guitar-model.js';
+    </script>
+  </body>
+</html>
