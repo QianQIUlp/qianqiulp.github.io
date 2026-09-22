@@ -8,6 +8,12 @@ description: Repo-specific visual design workflow for Qiu's Astro personal site.
 Use this skill for UI/UX design judgment on this repository only. It adapts general frontend-design guidance to Qiu's
 Astro static site and must only read local repository files.
 
+## Current Homepage Override · 2026-09-22
+
+The user approved the bilingual immersive prototype for `me.qiu.works` and its integration into Astro. For `/` and `/en/`, follow the latest section of `docs/uiux/ink-and-light-study.md` and `docs/me-home.md`. The legacy room-photo composition, frozen homepage copy, project-entry pedal positions and dual-homepage-theme rules below are historical and do not govern this approved replacement. Preserve their historical quotes and audits. Reading routes still retain their content and Light/Dark themes; `developer/` remains governed separately.
+
+Keep the approved Chinese name in both languages, real guitar model, spatial exploration, playable three-pedal audio chain, six-second looper and draw-to-pluck scene. Reuse the bundled Three.js and native Web Audio; no new framework is needed. Verify changed behavior proportionately, including production asset paths, localized navigation and narrow-screen usability. Update this skill with the active contract when these boundaries change.
+
 ## Governing Contract
 
 The documents have a strict order. Do not start from component convenience:

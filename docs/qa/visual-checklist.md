@@ -1,5 +1,17 @@
 # Visual QA Checklist
 
+## me.qiu.works 首页（2026-09-22 起）
+
+首页 `/`、`/en/` 使用已确认的固定浅色空间与深色吉他近看，不执行下文旧首页的昼夜背景或三台项目入口检查。内页仍检查其现有 Light/Dark 阅读体验。
+
+- 根站构建通过；中英文共享首页在桌面、平板及 375 × 667 小屏可进入四个空间。
+- 「千秋」在两种语言中保留；切换语言保留场景 hash，文章与项目列表链接指向本站。
+- 入口吉他显示并跟随鼠标，点击能近看、切换细节及返回；贴图由构建产物加载，无原型路径。
+- 音乐区弦、音色、旋钮、开关与循环状态可操作，主动交互才发声；沿用原型已验证的音频算法。
+- 所有场景可通过地图/键盘到达；减少动态与无 WebGL 的回退保留。禁用 JS 时仍能进入阅读档案。
+- canonical、语言 alternate、robots、sitemap 使用 me.qiu.works；首页分享图对应新构图。
+- 不更改 QStudio，外部域名绑定和旧域名跳转需在发布时另行配置。
+
 Use this checklist before merging visible site changes. Test the built site when possible:
 
 ```sh
