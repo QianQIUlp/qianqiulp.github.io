@@ -16,7 +16,7 @@ Keep the approved Chinese name in both languages, real guitar model, spatial exp
 
 ## Governing Contract
 
-For Q Studio iterations from 2026-09-22, preserve the interactive editorial folio defined in `docs/uiux/developer-workbench.md`: oversized masthead with founder attribution, real current-product evidence, four direct project anchors, native expandable project dossiers, an accessible image dialog with full-size inspection, and copy-email feedback. Keep bilingual anchor continuity, one measured header offset, single active navigation state, ordinary-link fallbacks and zero added runtime dependencies. All Q Studio personal-site, project-note and writing links use `me.qiu.works`; the personal section keeps the name 千秋 in both languages and previews the approved guitar homepage, not the retired room photograph. The Room-specific composition rules do not apply to `developer/`.
+For Q Studio iterations from 2026-09-23, follow the active "Look inside" section at the top of `docs/uiux/developer-workbench.md`. Preserve the dark-green Q Studio hero, real VeriSilo site screenshot, draggable circular evidence view whose screenshot pans with the lens, and complete evidence title at the left endpoint. Keep the simple work → studio → Me → writing → contact flow, native expandable project dossiers, image links and dialog, static English `/` and Chinese `/zh/`, and localized `me.qiu.works` links. The former theme toggle, scrollspy, copy-email panel and editorial-workbench masthead are historical. Do not apply Room-specific composition rules to `developer/`.
 
 The documents have a strict order. Do not start from component convenience:
 

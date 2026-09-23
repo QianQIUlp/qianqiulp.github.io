@@ -17,27 +17,12 @@ const chineseUrl = new URL('/zh/', Astro.site).href;
 ---
 
 <!doctype html>
-<html lang={locale === 'en' ? 'en' : 'zh-CN'} class="no-js">
+<html lang={locale === 'en' ? 'en' : 'zh-CN'}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script is:inline>
-      (function () {
-        document.documentElement.classList.remove('no-js');
-        document.documentElement.classList.add('js');
-        if (new URLSearchParams(window.location.search).has('og')) {
-          document.documentElement.classList.add('og-capture');
-        }
-        var theme;
-        try { theme = localStorage.getItem('theme'); } catch (_) {}
-        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
-      })();
-    </script>
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#f1ebdb" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#14171a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#142019" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />

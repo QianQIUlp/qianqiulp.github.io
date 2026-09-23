@@ -1,5 +1,15 @@
 # Developer Profile · Editorial Workbench
 
+## 2026-09-23 · Look inside（当前方向）
+
+`prototypes/qstudio-look-inside.html` 的最终交互稿已进入 `developer/`。本节取代下文旧版编辑工作台的视觉、章节与交互规定；旧版内容仅保留决策记录。工作室的真实身份、产品边界、双语路由、链接与元数据要求继续有效。
+
+- 首屏以深绿底、编辑式排印和真实 VeriSilo 官网截图表达「Look inside / 看见内部」。圆形镜片可以直接拖动，也可以通过原生滑条与键盘移动；镜片内显示对应语言的真实证据截图，并随位置平移。滑到最左侧时，证据标题完整可见，不用固定文案替代截图。
+- 下方按作品、工作方式、创始人、写作、联系方式形成简洁信息流。四个作品以原生 `details` 展开，包含真实截图、受众、边界与来源链接。`Me` 跳到创始人段落，个人站预览保持矩形全图，链接进入对应语言的 `me.qiu.works`。
+- `/` 英文、`/zh/` 中文都在构建时输出完整正文。语言切换保留当前锚点；截图资源使用正式站点路径。截图放大有原生图片链接作为无 JavaScript 回退。
+- 页面使用原型的固定色彩与布局，不再提供旧版的昼夜主题按钮、滚动章节指示、复制邮箱或额外说明面板。对应语言的 1200 × 630 OG 图跟随新首屏。
+- 检查 1440、768、375 和 320 宽度的阅读与无水平滚动；检查镜片左右端点、直接拖动、滑条键盘操作、项目展开、图像对话框、语言与锚点。
+
 `developer/` 是部署到 `https://qiu.works` 的独立 Astro 静态应用，也是独立、自筹软件工作室 Q Studio 的官网，由 Qian Qiu 创建和运营。本契约只约束开发者主页；
 千秋的个人站 `me.qiu.works` 继续由 [`homepage-art-direction.md`](./homepage-art-direction.md)、
 [`person-first-intent.md`](./person-first-intent.md) 与 [`ink-and-light-study.md`](./ink-and-light-study.md) 管理。
