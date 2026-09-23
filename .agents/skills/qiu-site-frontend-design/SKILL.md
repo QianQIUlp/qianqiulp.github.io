@@ -16,7 +16,7 @@ Keep the approved Chinese name in both languages, real guitar model, spatial exp
 
 ## Governing Contract
 
-For Q Studio iterations from 2026-09-23, follow the active "Look inside" section at the top of `docs/uiux/developer-workbench.md`. Preserve the dark-green Q Studio hero, real VeriSilo site screenshot, draggable circular evidence view whose screenshot pans with the lens, and complete evidence title at the left endpoint. Keep the simple work → studio → Me → writing → contact flow, native expandable project dossiers, image links and dialog, static English `/` and Chinese `/zh/`, and localized `me.qiu.works` links. The former theme toggle, scrollspy, copy-email panel and editorial-workbench masthead are historical. Do not apply Room-specific composition rules to `developer/`.
+For Q Studio iterations from 2026-09-23, follow the active "Look inside" section at the top of `docs/uiux/developer-workbench.md`. Lead the dark-green hero with the large Q Studio name and a plain description of its local-first software and developer tools; label VeriSilo as the current product before its real screenshot. Preserve the draggable circular evidence view whose screenshot pans with the lens, a complete observed value in the initial position, and the complete evidence title at the left endpoint. Keep the simple work → studio → Me → writing → contact flow, native expandable project dossiers, image links and dialog, static English `/` and Chinese `/zh/`, and localized `me.qiu.works` links. The former theme toggle, scrollspy, copy-email panel and editorial-workbench masthead are historical. Do not apply Room-specific composition rules to `developer/`.
 
 The documents have a strict order. Do not start from component convenience:
 

@@ -124,7 +124,7 @@ Always check **Light** and **Dark** mode for changed routes.
 ## Developer Profile
 
 - `/` 与 `/zh/` 静态输出对应语言的完整内容；canonical、hreflang 和 sitemap 指向 `qiu.works`。
-- 首屏明确呈现 Q Studio、创办人 Qian Qiu、VeriSilo 真实官网画面和可拖动的证据镜片；左右端点均不切断镜片中的证据标题。
+- 首屏第一眼先读到「Q Studio」及其工作内容「本地优先的软件产品与开发者工具」；VeriSilo 明确标为当前产品及浏览器身份空间。真实官网画面和可拖动证据镜片承接这层身份，不抢掉工作室名称；初始镜片呈现完整观察值，最左端证据标题完整可读。
 - 鼠标、触控拖动圆镜与原生滑条、键盘方向键都能移动证据；镜片内截图随位置平移，不变成固定说明文字。
 - VeriSilo、MealCircuit、Crewlight、Hadoop Lab 按顺序呈现；教学实验不被写成产品。原生 `details` 能用键盘展开并保留受众、边界与真实来源。
 - `Me` 锚点到创始人段落，对应语言的「千秋」与吉他预览完整可见，链接到 `me.qiu.works`。写作链接与联系方式可用。

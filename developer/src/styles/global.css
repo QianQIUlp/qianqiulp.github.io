@@ -16,8 +16,7 @@
     .mark { display:flex; align-items:center; gap:12px; white-space:nowrap; text-decoration:none; font-size:16px; font-weight:850; letter-spacing:-.045em; }
     .mark__q { display:grid; place-items:center; width:38px; height:38px; border:5px solid var(--ink); border-radius:50%; font-size:0; position:relative; }
     .mark__q::after { content:""; position:absolute; width:18px; height:5px; right:-10px; bottom:-3px; background:var(--rust); transform:rotate(45deg); }
-    .top__descriptor { margin-right:auto; max-width:22ch; color:#59675d; }
-    .top nav { display:flex; align-items:center; gap:clamp(18px,2.5vw,38px); }
+    .top nav { display:flex; align-items:center; gap:clamp(18px,2.5vw,38px); margin-left:auto; }
     .top nav a { min-height:44px; display:inline-flex; align-items:center; color:#445449; text-decoration:none; font-size:12px; font-weight:700; }
     .top nav a:hover { color:#a9462b; }
     .lang { display:grid; place-items:center; min-width:65px; min-height:44px; padding:0 10px; border:1px solid #728075; background:transparent; color:var(--ink); text-decoration:none; }
@@ -30,10 +29,10 @@
     .hero__copy { position:relative; z-index:2; display:flex; flex-direction:column; align-items:start; }
     .eyebrow { display:flex; align-items:center; gap:13px; margin:0; color:#e3a38b; }
     .eyebrow::before { content:""; width:32px; height:1px; background:currentColor; }
-    .hero h1 { margin:clamp(55px,8vh,115px) 0 28px; font:400 clamp(91px,9.2vw,156px)/.78 "Iowan Old Style","Palatino Linotype",Georgia,serif; letter-spacing:-.105em; }
-    .hero h1 span,.hero h1 em { display:block; }
-    .hero h1 em { margin:15px 0 0 .035em; color:#e59b77; font-weight:400; }
-    .hero__lead { max-width:29ch; margin:0 0 14px; font-size:clamp(18px,1.8vw,28px); line-height:1.28; font-weight:500; letter-spacing:-.04em; }
+    .hero h1 { margin:clamp(65px,9vh,125px) 0 30px; font:400 clamp(70px,7.6vw,116px)/.95 "Iowan Old Style","Palatino Linotype",Georgia,serif; letter-spacing:-.095em; white-space:nowrap; }
+    .hero h1 em { color:#e59b77; font-weight:400; }
+    .hero__lead { max-width:33ch; margin:0 0 14px; font-size:clamp(20px,1.9vw,29px); line-height:1.28; font-weight:600; letter-spacing:-.04em; }
+    .hero__lead span { display:block; }
     .hero__body { max-width:48ch; margin:0; color:#b8c4b8; font-size:14px; line-height:1.7; }
     .hero__actions { display:flex; flex-wrap:wrap; align-items:center; gap:16px 28px; margin-top:34px; }
     .primary { display:inline-flex; align-items:center; justify-content:space-between; gap:30px; min-height:49px; padding:11px 16px; background:#e6a083; color:#17211c; text-decoration:none; font-size:12px; font-weight:800; }
@@ -47,7 +46,10 @@
     .specimen { position:relative; width:100%; margin-inline:auto; color:var(--paper); }
     .specimen__head,.specimen__foot { display:flex; justify-content:space-between; align-items:center; gap:15px; }
     .specimen__head { padding:0 3px 16px; color:#b9c8b9; }
-    .specimen__head span:first-child { color:#e6a083; }
+    .specimen__identity { display:flex; flex-direction:column; gap:2px; }
+    .specimen__identity span { color:#e6a083; }
+    .specimen__identity strong { color:var(--paper); font:400 clamp(24px,2.7vw,34px)/1 "Iowan Old Style",Georgia,serif; letter-spacing:-.055em; }
+    .specimen__head > span:last-child { text-align:right; }
     .specimen__window { position:relative; overflow:hidden; width:100%; aspect-ratio:1264 / 708; background:#f3f5fb; --cut:72%; --lens-radius:clamp(80px,10vw,128px); }
     .specimen__window img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
     .specimen__proof { position:absolute; z-index:1; top:50%; left:var(--cut); overflow:hidden; width:calc(2 * var(--lens-radius)); height:calc(2 * var(--lens-radius)); transform:translate(-50%,-50%); border-radius:50%; pointer-events:none; }
@@ -156,15 +158,11 @@
     .image-dialog__head button { width:43px; height:43px; border:1px solid #8f9f90; background:transparent; color:var(--ink); font-size:24px; }
     .image-dialog img { width:auto; max-width:100%; max-height:calc(94vh - 61px); margin:auto; }
 
-    :lang(zh) .hero h1, :lang(zh) .section-head h2, :lang(zh) .proposition h2, :lang(zh) .method h2, :lang(zh) .writing h2, :lang(zh) .contact h2 { font-family:"Songti SC","SimSun","Noto Serif CJK SC",serif; letter-spacing:-.085em; }
-    :lang(zh) .hero h1 { font-size:clamp(75px,8vw,132px); line-height:.99; }
-    :lang(zh) .hero h1 em { margin-top:7px; font-style:normal; }
+    :lang(zh) .section-head h2, :lang(zh) .proposition h2, :lang(zh) .method h2, :lang(zh) .writing h2, :lang(zh) .contact h2 { font-family:"Songti SC","SimSun","Noto Serif CJK SC",serif; letter-spacing:-.085em; }
 
     @media (max-width:1100px) {
-      .top__descriptor { display:none; }
-      .top nav { margin-left:auto; }
       .hero__inner { grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); }
-      .hero h1 { font-size:clamp(74px,8vw,105px); }
+      .hero h1 { font-size:clamp(65px,7.2vw,88px); }
       .hero__art::before { font-size:58vw; }
       .case summary { grid-template-columns:55px minmax(170px,.8fr) minmax(0,1fr) 42px; }
       .case__body { padding-left:73px; }
@@ -175,7 +173,7 @@
       .top nav { gap:17px; }
       .top nav a { font-size:11px; }
       .hero__inner { display:flex; flex-direction:column; min-height:0; padding-block:49px 55px; }
-      .hero h1 { margin-top:55px; font-size:clamp(76px,14vw,120px); }
+      .hero h1 { margin-top:55px; font-size:clamp(68px,11vw,105px); }
       .hero__lead { max-width:38ch; }
       .hero__bottom { display:none; }
       .hero__art { margin-top:70px; padding:0 0 60px; }
@@ -205,9 +203,10 @@
       .mark__q { width:32px; height:32px; border-width:4px; }
       .mark__q::after { width:15px; height:4px; right:-8px; }
       .lang { min-width:49px; padding-inline:5px; }
-      .hero h1 { font-size:clamp(75px,17vw,92px); }
+      .hero h1 { font-size:clamp(54px,17vw,72px); }
       .specimen__head,.specimen__foot { font-size:8px; }
       .specimen__head { padding-bottom:8px; }
+      .specimen__identity strong { font-size:22px; }
       .specimen__window { --lens-radius:72px; }
       .specimen__seam::before { right:-20px; bottom:-1px; width:52px; height:11px; }
       .specimen__window[data-tail="left"] .specimen__seam::before { left:-20px; }
