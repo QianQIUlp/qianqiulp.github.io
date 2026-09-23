@@ -38,6 +38,21 @@ export type DeveloperCopy = {
   themeAria: string;
   day: string;
   night: string;
+  interaction: {
+    projectIndex: string;
+    inspect: string;
+    evidenceTitle: string;
+    evidenceCaption: string;
+    close: string;
+    actualSize: string;
+    fitImage: string;
+    details: string;
+    audience: string;
+    decision: string;
+    copyEmail: string;
+    copied: string;
+    copyFailed: string;
+  };
   hero: {
     eyebrow: string;
     studio: string;
@@ -46,7 +61,7 @@ export type DeveloperCopy = {
     body: string;
     workAction: string;
     githubAction: string;
-    roomAction: string;
+    personalAction: string;
     nowLabel: string;
     nowProject: string;
     nowStatus: string;
@@ -81,7 +96,7 @@ export type DeveloperCopy = {
   };
   approach: { eyebrow: string; title: string; lead: string; principles: Principle[] };
   writing: { eyebrow: string; title: string; lead: string; items: Writing[]; action: string };
-  room: { eyebrow: string; title: string; body: string; action: string; image: string; imageAlt: string };
+  personal: { eyebrow: string; title: string; body: string; action: string; image: string; imageAlt: string };
   contact: {
     eyebrow: string;
     title: string;
@@ -99,8 +114,8 @@ const links = {
   mealCircuit: 'https://github.com/QianQIUlp/meal-circuit',
   crewlight: 'https://github.com/QianQIUlp/Crewlight',
   hadoop: 'https://github.com/QianQIUlp/docker-hadoop-cluster',
-  roomEn: 'https://room.qiu.works/en/',
-  roomZh: 'https://room.qiu.works/',
+  personalEn: 'https://me.qiu.works/en/',
+  personalZh: 'https://me.qiu.works/',
 } as const;
 
 export const copy: Record<Locale, DeveloperCopy> = {
@@ -120,15 +135,30 @@ export const copy: Record<Locale, DeveloperCopy> = {
     themeAria: 'Switch color theme',
     day: 'Day',
     night: 'Night',
+    interaction: {
+      projectIndex: 'Project index',
+      inspect: 'Look closer',
+      evidenceTitle: 'Evidence, in view.',
+      evidenceCaption: 'From the VeriSilo product site · a captured view, not a live audit.',
+      close: 'Close evidence view',
+      actualSize: 'View at full size',
+      fitImage: 'Fit to view',
+      details: 'Open file',
+      audience: 'Who it is for',
+      decision: 'A deliberate choice',
+      copyEmail: 'Copy email',
+      copied: 'Email copied.',
+      copyFailed: 'Copy unavailable. Select the address above, or click it to email.',
+    },
     hero: {
-      eyebrow: 'Q Studio · Independent software studio',
+      eyebrow: 'Independent software studio',
       studio: 'Q Studio',
       studioLead: 'Founded and operated by Qian Qiu · CS student and indie developer',
       headline: 'Focused software with explicit boundaries.',
-      body: 'Q Studio builds local-first and inspectable software with an emphasis on user-controlled data, explicit capability boundaries, and reproducible systems. The current focus is VeriSilo, a Windows-first, open-source browser environment isolation and privacy-auditing project for Chrome and Edge.',
+      body: 'An independent, self-funded studio building local-first, inspectable software. User-controlled data, clear capability boundaries, and systems others can reproduce.',
       workAction: 'View selected work',
       githubAction: 'GitHub',
-      roomAction: "Enter Qiu's Room",
+      personalAction: 'Meet 千秋',
       nowLabel: 'Current focus',
       nowProject: 'VeriSilo',
       nowStatus: 'Public pre-release · v0.1.0-rc4',
@@ -164,8 +194,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: 'The application keeps facts, schemas, and correction history local, and v0.3.0 shares one encrypted data model with a native Android client. It does not call an external model API itself.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.mealCircuit,
-        secondaryLabel: 'Room case study',
-        secondaryHref: `${links.roomEn}projects/#project-meal-circuit`,
+        secondaryLabel: 'Project notes',
+        secondaryHref: `${links.personalEn}projects/#project-meal-circuit`,
       },
       {
         key: 'crewlight',
@@ -178,8 +208,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: 'Windows x64 artifacts shipped as a pre-release and are unsigned; Linux and macOS publish no native binaries. Crewlight stores no prompts, transcripts, tool I/O, or complete platform payloads.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.crewlight,
-        secondaryLabel: 'Room case study',
-        secondaryHref: `${links.roomEn}projects/#project-crewlight`,
+        secondaryLabel: 'Project notes',
+        secondaryHref: `${links.personalEn}projects/#project-crewlight`,
       },
       {
         key: 'docker-hadoop-cluster',
@@ -192,8 +222,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: 'A lifecycle CLI plus doctor, status, WordCount, safe reset, and redacted diagnostics keep the lab reproducible without presenting it as a production platform.',
         primaryLabel: 'GitHub repository',
         primaryHref: links.hadoop,
-        secondaryLabel: 'Room case study',
-        secondaryHref: `${links.roomEn}projects/#project-docker-hadoop-cluster`,
+        secondaryLabel: 'Project notes',
+        secondaryHref: `${links.personalEn}projects/#project-docker-hadoop-cluster`,
       },
     ],
     studio: {
@@ -234,29 +264,29 @@ export const copy: Record<Locale, DeveloperCopy> = {
           date: '2026/05/26',
           title: 'The Metacognitive Blind Spot of LLMs',
           description: 'Whether model self-correction is genuine doubt or another learned performance.',
-          href: `${links.roomEn}blog/posts/2026-05-26-llm-metacog-blindspot/`,
+          href: `${links.personalEn}blog/posts/2026-05-26-llm-metacog-blindspot/`,
         },
         {
           date: '2026/05/20',
           title: 'Hardening a New Linux Server',
           description: 'A practical path from closing unsafe defaults to maintaining a recoverable system.',
-          href: `${links.roomEn}blog/posts/2026-05-20-linux-security-setup/`,
+          href: `${links.personalEn}blog/posts/2026-05-20-linux-security-setup/`,
         },
         {
           date: '2026/06/18',
           title: 'I Do Not Owe a Resource One Use',
           description: 'Why unused capacity should not be allowed to invent work on my behalf.',
-          href: `${links.roomEn}blog/posts/2026-06-18-resource-usage-rule/`,
+          href: `${links.personalEn}blog/posts/2026-06-18-resource-usage-rule/`,
         },
       ],
     },
-    room: {
-      eyebrow: 'Beyond work · founder’s personal space',
-      title: 'The projects are only one part of the room.',
-      body: 'Writing, guitar, games, relationships, and questions that have not turned into software live in a slower, more personal space belonging to Qian Qiu.',
-      action: "Enter Qiu's Room",
-      image: '/assets/evidence/qius-room-en.png',
-      imageAlt: "Qiu's personal room with a guitar under warm light",
+    personal: {
+      eyebrow: 'Beyond work · me.qiu.works',
+      title: '千秋, beyond the studio.',
+      body: 'The person behind Q Studio. Pick up my guitar, make a little music, turn a page, or leave a line. This is 千秋’s personal space.',
+      action: 'Meet 千秋',
+      image: '/assets/evidence/me-en.jpg',
+      imageAlt: '千秋’s personal site with the Chinese name and a wine-red Potbelly guitar',
     },
     contact: {
       eyebrow: 'Contact',
@@ -283,15 +313,30 @@ export const copy: Record<Locale, DeveloperCopy> = {
     themeAria: '切换深浅色模式',
     day: '昼',
     night: '夜',
+    interaction: {
+      projectIndex: '项目索引',
+      inspect: '近看证据',
+      evidenceTitle: '把证据放到眼前。',
+      evidenceCaption: '取自 VeriSilo 产品网站 · 页面截图，并非实时审计。',
+      close: '关闭证据视图',
+      actualSize: '按原尺寸查看',
+      fitImage: '适应视窗',
+      details: '展开档案',
+      audience: '为谁而做',
+      decision: '一项设计取舍',
+      copyEmail: '复制邮箱',
+      copied: '邮箱已复制。',
+      copyFailed: '暂时无法复制，请选中上方地址，或点击地址发送邮件。',
+    },
     hero: {
-      eyebrow: 'Q Studio · 独立软件工作室',
+      eyebrow: '独立软件工作室',
       studio: 'Q Studio',
       studioLead: '由 Qian Qiu 独立创建和运营 · 学生开发者与独立构建者',
       headline: '聚焦的软件，边界明确。',
-      body: 'Q Studio 构建本地优先、可检查的软件，强调用户对数据和系统行为的控制、明确的能力边界，以及可复现的系统。当前重点是 VeriSilo，一个面向 Windows、开源的 Chrome 与 Edge 浏览器环境隔离和隐私审计项目。',
+      body: '一家独立、自筹的软件工作室。构建本地优先、可供检视的软件，让用户掌握数据，让能力边界清晰，让系统可以被他人复现。',
       workAction: '查看代表作品',
       githubAction: 'GitHub',
-      roomAction: '进入 Qiu 的小屋',
+      personalAction: '认识千秋',
       nowLabel: '当前重点',
       nowProject: 'VeriSilo',
       nowStatus: '公开预发布 · v0.1.0-rc4',
@@ -327,8 +372,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: '应用在本地保存事实、schema 与纠错历史，v0.3.0 起与原生 Android 客户端共用同一套加密数据模型；它本身不调用外部模型 API。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.mealCircuit,
-        secondaryLabel: 'Room 案例',
-        secondaryHref: `${links.roomZh}projects/#project-meal-circuit`,
+        secondaryLabel: '项目记录',
+        secondaryHref: `${links.personalZh}projects/#project-meal-circuit`,
       },
       {
         key: 'crewlight',
@@ -341,8 +386,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: 'Windows x64 产物已作为预发布提供且未签名，Linux 与 macOS 不发布原生二进制；Crewlight 不保存 prompt、transcript、tool I/O 或完整平台载荷。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.crewlight,
-        secondaryLabel: 'Room 案例',
-        secondaryHref: `${links.roomZh}projects/#project-crewlight`,
+        secondaryLabel: '项目记录',
+        secondaryHref: `${links.personalZh}projects/#project-crewlight`,
       },
       {
         key: 'docker-hadoop-cluster',
@@ -355,8 +400,8 @@ export const copy: Record<Locale, DeveloperCopy> = {
         decision: '生命周期 CLI、doctor、status、WordCount、安全重置和脱敏诊断让实验可重复，同时明确它不是生产平台。',
         primaryLabel: 'GitHub 仓库',
         primaryHref: links.hadoop,
-        secondaryLabel: 'Room 案例',
-        secondaryHref: `${links.roomZh}projects/#project-docker-hadoop-cluster`,
+        secondaryLabel: '项目记录',
+        secondaryHref: `${links.personalZh}projects/#project-docker-hadoop-cluster`,
       },
     ],
     studio: {
@@ -397,29 +442,29 @@ export const copy: Record<Locale, DeveloperCopy> = {
           date: '2026/05/26',
           title: 'LLM 元认知盲点：为什么我不会主动质疑自己的框架',
           description: '模型的自我修正究竟是真正的怀疑，还是另一种学习到的表演。',
-          href: `${links.roomZh}blog/posts/2026-05-26-llm-metacog-blindspot/`,
+          href: `${links.personalZh}blog/posts/2026-05-26-llm-metacog-blindspot/`,
         },
         {
           date: '2026/05/20',
           title: '新服务器加固的三阶段心智模型',
           description: '从关闭不安全默认值，到建立一条可恢复、可持续维护的路径。',
-          href: `${links.roomZh}blog/posts/2026-05-20-linux-security-setup/`,
+          href: `${links.personalZh}blog/posts/2026-05-20-linux-security-setup/`,
         },
         {
           date: '2026/06/18',
           title: '我不欠资源一次使用',
           description: '为什么闲置的能力不应该反过来替我创造任务。',
-          href: `${links.roomZh}blog/posts/2026-06-18-resource-usage-rule/`,
+          href: `${links.personalZh}blog/posts/2026-06-18-resource-usage-rule/`,
         },
       ],
     },
-    room: {
-      eyebrow: '工作之外 · 创始人的个人空间',
-      title: '项目只是这个房间的一部分。',
-      body: '写作、吉他、游戏、关系和那些还没有长成软件的问题，留在一个更慢、更个人的属于 Qian Qiu 的空间里。',
-      action: '进入 Qiu 的小屋',
-      image: '/assets/evidence/qius-room-zh.png',
-      imageAlt: '暖光下摆放着吉他的 Qiu 个人房间',
+    personal: {
+      eyebrow: '工作之外 · me.qiu.works',
+      title: '工作之外，是千秋。',
+      body: 'Q Studio 背后的那个人。拿起我的吉他，拨几根弦，翻一张散页，或者随手留一笔。这是属于千秋的私人一隅。',
+      action: '认识千秋',
+      image: '/assets/evidence/me-zh.jpg',
+      imageAlt: '千秋个人站：中文姓名与酒红色 Potbelly 吉他',
     },
     contact: {
       eyebrow: '联系',

@@ -10,7 +10,7 @@ const { locale } = Astro.props;
 const content = copy[locale];
 const homeHref = locale === 'en' ? '/' : '/zh/';
 const languageHref = locale === 'en' ? '/zh/' : '/';
-const roomHref = locale === 'en' ? links.roomEn : links.roomZh;
+const personalHref = locale === 'en' ? links.personalEn : links.personalZh;
 const emailHref = 'mailto:qstudio@qiu.works';
 const siteUrl = 'https://qiu.works';
 const studioJsonLd = {
@@ -60,18 +60,18 @@ const studioJsonLd = {
 
   <main id="main-content">
     <section class="hero section-shell" aria-labelledby="hero-title">
-      <div class="hero__copy">
+      <div class="hero__masthead">
         <p class="eyebrow">{content.hero.eyebrow}</p>
-        <h1 id="hero-title">
-          <span>{content.hero.studio}</span>
-          <strong>{content.hero.headline}</strong>
-        </h1>
+        <h1 id="hero-title">{content.hero.studio}<span aria-hidden="true">.</span></h1>
         <p class="hero__founder">{content.hero.studioLead}</p>
+      </div>
+      <div class="hero__copy">
+        <p class="hero__statement">{content.hero.headline}</p>
         <p class="hero__body">{content.hero.body}</p>
         <div class="hero__actions">
           <a class="button button--primary" href="#work">{content.hero.workAction}</a>
           <a class="button button--quiet" href={links.github} target="_blank" rel="noopener noreferrer">{content.hero.githubAction}</a>
-          <a class="text-link" href={roomHref}>{content.hero.roomAction}</a>
+          <a class="text-link" href={personalHref}>{content.hero.personalAction}</a>
         </div>
       </div>
 
@@ -87,9 +87,18 @@ const studioJsonLd = {
           </a>
           <span>{content.hero.nowStatus}</span>
         </div>
+        <a class="current-work__preview evidence-trigger" href={content.work.image} aria-label={`${content.interaction.inspect} — VeriSilo`} data-evidence>
+          <img src={content.work.image} width="1440" height={content.work.imageHeight} alt={content.work.imageAlt} fetchpriority="high" />
+          <span>{content.interaction.inspect}<span aria-hidden="true">↗</span></span>
+        </a>
         <p>{content.hero.nowBody}</p>
-        <p class="current-work__evidence">{content.hero.nowEvidence}</p>
       </aside>
+      <nav class="hero__index" aria-label={content.interaction.projectIndex}>
+        <a href="#work"><span>01</span> VeriSilo <i aria-hidden="true">↗</i></a>
+        {content.projects.map((project, index) => (
+          <a href={`#project-${project.key}`}><span>{String(index + 2).padStart(2, '0')}</span> {project.name} <i aria-hidden="true">↗</i></a>
+        ))}
+      </nav>
     </section>
 
     <section class="work section-shell" aria-labelledby="work-title">
@@ -103,13 +112,17 @@ const studioJsonLd = {
 
       <article class="featured-project" data-reveal>
         <figure class="featured-project__visual">
-          <img
-            src={content.work.image}
-            width="1440"
-            height={content.work.imageHeight}
-            loading="lazy"
-            alt={content.work.imageAlt}
-          />
+          <a class="evidence-trigger" href={content.work.image} aria-label={`${content.interaction.inspect} — VeriSilo`} data-evidence>
+            <img
+              src={content.work.image}
+              width="1440"
+              height={content.work.imageHeight}
+              loading="lazy"
+              alt={content.work.imageAlt}
+            />
+            <span>{content.interaction.inspect}<span aria-hidden="true">↗</span></span>
+          </a>
+          <figcaption>{content.interaction.evidenceCaption}</figcaption>
         </figure>
         <div class="featured-project__copy">
           <p class="project-index">{content.work.featuredLabel}</p>
@@ -117,6 +130,7 @@ const studioJsonLd = {
           <p class="featured-project__audience">{content.work.featuredAudience}</p>
           <h3>{content.work.featuredTitle}</h3>
           <p>{content.work.featuredBody}</p>
+          <p>{content.hero.nowEvidence}</p>
           <p class="boundary-note">{content.work.featuredBoundary}</p>
           <div class="project-links">
             <a href={links.verisilo}>{content.work.featuredProduct}</a>
@@ -128,22 +142,29 @@ const studioJsonLd = {
       <ol class="project-list" aria-label={content.work.listAria}>
         {content.projects.map((project, index) => (
           <li data-reveal style={`--reveal-order:${index};`}>
-            <article class="project-row">
-              <div class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</div>
-              <div class="project-row__identity">
-                <p><span class="project-row__tier">{project.tier}</span><span class="project-row__meta">{project.status} · {project.type}</span></p>
-                <h3>{project.name}</h3>
+            <details class="project-dossier" id={`project-${project.key}`} name="projects">
+              <summary>
+                <span class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</span>
+                <span class="project-row__identity">
+                  <span class="project-row__tier">{project.tier}</span>
+                  <span class="project-name">{project.name}</span>
+                  <span class="project-row__meta">{project.type}</span>
+                </span>
+                <span class="project-summary">{project.summary}</span>
+                <span class="dossier-toggle"><span class="dossier-toggle__label">{content.interaction.details}</span><i aria-hidden="true"></i></span>
+              </summary>
+              <div class="project-dossier__body">
+                <p class="project-status">{project.status}</p>
+                <dl>
+                  <div><dt>{content.interaction.audience}</dt><dd>{project.audience}</dd></div>
+                  <div><dt>{content.interaction.decision}</dt><dd>{project.decision}</dd></div>
+                </dl>
+                <div class="project-links">
+                  <a href={project.primaryHref} target="_blank" rel="noopener noreferrer">{project.primaryLabel}</a>
+                  <a href={project.secondaryHref}>{project.secondaryLabel}</a>
+                </div>
               </div>
-              <div class="project-row__body">
-                <p>{project.summary}</p>
-                <p>{project.audience}</p>
-                <p>{project.decision}</p>
-              </div>
-              <div class="project-links project-row__links">
-                <a href={project.primaryHref} target="_blank" rel="noopener noreferrer">{project.primaryLabel}</a>
-                <a href={project.secondaryHref}>{project.secondaryLabel}</a>
-              </div>
-            </article>
+            </details>
           </li>
         ))}
       </ol>
@@ -218,21 +239,21 @@ const studioJsonLd = {
       </ol>
     </section>
 
-    <section class="room-portal section-shell" aria-labelledby="room-title" data-reveal>
-      <a class="room-portal__visual" href={roomHref} aria-label={content.room.action}>
+    <section class="personal-portal section-shell" aria-labelledby="personal-title" data-reveal>
+      <a class="personal-portal__visual" href={personalHref} aria-label={content.personal.action}>
         <img
-          src={content.room.image}
-          width="1440"
-          height="900"
+          src={content.personal.image}
+          width="1200"
+          height="630"
           loading="lazy"
-          alt={content.room.imageAlt}
+          alt={content.personal.imageAlt}
         />
       </a>
-      <div class="room-portal__copy">
-        <p class="eyebrow">{content.room.eyebrow}</p>
-        <h2 id="room-title">{content.room.title}</h2>
-        <p>{content.room.body}</p>
-        <a class="text-link" href={roomHref}>{content.room.action}</a>
+      <div class="personal-portal__copy">
+        <p class="eyebrow">{content.personal.eyebrow}</p>
+        <h2 id="personal-title">{content.personal.title}</h2>
+        <p>{content.personal.body}</p>
+        <a class="text-link" href={personalHref}>{content.personal.action}</a>
       </div>
     </section>
 
@@ -245,17 +266,34 @@ const studioJsonLd = {
         </div>
         <div class="contact__actions">
           <a class="contact-email" href={emailHref}>qstudio@qiu.works</a>
+          <button class="copy-email" type="button" hidden>{content.interaction.copyEmail}<span aria-hidden="true">⧉</span></button>
+          <span class="copy-status" role="status" aria-live="polite"></span>
           <a class="text-link" href={links.github} target="_blank" rel="noopener noreferrer">{content.contact.githubLabel}</a>
         </div>
       </div>
     </section>
   </main>
 
+  <dialog class="evidence-dialog" aria-labelledby="evidence-title">
+    <header>
+      <div><p class="project-index">FILE 01 / VERISILO</p><h2 id="evidence-title">{content.interaction.evidenceTitle}</h2></div>
+      <form method="dialog"><button class="dialog-close" aria-label={content.interaction.close}>×</button></form>
+    </header>
+    <div class="evidence-dialog__viewport" tabindex="0" role="region" aria-label={content.interaction.evidenceTitle}>
+      <img src={content.work.image} width="1440" height={content.work.imageHeight} alt={content.work.imageAlt} loading="lazy" />
+    </div>
+    <footer>
+      <p>{content.interaction.evidenceCaption}</p>
+      <button class="evidence-zoom" type="button" aria-pressed="false">{content.interaction.actualSize}</button>
+      <a class="text-link" href={links.verisilo}>{content.work.featuredProduct} ↗</a>
+    </footer>
+  </dialog>
+
   <footer class="site-footer">
     <div class="site-footer__inner">
       <p>{content.footer}</p>
       <nav aria-label={locale === 'en' ? 'Footer links' : '页脚链接'}>
-        <a href={roomHref}>{content.hero.roomAction}</a>
+        <a href={personalHref}>{content.hero.personalAction}</a>
         <a href={emailHref}>{content.nav.contact}</a>
         <a href={links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
@@ -264,7 +302,7 @@ const studioJsonLd = {
 
   <script type="application/ld+json" set:html={JSON.stringify(studioJsonLd)} />
 
-  <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night }}>
+  <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night, interaction: content.interaction }}>
     (function () {
       var html = document.documentElement;
       var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -283,10 +321,10 @@ const studioJsonLd = {
           var dark = html.getAttribute('data-theme') !== 'dark';
           if (dark) {
             html.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
+            try { localStorage.setItem('theme', 'dark'); } catch (_) {}
           } else {
             html.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
+            try { localStorage.setItem('theme', 'light'); } catch (_) {}
           }
           render();
         };
@@ -306,62 +344,101 @@ const studioJsonLd = {
         });
       }
 
-      /* Scrollspy: the nav quietly follows the section being read, so the
-         header behaves like a ruler that knows where the page is. */
-      var navLinks = Array.prototype.slice.call(document.querySelectorAll('[data-spy]'));
-      if (navLinks.length > 0 && 'IntersectionObserver' in window) {
-        var bySection = {};
+
+      // Follow the actual reading position; retain explicit anchors across locales.
+      var navLinks = Array.from(document.querySelectorAll('[data-spy]'));
+      var sections = navLinks.map(function (link) { return document.getElementById(link.dataset.spy); });
+      var languageLink = document.querySelector('.language-toggle');
+      var languagePath = languageLink.getAttribute('href');
+      var header = document.querySelector('.site-header');
+      var frame = 0;
+      var current;
+      function updateNavigation() {
+        frame = 0;
+        var edge = Math.max(header.offsetHeight + 32, window.innerHeight * 0.28);
+        var active = sections.filter(function (section) { return section.getBoundingClientRect().top <= edge; }).pop();
+        var id = active ? active.id : '';
+        if (id === current) return;
+        current = id;
         navLinks.forEach(function (link) {
-          var id = link.getAttribute('data-spy');
-          var target = document.getElementById(id);
-          if (target) {
-            bySection[id] = link;
-          }
+          var selected = link.dataset.spy === id;
+          link.classList.toggle('is-active', selected);
+          if (selected) link.setAttribute('aria-current', 'true');
+          else link.removeAttribute('aria-current');
         });
-        var current = null;
-        var mark = function (id) {
-          if (current === id) {
-            return;
-          }
-          current = id;
-          navLinks.forEach(function (link) {
-            var active = link.getAttribute('data-spy') === id;
-            link.classList.toggle('is-active', active);
-            if (active) {
-              link.setAttribute('aria-current', 'true');
-            } else {
-              link.removeAttribute('aria-current');
-            }
+      }
+      function scheduleNavigation() {
+        if (!frame) frame = requestAnimationFrame(updateNavigation);
+      }
+      window.addEventListener('scroll', scheduleNavigation, { passive: true });
+      window.addEventListener('resize', scheduleNavigation);
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(function () {
+          html.style.setProperty('--anchor-offset', (header.offsetHeight + 24) + 'px');
+          scheduleNavigation();
+        }).observe(header);
+      }
+      document.querySelectorAll('.project-dossier').forEach(function (details) {
+        details.addEventListener('toggle', scheduleNavigation);
+      });
+      function openLinkedProject() {
+        var target = document.getElementById(window.location.hash.slice(1));
+        languageLink.href = languagePath + (target && (sections.includes(target) || target.matches('.project-dossier')) ? '#' + target.id : '');
+        if (target && target.matches('.project-dossier')) {
+          target.open = true;
+          target.scrollIntoView({ block: 'start' });
+        }
+        scheduleNavigation();
+      }
+      window.addEventListener('hashchange', openLinkedProject);
+      document.querySelectorAll('.hero__index a[href^="#project-"]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          document.getElementById(link.hash.slice(1)).open = true;
+        });
+      });
+      openLinkedProject();
+
+      // Image links remain usable without JavaScript. The modal adds a closer look.
+      var dialog = document.querySelector('.evidence-dialog');
+      var zoom = document.querySelector('.evidence-zoom');
+      var opener;
+      if (typeof dialog.showModal === 'function') {
+        document.querySelectorAll('[data-evidence]').forEach(function (link) {
+          link.setAttribute('aria-haspopup', 'dialog');
+          link.addEventListener('click', function (event) {
+            if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+            event.preventDefault();
+            opener = link;
+            dialog.showModal();
+            dialog.querySelector('.evidence-dialog__viewport').scrollTo(0, 0);
+            html.classList.add('evidence-open');
           });
-        };
-        var visible = {};
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              visible[entry.target.dataset.spySection] = entry.isIntersecting
-                ? entry.intersectionRatio
-                : 0;
-            });
-            var best = null;
-            var bestRatio = 0;
-            Object.keys(visible).forEach(function (id) {
-              if (visible[id] > bestRatio) {
-                best = id;
-                bestRatio = visible[id];
-              }
-            });
-            if (best) {
-              mark(best);
-            }
-          },
-          { rootMargin: '-30% 0px -55% 0px', threshold: [0, 0.15, 0.5, 1] }
-        );
-        Object.keys(bySection).forEach(function (id) {
-          var heading = document.getElementById(id);
-          var section = heading && heading.closest('section');
-          if (section) {
-            section.dataset.spySection = id;
-            observer.observe(section);
+        });
+        zoom.addEventListener('click', function () {
+          var full = dialog.toggleAttribute('data-full-size');
+          zoom.setAttribute('aria-pressed', String(full));
+          zoom.textContent = full ? interaction.fitImage : interaction.actualSize;
+        });
+        dialog.addEventListener('close', function () {
+          html.classList.remove('evidence-open');
+          dialog.removeAttribute('data-full-size');
+          zoom.setAttribute('aria-pressed', 'false');
+          zoom.textContent = interaction.actualSize;
+          if (opener) opener.focus({ preventScroll: true });
+        });
+      }
+
+      var copyButton = document.querySelector('.copy-email');
+      var copyStatus = document.querySelector('.copy-status');
+      if (navigator.clipboard && window.isSecureContext) {
+        copyButton.hidden = false;
+        copyButton.addEventListener('click', async function () {
+          copyStatus.textContent = '';
+          try {
+            await navigator.clipboard.writeText('qstudio@qiu.works');
+            copyStatus.textContent = interaction.copied;
+          } catch (_) {
+            copyStatus.textContent = interaction.copyFailed;
           }
         });
       }

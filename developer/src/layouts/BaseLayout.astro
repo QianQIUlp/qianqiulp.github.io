@@ -28,7 +28,8 @@ const chineseUrl = new URL('/zh/', Astro.site).href;
         if (new URLSearchParams(window.location.search).has('og')) {
           document.documentElement.classList.add('og-capture');
         }
-        var theme = localStorage.getItem('theme');
+        var theme;
+        try { theme = localStorage.getItem('theme'); } catch (_) {}
         if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
           document.documentElement.setAttribute('data-theme', 'dark');
         }

@@ -16,6 +16,8 @@ Keep the approved Chinese name in both languages, real guitar model, spatial exp
 
 ## Governing Contract
 
+For Q Studio iterations from 2026-09-22, preserve the interactive editorial folio defined in `docs/uiux/developer-workbench.md`: oversized masthead with founder attribution, real current-product evidence, four direct project anchors, native expandable project dossiers, an accessible image dialog with full-size inspection, and copy-email feedback. Keep bilingual anchor continuity, one measured header offset, single active navigation state, ordinary-link fallbacks and zero added runtime dependencies. All Q Studio personal-site, project-note and writing links use `me.qiu.works`; the personal section keeps the name 千秋 in both languages and previews the approved guitar homepage, not the retired room photograph. The Room-specific composition rules do not apply to `developer/`.
+
 The documents have a strict order. Do not start from component convenience:
 
 1. **`docs/uiux/homepage-art-direction.md` is the homepage creative source.** It preserves the user's original quote:
