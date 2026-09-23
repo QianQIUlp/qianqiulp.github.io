@@ -1,25 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { copy, links, type Locale } from '../content';
+import { meta, links, type Locale } from '../content';
+import englishHome from '../fragments/home-en.html?raw';
+import chineseHome from '../fragments/home-zh.html?raw';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const content = copy[locale];
-const homeHref = locale === 'en' ? '/' : '/zh/';
-const languageHref = locale === 'en' ? '/zh/' : '/';
-const roomHref = locale === 'en' ? links.roomEn : links.roomZh;
-const emailHref = 'mailto:qstudio@qiu.works';
-const siteUrl = 'https://qiu.works';
+const content = meta[locale];
 const studioJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Q Studio',
-  url: siteUrl,
+  url: 'https://qiu.works',
   email: 'qstudio@qiu.works',
-  description: content.meta.description,
+  description: content.description,
   founder: { '@type': 'Person', name: 'Qian Qiu' },
   sameAs: [links.github, links.verisilo],
 };
@@ -27,257 +24,77 @@ const studioJsonLd = {
 
 <BaseLayout
   locale={locale}
-  title={content.meta.title}
-  description={content.meta.description}
-  image={content.meta.image}
-  imageAlt={content.meta.imageAlt}
+  title={content.title}
+  description={content.description}
+  image={content.image}
+  imageAlt={content.imageAlt}
 >
-  <a class="skip-link" href="#main-content">{content.skip}</a>
-
-  <header class="site-header">
-    <div class="site-header__inner">
-      <a class="wordmark" href={homeHref} aria-label={content.brandAria}>Q Studio<span>.</span></a>
-      <nav class="site-nav" aria-label={content.navAria}>
-        <a href="#work">{content.nav.work}</a>
-        <a href="#studio">{content.nav.studio}</a>
-        <a href="#approach">{content.nav.approach}</a>
-        <a href="#writing">{content.nav.writing}</a>
-        <a href="#contact">{content.nav.contact}</a>
-      </nav>
-      <div class="site-controls">
-        <a
-          class="language-toggle"
-          href={languageHref}
-          hreflang={locale === 'en' ? 'zh-CN' : 'en'}
-          aria-label={content.languageAria}
-        >{content.languageLabel}</a>
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-label={content.themeAria}>
-          {content.night}
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <main id="main-content" tabindex="-1">
-    <section class="hero section-shell" aria-labelledby="hero-title">
-      <div class="hero__copy">
-        <p class="eyebrow">{content.hero.eyebrow}</p>
-        <h1 id="hero-title">
-          <span>{content.hero.studio}</span>
-          <strong>{content.hero.headline}</strong>
-        </h1>
-        <p class="hero__founder">{content.hero.studioLead}</p>
-        <p class="hero__body">{content.hero.body}</p>
-        <div class="hero__actions">
-          <a class="button button--primary" href="#work">{content.hero.workAction}</a>
-          <a class="button button--quiet" href={links.github} target="_blank" rel="noopener noreferrer">{content.hero.githubAction}</a>
-          <a class="text-link" href={roomHref}>{content.hero.roomAction}</a>
-        </div>
-      </div>
-
-      <aside class="current-work" aria-label={content.hero.nowLabel}>
-        <p class="current-work__label">{content.hero.nowLabel}</p>
-        <div class="current-work__heading">
-          <a href={links.verisilo}>{content.hero.nowProject}</a>
-          <span>{content.hero.nowStatus}</span>
-        </div>
-        <p>{content.hero.nowBody}</p>
-        <p class="current-work__evidence">{content.hero.nowEvidence}</p>
-      </aside>
-    </section>
-
-    <section class="work section-shell" id="work" aria-labelledby="work-title">
-      <header class="section-heading" data-reveal>
-        <p class="eyebrow">{content.work.eyebrow}</p>
-        <div>
-          <h2 id="work-title">{content.work.title}</h2>
-          <p>{content.work.lead}</p>
-        </div>
-      </header>
-
-      <article class="featured-project" data-reveal>
-        <figure class="featured-project__visual">
-          <img
-            src={content.work.image}
-            width="1440"
-            height={content.work.imageHeight}
-            loading="lazy"
-            alt={content.work.imageAlt}
-          />
-        </figure>
-        <div class="featured-project__copy">
-          <p class="project-index">{content.work.featuredLabel} · {content.work.featuredTier}</p>
-          <p class="featured-project__audience">{content.work.featuredAudience}</p>
-          <h3>{content.work.featuredTitle}</h3>
-          <p>{content.work.featuredBody}</p>
-          <p class="boundary-note">{content.work.featuredBoundary}</p>
-          <div class="project-links">
-            <a href={links.verisilo}>{content.work.featuredProduct}</a>
-            <a href={links.verisiloRepo} target="_blank" rel="noopener noreferrer">{content.work.featuredSource}</a>
-          </div>
-        </div>
-      </article>
-
-      <ol class="project-list" aria-label={content.work.listAria}>
-        {content.projects.map((project, index) => (
-          <li data-reveal style={`--reveal-order:${index};`}>
-            <article class="project-row">
-              <div class="project-row__number" aria-hidden="true">{String(index + 2).padStart(2, '0')}</div>
-              <div class="project-row__identity">
-                <p>{project.tier} · {project.status} · {project.type}</p>
-                <h3>{project.name}</h3>
-              </div>
-              <div class="project-row__body">
-                <p>{project.summary}</p>
-                <p>{project.audience}</p>
-                <p>{project.decision}</p>
-              </div>
-              <div class="project-links project-row__links">
-                <a href={project.primaryHref} target="_blank" rel="noopener noreferrer">{project.primaryLabel}</a>
-                <a href={project.secondaryHref}>{project.secondaryLabel}</a>
-              </div>
-            </article>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="studio section-shell" id="studio" aria-labelledby="studio-title">
-      <header class="section-heading" data-reveal>
-        <p class="eyebrow">{content.studio.eyebrow}</p>
-        <div>
-          <h2 id="studio-title">{content.studio.title}</h2>
-          <p>{content.studio.lead}</p>
-        </div>
-      </header>
-      <div class="studio__body" data-reveal>
-        <p>{content.studio.body}</p>
-        <dl class="studio__facts" aria-label={content.studio.factsAria}>
-          {content.studio.facts.map((fact) => (
-            <div class="studio__fact">
-              <dt>{fact.term}</dt>
-              <dd>
-                {fact.href ? <a href={fact.href}>{fact.linkLabel ?? fact.detail}</a> : fact.detail}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-    </section>
-
-    <section class="approach section-shell" id="approach" aria-labelledby="approach-title">
-      <header class="section-heading" data-reveal>
-        <p class="eyebrow">{content.approach.eyebrow}</p>
-        <div>
-          <h2 id="approach-title">{content.approach.title}</h2>
-          <p>{content.approach.lead}</p>
-        </div>
-      </header>
-      <ol class="principle-list">
-        {content.approach.principles.map((principle, index) => (
-          <li data-reveal style={`--reveal-order:${index};`}>
-            <span>{String(index + 1).padStart(2, '0')}</span>
-            <h3>{principle.title}</h3>
-            <p>{principle.body}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="writing section-shell" id="writing" aria-labelledby="writing-title">
-      <header class="section-heading" data-reveal>
-        <p class="eyebrow">{content.writing.eyebrow}</p>
-        <div>
-          <h2 id="writing-title">{content.writing.title}</h2>
-          <p>{content.writing.lead}</p>
-        </div>
-      </header>
-      <ol class="writing-list">
-        {content.writing.items.map((item, index) => (
-          <li data-reveal style={`--reveal-order:${index};`}>
-            <a href={item.href}>
-              <time datetime={item.date.replaceAll('/', '-')}>{item.date}</time>
-              <span>
-                <strong>{item.title}</strong>
-                <small>{item.description}</small>
-              </span>
-              <em>{content.writing.action}</em>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="room-portal section-shell" aria-labelledby="room-title" data-reveal>
-      <a class="room-portal__visual" href={roomHref} aria-label={content.room.action}>
-        <img
-          src={content.room.image}
-          width="1440"
-          height="900"
-          loading="lazy"
-          alt={content.room.imageAlt}
-        />
-      </a>
-      <div class="room-portal__copy">
-        <p class="eyebrow">{content.room.eyebrow}</p>
-        <h2 id="room-title">{content.room.title}</h2>
-        <p>{content.room.body}</p>
-        <a class="text-link" href={roomHref}>{content.room.action}</a>
-      </div>
-    </section>
-
-    <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow" data-reveal>{content.contact.eyebrow}</p>
-      <div class="contact__body" data-reveal>
-        <div>
-          <h2 id="contact-title">{content.contact.title}</h2>
-          <p>{content.contact.body}</p>
-        </div>
-        <div class="contact__actions">
-          <a class="contact-email" href={emailHref}>qstudio@qiu.works</a>
-          <a class="text-link" href={links.github} target="_blank" rel="noopener noreferrer">{content.contact.githubLabel}</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="site-footer__inner">
-      <p>{content.footer}</p>
-      <nav aria-label={locale === 'en' ? 'Footer links' : '页脚链接'}>
-        <a href={roomHref}>{content.hero.roomAction}</a>
-        <a href={emailHref}>{content.nav.contact}</a>
-        <a href={links.github} target="_blank" rel="noopener noreferrer">GitHub</a>
-      </nav>
-    </div>
-  </footer>
-
+  <Fragment set:html={locale === 'zh' ? chineseHome : englishHome} />
   <script type="application/ld+json" set:html={JSON.stringify(studioJsonLd)} />
 
-  <script is:inline define:vars={{ dayLabel: content.day, nightLabel: content.night }}>
-    (function () {
-      var button = document.getElementById('theme-toggle');
-      if (button) {
-        var html = document.documentElement;
-        var render = function () {
-          var dark = html.getAttribute('data-theme') === 'dark';
-          button.textContent = dark ? dayLabel : nightLabel;
-          button.setAttribute('aria-pressed', dark ? 'true' : 'false');
-        };
-        render();
-        button.addEventListener('click', function () {
-          var dark = html.getAttribute('data-theme') !== 'dark';
-          if (dark) {
-            html.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-          } else {
-            html.removeAttribute('data-theme');
-            localStorage.setItem('theme', 'light');
-          }
-          render();
-        });
-      }
+  <script is:inline>
+    const windowEl = document.getElementById('specimen-window');
+    const seam = document.getElementById('seam-range');
+    const seamHandle = document.getElementById('specimen-seam');
+    const dialog = document.getElementById('image-dialog');
+    const dialogImage = document.getElementById('dialog-image');
+    const locale = document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
 
-    })();
+    const updateSeam = () => {
+      windowEl.style.setProperty('--cut', `${seam.value}%`);
+      seam.setAttribute('aria-valuetext', locale === 'zh' ? `镜片位于画面左侧 ${seam.value}% 处` : `Lens at ${seam.value}% from the left`);
+      const width = windowEl.getBoundingClientRect().width;
+      const radius = seamHandle.getBoundingClientRect().width / 2;
+      const progress = (Number(seam.value) - Number(seam.min)) / (Number(seam.max) - Number(seam.min));
+      windowEl.style.setProperty('--proof-offset', `${-2 * radius * 1.8125 * progress}px`);
+      const tailReach = parseFloat(getComputedStyle(seamHandle, '::before').width) * .4;
+      windowEl.dataset.tail = width * Number(seam.value) / 100 + radius + tailReach > width ? 'left' : 'right';
+    };
+    const constrainSeam = () => {
+      const width = windowEl.getBoundingClientRect().width;
+      const radius = seamHandle.getBoundingClientRect().width / 2;
+      const margin = 8;
+      seam.min = Math.ceil((radius + margin) / width * 100);
+      seam.max = Math.floor((width - radius - margin) / width * 100);
+      seam.value = Math.max(Number(seam.min), Math.min(Number(seam.max), Number(seam.value)));
+      updateSeam();
+    };
+    const moveSeam = event => {
+      const bounds = windowEl.getBoundingClientRect();
+      const value = Math.round((event.clientX - bounds.left) / bounds.width * 100);
+      seam.value = Math.max(Number(seam.min), Math.min(Number(seam.max), value));
+      seam.dispatchEvent(new Event('input', { bubbles: true }));
+    };
+    seam.addEventListener('input', updateSeam);
+    window.addEventListener('resize', constrainSeam);
+    seamHandle.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      event.preventDefault();
+      seamHandle.setPointerCapture(event.pointerId);
+      moveSeam(event);
+    });
+    seamHandle.addEventListener('pointermove', event => {
+      if (seamHandle.hasPointerCapture(event.pointerId)) moveSeam(event);
+    });
+    constrainSeam();
+
+    let opener;
+    document.querySelectorAll('.capture-button').forEach(link => link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !dialog.showModal) return;
+      event.preventDefault();
+      opener = link;
+      const image = link.querySelector('img');
+      dialogImage.src = image.src;
+      dialogImage.alt = image.alt;
+      document.getElementById('dialog-title').textContent = image.dataset.image.toUpperCase() + (locale === 'zh' ? ' / 真实画面' : ' / REAL CAPTURE');
+      dialog.showModal();
+    }));
+    document.getElementById('dialog-close').addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+    dialog.addEventListener('close', () => opener?.focus({ preventScroll: true }));
+
+    const language = document.getElementById('language');
+    const languagePath = language.getAttribute('href');
+    language.addEventListener('click', () => { language.href = languagePath + location.hash; });
   </script>
 </BaseLayout>

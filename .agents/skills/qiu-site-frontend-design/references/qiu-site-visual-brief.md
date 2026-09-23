@@ -14,7 +14,17 @@ The same repository also contains the Q Studio official site in `developer/`: an
 founded and operated by Qian Qiu. It is an editorial workbench using warm
 neutral surfaces, a clear grid, restrained serif/mono accents and real project evidence. It is not a Room-scene background,
 terminal skin, dashboard, generic SaaS landing page, or VeriSilo product-site clone. Its homepage order is
-Hero, current VeriSilo product, selected software, Studio, approach, writing, Beyond Work, and contact.
+Hero, current VeriSilo product, selected software, Studio, approach, writing, Beyond Work, and contact. Its restrained
+editorial devices are clean brand typography, a FILE-serial current-focus card, red-outlined
+product-tier chips, and an indexed Studio fact table. Its nav follows the reader with a short red section rule
+(JS scrollspy with a no-JS `:target` fallback), and the theme toggle reveals the new theme as a circle growing
+from the toggle where View Transitions are supported.
+
+The 2026-09-22 Q Studio iteration makes this workbench browsable: a large editorial masthead,
+real VeriSilo evidence visible in the hero, a four-project index, native expandable dossiers,
+and a dialog for inspecting the complete localized evidence image at its original size.
+Keep screenshot provenance, keyboard operation, focus return, selected anchors across locales,
+and copy-email feedback. The personal portal and all project-note/article links now lead to `me.qiu.works`, with the Chinese name 千秋 retained in both languages and a current guitar-homepage preview. Use the active developer workbench contract for the precise behavior.
 
 ## Design Intent
 

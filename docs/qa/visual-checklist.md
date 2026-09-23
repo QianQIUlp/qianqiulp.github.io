@@ -123,19 +123,14 @@ Always check **Light** and **Dark** mode for changed routes.
 
 ## Developer Profile
 
-- `/` is English-first and `/zh/` is the complete Chinese counterpart with the same facts; canonical and hreflang use `https://qiu.works`.
-- The first viewport reads as Q Studio by Qian Qiu, not a duplicate Room scene, VeriSilo product page, terminal skin, or SaaS card grid.
-- Hero identity, current VeriSilo status, Selected Software, Studio, GitHub and Enter Qiu's Room are immediately understandable.
-- VeriSilo uses a complete, naturally framed real product-site or application image in the matching page language; no clipped composition, invented product UI, metrics, customers, or capability claims appear.
-- Selected Software remains concise and ordered VeriSilo, MealCircuit, Crewlight, Hadoop Lab, with tiers and audiences; Hadoop Lab is labeled teaching, not a product.
-- Studio facts expose Q Studio, founder Qian Qiu, independent self-funded model, focus, current focus VeriSilo, `qstudio@qiu.works`, and public GitHub source.
-- How I Build contains the five approved principles; Selected Writing links to the three real localized Room articles.
-- Beyond Work uses a fully lit real Room crop in the matching language, is labeled as the founder's personal space, and reaches that language's normal progressive-discovery Room route.
-- Contact exposes `qstudio@qiu.works`, GitHub, and the approved product-feedback/technical-collaboration copy without prices or an unlimited support promise.
-- System sans leads; serif is limited to the name/editorial headings and mono to status metadata. Warm cream, charcoal and restrained red work in Light and Dark.
-- At 1440, 768, 375 and 375 × 667 there is no page-level horizontal scroll; navigation and contact controls are at least 44 × 44px.
-- Theme, language, skip link and section anchors work by keyboard; reduced motion never hides information.
-- Locale-specific 1200 × 630 OG cards contain no development toolbar or clipped controls.
+- `/` 与 `/zh/` 静态输出对应语言的完整内容；canonical、hreflang 和 sitemap 指向 `qiu.works`。
+- 首屏第一眼先读到「Q Studio」及其工作内容「本地优先的软件产品与开发者工具」；VeriSilo 明确标为当前产品及浏览器身份空间。真实官网画面和可拖动证据镜片承接这层身份，不抢掉工作室名称；初始镜片呈现完整观察值，最左端证据标题完整可读。
+- 鼠标、触控拖动圆镜与原生滑条、键盘方向键都能移动证据；镜片内截图随位置平移，不变成固定说明文字。
+- VeriSilo、MealCircuit、Crewlight、Hadoop Lab 按顺序呈现；教学实验不被写成产品。原生 `details` 能用键盘展开并保留受众、边界与真实来源。
+- `Me` 锚点到创始人段落，对应语言的「千秋」与吉他预览完整可见，链接到 `me.qiu.works`。写作链接与联系方式可用。
+- 截图可放大，Escape 或关闭按钮返回原链接；禁用 JavaScript 时图片链接仍可直接打开。
+- 在 1440、768、375、375 × 667、320 宽度检查首屏与各章节，没有页面级水平滚动或遮挡；减少动态设置不隐藏内容。
+- 中英文 1200 × 630 OG 图使用新首屏构图；检查图片无旧版工具栏、裁切标题或坏链。
 
 ## Light / Dark Themes
 

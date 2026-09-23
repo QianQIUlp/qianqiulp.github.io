@@ -36,3 +36,36 @@ html,body,#room{overflow:clip}
 .language-switch a[aria-current=page]{color:var(--ink);border-color:currentColor}
 .language-switch a:hover{color:var(--red)}
 @media(max-width:600px){.header-actions{gap:16px}.language-switch{gap:7px;font-size:8px}.header-actions>a{gap:9px}}
+
+.room-map svg .map-lines-mobile{display:none}
+@media(max-width:600px){
+  body{grid-template-rows:72px minmax(0,1fr) 92px}
+  .signature,.audio-toggle,.header-actions>a{min-height:44px}
+  .header-actions{gap:8px}
+  .language-switch{gap:4px}
+  .language-switch a{display:grid;place-items:center;min-width:44px;min-height:44px;padding:0}
+  .door,.enter{min-height:44px}
+  .room-bar{gap:5px}
+  .room-map{transform:none;width:132px;height:88px;margin-right:0}
+  .room-map>button{width:44px;height:44px}
+  .map-home{left:44px;top:44px}
+  .map-papers{left:0;top:44px}
+  .map-music{left:88px;top:44px}
+  .map-trace{left:44px;top:0}
+  .room-map svg .map-lines-desktop{display:none}
+  .room-map svg .map-lines-mobile{display:block}
+  .where{min-width:0;max-width:60px}
+  .where>span{font-size:10px;line-height:1.3}
+  .where small{max-width:60px;font-size:8px;line-height:1.4;margin-top:3px}
+  .view-tools{gap:0}
+  .view-tools button{width:44px;height:44px;font-size:18px}
+  .view-tools #motion{top:-38px;right:0;height:44px;min-width:44px;min-height:44px;margin:0;padding:0 10px}
+  #close-guitar{min-height:44px}
+  .guitar-views button{min-height:44px}
+}
+@media(max-width:370px){
+  .where{position:absolute;left:0;top:-21px;width:auto;height:auto;max-width:none;overflow:visible;clip-path:none;white-space:nowrap}
+  .where small{display:none}
+  .header-actions{gap:5px}
+  .header-actions>a{width:44px;justify-content:center;overflow:hidden;font-size:0;gap:0}
+}
