@@ -69,3 +69,22 @@ html,body,#room{overflow:clip}
   .header-actions{gap:5px}
   .header-actions>a{width:44px;justify-content:center;overflow:hidden;font-size:0;gap:0}
 }
+
+.guitar-caption-portrait{display:none}
+
+@media(max-width:600px) and (orientation:portrait){
+  .home-meta>span:last-child,
+  .home-bottom,
+  .enter small,
+  .where small,
+  #zoom-out,
+  #overview,
+  #zoom-in,
+  .guitar-caption-default{display:none}
+
+  .guitar-caption-portrait{display:inline}
+  .enter{top:auto;right:6%;bottom:12%}
+  .art-caption{top:auto;bottom:4%;left:6%}
+  .art-caption>span{font-size:15px}
+  .art-caption>p{font-size:9px;line-height:1.5}
+}

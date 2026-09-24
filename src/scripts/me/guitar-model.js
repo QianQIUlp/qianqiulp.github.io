@@ -20,10 +20,10 @@ async function init() {
   const guitar=new THREE.Group();scene.add(guitar);
   const loader=new THREE.TextureLoader();
   const [photo,bareBody,official,headOriginal]=await Promise.all([
-    loader.loadAsync(new URL('../../assets/me/qiu-potbelly-stringless.png',import.meta.url).href),
-    loader.loadAsync(new URL('../../assets/me/qiu-potbelly-bare-body.png',import.meta.url).href),
-    loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-stringless.png',import.meta.url).href),
-    loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-fm-rana.png',import.meta.url).href)
+    loader.loadAsync(new URL('../../assets/me/qiu-potbelly-stringless.webp',import.meta.url).href),
+    loader.loadAsync(new URL('../../assets/me/qiu-potbelly-bare-body.webp',import.meta.url).href),
+    loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-stringless.webp',import.meta.url).href),
+    loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-fm-rana.webp',import.meta.url).href)
   ]);
   [photo,bareBody,official,headOriginal].forEach(t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());});
 

@@ -32,10 +32,12 @@
 
 | 资产 | 来源与用途 |
 | --- | --- |
-| `qiu-potbelly-stringless.png` | 用户实拍的去弦派生图，1064 × 1478，用于拾音器及五金细节 |
-| `qiu-potbelly-bare-body.png` | 同一实拍移除弦和五金的派生图，1064 × 1478，用作琴身底材 |
-| `bangdream-potbelly-stringless.png` | 官方正面参考的去弦派生图，1254 × 1254，用于指板及琴头弦路径 |
-| `bangdream-potbelly-fm-rana.png` | 原型保留的 ESP 官方正面参考，2400 × 2400，用于琴头标记与加载回退 |
+| `qiu-potbelly-stringless.png` → `.webp` | 用户实拍的去弦派生图，1064 × 1478，运行时用于拾音器及五金细节 |
+| `qiu-potbelly-bare-body.png` → `.webp` | 同一实拍移除弦和五金的派生图，1064 × 1478，运行时用作琴身底材 |
+| `bangdream-potbelly-stringless.png` → `.webp` | 官方正面参考的去弦派生图，1254 × 1254，运行时用于指板及琴头弦路径 |
+| `bangdream-potbelly-fm-rana.png` → `.webp` | ESP 官方正面参考，2400 × 2400，运行时用于琴头标记、加载回退和 WebGL 回退 |
+
+PNG 保留为贴图源文件；首页和 Three.js 运行时加载同尺寸的高质量 WebP（quality 95）。四张贴图总量从 4.95 MB 降至 1.05 MB，约减少 79%。
 
 官方来源：[型号页](https://espguitars.co.jp/collaborate/33185/)、[正面图片](https://espguitars.co.jp/wp-content/uploads/2023/11/BanGDream_POTBELLY_FM_Rana_front.png)。官方图片与品牌标识属于各自权利人，不适用仓库代码的 MIT 授权。
 
