@@ -8,7 +8,7 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   let motion=!reduced.matches,width=1,height=1,dpr=1,lastFrame=0,frameId=0;
   let tilt={x:0,y:0},pointer={x:0,y:0},guitarInteraction=true;
   const pulses=Array(6).fill(0),frequencies=[329.63,246.94,196,146.83,110,82.41];
-  const places={home:{x:0,y:0,z:1,name:t("小屋中央","At home")},papers:{x:-1.12,y:.01,z:1,name:t("几张散页","Loose pages")},music:{x:1.13,y:0,z:1,name:t("琴弦之间","A little jam")},trace:{x:.06,y:-1.11,z:1,name:t("留一笔","Leave a line")},overview:{x:.07,y:-.5,z:.3,name:t("整间小屋","The whole room")}};
+  const places={home:{x:0,y:0,z:1,name:t("小屋中央","At home")},papers:{x:-1.12,y:.01,z:1,name:t("几张散页","Loose pages")},music:{x:1.13,y:0,z:1,name:t("琴弦之间","A little jam")},trace:{x:.06,y:-1.11,z:1,name:t("留一笔","Leave a line")},rethink:{x:-1.12,y:1.12,z:1,name:t("另一面", "The other side")},work:{x:1.13,y:1.12,z:1,name:t("拆开看看", "Beneath the surface")},idle:{x:0,y:1.12,z:1,name:t("不赶时间", "No hurry")},paths:{x:-1.12,y:-1.11,z:1,name:t("未走之路", "Paths untaken")},blindspot:{x:1.13,y:-1.11,z:1,name:t("盲点", "Blind spots")},overview:{x:.01,y:.035,z:.24,name:t("整间小屋","The whole room")}};
   let camera={x:0,y:0,z:1},target={...camera},active='home',paperTop=4;
   const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
   const paperOffsets=[{x:0,y:0},{x:0,y:0},{x:0,y:0}];
@@ -29,15 +29,19 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   }
   function drawGuitar() {
     if(document.querySelector('#guitar-closeup').open&&window.qiuGuitar)return;
-    if(!guitarPhoto.complete||!guitarPhoto.naturalWidth)return;
+    if(!window.qiuGuitar)return;
     const size=Math.min(height*.91,width*(width<680?1.3:.83));
     const follow=motion?1:.3;
     ctx.save();ctx.translate(width*.505+tilt.x*7*follow,height*.475+tilt.y*4*follow);
     ctx.rotate(.32+tilt.x*.025*follow);
     ctx.shadowColor='#2b241936';ctx.shadowBlur=18;ctx.shadowOffsetX=9;ctx.shadowOffsetY=16;
-    if(window.qiuGuitar){window.qiuGuitar.drawHome(tilt.x*follow,tilt.y*follow);ctx.drawImage(window.qiuGuitar.canvas,-size/2,-size/2,size,size);}
-    else ctx.drawImage(guitarPhoto,-size/2,-size/2,size,size);
+    window.qiuGuitar.drawHome(tilt.x*follow,tilt.y*follow);ctx.drawImage(window.qiuGuitar.canvas,-size/2,-size/2,size,size);
+    document.body.classList.add('guitar-home-ready');
     ctx.restore();
+  }
+  function inView(place) {
+    const half=.5/camera.z;
+    return Math.abs(place.x-camera.x)<half+.55&&Math.abs(place.y-camera.y)<half+.55;
   }
 
   function thread(from,to,color='#e83d2730') {
@@ -77,10 +81,15 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,width,height);
     ctx.save();ctx.translate(width/2-camera.x*width*camera.z,height/2-camera.y*height*camera.z);ctx.scale(camera.z,camera.z);ctx.translate(-width/2,-height/2);
     thread([.39,.77],[-.72,.67]);thread([.86,.93],[1.58,.46]);thread([.61,.15],[.77,-.6]);
-    drawGuitar();drawStrings(now);drawTrace(now);
+    thread([-.54,.84],[-.62,1.46]);thread([1.67,.85],[1.65,1.48]);thread([.48,.92],[.51,1.55]);
+    thread([-.62,-.16],[-.62,.3]);thread([1.67,-.16],[1.65,.3]);
+    thread([-.3,-.56],[.33,-.5]);thread([.91,-.51],[1.38,-.54]);
+    if(inView(places.home))drawGuitar();
+    if(inView(places.music))drawStrings(now);
+    if(inView(places.trace))drawTrace(now);
     if(camera.z<.65){
       ctx.globalAlpha=clamp((.65-camera.z)/.18,0,1);ctx.fillStyle='#626b55';ctx.font=`${11/camera.z}px Arial, Microsoft YaHei, sans-serif`;ctx.textAlign='center';
-      [[-.56,.11,t("几张散页 ↗","Loose pages ↗")],[1.74,.12,t("琴弦之间 ↗","A little jam ↗")],[.69,-.87,t("留一笔 ↗","Leave a line ↗")]].forEach(([x,y,label])=>ctx.fillText(label,x*width,y*height));ctx.textAlign='start';
+      [[-.56,.11,t("几张散页 ↗","Loose pages ↗")],[1.74,.12,t("琴弦之间 ↗","A little jam ↗")],[.69,-.87,t("留一笔 ↗","Leave a line ↗")],[-.62,-.87,t("未走之路 ↗", "Paths untaken ↗")],[1.64,-.87,t("盲点 ↗", "Blind spots ↗")],[-.62,1.23,t("另一面 ↗", "The other side ↗")],[.51,1.23,t("不赶时间 ↗", "No hurry ↗")],[1.64,1.23,t("拆开看看 ↗", "Beneath the surface ↗")]].forEach(([x,y,label])=>ctx.fillText(label,x*width,y*height));ctx.textAlign='start';
       if(!lines.length){const marks=[];for(let i=0;i<85;i++){const t=i/84;marks.push({x:(.43+.51*t)*width,y:(-.52+Math.sin(t*Math.PI*2.5)*.12)*height});}line(marks,'#e83d27',1/camera.z);}
       ctx.globalAlpha=1;
     }
@@ -92,11 +101,12 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     frameId=0;const dt=Math.min(2.5,(now-(lastFrame||now-16))/16.667);lastFrame=now;
     const ease=motion?1-Math.pow(.82,dt):1;
     ['x','y','z'].forEach(k=>camera[k]+=(target[k]-camera[k])*ease);
-    tilt.x+=(guitarInteraction?pointer.x-tilt.x:-tilt.x)*ease;tilt.y+=(guitarInteraction?pointer.y-tilt.y:-tilt.y)*ease;
+    const follow=motion&&guitarInteraction&&active==='home',tx=follow?pointer.x:0,ty=follow?pointer.y:0;
+    tilt.x+=(tx-tilt.x)*ease;tilt.y+=(ty-tilt.y)*ease;
     pulses.forEach((v,i)=>pulses[i]=v*Math.pow(motion?.946:.65,dt));
     lines.forEach(l=>l.amp*=Math.pow(motion?.95:.65,dt));
     runLoop(now);updateMeter();render(now);
-    const moving=['x','y','z'].some(k=>Math.abs(camera[k]-target[k])>.0003)||Math.abs(tilt.x-pointer.x)>.004||Math.abs(tilt.y-pointer.y)>.004;
+    const moving=['x','y','z'].some(k=>Math.abs(camera[k]-target[k])>.0003)||Math.abs(tilt.x-tx)>.004||Math.abs(tilt.y-ty)>.004;
     if(recording||looping||moving||pulses.some(p=>p>.015)||lines.some(l=>l.amp>.015)||(enabled&&audio&&audio.currentTime<audioTailUntil))schedule();
   }
   function schedule(){if(!frameId&&!document.hidden)frameId=requestAnimationFrame(frame);}
@@ -106,16 +116,20 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     papers.forEach((paper,i)=>{paper.style.setProperty('--dx',`${paperOffsets[i].x*width}px`);paper.style.setProperty('--dy',`${paperOffsets[i].y*height}px`);});setActive(active);schedule();
   }
   function setActive(place) {
+    const changed=active!==place;
     active=place;if(place!=='home')pointer={x:0,y:0};room.classList.toggle('overviewing',place==='overview');
     document.querySelectorAll('.language-switch a').forEach(link=>link.hash=place);
     document.querySelector('#where-name').textContent=places[place].name;
     document.querySelector('#where-hint').textContent=place==='papers'?t("拖动纸张 · 点一下翻面","Drag a page · Click to turn"):place==='music'?t("划过琴弦 · A S D F G H","Pluck a string · A S D F G H"):place==='trace'?t("画一根弦 · 松手再拨动","Draw a line · Let go, then pluck"):width<=600?t("拖动画面 · 双指缩放","Drag to wander · Pinch to zoom"):t("拖动画面漫游 · 滚轮缩放","Drag to wander · Scroll to zoom");
+    const roomHints={rethink:t("拖动纸带 · 换一面想想", "Turn the ribbon · Think again"),work:t("移动切面 · 看见做法与边界", "Move the section · Reveal decisions"),idle:t("把「应该」放下 · 留一会儿白", "Let go of a “should” · Take a moment"),paths:t("拨开线束 · 听一条自己的路", "Bend the threads · Hear your path"),blindspot:t("转动「确定」 · 看见藏住的间隙", "Turn certainty · Find its gaps")};
+    if(roomHints[place])document.querySelector('#where-hint').textContent=roomHints[place];
     document.querySelectorAll('[data-scene]').forEach(node=>node.inert=node.dataset.scene!==place);
     document.querySelectorAll('.room-map button').forEach(node=>{const current=node.dataset.place===place;node.classList.toggle('active',current);if(current)node.setAttribute('aria-current','location');else node.removeAttribute('aria-current');});
     document.querySelectorAll('.portal').forEach(node=>node.hidden=place!=='overview');
+    if(changed)document.dispatchEvent(new CustomEvent('roomchange',{detail:{place}}));
   }
   function go(place) {
-    const p=places[place];target={x:p.x,y:p.y,z:place==='overview'&&width<=600?.29:p.z};
+    const p=places[place];target={x:p.x,y:p.y,z:p.z};
     setActive(place);history.replaceState(null,'',`#${place}`);schedule();
   }
   function classify() {
@@ -124,34 +138,34 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     Object.entries(places).filter(([k])=>k!=='overview').forEach(([k,p])=>{const d=Math.hypot(target.x-p.x,target.y-p.y);if(d<distance){distance=d;best=k;}});
     setActive(best);
   }
-  for(const name of ['home','papers','music','trace']) {
+  for(const name of ['home','papers','music','trace','rethink','work','idle','paths','blindspot']) {
     const portal=document.createElement('button');portal.type='button';portal.className='portal';portal.dataset.place=name;portal.setAttribute('aria-label',t(`走近${places[name].name}`,`Explore: ${places[name].name}`));portal.hidden=true;
     Object.assign(portal.style,{position:'absolute',left:`${(places[name].x+.04)*100}%`,top:`${(places[name].y+.05)*100}%`,width:'92%',height:'88%',pointerEvents:'auto',zIndex:'30',background:'transparent'});world.append(portal);
   }
   document.querySelectorAll('[data-place]').forEach(button=>button.addEventListener('click',()=>go(button.dataset.place)));
   function zoomAt(factor,x=width/2,y=height/2) {
-    const old=target.z,next=clamp(old*factor,.24,1.75);
+    const old=target.z,next=clamp(old*factor,.2,1.75);
     target.x=clamp(target.x+(x-width/2)/width*(1/old-1/next),-1.65,1.72);
-    target.y=clamp(target.y+(y-height/2)/height*(1/old-1/next),-1.5,.6);target.z=next;classify();schedule();
+    target.y=clamp(target.y+(y-height/2)/height*(1/old-1/next),-1.5,1.7);target.z=next;classify();schedule();
   }
   document.querySelector('#zoom-in').addEventListener('click',()=>zoomAt(1.2));document.querySelector('#zoom-out').addEventListener('click',()=>zoomAt(1/1.2));
-  room.addEventListener('wheel',event=>{if(event.ctrlKey||event.metaKey||event.target.closest('input,.pedal-deck'))return;event.preventDefault();const r=room.getBoundingClientRect();zoomAt(Math.exp(-clamp(event.deltaY,-120,120)*.002),event.clientX-r.left,event.clientY-r.top);},{passive:false});
+  room.addEventListener('wheel',event=>{if(event.ctrlKey||event.metaKey||event.target.closest('input,.pedal-deck,[data-room-control]'))return;event.preventDefault();const r=room.getBoundingClientRect();zoomAt(Math.exp(-clamp(event.deltaY,-120,120)*.002),event.clientX-r.left,event.clientY-r.top);},{passive:false});
   const contacts=new Map();let pan=null,pinch=null;
   room.addEventListener('pointerdown',event=>{
-    if(event.button!==0||event.target.closest('button,a,input,label,.pedal-deck,.loose-paper,.draw-area'))return;
+    if(event.button!==0||event.target.closest('button,a,input,label,.pedal-deck,.loose-paper,.draw-area,[data-room-control]'))return;
     contacts.set(event.pointerId,{x:event.clientX,y:event.clientY});room.setPointerCapture(event.pointerId);room.classList.add('dragging');
     if(contacts.size===1)pan={x:event.clientX,y:event.clientY,camera:{...camera}};
     else if(contacts.size===2){const [a,b]=[...contacts.values()];pinch={distance:Math.hypot(a.x-b.x,a.y-b.y),z:camera.z};pan=null;}
   });
   room.addEventListener('pointermove',event=>{
-    const bounds=room.getBoundingClientRect();if(guitarInteraction&&active==='home'&&event.pointerType==='mouse'){pointer.x=clamp(((event.clientX-bounds.left)/width-.505)*3,-1,1);pointer.y=clamp(((event.clientY-bounds.top)/height-.475)*2,-1,1);}
+    const bounds=room.getBoundingClientRect();if(motion&&guitarInteraction&&active==='home'&&event.pointerType==='mouse'){pointer.x=clamp(((event.clientX-bounds.left)/width-.505)*3,-1,1);pointer.y=clamp(((event.clientY-bounds.top)/height-.475)*2,-1,1);schedule();}
     if(contacts.has(event.pointerId)) {
       contacts.set(event.pointerId,{x:event.clientX,y:event.clientY});
-      if(pinch&&contacts.size===2){const [a,b]=[...contacts.values()];const next=clamp(pinch.z*Math.hypot(a.x-b.x,a.y-b.y)/pinch.distance,.24,1.75);zoomAt(next/target.z,(a.x+b.x)/2-bounds.left,(a.y+b.y)/2-bounds.top);}
-      else if(pan){target.x=clamp(pan.camera.x-(event.clientX-pan.x)/width/pan.camera.z,-1.65,1.72);target.y=clamp(pan.camera.y-(event.clientY-pan.y)/height/pan.camera.z,-1.5,.6);}
+      if(pinch&&contacts.size===2){const [a,b]=[...contacts.values()];const next=clamp(pinch.z*Math.hypot(a.x-b.x,a.y-b.y)/pinch.distance,.2,1.75);zoomAt(next/target.z,(a.x+b.x)/2-bounds.left,(a.y+b.y)/2-bounds.top);}
+      else if(pan){target.x=clamp(pan.camera.x-(event.clientX-pan.x)/width/pan.camera.z,-1.65,1.72);target.y=clamp(pan.camera.y-(event.clientY-pan.y)/height/pan.camera.z,-1.5,1.7);}
       camera={...target};
+      schedule();
     }
-    schedule();
   });
   function endPan(event){if(!contacts.has(event.pointerId))return;contacts.delete(event.pointerId);if(room.hasPointerCapture(event.pointerId))room.releasePointerCapture(event.pointerId);if(contacts.size===1){const p=[...contacts.values()][0];pan={x:p.x,y:p.y,camera:{...target}};pinch=null;}else if(!contacts.size){pan=null;pinch=null;room.classList.remove('dragging');classify();}schedule();}
   room.addEventListener('pointerup',endPan);room.addEventListener('pointercancel',endPan);
@@ -160,10 +174,11 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     if(document.querySelector('#guitar-closeup').open)return;
     if(event.ctrlKey||event.metaKey||event.altKey||event.target.matches('input,textarea,[contenteditable=true]'))return;
     if(event.key==='Escape'||event.key==='Home'){event.preventDefault();go('home');return;}
+    if(event.target.closest('[data-room-control]'))return;
     const note='asdfgh'.indexOf(event.key.toLowerCase());if(active==='music'&&note>=0&&!event.repeat){event.preventDefault();playGesture(note,.9);return;}
     if(active==='music'&&event.code==='Space'&&!event.repeat&&!event.target.closest('button,a')){event.preventDefault();strum();return;}
     const directions={ArrowLeft:[-.2,0],ArrowRight:[.2,0],ArrowUp:[0,-.2],ArrowDown:[0,.2]};
-    if(directions[event.key]){event.preventDefault();const d=directions[event.key];target.x=clamp(target.x+d[0]/target.z,-1.65,1.72);target.y=clamp(target.y+d[1]/target.z,-1.5,.6);classify();schedule();}
+    if(directions[event.key]){event.preventDefault();const d=directions[event.key];target.x=clamp(target.x+d[0]/target.z,-1.65,1.72);target.y=clamp(target.y+d[1]/target.z,-1.5,1.7);classify();schedule();}
   });
   const motionButton=document.querySelector('#motion');
   function setMotion(value){motion=value;document.body.dataset.motion=value?'on':'off';motionButton.setAttribute('aria-pressed',String(!value));motionButton.textContent=value?t("动态开","Motion on"):t("动态关","Motion off");if(!value)pointer={x:0,y:0};schedule();}
@@ -255,6 +270,12 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     rig.play(frequency,strength);audioTailUntil=audio.currentTime+(params.echo?12:3.3);
   }
   async function playGesture(index,strength=1){if(!audio&&!await setSound(true))return;pluck(index,strength);}
+  document.addEventListener('roompluck',async event=>{
+    const {index,strength=.5,wake=false}=event.detail||{};
+    if(active!=='paths'||!Number.isInteger(index)||index<0||index>5)return;
+    if(wake&&!await setSound(true))return;
+    if(active==='paths')pluck(index,clamp(strength,0,1),true);
+  });
   async function strum(){
     if(!audio&&!await setSound(true))return;
     for(let n=5;n>=0;n--)setTimeout(()=>{if(!document.hidden)pluck(n,.76+(5-n)*.025);},(5-n)*31);
@@ -406,4 +427,5 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   refreshEffects();
   new ResizeObserver(resize).observe(room);setMotion(motion);setActive('home');resize();
   const entry=location.hash.slice(1);if(Object.hasOwn(places,entry))go(entry);
+  window.addEventListener('hashchange',()=>{const place=location.hash.slice(1);if(Object.hasOwn(places,place))go(place);});
 })();

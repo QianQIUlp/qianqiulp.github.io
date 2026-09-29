@@ -1,5 +1,7 @@
 import {t} from './language.js';
 import * as THREE from '../../vendor/three/three.module.min.js';
+import {createBodySampler,buildGuitarSurface} from './guitar-surface.js';
+import {batchGuitar} from './guitar-batches.js';
 
 // Photo coordinates keep this guitar's wear and hardware positions together.
 // ponytail: photo-projected front, measured relief hardware; unseen back remains approximate.
@@ -12,6 +14,21 @@ canvas.id='guitar-model';canvas.tabIndex=0;
 canvas.setAttribute('aria-label',t("三维吉他。拖动转动，滚轮缩放，方向键转动，空格复位。","3D guitar. Drag or use arrow keys to turn, scroll to zoom, and press Space to reset."));
 stage.append(canvas);
 
+const yieldTask=()=>window.scheduler?.yield?window.scheduler.yield():new Promise(resolve=>setTimeout(resolve,0));
+async function prepareSurface(points,edge) {
+  try {
+    return await new Promise((resolve,reject)=>{
+      const worker=new Worker(new URL('./guitar-surface-worker.js',import.meta.url),{type:'module'});
+      worker.onmessage=({data})=>{worker.terminate();data.error?reject(new Error(data.error)):resolve(data);};
+      worker.onerror=()=>{worker.terminate();reject(new Error('Surface worker unavailable'));};
+      const copy=points.slice();worker.postMessage({points:copy,edge:edge.map(p=>({x:p.x,y:p.y}))},[copy.buffer]);
+    });
+  } catch {
+    // CSP or older browsers can still build the same surface, yielding between batches.
+    return buildGuitarSurface(points,edge,yieldTask);
+  }
+}
+
 async function init() {
   const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true,preserveDrawingBuffer:true});
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));
@@ -19,13 +36,17 @@ async function init() {
   const scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(32,1,.005,20);
   const guitar=new THREE.Group();scene.add(guitar);
   const loader=new THREE.TextureLoader();
+  const photoImage=document.querySelector('#guitar-photo');
+  photoImage.loading='eager';
+  const originalPhoto=photoImage.decode().then(()=>{const texture=new THREE.Texture(photoImage);texture.needsUpdate=true;return texture;});
   const [photo,bareBody,official,headOriginal]=await Promise.all([
     loader.loadAsync(new URL('../../assets/me/qiu-potbelly-stringless.webp',import.meta.url).href),
     loader.loadAsync(new URL('../../assets/me/qiu-potbelly-bare-body.webp',import.meta.url).href),
     loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-stringless.webp',import.meta.url).href),
-    loader.loadAsync(new URL('../../assets/me/bangdream-potbelly-fm-rana.webp',import.meta.url).href)
+    originalPhoto
   ]);
   [photo,bareBody,official,headOriginal].forEach(t=>{t.colorSpace=THREE.SRGBColorSpace;t.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());});
+  await yieldTask();
 
   // A small studio environment supplies real moving reflections on the metal.
   const studio=new THREE.Scene();studio.background=new THREE.Color('#333834');
@@ -37,6 +58,7 @@ async function init() {
   const pmrem=new THREE.PMREMGenerator(renderer),environment=pmrem.fromScene(studio,.025);
   scene.environment=environment.texture;pmrem.dispose();
   studio.traverse(n=>{if(n.isMesh){n.geometry.dispose();n.material.dispose();}});
+  await yieldTask();
   scene.add(new THREE.HemisphereLight('#f5eee0','#42493f',.85));
   const key=new THREE.DirectionalLight('#fff4dd',1.35);key.position.set(-2,3,4);scene.add(key);
   const fill=new THREE.DirectionalLight('#dce9f3',.55);fill.position.set(2,.4,1);scene.add(fill);
@@ -115,54 +137,19 @@ async function init() {
   const body=mesh(wallGeometry,[varnish,side]);body.name='Continuous rounded 55 mm body';
   const backMaterial=side.clone();backMaterial.side=THREE.BackSide;mesh(new THREE.ShapeGeometry(faceOutline),backMaterial,0,0,-.029);
 
-  // Subdivide the front, then raise its interior into a carved maple top.
+  // Build the unchanged carved top away from the input/rendering thread.
   const flat=new THREE.ShapeGeometry(faceOutline).toNonIndexed();
-  const positions=[],uvs=[],heightCache=new Map();
-  function bodySample(x,y) {
-    const key=`${x.toFixed(7)},${y.toFixed(7)}`;let value=heightCache.get(key);
-    if(value===undefined){let distanceSquared=Infinity,nx=0,ny=0,totalWeight=0,meanX=0,meanY=0;
-    for(let i=0;i<edge.length-1;i++) {
-      const a=edge[i],b=edge[i+1],dx=b.x-a.x,dy=b.y-a.y;
-      const t=limit(((x-a.x)*dx+(y-a.y)*dy)/(dx*dx+dy*dy||1),0,1);
-      const ex=x-a.x-dx*t,ey=y-a.y-dy*t,d=ex*ex+ey*ey;
-      const weight=1/(d+.000025)**2;totalWeight+=weight;meanX+=ex*weight;meanY+=ey*weight;
-      if(d<distanceSquared){distanceSquared=d;const len=Math.hypot(dx,dy)||1;nx=-dy/len;ny=dx/len;}
-    }
-    const distance=Math.sqrt(distanceSquared),t=limit(distance/.035,0,1);
-    const slope=.012*6*t*(1-t)/.035;
-    const normal=new THREE.Vector3(-slope*meanX/totalWeight/(distance||1),-slope*meanY/totalWeight/(distance||1),1).normalize();
-    // Pad the photograph inward at the edge, so the wall/floor never bleeds onto the bevel.
-    const padding=Math.max(0,.003-distance)**2/.003;
-    value={z:.014+.012*t*t*(3-2*t),normal,u:((x+nx*padding)/S+540)/1080,v:1-(1000-(y+ny*padding)/S)/1501};heightCache.set(key,value);}
-    return value;
-  }
-  function surface(x,y) {
-    const value=bodySample(x,y);positions.push(x,y,value.z);uvs.push(value.u,value.v);
-  }
-  function triangle(a,b,c,depth) {
-    if(!depth){surface(...a);surface(...b);surface(...c);return;}
-    const mid=(u,v)=>[(u[0]+v[0])/2,(u[1]+v[1])/2],ab=mid(a,b),bc=mid(b,c),ca=mid(c,a);
-    triangle(a,ab,ca,depth-1);triangle(ab,b,bc,depth-1);triangle(ca,bc,c,depth-1);triangle(ab,bc,ca,depth-1);
-  }
-  const points=flat.attributes.position;
-  for(let i=0;i<points.count;i+=3)triangle([points.getX(i),points.getY(i)],[points.getX(i+1),points.getY(i+1)],[points.getX(i+2),points.getY(i+2)],3);
-  const vertices=[],texcoords=[],indices=[],shared=new Map();
-  for(let i=0;i<positions.length;i+=3){
-    const key=positions.slice(i,i+3).map(n=>Math.round(n*1e7)).join(',');
-    if(!shared.has(key)){shared.set(key,vertices.length/3);vertices.push(...positions.slice(i,i+3));texcoords.push(...uvs.slice(i/3*2,i/3*2+2));}
-    indices.push(shared.get(key));
-  }
-  const top=new THREE.BufferGeometry();top.setAttribute('position',new THREE.Float32BufferAttribute(vertices,3));top.setAttribute('uv',new THREE.Float32BufferAttribute(texcoords,2));top.setIndex(indices);top.computeVertexNormals();mesh(top,varnish);flat.dispose();
-  // Smoothed surface normals keep triangulation fans out of the reflections.
-  const topNormals=top.attributes.normal;
-  for(let i=0;i<vertices.length/3;i++){
-    const key=`${vertices[i*3].toFixed(7)},${vertices[i*3+1].toFixed(7)}`,n=heightCache.get(key).normal;topNormals.setXYZ(i,n.x,n.y,n.z);
-  }
+  const surfacePromise=prepareSurface(flat.attributes.position.array,edge);
+  const bodySample=createBodySampler(edge);
+  flat.dispose();
+  const photoMaterials=new Map();
+  await yieldTask();
 
   function photoFace(shape,texture,uvAt,z,parent=guitar) {
     const g=new THREE.ShapeGeometry(shape,18),p=g.attributes.position,uv=g.attributes.uv;
     for(let i=0;i<p.count;i++){const [u,v]=uvAt(p.getX(i),p.getY(i));uv.setXY(i,u,v);}
-    return mesh(g,new THREE.MeshStandardMaterial({map:texture,roughness:.58,envMapIntensity:.25}),0,0,z,parent);
+    if(!photoMaterials.has(texture))photoMaterials.set(texture,new THREE.MeshStandardMaterial({map:texture,roughness:.58,envMapIntensity:.25}));
+    return mesh(g,photoMaterials.get(texture),0,0,z,parent);
   }
   function photographCap(m,faceMaterial=photographedMetal,edgeMaterial=metal) {
     guitar.updateMatrixWorld(true);
@@ -322,13 +309,28 @@ async function init() {
     const post=posts[i<3?2-i:i];
     rod([nutX,0,.010],[HX(post.px)+(i<3?1:-1)*.002,HY(post.py),.015],radius,metal,headGroup);
   }
+  // Prepare GPU programs while the worker is still calculating the carved top.
+  // The wall already uses the top's material, so every shader variant is present.
+  for(const texture of [photo,bareBody,official,headOriginal]){await yieldTask();renderer.initTexture(texture);}
+  await yieldTask();
+  const shadersReady=renderer.compileAsync(scene,camera);
+  const surfaceData=await surfacePromise;
+  const top=new THREE.BufferGeometry();
+  top.setAttribute('position',new THREE.BufferAttribute(surfaceData.position,3));
+  top.setAttribute('normal',new THREE.BufferAttribute(surfaceData.normal,3));
+  top.setAttribute('uv',new THREE.BufferAttribute(surfaceData.uv,2));
+  top.setIndex(new THREE.BufferAttribute(surfaceData.index,1));mesh(top,varnish);
+
   // One small runnable invariant check: custom pickup layout and usable UV data.
   console.assert(creamCoil.position.y>0&&blackCoil.position.y<0,'Reverse-zebra coil orientation');
-  console.assert(positions.every(Number.isFinite)&&uvs.every(v=>Number.isFinite(v)&&v>=0&&v<=1),'Guitar surface coordinates');
+  console.assert(surfaceData.position.every(Number.isFinite)&&surfaceData.uv.every(v=>Number.isFinite(v)&&v>=0&&v<=1),'Guitar surface coordinates');
   console.assert(head.holes.length===6&&headGroup.children.filter(n=>n.name.startsWith('Tuner post')).length===6&&guitar.children.filter(n=>n.name.startsWith('Fret ')).length===22,'One registered component per tuner and fret');
   console.assert(edge.slice(0,-1).every((p,i)=>Math.hypot(p.x-wallPositions[i*3],p.y-wallPositions[i*3+1],.014-wallPositions[i*3+2])<1e-8)&&varnish.map!==photographedMetal.map,'Closed body rim and separate clean body texture');
   const stringHeight=y=>.026+(.041-.026)*(nut-y)/(nut-bridgeY);
   console.assert(stringHeight(neckPickup.position.y)>.0355+.001&&stringHeight(bridgePickup.position.y+.006)>.038+.001,'Strings clear both pickup faces');
+
+  batchGuitar(THREE,guitar);
+  await shadersReady;
 
   let yaw=-.10,pitch=0,zoom=1,view='body',queued=0,drag=null,lastHome='';
   const views={whole:[.300,1.00],body:[.071,.51],neck:[.383,.50],head:[.680,.185]};
@@ -384,7 +386,7 @@ async function init() {
   });
   dialog.addEventListener('close',()=>{lastHome='';window.dispatchEvent(new Event('guitar-model-ready'));});
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)requestRender();});
-  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();document.body.classList.remove('guitar-model-ready');delete window.qiuGuitar;document.querySelector('#guitar-status').textContent=t("三维显示暂时中断，请刷新恢复。","The 3D view was interrupted. Refresh to restore it.");});
+  canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();document.body.classList.remove('guitar-model-ready','guitar-home-ready');delete window.qiuGuitar;document.querySelector('#guitar-status').textContent=t("三维显示暂时中断，请刷新恢复。","The 3D view was interrupted. Refresh to restore it.");});
   if(dialog.open)window.qiuGuitar.setDetail(stage.dataset.view||'body');
 }
 init().catch(error=>{console.error('Guitar model:',error);canvas.remove();document.querySelector('#guitar-status').textContent=t("三维模型未能载入，暂时显示参考照片。","The 3D model couldn’t load. Showing the reference photograph.");});

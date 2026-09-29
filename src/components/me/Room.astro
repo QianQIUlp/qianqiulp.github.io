@@ -5,7 +5,20 @@ const { lang } = Astro.props;
 const t = (zh: string, en: string) => lang === 'en' ? en : zh;
 import { localizedPath } from '../../i18n';
 import Pedalboard from './Pedalboard.astro';
+import MoreRooms from './MoreRooms.astro';
 import guitarPhoto from '../../assets/me/bangdream-potbelly-fm-rana.webp';
+import guitarPreview from '../../assets/me/guitar-home.webp';
+const mapPlaces = [
+  ['home', '中央', 'Home', '回到中央', 'Back home'],
+  ['papers', '散页', 'Pages', '去散页', 'Go to loose pages'],
+  ['music', '琴弦', 'Strings', '去琴弦之间', 'Go to a little jam'],
+  ['trace', '留一笔', 'A line', '去留一笔', 'Go to leave a line'],
+  ['rethink', '另一面', 'Other side', '去另一面', 'Go to the other side'],
+  ['work', '拆开看看', 'Inside', '去拆开看看', 'Go beneath the surface'],
+  ['idle', '不赶时间', 'No hurry', '去不赶时间', 'Go to no hurry'],
+  ['paths', '未走之路', 'Paths', '去未走之路', 'Go to paths untaken'],
+  ['blindspot', '盲点', 'Blind spots', '去盲点', 'Go to blind spots'],
+];
 ---
 <a class="skip-link" href="#room">{t("跳到小屋", "Skip to the room")}</a>
 <header class="masthead"><button class="signature" data-place="home" aria-label={t("回到小屋中央", "Back to the room")}><b>Q<span>i</span>u</b><span class="signature-cross">＋</span></button><p>{t("千秋的私人一隅", "Qiu, between notes.")}<span>ME.QIU.WORKS</span></p><div class="header-actions"><nav class="language-switch" aria-label={t('语言', 'Language')}>
@@ -18,12 +31,14 @@ import guitarPhoto from '../../assets/me/bangdream-potbelly-fm-rana.webp';
       <section class="place home" data-scene="home" aria-label={t("小屋中央", "At home")}>
         <div class="home-meta"><span>{t("我是千秋。欢迎来坐坐。", "I’m Qiu. Make yourself at home.")}</span><span>{t("六根弦，以及它们以外的事。", "Six strings, and whatever comes to mind.")}</span></div>
         <h1 class="name" lang="zh-Hans" aria-label="千秋"><span>千</span><span>秋</span></h1>
+        <img class="home-guitar-preview" src={guitarPreview.src} width={guitarPreview.width} height={guitarPreview.height} alt="" aria-hidden="true" fetchpriority="high" decoding="async" draggable="false">
         <button class="guitar-touch" data-open-guitar aria-label={t("拿起我的 BanG Dream! POTBELLY FM Rāna 吉他转动查看", "Pick up my BanG Dream! POTBELLY FM Rāna guitar and turn it around")}></button>
         <button class="art-caption" data-open-guitar><span>＋</span><p><span class="guitar-caption-default">POTBELLY FM RĀNA<br><Fragment set:html={t("靠近一点，它会跟着你。<br>点一下，拿起来 ↗", "<span class=\"guitar-follow\">Move closer. It follows you.<br></span>Click to pick it up ↗")} /></span><span class="guitar-caption-portrait">{t("点开吉他 ↗", "Open the guitar ↗")}</span></p></button>
         <button class="enter" data-place="overview"><span class="round-arrow">↔</span><span><Fragment set:html={t("进来坐坐<small>把小屋拨开</small>", "Come on in<small>Take a look around</small>")} /></span></button>
         <button class="door door-left" data-place="papers"><span>←</span><span>{t("几张散页", "Loose pages")}</span></button>
         <button class="door door-right" data-place="music"><span>{t("琴弦之间", "A little jam")}</span><span>→</span></button>
         <div class="home-bottom"><p><Fragment set:html={t("不用按顺序。<br>随便逛逛，<br>也可以什么都不做。", "Look around.<br>Take your time.")} /></p><p class="welcome"><Fragment set:html={t("在这里，<br><em>待一会儿。</em>", "Stay<br><em>awhile.</em>")} /></p></div>
+        <button class="deeper-door" data-place="rethink">{t('小屋深处，还有一些东西', 'There’s more, a little further in')} <span>↓</span></button>
       </section>
 
       <section class="place papers" data-scene="papers" aria-labelledby="paper-title" inert>
@@ -71,11 +86,17 @@ import guitarPhoto from '../../assets/me/bangdream-potbelly-fm-rana.webp';
         <div class="draw-area" tabindex="0" role="group" aria-label={t("临时画布，拖动画线，松手后触碰线条使它振动", "Temporary canvas. Drag to draw a line, then touch it to hear it ring.")}><span class="drawing-hint">{t("从这里，随手划一下。", "A line can start anywhere.")}</span></div>
         <div class="trace-footer"><p>{t("没有标准形状。", "There’s no right shape.")}<br><span>{t("这一笔，留在这次停留里。", "Just here, for this visit.")}</span></p><div><button class="small-action" id="add-line" type="button">{t("替我起个头 ↗", "Give me a starting point ↗")}</button><button class="small-action" id="clear-lines" type="button">{t("重新留白 ↙", "Start again ↙")}</button></div></div>
       </section>
+      <MoreRooms lang={lang} />
     </div>
     <div class="overview-label" aria-hidden="true"><span>{t("一间没有墙的小屋", "A room without walls")}</span><p>{t("点一个地方，或者直接拖着走。", "Pick a place. Or simply wander.")}</p></div>
   </main>
   <footer class="room-bar">
-    <nav class="room-map" aria-label={t("小屋地图", "Room map")}><button class="map-home active" data-place="home" aria-label={t("回到中央", "Back home")} aria-current="location"><i></i><span>{t("中央", "Home")}</span></button><button class="map-papers" data-place="papers" aria-label={t("去散页", "Go to loose pages")}><i></i><span>{t("散页", "Pages")}</span></button><button class="map-music" data-place="music" aria-label={t("去琴弦之间", "Go to a little jam")}><i></i><span>{t("琴弦", "Strings")}</span></button><button class="map-trace" data-place="trace" aria-label={t("去留一笔", "Go to leave a line")}><i></i><span>{t("留一笔", "Leave a line")}</span></button><svg viewBox="0 0 132 88" aria-hidden="true"><path class="map-lines-desktop" d="M22 60H110M66 60V21"/><path class="map-lines-mobile" d="M22 66H110M66 66V22"/></svg></nav>
+    <nav class="room-map" aria-label={t('小屋地图', 'Room map')}>
+      {mapPlaces.map(([place, zh, en, ariaZh, ariaEn]) => (
+        <button class:list={[`map-${place}`, {active: place === 'home'}]} data-place={place} aria-label={t(ariaZh, ariaEn)} aria-current={place === 'home' ? 'location' : undefined}><i></i><span>{t(zh, en)}</span></button>
+      ))}
+      <svg viewBox="0 0 160 68" aria-hidden="true"><path d="M25 9H135M25 34H135M25 59H135M25 9V59M80 9V59M135 9V59"/></svg>
+    </nav>
     <div class="where"><span id="where-name" role="status">{t("小屋中央", "At home")}</span><small id="where-hint">{t("拖动画面漫游 · 滚轮缩放", "Drag to wander · Scroll to zoom")}</small></div>
     <div class="view-tools"><button id="motion" type="button" aria-pressed="false">{t("动态开", "Motion on")}</button><button id="zoom-out" type="button" aria-label={t("退远一些", "Zoom out")}>−</button><button id="overview" data-place="overview" type="button" aria-label={t("看看整个小屋", "See the whole room")}>⌑</button><button id="zoom-in" type="button" aria-label={t("靠近一些", "Zoom in")}>＋</button></div>
   </footer>
@@ -94,7 +115,7 @@ import guitarPhoto from '../../assets/me/bangdream-potbelly-fm-rana.webp';
           <button data-guitar-view="whole" aria-pressed="false">↙ <span>{t("整琴", "Whole")}</span></button>
         </nav>
       </div>
-      <div class="guitar-stage" data-view="body"><img id="guitar-photo" src={guitarPhoto.src} width="2400" height="2400" alt={t("模型载入前的 BanG Dream! POTBELLY FM Rāna 官方外形参考", "Official BanG Dream! POTBELLY FM Rāna reference photograph, shown while the model loads")} draggable="false"></div>
+      <div class="guitar-stage" data-view="body"><img id="guitar-photo" src={guitarPhoto.src} width="2400" height="2400" decoding="async" fetchpriority="low" alt={t("模型载入前的 BanG Dream! POTBELLY FM Rāna 官方外形参考", "Official BanG Dream! POTBELLY FM Rāna reference photograph, shown while the model loads")} draggable="false"></div>
     </div>
     <div class="guitar-handling"><span>{t("拖动转动 · 滚轮靠近", "Drag to turn · Scroll to get closer")}</span><button id="guitar-reset" type="button">{t("正过来", "Face the front")} ↙</button></div>
     <span class="guitar-credit">{t("琴身纹理来自我的实拍", "Body texture from my own photograph")}</span>
