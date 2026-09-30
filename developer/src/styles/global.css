@@ -1,7 +1,11 @@
-:root { --paper:#f0ede4; --ink:#17211c; --night:#142019; --muted:#647168; --rust:#d36746; --line:#aeb7a9; --cream:#fffdf5; background:var(--paper); color:var(--ink); font-family:"Segoe UI Variable Text","Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; }
+:root { --paper:#f0ede4; --ink:#17211c; --night:#142019; --muted:#647168; --rust:#d36746; --line:#aeb7a9; --cream:#fffdf5;
+      --studio-sans:"QStudio Sans","QStudio CJK","Segoe UI Variable Text","Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+      --studio-serif:"QStudio Serif","QStudio CJK Serif","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","SimSun",serif;
+      --studio-mono:"QStudio Mono","QStudio CJK",Consolas,"Courier New",monospace;
+      background:var(--paper); color:var(--ink); font-family:var(--studio-sans); }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
-    body { min-width:320px; margin:0; }
+    body { min-width:0; margin:0; }
     body, button, input { font-family:inherit; }
     button { cursor:pointer; }
     a { color:inherit; }
@@ -9,7 +13,7 @@
     :focus-visible { outline:2px solid var(--rust); outline-offset:4px; }
     ::selection { background:var(--rust); color:#fff; }
     .frame { width:min(calc(100% - 72px),1460px); margin-inline:auto; }
-    .micro { font:700 11px/1.45 Consolas,"Courier New",monospace; letter-spacing:.13em; text-transform:uppercase; }
+    .micro { font:700 11px/1.45 var(--studio-mono); letter-spacing:.13em; text-transform:uppercase; }
     .skip { position:absolute; z-index:30; top:-90px; left:24px; padding:12px 16px; background:var(--paper); }
     .skip:focus { top:12px; }
     .top { position:relative; z-index:10; display:flex; align-items:center; gap:32px; min-height:75px; border-bottom:1px solid #c6cbbf; }
@@ -29,7 +33,7 @@
     .hero__copy { position:relative; z-index:2; display:flex; flex-direction:column; align-items:start; }
     .eyebrow { display:flex; align-items:center; gap:13px; margin:0; color:#e3a38b; }
     .eyebrow::before { content:""; width:32px; height:1px; background:currentColor; }
-    .hero h1 { margin:clamp(65px,9vh,125px) 0 30px; font:400 clamp(70px,7.6vw,116px)/.95 "Iowan Old Style","Palatino Linotype",Georgia,serif; letter-spacing:-.095em; white-space:nowrap; }
+    .hero h1 { margin:clamp(65px,9vh,125px) 0 30px; font:400 clamp(70px,7.6vw,116px)/.95 var(--studio-serif); letter-spacing:-.095em; white-space:nowrap; }
     .hero h1 em { color:#e59b77; font-weight:400; }
     .hero__lead { max-width:33ch; margin:0 0 14px; font-size:clamp(20px,1.9vw,29px); line-height:1.28; font-weight:600; letter-spacing:-.04em; }
     .hero__lead span { display:block; }
@@ -42,13 +46,13 @@
     .hero__bottom { display:flex; gap:24px; align-items:end; justify-content:space-between; width:100%; margin-top:auto; padding-top:50px; color:#9eafa1; }
     .hero__bottom span:last-child { color:#e6a083; }
     .hero__art { position:relative; display:flex; align-items:center; min-width:0; padding-block:15px 45px; isolation:isolate; }
-    .hero__art::before { content:"Q"; position:absolute; z-index:-1; top:50%; left:47%; transform:translate(-50%,-55%); color:transparent; -webkit-text-stroke:1px rgba(217,158,130,.26); font:italic 690px/.8 Georgia,serif; letter-spacing:-.12em; pointer-events:none; }
+    .hero__art::before { content:"Q"; position:absolute; z-index:-1; top:50%; left:47%; transform:translate(-50%,-55%); color:transparent; -webkit-text-stroke:1px rgba(217,158,130,.26); font:italic 690px/.8 var(--studio-serif); letter-spacing:-.12em; pointer-events:none; }
     .specimen { position:relative; width:100%; margin-inline:auto; color:var(--paper); }
     .specimen__head,.specimen__foot { display:flex; justify-content:space-between; align-items:center; gap:15px; }
     .specimen__head { padding:0 3px 16px; color:#b9c8b9; }
     .specimen__identity { display:flex; flex-direction:column; gap:2px; }
     .specimen__identity span { color:#e6a083; }
-    .specimen__identity strong { color:var(--paper); font:400 clamp(24px,2.7vw,34px)/1 "Iowan Old Style",Georgia,serif; letter-spacing:-.055em; }
+    .specimen__identity strong { color:var(--paper); font:400 clamp(24px,2.7vw,34px)/1 var(--studio-serif); letter-spacing:-.055em; }
     .specimen__head > span:last-child { text-align:right; }
     .specimen__window { position:relative; overflow:hidden; width:100%; aspect-ratio:1264 / 708; background:#f3f5fb; --cut:72%; --lens-radius:clamp(80px,10vw,128px); }
     .specimen__window img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; }
@@ -57,7 +61,7 @@
     .specimen__seam { position:absolute; z-index:2; top:50%; left:var(--cut); width:calc(2 * var(--lens-radius)); height:calc(2 * var(--lens-radius)); transform:translate(-50%,-50%); border:2px solid #df7450; border-radius:50%; box-shadow:0 0 0 5px rgba(20,32,25,.26),0 16px 38px rgba(20,32,25,.25); cursor:ew-resize; touch-action:none; }
     .specimen__seam::before { content:""; position:absolute; right:-29px; bottom:-3px; width:76px; height:15px; transform:rotate(45deg); background:#da7453; box-shadow:0 3px 8px rgba(20,32,25,.24); }
     .specimen__window[data-tail="left"] .specimen__seam::before { right:auto; left:-29px; transform:rotate(-45deg); }
-    .specimen__seam::after { content:"↔"; position:absolute; left:50%; top:100%; display:grid; place-items:center; width:46px; height:46px; transform:translate(-50%,-50%); border:1px solid rgba(255,255,255,.9); border-radius:50%; background:#df7450; box-shadow:0 4px 17px rgba(21,31,24,.27); color:#fff; font:22px/1 Georgia,serif; }
+    .specimen__handle { position:absolute; left:50%; top:100%; display:grid; place-items:center; width:46px; height:46px; transform:translate(-50%,-50%); border:1px solid rgba(255,255,255,.9); border-radius:50%; background:#df7450; box-shadow:0 4px 17px rgba(21,31,24,.27); color:#fff; font-size:22px; line-height:1; }
     .specimen__foot { padding:22px 4px 2px; }
     .specimen__foot label { color:#d4dfd1; }
     .specimen__foot input { width:48%; height:44px; margin:0; accent-color:#b95132; cursor:ew-resize; }
@@ -67,14 +71,14 @@
     .proposition { padding-block:75px 87px; border-bottom:1px solid var(--line); }
     .proposition__inner { display:grid; grid-template-columns:minmax(150px,.26fr) minmax(0,1fr) minmax(0,.48fr); gap:clamp(25px,4vw,75px); align-items:start; }
     .proposition__number { color:#ab5139; }
-    .proposition h2 { max-width:17ch; margin:0; font:400 clamp(35px,4.2vw,69px)/1.05 "Iowan Old Style",Georgia,serif; letter-spacing:-.065em; }
+    .proposition h2 { max-width:17ch; margin:0; font:400 clamp(35px,4.2vw,69px)/1.05 var(--studio-serif); letter-spacing:-.065em; }
     .proposition h2 em { color:#bb573b; }
     .proposition p:last-child { max-width:45ch; margin:5px 0 0; color:#475a4b; font-size:15px; line-height:1.7; }
 
     .work { padding-block:95px 135px; }
     .section-head { display:grid; grid-template-columns:minmax(0,1fr) minmax(230px,.34fr); gap:25px; align-items:end; margin-bottom:56px; }
     .section-head .eyebrow { color:#b9543a; }
-    .section-head h2 { margin:22px 0 0; font:400 clamp(63px,7vw,117px)/.9 "Iowan Old Style",Georgia,serif; letter-spacing:-.08em; }
+    .section-head h2 { margin:22px 0 0; font:400 clamp(63px,7vw,117px)/.9 var(--studio-serif); letter-spacing:-.08em; }
     .section-head h2 em { color:#b9543a; font-weight:400; }
     .section-head > p { margin:0 0 8px; color:#526354; font-size:15px; line-height:1.65; }
     .work-list { border-top:1px solid #849185; }
@@ -83,7 +87,7 @@
     .case summary::-webkit-details-marker { display:none; }
     .case summary::marker { content:""; }
     .case__index { color:#b45136; align-self:start; padding-top:29px; }
-    .case__title strong { display:block; font:400 clamp(35px,4.1vw,67px)/1 "Iowan Old Style",Georgia,serif; letter-spacing:-.06em; }
+    .case__title strong { display:block; font:400 clamp(35px,4.1vw,67px)/1 var(--studio-serif); letter-spacing:-.06em; }
     .case__title small { display:block; margin-top:8px; color:#738174; }
     .case__blurb { max-width:42ch; color:#3f5144; font-size:14px; line-height:1.55; }
     .case__indicator { display:grid; place-items:center; width:42px; height:42px; border:1px solid #899b8c; border-radius:50%; color:#a54b31; font-size:27px; line-height:1; transition:transform .25s ease,background .25s ease,color .25s ease; }
@@ -108,19 +112,19 @@
     .case__links a:hover { color:#a9482e; }
 
     .method { position:relative; overflow:hidden; background:#26372d; color:#f3eee4; }
-    .method::before { content:"Q"; position:absolute; right:-12vw; top:-130px; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.09); font:italic 800px/.9 Georgia,serif; pointer-events:none; }
+    .method::before { content:"Q"; position:absolute; right:-12vw; top:-130px; color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.09); font:italic 800px/.9 var(--studio-serif); pointer-events:none; }
     .method__inner { position:relative; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:clamp(35px,8vw,140px); padding-block:110px 105px; }
     .method .eyebrow { color:#e59f81; }
-    .method h2 { max-width:10ch; margin:33px 0 20px; font:400 clamp(62px,6.3vw,105px)/.95 "Iowan Old Style",Georgia,serif; letter-spacing:-.075em; }
+    .method h2 { max-width:10ch; margin:33px 0 20px; font:400 clamp(62px,6.3vw,105px)/.95 var(--studio-serif); letter-spacing:-.075em; }
     .method h2 em { color:#e69b78; }
     .method__intro > p:last-child { max-width:40ch; color:#c1cfc0; font-size:15px; line-height:1.7; }
     .method__list { margin:0; padding:0; list-style:none; border-top:1px solid #a3b2a2; }
     .method__list li { display:grid; grid-template-columns:65px minmax(0,1fr); gap:25px; padding:24px 0 30px; border-bottom:1px solid #607366; }
     .method__list li > span { color:#e49c7d; }
-    .method__list h3 { margin:0 0 8px; font:400 clamp(28px,3vw,47px)/1.1 "Iowan Old Style",Georgia,serif; letter-spacing:-.045em; }
+    .method__list h3 { margin:0 0 8px; font:400 clamp(28px,3vw,47px)/1.1 var(--studio-serif); letter-spacing:-.045em; }
     .method__list p { max-width:45ch; margin:0; color:#b5c4b7; font-size:14px; line-height:1.6; }
     .founder { grid-column:1 / -1; display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr); gap:clamp(35px,8vw,140px); align-items:end; padding-top:70px; margin-top:45px; border-top:1px solid #607366; }
-    .founder__mark { display:block; margin:25px 0 15px; color:#e9a484; font:400 clamp(80px,9vw,155px)/.9 "Songti SC","SimSun",serif; letter-spacing:-.1em; }
+    .founder__mark { display:block; margin:25px 0 15px; color:#e9a484; font:400 clamp(80px,9vw,155px)/.9 var(--studio-serif); letter-spacing:-.1em; }
     .founder p { max-width:40ch; margin:0 0 20px; color:#c1ccbd; font-size:14px; line-height:1.65; }
     .founder a { font-size:12px; font-weight:750; text-underline-offset:6px; }
     .founder__portrait { display:grid; grid-template-columns:120px minmax(0,1fr); gap:22px; align-items:end; }
@@ -130,22 +134,22 @@
     .writing { padding-block:95px 125px; }
     .writing__top { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(30px,7vw,120px); margin-bottom:55px; }
     .writing .eyebrow { color:#b9543a; }
-    .writing h2 { max-width:11ch; margin:27px 0 0; font:400 clamp(53px,5.5vw,91px)/.98 "Iowan Old Style",Georgia,serif; letter-spacing:-.075em; }
+    .writing h2 { max-width:11ch; margin:27px 0 0; font:400 clamp(53px,5.5vw,91px)/.98 var(--studio-serif); letter-spacing:-.075em; }
     .writing__top > p { align-self:end; max-width:45ch; margin:0 0 5px; color:#4f6152; font-size:15px; line-height:1.65; }
     .writing__list { padding:0; margin:0; list-style:none; border-top:1px solid #8c9c8b; }
     .writing__list a { display:grid; grid-template-columns:minmax(130px,.25fr) minmax(0,1fr) 45px; gap:20px; align-items:center; min-height:102px; padding:18px 0; border-bottom:1px solid #b7c2b2; text-decoration:none; }
     .writing__list a:hover { color:#a94f34; }
     .writing__list time { color:#a34a33; }
-    .writing__list strong { display:block; font:400 clamp(23px,2.5vw,38px)/1.13 "Iowan Old Style",Georgia,serif; letter-spacing:-.045em; }
+    .writing__list strong { display:block; font:400 clamp(23px,2.5vw,38px)/1.13 var(--studio-serif); letter-spacing:-.045em; }
     .writing__list small { display:block; margin-top:5px; color:#697968; font-size:12px; line-height:1.5; }
     .writing__list i { font-style:normal; font-size:25px; text-align:right; }
 
     .contact { background:#db7955; color:#1a251c; }
     .contact__inner { padding-block:100px 55px; }
     .contact .eyebrow { color:#2d3d2d; }
-    .contact h2 { max-width:15ch; margin:40px 0 80px; font:400 clamp(60px,7.3vw,122px)/.92 "Iowan Old Style",Georgia,serif; letter-spacing:-.08em; }
+    .contact h2 { max-width:15ch; margin:40px 0 80px; font:400 clamp(60px,7.3vw,122px)/.92 var(--studio-serif); letter-spacing:-.08em; }
     .contact h2 em { color:#fff5e9; }
-    .contact__email { display:block; width:fit-content; max-width:100%; border-bottom:2px solid #243727; font:400 clamp(36px,6vw,98px)/1 "Iowan Old Style",Georgia,serif; letter-spacing:-.07em; text-decoration:none; overflow-wrap:anywhere; }
+    .contact__email { display:block; width:fit-content; max-width:100%; border-bottom:2px solid #243727; font:400 clamp(36px,6vw,98px)/1 var(--studio-serif); letter-spacing:-.07em; text-decoration:none; overflow-wrap:anywhere; }
     .contact__email:hover { color:#fff5e9; border-color:#fff5e9; }
     .contact__foot { display:flex; justify-content:space-between; align-items:end; gap:35px; margin-top:88px; padding-top:22px; border-top:1px solid rgba(27,40,28,.55); }
     .contact__foot p { max-width:43ch; margin:0; font-size:13px; line-height:1.55; }
@@ -158,7 +162,7 @@
     .image-dialog__head button { width:43px; height:43px; border:1px solid #8f9f90; background:transparent; color:var(--ink); font-size:24px; }
     .image-dialog img { width:auto; max-width:100%; max-height:calc(94vh - 61px); margin:auto; }
 
-    :lang(zh) .section-head h2, :lang(zh) .proposition h2, :lang(zh) .method h2, :lang(zh) .writing h2, :lang(zh) .contact h2 { font-family:"Songti SC","SimSun","Noto Serif CJK SC",serif; letter-spacing:-.085em; }
+    :lang(zh) .section-head h2, :lang(zh) .proposition h2, :lang(zh) .method h2, :lang(zh) .writing h2, :lang(zh) .contact h2 { font-family:var(--studio-serif); letter-spacing:-.085em; }
 
     @media (max-width:1100px) {
       .hero__inner { grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); }
@@ -211,7 +215,7 @@
       .specimen__window { --lens-radius:72px; }
       .specimen__seam::before { right:-20px; bottom:-1px; width:52px; height:11px; }
       .specimen__window[data-tail="left"] .specimen__seam::before { left:-20px; }
-      .specimen__seam::after { width:33px; height:33px; font-size:16px; }
+      .specimen__handle { width:33px; height:33px; font-size:16px; }
       .specimen__foot { padding-top:8px; }
       .specimen__foot input { width:42%; }
       .proposition { padding-block:55px; }

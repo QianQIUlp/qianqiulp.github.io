@@ -26,6 +26,14 @@ font subsets with `scripts/subset-me-fonts.py` as documented beside the fonts.
 Reading layouts and QStudio keep their own typography. This does not authorize
 new first-screen navigation or changes to the spatial discovery contract.
 
+For the 2026-09-30 QStudio font fix, use its own local Source Sans 3 (400–900),
+Source Serif 4 (400 regular/italic at fixed default optical size), Cousine Bold
+(700), and source-used Noto CJK subsets in `developer/src/assets/fonts/`.
+Preserve the sans/serif/mono roles and Look inside layout. Render control symbols
+as static decorative inline SVG, including the draggable lens handle, native
+project indicators and image-dialog close button. Keep font failure fallbacks
+readable and regenerate subsets after QStudio copy changes using the asset README.
+
 ## Governing Contract
 
 For Q Studio iterations from 2026-09-23, follow the active "Look inside" section at the top of `docs/uiux/developer-workbench.md`. Lead the dark-green hero with the large Q Studio name and a plain description of its local-first software and developer tools; label VeriSilo as the current product before its real screenshot. Preserve the draggable circular evidence view whose screenshot pans with the lens, a complete observed value in the initial position, and the complete evidence title at the left endpoint. Keep the simple work → studio → Me → writing → contact flow, native expandable project dossiers, image links and dialog, static English `/` and Chinese `/zh/`, and localized `me.qiu.works` links. The former theme toggle, scrollspy, copy-email panel and editorial-workbench masthead are historical. Do not apply Room-specific composition rules to `developer/`.
