@@ -1,0 +1,6 @@
+---
+import { iconPaths } from '../../scripts/me/icons.js';
+interface Props { name: keyof typeof iconPaths }
+const { name } = Astro.props;
+---
+<svg class="ui-icon" data-icon={name} viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d={iconPaths[name]} /></svg>

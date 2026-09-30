@@ -1,5 +1,7 @@
 # 千秋 · me.qiu.works
 
+2026-09-30：首页字体改为固定版本、自托管的 WOFF2 子集，控制符号改为内联 SVG。保留现有空间构图、文案及导航；详情与再生成方法见 `src/assets/me/fonts/README.md`。本次修复以 PR 交回用户审核，不合并、不由本地验收推定发布。
+
 2026-09-22：将用户确认的中英文空间原型接入根站 Astro。`qiu.works` 仍由 `developer/` 中的 QStudio 负责；本次不修改该应用。
 
 2026-09-29：用户确认将 `prototypes/me-current.html` 的九宫格扩展、作品切面与自动演示、吉他性能优化实装到源码。保留原有风格，源码与构建产物不依赖原型目录。此次授权为本地实装与验收，部署和 PR 留待审阅。
@@ -10,6 +12,7 @@
 - `src/layouts/PersonalHome.astro`：首页独立布局、双语 SEO、分享图和无 JavaScript 阅读入口。
 - `src/components/me/Room.astro`、`MoreRooms.astro`、`Pedalboard.astro`：共享的双语页面与踏板标记，初始文案在构建时输出；交互文案沿用 `language.js`，无翻译库。
 - `src/styles/me/`：已确认的空间、吉他、音乐及英文排版；`site.css` 是站点导航接入细节。
+- `src/styles/me/fonts.css`、`icons.css`：首页专用字体及共享 SVG 尺寸；`Icon.astro` 与 `icons.js` 让初始标记和动态状态共用同一图形。
 - `src/scripts/me/scene.js`：空间、纸张、画线、音色控制与循环录音。
 - `src/scripts/me/boot.js`：先启动空间与操作，再动态载入三维和新增区域。
 - `src/scripts/me/extra-rooms.js`、`nine-rooms.js`：莫比乌斯纸带、放下纸片、路径演奏和错位文字；状态仅留在当前访问中。

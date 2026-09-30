@@ -2,6 +2,7 @@ import * as THREE from '../../vendor/three/three.module.min.js';
 
 // A symbolic section through each project's architecture, not a hardware model.
 export function createWorkSpecimen(canvas) {
+  const mono = getComputedStyle(document.documentElement).getPropertyValue('--mono');
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({canvas, antialias: true, alpha: true});
@@ -101,6 +102,14 @@ export function createWorkSpecimen(canvas) {
   }
   const labelCanvas = document.createElement('canvas');labelCanvas.width = 1536;labelCanvas.height = 256;
   const labelTexture = new THREE.CanvasTexture(labelCanvas);labelTexture.colorSpace = THREE.SRGBColorSpace;labelTexture.anisotropy = 4;
+  let projectLabel = '';
+  function paintLabel() {
+    const ctx = labelCanvas.getContext('2d');ctx.clearRect(0, 0, 1536, 256);
+    ctx.fillStyle = '#d1d1bd';ctx.font = `42px ${mono}`;ctx.fillText(projectLabel, 15, 155);
+    ctx.textAlign = 'right';ctx.font = `25px ${mono}`;ctx.fillStyle = '#939b86';ctx.fillText('QIU  /  WORKS', 1520, 155);ctx.textAlign = 'left';
+    labelTexture.needsUpdate = true;schedule();
+  }
+  document.fonts.load('42px "Me Mono"').then(paintLabel).catch(() => {});
   const labelMaterial = new THREE.MeshBasicMaterial({map: labelTexture, transparent: true, depthWrite: false, toneMapped: false});
   const label = new THREE.Mesh(new THREE.PlaneGeometry(3.3, .55), labelMaterial);scene.add(label);
   const skin = new THREE.Mesh(new THREE.ShapeGeometry(silhouette('verisilo'), 32), new THREE.MeshStandardMaterial({color:'#242725',metalness:.6,roughness:.37,transparent:true,envMapIntensity:.65}));
@@ -180,11 +189,7 @@ export function createWorkSpecimen(canvas) {
       const tick = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(x,rulerY,.005),new THREE.Vector3(x,rulerY-(n%10?.035:.095),.005)]);
       section.add(new THREE.Line(tick, n % 10 ? ghost : red));
     }
-    const ctx = labelCanvas.getContext('2d');ctx.clearRect(0, 0, 1536, 256);
-    ctx.fillStyle = '#d1d1bd';ctx.font = '42px Consolas, monospace';ctx.fillText(`0${index}  /  ${name.toUpperCase()}`, 15, 155);
-    ctx.textAlign = 'right';ctx.font = '25px Consolas, monospace';ctx.fillStyle = '#939b86';ctx.fillText('QIU  /  WORKS', 1520, 155);ctx.textAlign = 'left';
-    labelTexture.needsUpdate = true;
-    schedule();
+    projectLabel = `0${index}  /  ${name.toUpperCase()}`;paintLabel();
   }
   function schedule() {if (!frame && visible && !document.hidden) frame = requestAnimationFrame(render);}
   function render() {

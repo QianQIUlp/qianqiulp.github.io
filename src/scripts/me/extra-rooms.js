@@ -6,6 +6,7 @@ import {t as localize} from './language.js';
 const $ = selector => document.querySelector(selector);
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 const still = () => document.body.dataset.motion === 'off';
+const sans = getComputedStyle(document.documentElement).getPropertyValue('--sans');
 
 function dragRange(stage, input, axis, distance) {
   let drag;
@@ -125,7 +126,7 @@ function drawRibbon() {
     if (face < 0) { ax = -ax; ay = -ay; }
     ctx.save();ctx.transform(tx, ty, ax, ay, p.x, p.y);
     ctx.fillStyle = '#51573e';
-    ctx.font = `${Math.max(10, scale * .085)}px "Microsoft YaHei", sans-serif`;
+    ctx.font = `${Math.max(10, scale * .085)}px ${sans}`;
     ctx.textAlign = 'center';ctx.textBaseline = 'middle';ctx.fillText(label.word, 0, 0);ctx.restore();
   }
 }
@@ -144,6 +145,7 @@ $('#turn-thought').addEventListener('click', () => {
 });
 dragRange(ribbonStage, angle, 'clientX', () => 360 / ribbonStage.getBoundingClientRect().width);
 new ResizeObserver(updateRibbon).observe(ribbonStage);
+document.fonts.ready.then(updateRibbon);
 updateRibbon();
 
 // Real projects, opened into their motives, decisions and limits.
