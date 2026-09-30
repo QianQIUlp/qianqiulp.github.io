@@ -1,5 +1,8 @@
 ---
 import '../styles/global.css';
+import '../styles/fonts.css';
+import sansFont from '../assets/fonts/source-sans-3-latin.woff2?url';
+import serifFont from '../assets/fonts/source-serif-4-latin.woff2?url';
 import type { Locale } from '../content';
 
 interface Props {
@@ -23,6 +26,8 @@ const chineseUrl = new URL('/zh/', Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="theme-color" content="#142019" />
+    <link rel="preload" as="font" type="font/woff2" href={sansFont} crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href={serifFont} crossorigin="anonymous" />
     <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
