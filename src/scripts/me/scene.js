@@ -1,6 +1,8 @@
 import {t} from './language.js';
+import {setControl} from './icons.js';
 import {createAudioRig,defaultRig,tones} from './audio-engine.js';
 (() => {
+  const sans=getComputedStyle(document.documentElement).getPropertyValue('--sans');
   const room=document.querySelector('#room'),world=document.querySelector('#world');
   const canvas=document.querySelector('#instrument'),ctx=canvas.getContext('2d');
   const underlay=document.createElement('div');underlay.className='world underlay';underlay.append(document.querySelector('.name'));room.prepend(underlay);
@@ -88,8 +90,8 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     if(inView(places.music))drawStrings(now);
     if(inView(places.trace))drawTrace(now);
     if(camera.z<.65){
-      ctx.globalAlpha=clamp((.65-camera.z)/.18,0,1);ctx.fillStyle='#626b55';ctx.font=`${11/camera.z}px Arial, Microsoft YaHei, sans-serif`;ctx.textAlign='center';
-      [[-.56,.11,t("几张散页 ↗","Loose pages ↗")],[1.74,.12,t("琴弦之间 ↗","A little jam ↗")],[.69,-.87,t("留一笔 ↗","Leave a line ↗")],[-.62,-.87,t("未走之路 ↗", "Paths untaken ↗")],[1.64,-.87,t("盲点 ↗", "Blind spots ↗")],[-.62,1.23,t("另一面 ↗", "The other side ↗")],[.51,1.23,t("不赶时间 ↗", "No hurry ↗")],[1.64,1.23,t("拆开看看 ↗", "Beneath the surface ↗")]].forEach(([x,y,label])=>ctx.fillText(label,x*width,y*height));ctx.textAlign='start';
+      ctx.globalAlpha=clamp((.65-camera.z)/.18,0,1);ctx.fillStyle='#626b55';ctx.font=`${11/camera.z}px ${sans}`;ctx.textAlign='center';
+      [[-.56,.11,t("几张散页","Loose pages")],[1.74,.12,t("琴弦之间","A little jam")],[.69,-.87,t("留一笔","Leave a line")],[-.62,-.87,t("未走之路", "Paths untaken")],[1.64,-.87,t("盲点", "Blind spots")],[-.62,1.23,t("另一面", "The other side")],[.51,1.23,t("不赶时间", "No hurry")],[1.64,1.23,t("拆开看看", "Beneath the surface")]].forEach(([x,y,label])=>ctx.fillText(label,x*width,y*height));ctx.textAlign='start';
       if(!lines.length){const marks=[];for(let i=0;i<85;i++){const t=i/84;marks.push({x:(.43+.51*t)*width,y:(-.52+Math.sin(t*Math.PI*2.5)*.12)*height});}line(marks,'#e83d27',1/camera.z);}
       ctx.globalAlpha=1;
     }
@@ -249,11 +251,11 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   }
   function soundUI(){
     soundButton.setAttribute('aria-pressed',String(enabled));soundButton.querySelector('span').textContent=enabled?t("声音开","Sound on"):t("声音关","Sound off");
-    localSound.setAttribute('aria-pressed',String(enabled));localSound.textContent=enabled?t("声音开 ↙","Sound on ↙"):t("打开声音 ↗","Sound on ↗");
+    localSound.setAttribute('aria-pressed',String(enabled));setControl(localSound,enabled?t("声音开","Sound on"):t("打开声音","Sound on"),enabled?'southwest':'northeast');
   }
   async function setSound(value){
     try{soundButton.disabled=localSound.disabled=true;await ensureAudio();enabled=value;rig.set({volume:enabled?params.volume:0});soundUI();schedule();return true;}
-    catch{enabled=false;localSound.textContent=t("声音暂不可用","Sound is unavailable");soundButton.querySelector('span').textContent=t("声音暂不可用","Sound is unavailable");soundButton.setAttribute('aria-pressed','false');localSound.setAttribute('aria-pressed','false');return false;}
+    catch{enabled=false;setControl(localSound,t("声音暂不可用","Sound is unavailable"),null);soundButton.querySelector('span').textContent=t("声音暂不可用","Sound is unavailable");soundButton.setAttribute('aria-pressed','false');localSound.setAttribute('aria-pressed','false');return false;}
     finally{soundButton.disabled=localSound.disabled=false;}
   }
   soundButton.addEventListener('click',()=>setSound(!enabled));localSound.addEventListener('click',()=>setSound(!enabled));
@@ -366,14 +368,14 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     if(lastMeter!==number){meterLabel.textContent=number===null?'−∞ dB':`${number} dB`;lastMeter=number;}
     strings.forEach((button,i)=>button.dataset.playing=String(pulses[i]>.15));
   }
-  function closeOverdub(){if(overdub&&loopNotes.length>overdubStartCount)layers++;overdub=false;overdubButton.setAttribute('aria-pressed','false');overdubButton.textContent=t("叠一层 ＋","Overdub ＋");}
+  function closeOverdub(){if(overdub&&loopNotes.length>overdubStartCount)layers++;overdub=false;overdubButton.setAttribute('aria-pressed','false');setControl(overdubButton,t("叠一层","Overdub"),'plus');}
   function loopUI(state){
     loopPanel.dataset.state=state;loopClear.disabled=!loopNotes.length&&!recording;overdubButton.disabled=!looping;
     layerLabel.textContent=t(`${String(layers).padStart(2,'0')} 层`,`${String(layers).padStart(2,'0')} ${layers===1?'LAYER':'LAYERS'}`);
   }
   function pauseLoop(){
     closeOverdub();if(recording&&loopNotes.length)layers=1;recording=false;looping=false;clearInterval(loopTimer);loopTimer=null;
-    scheduledPulses=[];rig?.stopLoop();loopButton.innerHTML=loopNotes.length?t("播放 <span>↻</span>","Play <span>↻</span>"):t("录一段 <span>●</span>","Record <span>●</span>");
+    scheduledPulses=[];rig?.stopLoop();setControl(loopButton,loopNotes.length?t("播放","Play"):t("录一段","Record"),loopNotes.length?'replay':'record');
     loopCaption.textContent=loopNotes.length?t("这一小段，还在这里。","Your little loop is still here."):t("录 6 秒，循环着接着弹。","Record six seconds. Play along.");
     loopUI(loopNotes.length?'paused':'empty');schedule();
   }
@@ -389,7 +391,7 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   }
   function playLoop(){
     recording=false;looping=true;loopStart=audio.currentTime+.03;lastLoopPosition=loopStart-.001;
-    loopButton.innerHTML=t("暂停 <span>Ⅱ</span>","Pause <span>Ⅱ</span>");loopCaption.textContent=t("循环着。可以换和弦，叠一层。","Looping. Try another chord or layer.");
+    setControl(loopButton,t("暂停","Pause"),'pause');loopCaption.textContent=t("循环着。可以换和弦，叠一层。","Looping. Try another chord or layer.");
     loopUI('playing');clearInterval(loopTimer);scheduleLoop();loopTimer=setInterval(scheduleLoop,25);schedule();
   }
   function runLoop(){
@@ -410,13 +412,13 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
     if(recording||looping){pauseLoop();return;}
     if(!await setSound(true))return;
     if(loopNotes.length)playLoop();
-    else{recording=true;recordStart=audio.currentTime;lastSecond=-1;loopButton.innerHTML=t("收好 <span>□</span>","Finish <span>□</span>");loopUI('recording');}
+    else{recording=true;recordStart=audio.currentTime;lastSecond=-1;setControl(loopButton,t("收好","Finish"),'stop');loopUI('recording');}
     schedule();
   });
   overdubButton.addEventListener('click',()=>{
     if(!looping)return;
     if(overdub){closeOverdub();loopCaption.textContent=t("这一层收好了。继续弹吧。","Layer saved. Keep playing.");loopUI('playing');}
-    else{overdub=true;overdubStartCount=loopNotes.length;overdubButton.setAttribute('aria-pressed','true');overdubButton.textContent=t("收好这一层 ✓","Keep layer ✓");loopCaption.textContent=t("继续拨弦，新声音会加入循环。","Keep playing. Add to the loop.");loopUI('overdub');}
+    else{overdub=true;overdubStartCount=loopNotes.length;overdubButton.setAttribute('aria-pressed','true');setControl(overdubButton,t("收好这一层","Keep layer"),'check');loopCaption.textContent=t("继续拨弦，新声音会加入循环。","Keep playing. Add to the loop.");loopUI('overdub');}
   });
   loopClear.addEventListener('click',()=>{loopNotes=[];layers=0;pauseLoop();loopProgress.style.width='0%';loopBeats.forEach(b=>b.classList.remove('lit'));});
   document.addEventListener('visibilitychange',()=>{
@@ -425,6 +427,7 @@ import {createAudioRig,defaultRig,tones} from './audio-engine.js';
   });
   document.querySelector('.language-switch a[aria-current="page"]').addEventListener('click',event=>event.preventDefault());
   refreshEffects();
+  document.fonts.ready.then(schedule);
   new ResizeObserver(resize).observe(room);setMotion(motion);setActive('home');resize();
   const entry=location.hash.slice(1);if(Object.hasOwn(places,entry))go(entry);
   window.addEventListener('hashchange',()=>{const place=location.hash.slice(1);if(Object.hasOwn(places,place))go(place);});

@@ -1,5 +1,13 @@
 # Developer Profile · Editorial Workbench
 
+## 2026-09-30 · 字体与控制符号一致性
+
+- `/`、`/zh/` 使用固定版本、自托管的 Source Sans 3、Source Serif 4、Cousine Bold 与 Noto Sans SC / Serif SC 子集，保留正文 sans、编辑性 serif 标题与粗体 mono 标签的角色。Source Sans 3 提供实际 400–900 字重，Source Serif 4 固定 400 字重和默认光学字号，Cousine 使用实际 700 字重。
+- 链接箭头、镜片双向拖动提示、项目展开加号与图片关闭符号使用构建期内联 SVG，不依赖系统字体；保留原文案、链接、原生 details / dialog、镜片位置及语言锚点。
+- 字体失败时保留可读系统回退。字体许可随源码保存并嵌入 WOFF2；新增中英文文案后按 `developer/src/assets/fonts/README.md` 运行 `scripts/subset-qstudio-fonts.py` 更新独立子集。
+- 保留 Look inside 的深绿首屏、颜色、布局和真实证据图。本次在个人站 PR #80 之上单独交回审核，两个 PR 均不自动合并。
+- 页面宽度跟随可用视口，包含 320px 下滚动条占用的空间；镜片手柄伸出边框的下半圆继续支持拖动。
+
 ## 2026-09-23 · Look inside（当前方向）
 
 `prototypes/qstudio-look-inside.html` 的当前交互稿已进入 `developer/`。本节取代下文旧版编辑工作台的视觉、章节与交互规定；旧版内容仅保留决策记录。工作室的真实身份、产品边界、双语路由、链接与元数据要求继续有效。

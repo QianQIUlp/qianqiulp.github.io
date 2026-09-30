@@ -1,0 +1,53 @@
+/* Fixed, self-hosted faces; system fonts remain available when a request fails. */
+@font-face {
+  font-family: "Me Sans";
+  src: url("../../assets/me/fonts/arimo-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Me Serif";
+  src: url("../../assets/me/fonts/gelasio-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Me Serif";
+  src: url("../../assets/me/fonts/gelasio-italic-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Me Mono";
+  src: url("../../assets/me/fonts/cousine-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Me CJK";
+  src: url("../../assets/me/fonts/noto-sans-sc-ui.woff2") format("woff2");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3000-9FFF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: "Me CJK Serif";
+  src: url("../../assets/me/fonts/noto-serif-sc-ui.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+3000-9FFF, U+FF00-FFEF;
+}
+@font-face {
+  font-family: "Me Display";
+  src: url("../../assets/me/fonts/noto-sans-sc-display.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+5343, U+79CB, U+786E, U+5B9A, U+7A7A;
+}

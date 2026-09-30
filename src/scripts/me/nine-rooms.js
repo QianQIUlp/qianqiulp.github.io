@@ -1,4 +1,6 @@
 import {t as localize} from './language.js';
+import {setIcon} from './icons.js';
+const mono = getComputedStyle(document.documentElement).getPropertyValue('--mono');
 
 // Two more corners of the same room. Geometry and choices stay in this visit.
 const $ = selector => document.querySelector(selector);
@@ -126,7 +128,7 @@ function drawPaths() {
     ctx.beginPath();ctx.arc(p.x, p.y, 7, 0, Math.PI * 2);
     ctx.fillStyle = paper;ctx.fill();ctx.strokeStyle = '#73756b80';ctx.lineWidth = .65;ctx.stroke();
     ctx.beginPath();ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);ctx.fillStyle = red;ctx.fill();
-    ctx.font = '8px Consolas, Microsoft YaHei, monospace';ctx.fillStyle = '#73756b';
+    ctx.font = `8px ${mono}`;ctx.fillStyle = '#73756b';
     ctx.textAlign = t ? 'right' : 'left';ctx.fillText(label, p.x + (t ? -12 : 12), p.y + (t ? -18 : 24));
   }
   ctx.textAlign = 'left';
@@ -146,7 +148,7 @@ function stopPath() {
   pathPlay.setAttribute('aria-pressed', 'false');
   pathPlay.setAttribute('aria-label', localize("听这条路", "Listen to this path"));
   $('#path-play-label').textContent = localize("听这条路", "Listen to this path");
-  $('.route-play-icon').textContent = '▷';
+  setIcon(pathPlay, 'play');
 }
 function playPath(listen) {
   stopPath();
@@ -154,7 +156,7 @@ function playPath(listen) {
   if (listen) {
     note(routeNotes[route][0], true);
     pathPlay.setAttribute('aria-pressed', 'true');pathPlay.setAttribute('aria-label', localize("停止演奏", "Stop playing"));
-    $('#path-play-label').textContent = localize("这一刻，在经过", "This moment, passing through");$('.route-play-icon').textContent = 'Ⅱ';
+    $('#path-play-label').textContent = localize("这一刻，在经过", "This moment, passing through");setIcon(pathPlay, 'pause');
   }
   schedulePaths();
 }
@@ -199,13 +201,19 @@ dragInput($('.path-instrument'), bendInput);
 // An anamorphic word: separate ink fragments line up only from the front.
 // Nothing is swapped when the camera turns; their depth creates the gaps.
 const blindCanvas = $('#blind-field'), angleInput = $('#blind-angle');
-const glyphs = [ink, '#555747', red].map(color => {
+const glyphColors = [ink, '#555747', red];
+const glyphs = glyphColors.map(() => {
   const canvas = document.createElement('canvas');canvas.width = 840;canvas.height = 350;
-  const ctx = canvas.getContext('2d');
-  ctx.font = '900 300px "Microsoft YaHei", sans-serif';ctx.textAlign = 'center';ctx.textBaseline = 'middle';
-  ctx.fillStyle = color;ctx.fillText('确定', 420, 184);
   return canvas;
 });
+function paintGlyphs() {
+  glyphs.forEach((canvas, i) => {
+    const ctx = canvas.getContext('2d');ctx.clearRect(0, 0, 840, 350);
+    ctx.font = '900 300px "Me Display", "Microsoft YaHei", sans-serif';ctx.textAlign = 'center';ctx.textBaseline = 'middle';
+    ctx.fillStyle = glyphColors[i];ctx.fillText('确定', 420, 184);
+  });
+}
+paintGlyphs();
 const observations = [
   [localize("01 / 正面", "01 / THE FRONT"), localize("看起来，严丝合缝。", "It all seems to fit."), localize("那篇关于 AI 的笔记写到第八节，我开始拆掉前面自己的论证。", "By section eight of my essay on AI, I was taking apart my own argument.")],
   [localize("02 / 比较单位", "02 / THE COMPARISON"), localize("原来，天平没有放平。", "The scales weren’t level."), localize("前文拿模型的一次生成，对比人的整体能力。换成同样的比较单位，原先的对比就没那么干净了。", "I compared one model response with a person’s entire ability. Use the same unit, and the contrast is less tidy.")],
@@ -267,12 +275,12 @@ function drawBlind() {
       ctx.strokeStyle = '#e83d2780';ctx.lineWidth = .6;ctx.beginPath();ctx.moveTo(start.x, start.y);
       ctx.lineTo(endX, endY + (n === 1 ? -10 : 12));ctx.lineTo(endX + 29, endY + (n === 1 ? -10 : 12));ctx.stroke();
       ctx.beginPath();ctx.arc(start.x, start.y, 2, 0, Math.PI * 2);ctx.fillStyle = red;ctx.fill();
-      ctx.font = `${Math.max(7, Math.min(9, width / 64))}px Consolas, Microsoft YaHei, sans-serif`;
+      ctx.font = `${Math.max(7, Math.min(9, width / 64))}px ${mono}`;
       ctx.fillText(`0${n + 1} / ${labels[n]}`, endX, endY);
     });
     ctx.restore();
   }
-  ctx.font = '8px Consolas, monospace';ctx.textAlign = 'center';ctx.fillStyle = '#73756b';
+  ctx.font = `8px ${mono}`;ctx.textAlign = 'center';ctx.fillStyle = '#73756b';
   ctx.fillText(viewAngle < 8 ? 'ONE VIEW ≠ THE WHOLE' : 'THE GAPS WERE ALWAYS HERE', cx, height * .9);
   ctx.textAlign = 'left';
 }
@@ -320,4 +328,7 @@ document.addEventListener('visibilitychange', () => {
 });
 new ResizeObserver(() => {drawPaths();drawBlind();}).observe($('#room'));
 document.fonts.ready.then(() => {drawPaths();drawBlind();});
+document.fonts.load('900 300px "Me Display"', '确定').then(() => {
+  paintGlyphs();drawBlind();
+}).catch(() => {}); // The first frame already contains readable system-font glyphs.
 updateObservation();drawPaths();drawBlind();

@@ -87,7 +87,7 @@
 .dial:hover output,.dial:has(input:focus-visible) output,.dial:has(input.dragging) output{opacity:1}
 .gold-art{position:absolute;top:39%;left:9%;right:9%;text-align:center;pointer-events:none}
 .gold-art svg{height:clamp(25px,19cqw,50px);max-width:100%;width:100%;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;opacity:.8;display:block;margin:0 auto 4px}
-.gold-art strong{font:700 clamp(12px,10cqw,22px)/1 Georgia,serif;letter-spacing:.08em}
+.gold-art strong{font:700 clamp(12px,10cqw,22px)/1 var(--serif);letter-spacing:.08em}
 .gold-art>span{display:block;font:clamp(5px,3.5cqw,7px) var(--mono);margin-top:5px;letter-spacing:.16em}
 .footswitch{position:absolute;bottom:7%;left:50%;transform:translateX(-50%);width:70px;height:29%;min-height:65px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:10px;border-radius:4px;touch-action:manipulation}
 .led{display:block;width:6px;height:6px;flex-shrink:0;border-radius:50%;background:#491c0d;box-shadow:0 0 0 2px #282b2366,inset 1px 1px 1px #080f0c;transition:background .12s,box-shadow .12s}
@@ -98,14 +98,14 @@
 .pedal-state{font:7px var(--sans);letter-spacing:.1em;opacity:.75;margin-top:3px}
 .pedal-edition{position:absolute;bottom:9px;left:13px;right:13px;font:5px var(--mono);text-align:center;letter-spacing:.1em;opacity:.58;pointer-events:none}
 .blue-name{position:absolute;top:39%;left:11%;right:11%;pointer-events:none}
-.blue-name>span{font:bold clamp(11px,9.3cqw,23px)/1.1 Arial,sans-serif;letter-spacing:-.045em}
-.blue-name strong{display:block;font:700 clamp(9px,6.8cqw,17px) Arial,sans-serif;margin-top:3px}
+.blue-name>span{font:bold clamp(11px,9.3cqw,23px)/1.1 var(--sans);letter-spacing:-.045em}
+.blue-name strong{display:block;font:700 clamp(9px,6.8cqw,17px) var(--sans);margin-top:3px}
 .blue-name small{font:5px var(--mono);letter-spacing:.2em;display:block;margin-top:6px}
 .blue-tread{width:auto;left:8%;right:8%;bottom:7%;height:34%;transform:none;min-height:65px;gap:0;justify-content:stretch}
 .blue-tread .led{position:absolute;top:-23px;right:1px}
 .rubber-pad{width:100%;height:100%;min-height:40px;border-radius:3px 3px 7px 7px;border:2px solid #2c3a35;background:linear-gradient(145deg,#333d37,#1e2926 50%);box-shadow:inset 0 2px #5b655755,0 3px 0 #123652,0 4px 3px #112d4488;display:grid;place-items:center}
 .rubber-pad:before{content:"";position:absolute;inset:7px;border:1px solid #52615344;border-radius:2px;box-shadow:inset 0 1px #131e1a}
-.rubber-pad b{font:900 clamp(13px,13cqw,30px) Arial,sans-serif;letter-spacing:-.04em;color:#24332e;text-shadow:0 1px #61716477,0 -1px #0b1d16}
+.rubber-pad b{font:900 clamp(13px,13cqw,30px) var(--sans);letter-spacing:-.04em;color:#24332e;text-shadow:0 1px #61716477,0 -1px #0b1d16}
 .blue-tread:active .rubber-pad{transform:translateY(2px);box-shadow:inset 0 2px #5b655755,0 1px 0 #123652}
 .blue-tread .pedal-state{position:absolute;bottom:8px;color:#b7bf9c}
 .thumbscrew{position:absolute;left:calc(50% - 8px);bottom:-5px;width:16px;height:9px;background:repeating-linear-gradient(90deg,#242f2a 0 2px,#455148 2px 3px);border-radius:3px;box-shadow:0 2px 2px #0006}

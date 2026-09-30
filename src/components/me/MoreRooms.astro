@@ -1,5 +1,6 @@
 ---
 import type { Lang } from '../../i18n';
+import Icon from './Icon.astro';
 import workPreview from '../../assets/me/work-home.webp';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -12,19 +13,19 @@ const t = (zh: string, en: string) => lang === 'en' ? en : zh;
     <p><Fragment set:html={t('两端固定。中间留给你。<br>拨开这束线，给今天换一种走法。', 'Two fixed ends. The middle is yours.<br>Part these threads. Take another way.')} /></p>
   </div>
   <div class="path-choices" data-room-control role="group" aria-label={t('选择这一次的路径', 'Choose a route')}>
-    <button data-route="0" aria-pressed="true"><span>01</span> {t('穿过去', 'Through')} <i>↗</i></button>
-    <button data-route="1" aria-pressed="false"><span>02</span> {t('绕一段', 'Around')} <i>∿</i></button>
-    <button data-route="2" aria-pressed="false"><span>03</span> {t('停一下', 'A pause')} <i>·</i></button>
+    <button data-route="0" aria-pressed="true"><span>01</span> {t('穿过去', 'Through')} <i><Icon name="northeast" /></i></button>
+    <button data-route="1" aria-pressed="false"><span>02</span> {t('绕一段', 'Around')} <i><Icon name="wave" /></i></button>
+    <button data-route="2" aria-pressed="false"><span>03</span> {t('停一下', 'A pause')} <i><Icon name="point" /></i></button>
   </div>
   <div class="path-instrument" data-room-control tabindex="0" role="group" aria-label={t('拖动线束改变路径，或用左右方向键调节', 'Drag the threads or use the left and right arrow keys to bend the path')}>
     <canvas id="path-field" aria-hidden="true"></canvas>
     <span class="field-index">08 / A SMALL DEVIATION</span>
     <span class="field-axis"><Fragment set:html={t('起点、终点不变。<br>经过的此刻不同。', 'The same two ends.<br>A different moment between.')} /></span>
-    <div class="path-listen"><button id="path-play" type="button" aria-label={t('听这条路', 'Listen to this path')}><span class="route-play-icon">▷</span><span id="path-play-label">{t('听这条路', 'Listen to this path')}</span></button><span id="path-measure">{t('01 / 穿过去', '01 / Through')}</span></div>
+    <div class="path-listen"><button id="path-play" type="button" aria-label={t('听这条路', 'Listen to this path')}><span class="route-play-icon"><Icon name="play" /></span><span id="path-play-label">{t('听这条路', 'Listen to this path')}</span></button><span id="path-measure">{t('01 / 穿过去', '01 / Through')}</span></div>
   </div>
   <div class="path-thought" aria-live="polite"><span id="path-status">{t('还没有走过的路，都在这里。', 'The paths you haven’t taken are still here.')}</span><blockquote><Fragment set:html={t('「至少我今天认真地活过一回，<br>这就够了。」', '“At least today, I lived with intention.<br>That’s enough.”')} /></blockquote></div>
-  <label class="path-tension" data-room-control><span>{t('拨开一点', 'Bend it')}</span><input id="path-bend" type="range" min="-100" max="100" value="0" step="1" aria-label={t('路径的偏移', 'Bend the path')}><span>↔</span></label>
-  <div class="extra-footer"><a href="/blog/posts/2026-05-17-qiyuniao/" target="_blank" rel="noopener noreferrer">{t('从《启喻鸟之章》的一个问题出发 ↗', 'From a question about fate · Read in Chinese ↗')}</a><button data-place="trace">{t('把走过的，留成一笔', 'Leave a line of your own')} <span>→</span></button></div>
+  <label class="path-tension" data-room-control><span>{t('拨开一点', 'Bend it')}</span><input id="path-bend" type="range" min="-100" max="100" value="0" step="1" aria-label={t('路径的偏移', 'Bend the path')}><span><Icon name="horizontal" /></span></label>
+  <div class="extra-footer"><a href="/blog/posts/2026-05-17-qiyuniao/" target="_blank" rel="noopener noreferrer">{t('从《启喻鸟之章》的一个问题出发', 'From a question about fate · Read in Chinese')} <Icon name="northeast" /></a><button data-place="trace">{t('把走过的，留成一笔', 'Leave a line of your own')} <span><Icon name="right" /></span></button></div>
 </section>
 
 <section class="place blindspot" data-scene="blindspot" aria-labelledby="blindspot-title" inert>
@@ -39,8 +40,8 @@ const t = (zh: string, en: string) => lang === 'en' ? en : zh;
     <span class="field-index">09 / AN INCOMPLETE CERTAINTY</span><span class="blind-bearing"><output id="blind-degrees" for="blind-angle">00°</output><span>VIEWPOINT</span></span>
     <span class="blind-guide">{t('文字没有消失。只是终于看见了间隙。', 'The word is still here. Now you can see its gaps.')}</span>
   </div>
-  <div class="blind-controls" data-room-control><button id="blind-turn" class="small-action" type="button">{t('换个角度', 'Another angle')} <span>↗</span></button><label><span>{t('正面', 'Front')}</span><input id="blind-angle" type="range" min="0" max="60" value="0" step="1" aria-label={t('观看确定的角度', 'Viewpoint on certainty')}><span>{t('侧面', 'Side')}</span></label></div>
-  <div class="extra-footer"><a href="/blog/posts/2026-05-26-llm-metacog-blindspot/#八写到这里给自己泼一盆冷水" target="_blank" rel="noopener noreferrer">{t('看《LLM 元认知盲点》里留下的自我修正 ↗', 'Read my correction · In Chinese ↗')}</a><button data-place="rethink">{t('也去翻翻另一面', 'Turn a thought over, too')} <span>↙</span></button></div>
+  <div class="blind-controls" data-room-control><button id="blind-turn" class="small-action" type="button">{t('换个角度', 'Another angle')} <span><Icon name="northeast" /></span></button><label><span>{t('正面', 'Front')}</span><input id="blind-angle" type="range" min="0" max="60" value="0" step="1" aria-label={t('观看确定的角度', 'Viewpoint on certainty')}><span>{t('侧面', 'Side')}</span></label></div>
+  <div class="extra-footer"><a href="/blog/posts/2026-05-26-llm-metacog-blindspot/#八写到这里给自己泼一盆冷水" target="_blank" rel="noopener noreferrer">{t('看《LLM 元认知盲点》里留下的自我修正', 'Read my correction · In Chinese')} <Icon name="northeast" /></a><button data-place="rethink">{t('也去翻翻另一面', 'Turn a thought over, too')} <span><Icon name="southwest" /></span></button></div>
 </section>
 
 <section class="place rethink" data-scene="rethink" aria-labelledby="rethink-title" inert>
@@ -51,9 +52,9 @@ const t = (zh: string, en: string) => lang === 'en' ? en : zh;
   </div>
   <div class="mobius-stage" data-room-control tabindex="0" role="group" aria-label={t('拖动纸带或使用下方滑杆，翻看判断的另一面', 'Drag the ribbon, use the arrow keys or the slider to turn a thought over')}>
     <canvas id="mobius" aria-hidden="true"></canvas>
-    <span class="ribbon-registration registration-a">＋</span><span class="ribbon-registration registration-b">＋</span>
+    <span class="ribbon-registration registration-a"><Icon name="plus" /></span><span class="ribbon-registration registration-b"><Icon name="plus" /></span>
     <span class="ribbon-side-note">ONE SURFACE. NO FINAL SIDE.</span>
-    <span class="ribbon-drag-hint">{t('拖动纸带 ↔', 'Turn the ribbon ↔')}</span>
+    <span class="ribbon-drag-hint">{t('拖动纸带', 'Turn the ribbon')} <Icon name="horizontal" /></span>
   </div>
   <div class="thought-caption" aria-live="polite">
     <span id="thought-kicker">{t('起初，我以为', 'At first, I thought')}</span>
@@ -61,10 +62,10 @@ const t = (zh: string, en: string) => lang === 'en' ? en : zh;
     <p id="thought-after">{t('好记、锋利、适合转发。问题是它错了，至少是偷懒。', 'Sharp. Catchy. Easy to share. The trouble is, it was wrong. Or at least, lazy.')}</p>
   </div>
   <div class="ribbon-controls" data-room-control>
-    <button id="turn-thought" class="small-action">{t('再翻一面 ↻', 'Turn it again ↻')}</button>
+    <button id="turn-thought" class="small-action">{t('再翻一面', 'Turn it again')} <Icon name="replay" /></button>
     <label><span>{t('看见别人', 'Look out')}</span><input id="thought-angle" type="range" min="0" max="360" value="0" aria-label={t('翻转观点纸带', 'Turn the ribbon')}><span>{t('看回自己', 'Look in')}</span></label>
   </div>
-  <div class="extra-footer"><a href="/blog/posts/2026-05-29-liar-game-role-game/" target="_blank" rel="noopener noreferrer">{t('从《世界不是 liar game，是 role game》里长出来 ↗', 'From my essay on roles · Read in Chinese ↗')}</a><button data-place="work">{t('去看看，想法怎么变成东西', 'See a thought become a thing')} <span>→</span></button></div>
+  <div class="extra-footer"><a href="/blog/posts/2026-05-29-liar-game-role-game/" target="_blank" rel="noopener noreferrer">{t('从《世界不是 liar game，是 role game》里长出来', 'From my essay on roles · Read in Chinese')} <Icon name="northeast" /></a><button data-place="work">{t('去看看，想法怎么变成东西', 'See a thought become a thing')} <span><Icon name="right" /></span></button></div>
 </section>
 
 <section class="place work" data-scene="work" aria-labelledby="work-title" inert>
@@ -85,28 +86,28 @@ const t = (zh: string, en: string) => lang === 'en' ? en : zh;
     </div>
     <img class="work-preview" src={workPreview.src} width={workPreview.width} height={workPreview.height} alt="" aria-hidden="true" loading="lazy" decoding="async" fetchpriority="low">
     <canvas id="work-specimen" aria-hidden="true"></canvas>
-    <span class="specimen-cross specimen-cross-a" aria-hidden="true">＋</span><span class="specimen-cross specimen-cross-b" aria-hidden="true">＋</span>
+    <span class="specimen-cross specimen-cross-a" aria-hidden="true"><Icon name="plus" /></span><span class="specimen-cross specimen-cross-b" aria-hidden="true"><Icon name="plus" /></span>
     <div class="specimen-notation" aria-hidden="true"><span id="specimen-figure">FIG. 01 — SEPARATE BY DESIGN</span><span id="cut-reading">042</span></div>
-    <div class="specimen-caption"><span id="specimen-principle">{t('先有边界，再有各自的空间。', 'Separate spaces begin with boundaries.')}</span><span class="work-drag-hint">{t('上下拖动 · 让光穿过 ↕', 'Drag to move the light ↕')}</span></div>
+    <div class="specimen-caption"><span id="specimen-principle">{t('先有边界，再有各自的空间。', 'Separate spaces begin with boundaries.')}</span><span class="work-drag-hint">{t('上下拖动 · 让光穿过', 'Drag to move the light')} <Icon name="vertical" /></span></div>
   </div>
-  <div class="work-detail" aria-live="polite"><span class="work-detail-label" id="work-detail-label">{t('它从一个问题开始', 'It starts with a question')}</span><p id="work-detail-copy">{t('多个网站身份，为什么要挤在同一个浏览器环境里？', 'Why should different online identities share a single browser environment?')}</p><a id="project-source" href="https://github.com/QianQIUlp/VeriSilo" target="_blank" rel="noopener noreferrer">{t('看真实项目 ↗', 'Explore the project ↗')}</a></div>
+  <div class="work-detail" aria-live="polite"><span class="work-detail-label" id="work-detail-label">{t('它从一个问题开始', 'It starts with a question')}</span><p id="work-detail-copy">{t('多个网站身份，为什么要挤在同一个浏览器环境里？', 'Why should different online identities share a single browser environment?')}</p><a id="project-source" href="https://github.com/QianQIUlp/VeriSilo" target="_blank" rel="noopener noreferrer">{t('看真实项目', 'Explore the project')} <Icon name="northeast" /></a></div>
   <div class="work-controls" data-room-control>
     <div class="cut-control"><span class="cut-start">{t('表面', 'Surface')}</span><input id="work-spread" type="range" min="0" max="100" step="0.1" value="42" aria-label={t('光的切入深度', 'Section depth')}><span class="cut-end">{t('深处', 'Inside')}</span></div>
     <div class="work-depths"><button data-depth="0" aria-pressed="false"><span>01</span> {t('起因', 'Why')}</button><button data-depth="50" aria-pressed="true"><span>02</span> {t('做法', 'How')}</button><button data-depth="100" aria-pressed="false"><span>03</span> {t('边界', 'Limits')}</button></div>
   </div>
-  <div class="extra-footer"><a href={lang === 'en' ? 'https://qiu.works/' : 'https://qiu.works/zh/'} target="_blank" rel="noopener noreferrer">{t('去 Q Studio，继续看作品 ↗', 'More at Q Studio ↗')}</a><button data-place="idle">{t('也可以，什么都不做', 'Or do nothing for a while')} <span>→</span></button></div>
+  <div class="extra-footer"><a href={lang === 'en' ? 'https://qiu.works/' : 'https://qiu.works/zh/'} target="_blank" rel="noopener noreferrer">{t('去 Q Studio，继续看作品', 'More at Q Studio')} <Icon name="northeast" /></a><button data-place="idle">{t('也可以，什么都不做', 'Or do nothing for a while')} <span><Icon name="right" /></span></button></div>
 </section>
 
 <section class="place idle" data-scene="idle" aria-labelledby="idle-title" inert>
   <div class="place-heading"><span class="eyebrow">{t('不赶时间 / AN UNPRODUCTIVE CORNER', 'AN UNPRODUCTIVE CORNER')}</span><h2 id="idle-title"><Fragment set:html={t('这里，<br><em>不用有用。</em>', 'Here,<br><em>nothing is due.</em>')} /></h2><p><Fragment set:html={t('把几个「应该」放进去。<br>拖过去，或者点一下纸片。', 'Let go of a few “shoulds”.<br>Drag a slip into the hollow. Or tap it.')} /></p></div>
-  <div class="idle-void" aria-hidden="true"><span class="idle-outline" lang="zh-Hans">空</span><div class="paper-hole"><div class="hole-rim"></div><div class="hole-bottom"><span>{t('也没关系。', 'That’s okay.')}</span></div></div><span class="hole-cross">＋</span></div>
+  <div class="idle-void" aria-hidden="true"><span class="idle-outline" lang="zh-Hans">空</span><div class="paper-hole"><div class="hole-rim"></div><div class="hole-bottom"><span>{t('也没关系。', 'That’s okay.')}</span></div></div><span class="hole-cross"><Icon name="plus" /></span></div>
   <div class="obligation-slips" data-room-control>
-    <button class="obligation obligation-a" data-slip="0" aria-label={t('放下用完额度的催促', 'Let go of the need to use up your quota')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('把额度<br>用完。', 'Use it<br>all up.')} /></strong><span class="slip-foot">{t('放下 ↘', 'Let go ↘')}</span></button>
-    <button class="obligation obligation-b" data-slip="1" aria-label={t('放下让订阅回本的催促', 'Let go of the need to earn back your subscription')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('把订阅<br>补回来。', 'Make it<br>pay off.')} /></strong><span class="slip-foot">{t('放下 ↙', 'Let go ↙')}</span></button>
-    <button class="obligation obligation-c" data-slip="2" aria-label={t('放下不能过期的催促', 'Let go of the need to use it before it expires')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('别让它<br>过期。', 'Beat the<br>deadline.')} /></strong><span class="slip-foot">{t('放下 ↗', 'Let go ↗')}</span></button>
-    <button class="obligation obligation-d" data-slip="3" aria-label={t('放下总要做点什么的催促', 'Let go of the need to always do something')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('总得做点<br>什么。', 'Do<br>something.')} /></strong><span class="slip-foot">{t('放下 ↖', 'Let go ↖')}</span></button>
+    <button class="obligation obligation-a" data-slip="0" aria-label={t('放下用完额度的催促', 'Let go of the need to use up your quota')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('把额度<br>用完。', 'Use it<br>all up.')} /></strong><span class="slip-foot">{t('放下', 'Let go')} <Icon name="southeast" /></span></button>
+    <button class="obligation obligation-b" data-slip="1" aria-label={t('放下让订阅回本的催促', 'Let go of the need to earn back your subscription')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('把订阅<br>补回来。', 'Make it<br>pay off.')} /></strong><span class="slip-foot">{t('放下', 'Let go')} <Icon name="southwest" /></span></button>
+    <button class="obligation obligation-c" data-slip="2" aria-label={t('放下不能过期的催促', 'Let go of the need to use it before it expires')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('别让它<br>过期。', 'Beat the<br>deadline.')} /></strong><span class="slip-foot">{t('放下', 'Let go')} <Icon name="northeast" /></span></button>
+    <button class="obligation obligation-d" data-slip="3" aria-label={t('放下总要做点什么的催促', 'Let go of the need to always do something')}><span class="slip-kicker">{t('应该', 'I SHOULD')}</span><strong><Fragment set:html={t('总得做点<br>什么。', 'Do<br>something.')} /></strong><span class="slip-foot">{t('放下', 'Let go')} <Icon name="northwest" /></span></button>
   </div>
   <div class="idle-sentence" aria-live="polite"><span id="idle-preface">{t('我不欠资源一次使用。', 'I don’t owe a resource a use.')}</span><p id="idle-message"><Fragment set:html={t('留白，<br><em>也可以留下来。</em>', 'Leave room<br><em>for nothing.</em>')} /></p></div>
-  <button id="restore-slips" class="small-action">{t('把纸片摆回来 ↺', 'Bring the slips back ↺')}</button>
-  <div class="extra-footer"><a href="/blog/posts/2026-06-18-resource-usage-rule/" target="_blank" rel="noopener noreferrer">{t('这处留白，来自《我不欠资源一次使用》 ↗', 'On leaving things unused · Read in Chinese ↗')}</a><button data-place="home">{t('回到吉他旁边', 'Back to the guitar')} <span>↗</span></button></div>
+  <button id="restore-slips" class="small-action">{t('把纸片摆回来', 'Bring the slips back')} <Icon name="restore" /></button>
+  <div class="extra-footer"><a href="/blog/posts/2026-06-18-resource-usage-rule/" target="_blank" rel="noopener noreferrer">{t('这处留白，来自《我不欠资源一次使用》', 'On leaving things unused · Read in Chinese')} <Icon name="northeast" /></a><button data-place="home">{t('回到吉他旁边', 'Back to the guitar')} <span><Icon name="northeast" /></span></button></div>
 </section>

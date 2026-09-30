@@ -16,6 +16,24 @@ Keep the approved Chinese name in both languages, real guitar model, spatial exp
 
 For the user-approved portrait hierarchy (2026-09-24), keep the Three.js guitar unconditional and prominent. Let the name, one greeting and one main invitation lead; use one short localized guitar hint. Keep scene doors, the room map and the motion control available while hiding duplicate explanation and manual zoom/overview controls. Scope these changes to narrow portrait layouts; leave desktop and landscape composition intact.
 
+For the 2026-09-30 font consistency fix, homepage text uses the self-hosted Arimo,
+Gelasio, Cousine, Noto Sans SC and Noto Serif SC assets in `src/assets/me/fonts/`.
+Preserve the sans/serif/mono roles and the small 900-weight Chinese display subset.
+UI arrows and control symbols use shared inline SVG in `Icon.astro` / `icons.js`,
+including dynamic states. Keep fallback text readable; refresh cached canvas
+words and specimen labels after fonts load. When homepage copy changes, regenerate
+font subsets with `scripts/subset-me-fonts.py` as documented beside the fonts.
+Reading layouts and QStudio keep their own typography. This does not authorize
+new first-screen navigation or changes to the spatial discovery contract.
+
+For the 2026-09-30 QStudio font fix, use its own local Source Sans 3 (400–900),
+Source Serif 4 (400 regular/italic at fixed default optical size), Cousine Bold
+(700), and source-used Noto CJK subsets in `developer/src/assets/fonts/`.
+Preserve the sans/serif/mono roles and Look inside layout. Render control symbols
+as static decorative inline SVG, including the draggable lens handle, native
+project indicators and image-dialog close button. Keep font failure fallbacks
+readable and regenerate subsets after QStudio copy changes using the asset README.
+
 ## Governing Contract
 
 For Q Studio iterations from 2026-09-23, follow the active "Look inside" section at the top of `docs/uiux/developer-workbench.md`. Lead the dark-green hero with the large Q Studio name and a plain description of its local-first software and developer tools; label VeriSilo as the current product before its real screenshot. Preserve the draggable circular evidence view whose screenshot pans with the lens, a complete observed value in the initial position, and the complete evidence title at the left endpoint. Keep the simple work → studio → Me → writing → contact flow, native expandable project dossiers, image links and dialog, static English `/` and Chinese `/zh/`, and localized `me.qiu.works` links. The former theme toggle, scrollspy, copy-email panel and editorial-workbench masthead are historical. Do not apply Room-specific composition rules to `developer/`.
